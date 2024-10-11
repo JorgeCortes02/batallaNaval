@@ -21,6 +21,8 @@ body.page-index {
     background-repeat: no-repeat;
     background-attachment: fixed;
 
+    margin: 0;
+
     display: flex;
     justify-content: center;
     align-items: center;   
@@ -128,7 +130,7 @@ th {
 
 body.page-index div.main_container {
 
-    width: 50%;
+    width: 45%;
 
     font-family: 'Cinzel', serif;
     font-size: 1rem;
@@ -145,7 +147,7 @@ body.page-index div.main_container {
     flex-direction: column;
     justify-content: center;
 
-    padding: 2%;
+    padding: 1.75%;
 
 }
 
