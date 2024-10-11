@@ -1,0 +1,19 @@
+#time {
+    position: relative; /* Hace que los elementos hijos se posicionen relativos a este contenedor */
+    display: inline-block; /* Ajusta el tamaño del contenedor al tamaño de la imagen */
+    
+}
+
+#cronometro {
+    color:  #3b240b; 
+    position: absolute; /* Posiciona el cronómetro de manera absoluta dentro del contenedor */
+    
+    font-family: 'Cinzel', serif;
+    font-size: 2.5em;
+   
+     /* Fondo semitransparente para mejorar la legibilidad */
+    padding: 5px;
+    border-radius: 5px; /* Bordes redondeados */
+   
+    
+}
