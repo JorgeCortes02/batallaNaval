@@ -23,7 +23,7 @@ body.page-index {
     display: flex;
     justify-content: center;
     align-items: center;   
-    height: 80vh; 
+    height: 90vh; 
 
 }
 
@@ -130,7 +130,7 @@ body.page-index div.main_container {
     width: 50%;
 
     font-family: 'Cinzel', serif;
-    font-size: 1.15rem;
+    font-size: 1rem;
 
     background: linear-gradient(135deg, #d4af37, #e5c18a);
     color: #3b240b;
@@ -166,7 +166,7 @@ body.page-index div.main_container {
 body.page-index div.main_container h1 {
 
     text-align: center;   
-    font-size: 4em;
+    font-size: 3.8em;
     margin: 1.5%;
 
 }
