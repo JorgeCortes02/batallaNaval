@@ -19,6 +19,7 @@ body.page-index {
     background-image: url('../IMG/fondoPagina.jpeg');
     background-size: cover;
     background-repeat: no-repeat;
+    background-attachment: fixed;
 
     display: flex;
     justify-content: center;
