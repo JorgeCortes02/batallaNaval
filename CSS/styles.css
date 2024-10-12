@@ -1,4 +1,3 @@
-
 /* FONDOS DE PANTALLA ----------------------*/
 
 .page-game {
@@ -16,7 +15,7 @@
 }
 
 body.page-index {
-    
+
     background-image: url('../IMG/fondoPagina.jpeg');
     background-size: cover;
     background-repeat: no-repeat;
@@ -26,15 +25,17 @@ body.page-index {
 
     display: flex;
     justify-content: center;
-    align-items: center;   
-    height: 90vh; 
+    align-items: center;
+    height: 90vh;
 
 }
 
 /* --------------------------------------------*/
 
 
+/* Elements page game*/
 
+/* Styles table*/
 .page-game table {
     background-image: url('../IMG/fondo-madera.jpg');
     background-size: cover;
@@ -54,7 +55,6 @@ th {
 
     border: 2px double #d4af37;
     width: 65px;
-   
     height: 65px;
 }
 
@@ -70,7 +70,7 @@ th {
 }
 
 
-
+/*Elements for buttons of table game*/
 .page-game .tableButton {
 
 
@@ -94,14 +94,15 @@ th {
     border: 1px solid red;
 }
 
-.page-game .contenedorPrincipal {
+/* Styles of the div that contains the table and the information div*/
+.page-game .PrincipalDiv {
 
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     gap: 20px;
     width: 90%;
-    height: 750px;
+    height: 800px;
     background-color: rgba(8, 8, 8, 0.5);
     margin: 0 auto;
     margin-top: 50px;
@@ -115,7 +116,9 @@ th {
 
 
 /* REUSABLE ----> BOX DEL MARCADOR Y DEL INDEX */
-.page-game .marcador {
+
+/*Style of the information div*/
+.page-game .scoreboard {
 
     background: linear-gradient(135deg, #d4af37, #e5c18a);
     /* Degradado dorado y beige */
@@ -133,8 +136,9 @@ th {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 
     display: block;
+}
 
-/* a vincular con .page-game .marcador */
+
 
 body.page-index div.main_container {
 
@@ -158,6 +162,8 @@ body.page-index div.main_container {
     padding: 1.75%;
 
 }
+
+/*Style of footer*/
 .page-game footer {
 
     background-color: black;
@@ -171,7 +177,8 @@ body.page-index div.main_container {
 
 }
 
-.button-disabled {
+/*Style for table buttoms where this are disabled*/
+.page-game .button-disabled {
     background-color: #A9A9A9;
     /* Gris oscuro para el botón deshabilitado */
     color: #FFFFFF;
@@ -187,7 +194,63 @@ body.page-index div.main_container {
     font-size: 10px;
 
     box-sizing: border-box;
-/* ------------------------------------------- */
+
+}
+
+/*Style of div buttoms when gamed is end.*/
+.page-game .divButtonsFinalGame {
+
+    width: 90%;
+    height: 70px;
+    gap: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    bottom: 30px;
+
+}
+
+/*Style of buttoms when gamed is end.*/
+.page-game .divButtonsFinalGame button {
+    background: #7a6a55;
+    border: 3px solid #7a6a55;
+    border-radius: 12px;
+    background-image: url('https://www.transparenttextures.com/patterns/concrete-wall.png');
+    background-size: cover;
+    color: #ffffff;
+    font-size: 14px;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+
+    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.6);
+    cursor: pointer;
+    width: 30%;
+    height: 50px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.page-game .divButtonsFinalGame button:hover {
+    background: #7a6a55;
+    border: 3px solid #7a6a55;
+    border-radius: 12px;
+    background-image: url('https://www.transparenttextures.com/patterns/concrete-wall.png');
+    background-size: cover;
+    color: #ffffff;
+    font-size: 14px;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+    box-shadow: inset 0px 6px 10px rgba(0, 0, 0, 0.5), 0px 7px 12px rgba(0, 0, 0, 0.7);
+    cursor: pointer;
+    width: 30%;
+    height: 50px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+
 
 
 /* INDEX ------------------------------------ */
@@ -195,7 +258,7 @@ body.page-index div.main_container {
 
 body.page-index div.main_container h1 {
 
-    text-align: center;   
+    text-align: center;
     font-size: 3.8em;
     margin: 1.5%;
 
@@ -214,7 +277,7 @@ body.page-index div.main_container div.button_container {
 body.page-index div.main_container div.button_container button {
 
     background: #7a6a55;
-    border: 3px solid #7a6a55;    
+    border: 3px solid #7a6a55;
     border-radius: 12px;
 
     background-image: url('https://www.transparenttextures.com/patterns/concrete-wall.png');
@@ -229,7 +292,7 @@ body.page-index div.main_container div.button_container button {
 
     box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.6);
 
-    cursor: pointer; 
+    cursor: pointer;
 
 }
 
@@ -237,3 +300,4 @@ body.page-index div.main_container div.button_container button:hover {
 
     box-shadow: inset 0px 6px 10px rgba(0, 0, 0, 0.5), 0px 7px 12px rgba(0, 0, 0, 0.7);
 
+}
