@@ -1,6 +1,7 @@
+
 /* FONDOS DE PANTALLA ----------------------*/
 
-body.page-game {
+.page-game {
     font-family: 'Cinzel', serif;
 
     display: flex;
@@ -32,6 +33,8 @@ body.page-index {
 
 /* --------------------------------------------*/
 
+
+
 .page-game table {
     background-image: url('../IMG/fondo-madera.jpg');
     background-size: cover;
@@ -50,7 +53,9 @@ body.page-index {
 th {
 
     border: 2px double #d4af37;
-
+    width: 65px;
+   
+    height: 65px;
 }
 
 
@@ -66,7 +71,8 @@ th {
 
 
 
-.page-game table button {
+.page-game .tableButton {
+
 
     width: 100%;
     height: 100%;
@@ -75,6 +81,7 @@ th {
     background-repeat: no-repeat;
     background-position: center;
 }
+
 
 .page-game table button:hover {
 
@@ -103,8 +110,11 @@ th {
 
 }
 
-/* REUSABLE ----> BOX DEL MARCADOR Y DEL INDEX */
 
+
+
+
+/* REUSABLE ----> BOX DEL MARCADOR Y DEL INDEX */
 .page-game .marcador {
 
     background: linear-gradient(135deg, #d4af37, #e5c18a);
@@ -123,8 +133,6 @@ th {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 
     display: block;
-
-}
 
 /* a vincular con .page-game .marcador */
 
@@ -150,18 +158,37 @@ body.page-index div.main_container {
     padding: 1.75%;
 
 }
-
-/* ------------------------------------------- */
-
 .page-game footer {
 
     background-color: black;
     color: white;
     width: 100%;
-    height: 60px;
+    height: 70px;
     text-align: center;
     margin: 0;
+    margin-top: 5%;
+    bottom: 0 auto;
+
 }
+
+.button-disabled {
+    background-color: #A9A9A9;
+    /* Gris oscuro para el botón deshabilitado */
+    color: #FFFFFF;
+    /* Blanco para el texto */
+    pointer-events: none;
+    /* Desactivar eventos */
+    cursor: not-allowed;
+    /* Cambiar el cursor a indicar que no es clickeable */
+    opacity: 0.7;
+    /* Opcional: hacer el botón un poco más transparente */
+    width: 100%;
+    height: 100%;
+    font-size: 10px;
+
+    box-sizing: border-box;
+/* ------------------------------------------- */
+
 
 /* INDEX ------------------------------------ */
 
@@ -210,4 +237,3 @@ body.page-index div.main_container div.button_container button:hover {
 
     box-shadow: inset 0px 6px 10px rgba(0, 0, 0, 0.5), 0px 7px 12px rgba(0, 0, 0, 0.7);
 
-}

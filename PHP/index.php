@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -21,5 +22,5 @@
             <button>HALL OF FAME</button>
         </div> 
     </div>
-</body>
+
 </html>
