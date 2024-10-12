@@ -2,7 +2,7 @@ var selectesHorders = [0, 0, 0, 0];
 
 const buttons = document.getElementsByClassName("tableButton");
 
-console.log(buttons);
+
 document.addEventListener("DOMContentLoaded", function () {
     function turnACell(e) {
 
@@ -15,6 +15,10 @@ document.addEventListener("DOMContentLoaded", function () {
         e.target.classList.replace("tableButton", "button-disabled");
         e.target.innerText = stateCell; // Cambiar el texto
 
+        if (stateCell === "victory") {
+            disableTableIfVictory(buttons);
+            generateRankingAndHomeButtons();
+        }
 
     }
 
@@ -28,6 +32,51 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
+
+function disableTableIfVictory() {
+    let buttons1 = Array.from(document.getElementsByClassName("tableButton"));
+    for (let buttonGame of buttons1) {
+
+        buttonGame.classList.replace("tableButton", "button-disabled");
+    }
+
+}
+
+function generateRankingAndHomeButtons() {
+
+    let contenedorBotonera = document.getElementsByClassName("marcador")[0];
+
+    let newDiv = document.createElement("div");
+
+    newDiv.className = "divButtonsFinalGame";
+
+    let buttonHome = document.createElement("button");
+
+    buttonHome.innerText = "Inicio";
+
+    buttonHome.className = "boton";
+
+
+    let buttonHall = document.createElement("button");
+
+    buttonHall.innerText = "Hall of Fame";
+
+    buttonHall.className = "boton";
+
+    buttonHome.addEventListener("click", function () {
+
+        window.location.href = "index.php";
+    });
+
+    buttonHall.addEventListener("click", function () {
+
+        window.location.href = "ranking.php";
+    });
+    newDiv.appendChild(buttonHome);
+    newDiv.appendChild(buttonHall);
+
+    contenedorBotonera.appendChild(newDiv);
+}
 
 function sumFoundPositions(positionString) {
 
