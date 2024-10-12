@@ -14,511 +14,389 @@
 
     <?php
 
+    $horders = [[2], [3], [4], [5]];  // Define an array of ship lengths (2, 3, 4, and 5).
+    
+    $arrayPosiciones = array();  // Initialize an empty array to hold the positions on the board.
+    
+    initPosicionArray($arrayPosiciones);
+    generateRandomHorders($horders, $arrayPosiciones);
 
-    $arrayPosiciones = array();
-
-    $ordas = [[2], [3], [4], [5]];
-    //rellena las posciones del array con agua. Evitamos que pete.
-    for ($i = 0; $i <= 9; $i++) {
-
-        for ($j = 0; $j <= 9; $j++) {
-            $arrayPosiciones[$i][$j] = "^^^";
-        }
-    }
-
-    for ($i = 0; $i < count($ordas); $i++) {
-
-        $orientation = rand(0, 1);
-
-        //Si la orientacion es horizntal...
-        if ($orientation == 0) {
-
-            $libre = false;
-
-            //Buscamos de forma aleatoria una posicion para coloar el barco.
-            while ($libre == false) {
-
-                //Buscamos una posicion aleatoria
-                $row = rand(0, count($arrayPosiciones) - 1);
-
-                $column = rand(0, count($arrayPosiciones[$row]) - 1 - $ordas[$i][0]);
-
-                $ordas[$i][1] = [];
-
-                $libre = isFreePosH($row, $column, $arrayPosiciones, $ordas[$i][0]);
-
-
-            }
-
-            if ($libre == true) {
-
-                for ($j = 0; $j < $ordas[$i][0]; $j++) {
-
-                    $arrayPosiciones[$row][$column + $j] = $ordas[$i][0];
-                    array_push($ordas[$i][1], "$row,($column + $j)");
-
-                }
-            }
-
-        } else {
-
-            $libre = false;
-
-            //Buscamos de forma aleatoria una posicion para coloar el barco.
-            while ($libre == false) {
-
-                //Buscamos una posicion aleatoria
-                $row = rand(0, count($arrayPosiciones) - 1 - $ordas[$i][0]);
-
-                $column = rand(0, count($arrayPosiciones[$row]) - 1);
-
-                $ordas[$i][1] = [];
-
-                $libre = isFreePosV($row, $column, $arrayPosiciones, $ordas[$i][0]);
-
-
-            }
-
-            if ($libre == true) {
-
-                for ($j = 0; $j < $ordas[$i][0]; $j++) {
-                    $arrayPosiciones[$row + $j][$column] = $ordas[$i][0];
-                    array_push($ordas[$i][1], "($row+$j),$column");
-
-                }
-            }
-
-
-        }
-
-
-    }
-
-
-
-    function isFreePosH($row, $column, $arrayPosiciones, $tamañoOrda)
+    //Function for init the positionArray(the board of the players).
+    function initPosicionArray(&$arrayPosiciones)
     {
 
+        for ($i = 0; $i <= 9; $i++) {
+            for ($j = 0; $j <= 9; $j++) {
+                $arrayPosiciones[$i][$j] = "^^^";
+            }
+        }
+    }
+
+    //Function for generate the random holders.
+    function generateRandomHorders(&$horders, &$arrayPosiciones)
+    {
+        // Loop through each ship length defined in $horders.
+        for ($i = 0; $i < count($horders); $i++) {
+
+            // Randomly decide the orientation.
+            $orientation = rand(0, 1);
+
+            // If orientation is horizontal...
+            if ($orientation == 0) {
+
+                $freePosition = false;  // Flag to check if a free position is found.
+    
+
+                while ($freePosition == false) {
+                    // Generate random row and column positions for the ship.
+                    $row = rand(0, count($arrayPosiciones) - 1);  // Random row index.
+                    // Calculate the column index, ensuring the ship fits within the array.
+                    $column = rand(0, count($arrayPosiciones[$row]) - 1 - $horders[$i][0]);
+
+                    $horders[$i][1] = [];  // Initialize the position storage for the ship.
+    
+                    // Check if the chosen position is free using the function isFreePosH.
+                    $freePosition = isFreePosH($row, $column, $arrayPosiciones, $horders[$i][0]);
+                }
+
+
+                if ($freePosition == true) {
+                    // Place the ship on the board horizontally.
+                    for ($j = 0; $j < $horders[$i][0]; $j++) {
+                        // Mark the ship's positions in the array with its length.
+                        $arrayPosiciones[$row][$column + $j] = $horders[$i][0];
+
+                    }
+                }
+
+                // If the orientation is vertical:
+            } else {
+                $freePosition = false;  // Reset the flag to check for free position.
+    
+                // Keep searching for a random position to place the ship until a free position is found.
+                while ($freePosition == false) {
+                    // Generate random row and column positions for the ship.
+    
+                    $row = rand(0, count($arrayPosiciones) - 1 - $horders[$i][0]);
+                    $column = rand(0, count($arrayPosiciones[$row]) - 1);  // Random column index.
+    
+                    $horders[$i][1] = [];  // Initialize the position storage for the ship.
+    
+
+                    $freePosition = isFreePosV($row, $column, $arrayPosiciones, $horders[$i][0]);
+                }
+
+                // If a free position is confirmed...
+                if ($freePosition == true) {
+
+                    for ($j = 0; $j < $horders[$i][0]; $j++) {
+                        // Mark the ship's positions in the array with its length.
+                        $arrayPosiciones[$row + $j][$column] = $horders[$i][0];
+
+                    }
+                }
+            }
+        }
+    }
+    function isFreePosH($row, $column, $arrayPosiciones, $horderCount)
+    {
+        // Check if the position is not on the edges 
         if ($column != 0 && $column != count($arrayPosiciones[0]) - 1 && $row != 0 && $row != count($arrayPosiciones) - 1) {
-
+            // Iterate over the surrounding cells (above, below, left, right)
             for ($i = -1; $i <= 1; $i++) {
 
-                for ($j = -1; $j <= $tamañoOrda; $j++) {
+                for ($j = -1; $j <= $horderCount; $j++) {
 
-                    if ($j == -1 || $j == $tamañoOrda) {
+                    // For the cells just before the start of the ship and just after the end
+                    if ($j == -1 || $j == $horderCount) {
                         if ($arrayPosiciones[$row][$column + $j] != "^^^") {
 
                             return false;
-
                         }
 
                     } elseif ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
-
                         return false;
-
                     }
-
                 }
-
             }
-
-
+            // Top-left corner check
         } elseif ($row == 0 && $column == 0) {
-
+            // Only checks the bottom-right surrounding area
             for ($i = 0; $i <= 1; $i++) {
-
-                for ($j = 0; $j <= $tamañoOrda; $j++) {
-
-                    if ($j == $tamañoOrda) {
+                for ($j = 0; $j <= $horderCount; $j++) {
+                    if ($j == $horderCount) {
                         if ($arrayPosiciones[$row][$column + $j] != "^^^") {
-
                             return false;
-
                         }
-
                     } elseif ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
-
                         return false;
                     }
-
                 }
-
             }
-
+            // Top-right corner check
         } elseif ($row == 0 && $column == count($arrayPosiciones[0]) - 1) {
-
+            // Only checks the bottom-left surrounding area
             for ($i = 0; $i <= 1; $i++) {
-
-                for ($j = -1; $j < $tamañoOrda; $j++) {
-
+                for ($j = -1; $j < $horderCount; $j++) {
                     if ($j == -1) {
                         if ($arrayPosiciones[$row][$column + $j] != "^^^") {
-
                             return false;
-
                         }
-
                     } elseif ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
-
                         return false;
                     }
-
                 }
-
             }
-
+            // Bottom-left corner check
         } elseif ($row == count($arrayPosiciones) - 1 && $column == 0) {
-
+            // Only checks the top-right surrounding area
             for ($i = -1; $i < 1; $i++) {
-
-                for ($j = 0; $j <= $tamañoOrda; $j++) {
-
-                    if ($j == $tamañoOrda) {
+                for ($j = 0; $j <= $horderCount; $j++) {
+                    if ($j == $horderCount) {
                         if ($arrayPosiciones[$row][$column + $j] != "^^^") {
-
                             return false;
-
                         }
-
                     } elseif ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
                         return false;
                     }
-
                 }
-
             }
-
-            $libre = true;
+            // Bottom-right corner check
         } elseif ($row == count($arrayPosiciones) - 1 && $column == count($arrayPosiciones[0]) - 1) {
-
+            // Only checks the top-left surrounding area
             for ($i = -1; $i < 1; $i++) {
-
-                for ($j = -1; $j < $tamañoOrda; $j++) {
-
+                for ($j = -1; $j < $horderCount; $j++) {
                     if ($j == -1) {
                         if ($arrayPosiciones[$row][$column + $j] != "^^^") {
-
                             return false;
-
                         }
-
                     } elseif ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
-
                         return false;
                     }
-
                 }
-
             }
-
-            $libre = true;
+            // Top row, not on the corners
         } elseif ($row == 0 && $column != count($arrayPosiciones[0]) - 1) {
-
+            // Check left, right, and bottom surrounding cells
             for ($i = 0; $i <= 1; $i++) {
-
-                for ($j = -1; $j <= $tamañoOrda; $j++) {
-
-                    if ($j == -1 || $j == $tamañoOrda) {
+                for ($j = -1; $j <= $horderCount; $j++) {
+                    if ($j == -1 || $j == $horderCount) {
                         if ($arrayPosiciones[$row][$column + $j] != "^^^") {
-
                             return false;
-
                         }
-
                     } elseif ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
-
                         return false;
                     }
-
                 }
-
             }
-
-
+            // Left column, not on the corners
         } elseif ($row != 0 && $column == 0) {
-
+            // Check top, bottom, and right surrounding cells
             for ($i = -1; $i <= 1; $i++) {
-
-                for ($j = 0; $j <= $tamañoOrda; $j++) {
-
-                    if ($j == $tamañoOrda) {
+                for ($j = 0; $j <= $horderCount; $j++) {
+                    if ($j == $horderCount) {
                         if ($arrayPosiciones[$row][$column + $j] != "^^^") {
-
                             return false;
-
                         }
-
                     } elseif ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
-
                         return false;
                     }
-
                 }
-
             }
-
-
+            // Bottom row, not on the corners
         } elseif ($row == count($arrayPosiciones) - 1 && $column != count($arrayPosiciones[0]) - 1) {
-
+            // Check left, right, and top surrounding cells
             for ($i = -1; $i < 1; $i++) {
-
-                for ($j = -1; $j <= $tamañoOrda; $j++) {
-
-                    if ($j == -1 || $j == $tamañoOrda) {
+                for ($j = -1; $j <= $horderCount; $j++) {
+                    if ($j == -1 || $j == $horderCount) {
                         if ($arrayPosiciones[$row][$column + $j] != "^^^") {
-
                             return false;
-
                         }
-
                     } elseif ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
-
                         return false;
                     }
-
                 }
-
             }
-
-
+            // Right column, not on the corners
         } elseif ($row != count($arrayPosiciones) - 1 && $column == count($arrayPosiciones[0]) - 1) {
-
+            // Check top, bottom, and left surrounding cells
             for ($i = -1; $i <= 1; $i++) {
-
-                for ($j = -1; $j < $tamañoOrda; $j++) {
-
+                for ($j = -1; $j < $horderCount; $j++) {
                     if ($j == -1) {
                         if ($arrayPosiciones[$row][$column + $j] != "^^^") {
-
                             return false;
-
                         }
-
                     } elseif ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
-
                         return false;
                     }
-
                 }
-
             }
         }
         return true;
     }
 
-    function isFreePosV($row, $column, $arrayPosiciones, $tamañoOrda)
+    function isFreePosV($row, $column, $arrayPosiciones, $horderCount)
     {
-
+        // Check if the position is not on the edges (top, bottom, left, right)
         if ($column != 0 && $column != count($arrayPosiciones[0]) - 1 && $row != 0 && $row != count($arrayPosiciones) - 1) {
 
-            for ($i = -1; $i <= $tamañoOrda; $i++) {
+            // Iterate over the cells vertically (based on the ship length) and horizontally for adjacent cells
+            for ($i = -1; $i <= $horderCount; $i++) {
 
-                for ($j = -1; $j <= 1; $j++) {
-
-                    if ($i == -1 || $i == $tamañoOrda) {
+                for ($j = -1; $j <= 1; $j++) {  // Checks horizontally around the ship
+    
+                    // For the cells just before the start of the ship and just after the end
+                    if ($i == -1 || $i == $horderCount) {
                         if ($arrayPosiciones[$row + $i][$column] != "^^^") {
 
                             return false;
-
                         }
-
+                        // For the cells within the ship's area (including adjacent horizontal cells)
                     } elseif ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
-
                         return false;
-
                     }
-
                 }
-
             }
-
-
+            // Top-left corner check
         } elseif ($row == 0 && $column == 0) {
-
-            for ($i = 0; $i <= $tamañoOrda; $i++) {
+            // Only checks the right and bottom surrounding area
+            for ($i = 0; $i <= $horderCount; $i++) {
 
                 for ($j = 0; $j <= 1; $j++) {
 
-                    if ($i == $tamañoOrda) {
+                    if ($i == $horderCount) {
                         if ($arrayPosiciones[$row + $i][$column] != "^^^") {
-
                             return false;
-
                         }
-
                     } elseif ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
-
                         return false;
                     }
-
                 }
-
             }
-
+            // Top-right corner check
         } elseif ($row == 0 && $column == count($arrayPosiciones[0]) - 1) {
-
-            for ($i = 0; $i <= $tamañoOrda; $i++) {
+            // Only checks the left and bottom surrounding area
+            for ($i = 0; $i <= $horderCount; $i++) {
 
                 for ($j = -1; $j < 1; $j++) {
 
-                    if ($i == $tamañoOrda) {
+                    if ($i == $horderCount) {
                         if ($arrayPosiciones[$row + $i][$column] != "^^^") {
-
                             return false;
-
                         }
-
                     } elseif ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
-
                         return false;
                     }
-
                 }
-
             }
-
+            // Bottom-left corner check
         } elseif ($row == count($arrayPosiciones) - 1 && $column == 0) {
-
-            for ($i = -1; $i < $tamañoOrda; $i++) {
+            // Only checks the right and top surrounding area
+            for ($i = -1; $i < $horderCount; $i++) {
 
                 for ($j = 0; $j <= 1; $j++) {
 
                     if ($i == -1) {
                         if ($arrayPosiciones[$row + $i][$column] != "^^^") {
-
                             return false;
-
                         }
-
                     } elseif ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
                         return false;
                     }
-
                 }
-
             }
 
-            $libre = true;
+            // Bottom-right corner check
         } elseif ($row == count($arrayPosiciones) - 1 && $column == count($arrayPosiciones[0]) - 1) {
-
-            for ($i = -1; $i < $tamañoOrda; $i++) {
+            // Only checks the left and top surrounding area
+            for ($i = -1; $i < $horderCount; $i++) {
 
                 for ($j = -1; $j < 1; $j++) {
 
                     if ($i == -1) {
                         if ($arrayPosiciones[$row + $i][$column] != "^^^") {
-
                             return false;
-
                         }
-
                     } elseif ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
-
                         return false;
                     }
-
                 }
-
             }
 
-            $libre = true;
+            // Top row, not in the corners
         } elseif ($row == 0 && $column != count($arrayPosiciones[0]) - 1) {
-
-            for ($i = 0; $i <= $tamañoOrda; $i++) {
+            // Check the left, right, and bottom surrounding area
+            for ($i = 0; $i <= $horderCount; $i++) {
 
                 for ($j = -1; $j <= 1; $j++) {
 
-                    if ($i == $tamañoOrda) {
+                    if ($i == $horderCount) {
                         if ($arrayPosiciones[$row + $i][$column] != "^^^") {
-
                             return false;
-
                         }
-
                     } elseif ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
-
                         return false;
                     }
-
                 }
-
             }
 
-
+            // Left column, not in the corners
         } elseif ($row != 0 && $column == 0) {
-
-            for ($i = -1; $i <= $tamañoOrda; $i++) {
+            // Check the top, right, and bottom surrounding area
+            for ($i = -1; $i <= $horderCount; $i++) {
 
                 for ($j = 0; $j <= 1; $j++) {
 
-                    if ($i == -1 || $i == $tamañoOrda) {
+                    if ($i == -1 || $i == $horderCount) {
                         if ($arrayPosiciones[$row + $i][$column] != "^^^") {
-
                             return false;
-
                         }
-
                     } elseif ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
-
                         return false;
                     }
-
                 }
-
             }
 
-
+            // Bottom row, not in the corners
         } elseif ($row == count($arrayPosiciones) - 1 && $column != count($arrayPosiciones[0]) - 1) {
-
-            for ($i = -1; $i < $tamañoOrda; $i++) {
+            // Check left, right, and top surrounding area
+            for ($i = -1; $i < $horderCount; $i++) {
 
                 for ($j = -1; $j <= 1; $j++) {
 
                     if ($i == -1) {
                         if ($arrayPosiciones[$row + $i][$column] != "^^^") {
-
                             return false;
-
                         }
-
                     } elseif ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
-
                         return false;
                     }
-
                 }
-
             }
 
-
+            // Right column, not in the corners
         } elseif ($row != count($arrayPosiciones) - 1 && $column == count($arrayPosiciones[0]) - 1) {
-
-            for ($i = -1; $i <= $tamañoOrda; $i++) {
+            // Check top, left, and bottom surrounding area
+            for ($i = -1; $i <= $horderCount; $i++) {
 
                 for ($j = -1; $j < 1; $j++) {
 
-                    if ($i == -1 || $i == $tamañoOrda) {
+                    if ($i == -1 || $i == $horderCount) {
                         if ($arrayPosiciones[$row + $i][$column] != "^^^") {
-
                             return false;
-
                         }
-
                     } elseif ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
-
                         return false;
                     }
-
                 }
-
             }
         }
+
         return true;
     }
-
     function printTable($arrayPosiciones)
     {
-        $letra = 65;
+        $char = 65;
         for ($i = 0; $i <= 10; $i++) {
             echo "<tr>";
             for ($j = 0; $j <= 10; $j++) {
@@ -527,9 +405,9 @@
                     echo "<td></td>";
                 } elseif ($i == 0 && $j != 0) {
 
-                    echo "<th>" . chr($letra) . "</th>";
+                    echo "<th>" . chr($char) . "</th>";
 
-                    $letra += 1;
+                    $char += 1;
 
 
                 } elseif ($i != 0 && $j == 0) {
@@ -551,7 +429,7 @@
 
     ?>
 
-    <div class="contenedorPrincipal">
+    <div class="PrincipalDiv">
         <table>
 
             <?php
@@ -563,8 +441,8 @@
 
         </table>
 
-        <div class="marcador">
-            <h1 class="titulo-principal">Lost in the Sand</h1>
+        <div class="scoreboard">
+            <h1>Lost in the Sand</h1>
         </div>
 
 
