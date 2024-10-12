@@ -1,3 +1,4 @@
+let score = 0; // Puntaje inicial
 let startTime;
 let timerInterval;
 let elapsedTime = 0; // Variable para almacenar el tiempo transcurrido
@@ -22,8 +23,8 @@ window.onload = function() {
     timerInterval = setInterval(function() {
         let currentTime = new Date().getTime();
         let elapsedTime = currentTime - startTime;
-        document.querySelector("#cronometro").textContent = formatTime(elapsedTime);
-        document.querySelector("#cronometro").style.color = "#3b240b"; 
+        document.querySelector("#chronometer").textContent = formatTime(elapsedTime);
+        //document.querySelector("#chronometer").style.color = "#3b240b"; 
 
     }, 1000); // Actualizar cada segundo
 };
@@ -53,6 +54,12 @@ window.onbeforeunload = function() {
 };
 
 
+
+// funcion para actualizar el marcador con la nueva cifra
+function updateScoreDisplay(newScore) {
+    //document.getElementById("scoreDisplay").textContent = newScore;
+    document.getElementById("scoreDisplay").textContent = String(newScore).padStart(5, '0');//el numero siempre tendra 5 cifras
+}
 
 
 //funcion para carcular puntuacion
@@ -104,11 +111,14 @@ function getScore(currentScore, message) {
 }
 
 //para pruebas de funcion 
-let score = 0; // Puntaje inicial
+
 
 
 score = getScore(score, 'touched');  // El jugador toca algo
+updateScoreDisplay(score); 
 score = getScore(score, 'water');    // El jugador falla
+updateScoreDisplay(score); 
 score = getScore(score, 'sunken');   // El jugador hunde una nave
+updateScoreDisplay(score); 
 
 console.log("Puntaje actual:", score); // Ver el puntaje actualizado

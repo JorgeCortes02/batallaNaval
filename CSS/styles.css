@@ -1,11 +1,15 @@
+
+
+/*cronometro------------------------------------------------------------------------*/
+
 #time {
     position: relative; /* Hace que los elementos hijos se posicionen relativos a este contenedor */
     display: inline-block; /* Ajusta el tamaño del contenedor al tamaño de la imagen */
     
 }
 
-#cronometro {
-    color:  #3b240b; 
+#chronometer {
+    color:  /*#3b240b;*/brown; 
     position: absolute; /* Posiciona el cronómetro de manera absoluta dentro del contenedor */
     
     font-family: 'Cinzel', serif;
@@ -16,4 +20,74 @@
     border-radius: 5px; /* Bordes redondeados */
    
     
+}
+
+
+/*marcador de puntos---------------------------------------------------------------------------------*/
+
+
+#marker {
+    position: relative; /* Mantiene el posicionamiento relativo dentro del contenedor */
+    display: inline-block; /* Ajusta el tamaño del contenedor al contenido */
+    background-color: black; /* Fondo negro para el contenedor */
+    margin: 10px; /* Espacio alrededor del contenedor */
+    padding: 0px 4px; /* Espacio interno reducido, menos arriba y abajo */
+    border: 3px double  brown; /* Borde marrón */
+    
+    border-radius: 5px; /* Bordes redondeados opcionales */
+
+    
+    
+    
+
+}
+
+#scoreDisplay {
+    color: brown; /* color que se ve*/
+    font-family: 'Liberation Mono', monospace;/*fuente que mantiene el mismo tamaño sea el numero que sea*/
+    font-size: 1.5em; /* Tamaño de la fuente */
+    padding: 1px; /* Espacio interno del cronómetro (opcional) */
+    line-height: 0; /* Controlar la altura de la línea para reducir el espacio */
+}
+
+#scoreDisplay:hover {
+    color: red; 
+    font-size: 1.5em; 
+   
+    
+
+}
+
+
+/*boton para insertar jugador en ranquin--------------------------------------------------------------*/
+#recordButton {
+    width: 100px; /* Ancho fijo del contenedor */
+    height: 50px; /* Altura fija del contenedor */
+    background-color: black;
+}
+
+#recordButton button {
+    color: rgb(179, 17, 17);
+    font-size: 1em;
+
+    width: 100%;
+    height: 100%;
+    background-image: url('../IMG/button.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    border: 3px double  brown; /* Borde marrón */
+    border-radius: 5px;
+}
+
+#recordButton button:hover {
+
+    width: 100%;
+    height: 100%;
+    background-image: url('../IMG/button.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 3px solid red;
 }
