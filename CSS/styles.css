@@ -160,7 +160,8 @@ body.page-index {
 body.page-index div.main_container {
 
     width: 45%;
-    height: 70%;
+    height: 65%;
+
     padding: 1.75%;
 
     font-family: 'Cinzel', serif;
@@ -174,7 +175,9 @@ body.page-index div.main_container {
    
     display: flex;
     flex-direction: column;
-    justify-content: center;    
+    justify-content: center;  
+    
+    overflow: hidden;
 
 }
 
@@ -264,8 +267,6 @@ body.page-index div.main_container {
     text-align: center;
     margin: 0 auto;
 }
-
-
 
 
 /* INDEX ------------------------------------ */
