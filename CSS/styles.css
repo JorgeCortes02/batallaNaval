@@ -35,6 +35,19 @@ body.page-index {
 
 /* Elements page game*/
 
+/*Warning in case JS disabled*/
+.page-game .warning {
+
+    background-color: red;
+    padding: 20px;
+    color: white;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    font-weight: bold;
+    text-align: center;
+
+}
+
 /* Styles table*/
 .page-game table {
     background-image: url('../IMG/fondo-madera.jpg');
@@ -274,7 +287,7 @@ body.page-index div.main_container div.button_container {
 
 }
 
-body.page-index div.main_container div.button_container button {
+body.page-index div.main_container div.button_container .buttonActive {
 
     background: #7a6a55;
     border: 3px solid #7a6a55;
@@ -296,8 +309,38 @@ body.page-index div.main_container div.button_container button {
 
 }
 
-body.page-index div.main_container div.button_container button:hover {
+/*Button disabled*/
+body.page-index div.main_container div.button_container .button-disabled {
+
+    background: gray;
+    border: 3px solid #7a6a55;
+    border-radius: 12px;
+    background-image: url('https://www.transparenttextures.com/patterns/concrete-wall.png');
+    background-size: cover;
+    color: #787676;
+    font-size: 18px;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+    padding: 16px 36px;
+    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.6);
+    pointer-events: none;
+    /* Desactivar eventos */
+    cursor: not-allowed;
+
+}
+
+body.page-index div.main_container div.button_container .buttonActive {
 
     box-shadow: inset 0px 6px 10px rgba(0, 0, 0, 0.5), 0px 7px 12px rgba(0, 0, 0, 0.7);
 
+}
+
+/*Warning in case JS disabled*/
+body.page-index .warning {
+
+    background-color: red;
+    padding: 20px;
+    color: white;
+    border-radius: 15px;
+    font-weight: bold;
 }

@@ -428,7 +428,11 @@
     }
 
     ?>
-
+    <noscript>
+        <div class="warning">
+            Atención: JavaScript está deshabilitado en su navegador. Por favor, habilite JavaScript para jugar.
+        </div>
+    </noscript>
     <div class="PrincipalDiv">
         <table>
 
