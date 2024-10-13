@@ -8,10 +8,18 @@
     <title>MAIN PAGE</title>
     <link rel="stylesheet" type="text/css" href="../CSS/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <script src="../JS/index.js"></script>
 </head>
 
 <body class="page-index">
+
+
     <div class="main_container">
+        <noscript>
+            <div class="warning">
+                Atención: JavaScript está deshabilitado en su navegador. Por favor, habilite JavaScript para jugar.
+            </div>
+        </noscript>
         <h1>LOST IN THE SANDS</h1>
         <p>Endinsa't en el fascinant món de l'antic Egipte en aquest emocionant joc de batalla naval!
             Enmig de les misterioses dunes del desert i sota el sol abrasador, hauràs de comandar la teva pròpia flota
@@ -22,8 +30,8 @@
             L'estratègia, la punteria i una mica de sort seran les teves millors aliades en aquesta aventura.
             Dispara amb precisió per aconseguir la victòria!</p>
         <div class="button_container">
-            <button>PARTIDA CLÀSICA</button>
-            <button>HALL OF FAME</button>
+            <button id="initGame" class="button-disabled">PARTIDA CLÀSICA</button>
+            <button id="goToHall" class="buttonActive">HALL OF FAME</button>
         </div>
     </div>
 

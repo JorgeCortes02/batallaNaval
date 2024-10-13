@@ -4,6 +4,10 @@ var selectesHorders = [0, 0, 0, 0];
 // Get all buttons with the class "tableButton"
 const buttons = document.getElementsByClassName("tableButton");
 
+//Array with the game sounds
+const gameSounds = [new Audio('../Sounds/water1.mp3'), new Audio('../Sounds/victory.mp3'), new Audio('../Sounds/perfect.mp3'), new Audio('../Sounds/gameover.mp3')];
+
+
 // Wait for the DOM to fully load before executing the script
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -14,6 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Change the class from "tableButton" to "button-disabled"
         e.target.classList.replace("tableButton", "button-disabled");
+        generateSound(stateCell);
         e.target.innerText = stateCell; // Change the button's text to reflect its state
 
         // If the state is "victory", disable all buttons and generate new buttons
@@ -105,42 +110,71 @@ function sumFoundPositions(positionString) {
 
         // Check if the second horde is sunk
         if (selectesHorders[1] == 3) {
-            return "sunk"; // Return "sunk" if the second horde has been fully hit
+            return "sunk";
         } else {
-            return "touched"; // Return "touched" if the second horde is hit but not sunk
+            return "touched";
         }
     } else if (positionString == "4") {
-        selectesHorders[2] += 1; // Increment the count for the third horde
+        selectesHorders[2] += 1;
 
         // Check if all positions have been found
         if (selectesHorders.reduce((accumulator, currentValue) => {
             return accumulator + currentValue;
         }, 0) === 14) {
-            return "victory"; // If all positions are found, return "victory"
+            return "victory";
         }
 
         // Check if the third horde is sunk
         if (selectesHorders[2] == 4) {
-            return "sunk"; // Return "sunk" if the third horde has been fully hit
+            return "sunk";
         } else {
-            return "touched"; // Return "touched" if the third horde is hit but not sunk
+            return "touched";
         }
     } else if (positionString == "5") {
-        selectesHorders[3] += 1; // Increment the count for the fourth horde
+        selectesHorders[3] += 1;
 
         // Check if all positions have been found
         if (selectesHorders.reduce((accumulator, currentValue) => {
             return accumulator + currentValue;
         }, 0) === 14) {
-            return "victory"; // If all positions are found, return "victory"
+            return "victory";
         }
 
         // Check if the fourth horde is sunk
         if (selectesHorders[3] == 5) {
-            return "sunk"; // Return "sunk" if the fourth horde has been fully hit
+            return "sunk";
         } else {
-            return "touched"; // Return "touched" if the fourth horde is hit but not sunk
+            return "touched"; // 
         }
     }
     return "water"; // Return "water" if the position is not a hit
+}
+
+//Function for generate de sounds
+function generateSound(inputOfGame) {
+    //We must insert how a attribute an input with the information of the sound.
+    switch (inputOfGame) {
+
+        case "victory":
+            gameSounds[1].play();
+            break;
+
+        case "sunk":
+
+            gameSounds[2].play();
+            break;
+        case "touched":
+
+            gameSounds[2].play();
+            break;
+
+        case "gameover":
+            gameSounds[3].play();
+            break;
+
+        case "water":
+            gameSounds[0].play();
+            break;
+    }
+
 }
