@@ -1,5 +1,6 @@
 /* FONDOS DE PANTALLA ----------------------*/
-html, body {
+html,
+body {
     height: 100%;
     margin: 0;
     padding: 0;
@@ -69,7 +70,8 @@ body.page-index {
 
 }
 
-.page-game td, .page-game th {
+.page-game td,
+.page-game th {
 
     border: 2px double #d4af37;
     width: 65px;
@@ -120,7 +122,7 @@ body.page-index {
     justify-content: space-around;
     gap: 20px;
     width: 90%;
-    height: 800px;
+    height: 850px;
     background-color: rgba(8, 8, 8, 0.5);
     margin: 0 auto;
     margin-top: 50px;
@@ -349,6 +351,7 @@ body.page-index .warning {
     color: white;
     border-radius: 15px;
     font-weight: bold;
+}
 
 /* RANKING CSS */
 body.page-ranking {
@@ -379,7 +382,8 @@ body.page-ranking div.main_container {
 
 body.page-ranking div.main_container div.table_wrapper {
     height: 90%;
-    overflow: hidden; /* Hide overflow to avoid scrollbars */
+    overflow: hidden;
+    /* Hide overflow to avoid scrollbars */
     border: 5px double #8b4513;
     border-radius: 25px;
     text-align: center;
@@ -393,11 +397,15 @@ body.page-ranking div.main_container div.table_wrapper {
 }
 
 /* Table wrapper styling */
-body.page-ranking div.main_container div.table_wrapper div.table_container  {
-    height: 100%; /* Fill the container */
-    overflow-y: auto; /* Allow vertical scrolling */
-    overflow-x: hidden; /* Hide horizontal scrolling if not needed */
-    border-radius: 20px; /* Ensure this matches the container's border radius */
+body.page-ranking div.main_container div.table_wrapper div.table_container {
+    height: 100%;
+    /* Fill the container */
+    overflow-y: auto;
+    /* Allow vertical scrolling */
+    overflow-x: hidden;
+    /* Hide horizontal scrolling if not needed */
+    border-radius: 20px;
+    /* Ensure this matches the container's border radius */
 
     background: linear-gradient(135deg, #d4af37, #e5c18a);
 }
@@ -412,7 +420,7 @@ body.page-ranking div.main_container div.table_container table {
 /* Styling for table headers and cells */
 body.page-ranking div.main_container div.table_container table thead tr th,
 body.page-ranking div.main_container div.table_container table tbody tr td {
-    
+
     padding: 10px;
 
 }
@@ -423,7 +431,7 @@ body.page-ranking div.main_container div.table_container table tbody tr td {
 body.page-ranking div.main_container div.table_container table thead tr th {
 
     background: #b3942c;
- 
+
     font-size: 1.5rem;
     padding: 5px;
     position: sticky;
@@ -478,14 +486,17 @@ body.page-ranking div.main_container div.number_section a:hover {
 
 }
 
-body.page-ranking div.main_container div.number_section a.current_page{
+body.page-ranking div.main_container div.number_section a.current_page {
 
     box-shadow: inset 0px 10px 14px rgba(0, 0, 0, 0.7), 0px 9px 14px rgba(0, 0, 0, 0.7);
 
     background: #a8a5a2;
-    pointer-events: none;       /* Disable mouse interactions */
-    color: white;                /* Change color to indicate it's disabled */
-    cursor: not-allowed;           /* Change cursor to indicate it's not clickable */   
+    pointer-events: none;
+    /* Disable mouse interactions */
+    color: white;
+    /* Change color to indicate it's disabled */
+    cursor: not-allowed;
+    /* Change cursor to indicate it's not clickable */
 
 }
 
@@ -496,13 +507,13 @@ body.page-ranking ::-webkit-scrollbar {
 body.page-ranking ::-webkit-scrollbar-thumb {
     background-color: #836445;
     box-shadow: 0px 7px 12px rgba(0, 0, 0, 0.5);
-   
+
 }
 
 body.page-ranking ::-webkit-scrollbar-track {
     box-shadow: inset 0px 10px 14px rgba(0, 0, 0, 0.5);
     background-color: #6d3e00;
     padding: 5px;
-    
+
 
 }
