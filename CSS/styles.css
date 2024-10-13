@@ -1,10 +1,16 @@
+body{
+    font-family: 'Cinzel', serif;
 
+}
 
 /*cronometro------------------------------------------------------------------------*/
 
 #time {
-    position: relative; /* Hace que los elementos hijos se posicionen relativos a este contenedor */
-    display: inline-block; /* Ajusta el tamaño del contenedor al tamaño de la imagen */
+    width: 100px;
+    height: 50px;
+    /*position: relative; 
+    display: inline-block;  */
+    
     
 }
 
@@ -27,8 +33,10 @@
 
 
 #marker {
-    position: relative; /* Mantiene el posicionamiento relativo dentro del contenedor */
-    display: inline-block; /* Ajusta el tamaño del contenedor al contenido */
+    width: 67px;
+    height: 50px;
+    /*position: relative;  
+    display: inline-block;  */
     background-color: black; /* Fondo negro para el contenedor */
     margin: 10px; /* Espacio alrededor del contenedor */
     padding: 0px 4px; /* Espacio interno reducido, menos arriba y abajo */
@@ -63,7 +71,7 @@
 #recordButton {
     width: 100px; /* Ancho fijo del contenedor */
     height: 50px; /* Altura fija del contenedor */
-    background-color: black;
+    display: block;/*se utiliza para hacer desaparecer al boton PONER EN NONE PARA FUNCIONAMIENTO NORMAL*/
 }
 
 #recordButton button {
@@ -78,16 +86,99 @@
     background-position: center;
     cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
     border: 3px double  brown; /* Borde marrón */
-    border-radius: 5px;
+    border-radius: 10px;
 }
 
 #recordButton button:hover {
+    border: 3px solid red;
+}
 
+
+
+/*pantalla emergente--------------------------------------------*/
+
+/* El popup está oculto por defecto */
+.popup {
+    display: none;/*hace no visible la pantalla y se cambia al vlicar el boton*/
+    position: fixed;
+    z-index: 1;
     width: 100%;
-    height: 100%;
-    background-image: url('../IMG/button.jpg');
+    height: 40%;
+    
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+}
+
+/* Contenido de la ventana */
+.windowsForm {
+    left: 50%; /* Centrado horizontalmente */
+    top: 50%;  /* Centrado verticalmente */
+    transform: translate(-50%, -50%); /* Ajusta para centrar */
+    width: 35%; /* Ancho del contenedor */
+    min-height: 30%; /* Altura mínima */
+    background-image: url('../IMG/registro4.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    border: 3px solid red;
+    margin: 15% auto;
+    padding: 20px;
+    border: 5px solid rgb(179, 17, 17);
+   
+    border-radius: 10px;
+}
+
+h1 {
+    color: /*#3b240b;*/rgb(97, 9, 9);
+}
+
+#myForm {
+    text-align: center;
+}
+
+#myForm button {
+    color: rgb(231, 18, 18);
+    background-color: black;
+    font-size: 1em;
+    background-position: center;
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    border: 3px double  rgb(231, 18, 18); /* Borde marrón */
+    border-radius: 10px;
+
+}
+
+#myForm label {
+    color: black;
+    font-size: 3em;
+}
+
+#longName {
+    display: none;/*hace no visible la pantalla y se cambia al vlicar el boton*/
+    position: fixed;
+    color: black; 
+    margin-bottom: 5px;
+    width: 100%;
+    height: 50%;
+}
+
+#name {
+    border: 3px double  rgb(231, 18, 18); /* Borde marrón */
+    border-radius: 10px;
+    width: 30%;
+    height: 10%;
+
+}
+
+
+
+/* Botón para cerrar el modal (X) */
+.close {
+    color: black;
+    float: right;
+    font-size: 32px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: rgb(233, 100, 100);
 }

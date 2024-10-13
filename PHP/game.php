@@ -1,3 +1,49 @@
+<?php
+session_start();
+
+
+// Inicializamos la variable por defecto para evitar errores.
+$name = "";
+
+// Verificar si se envió el formulario
+if (isset($_POST['name']) && isset($_POST['score'])) {
+    $name = $_POST['name'];
+    $score = $_POST['score'];
+
+     // Validación del nombre
+     if (strlen($name) < 3 || strlen($name) > 14) {
+        
+        echo "El nombre debe tener entre 3 y 14 caracteres.";
+        exit; // Detener la ejecución del script
+    }
+
+    $date = date('Y-m-d H:i'); // Formato de fecha y hora
+
+    $newTXT = "ranking.txt";
+
+    $openTXT = fopen($newTXT, "a");
+
+
+
+    if ($openTXT) {
+    
+
+    fwrite($openTXT, $name . ';' . $score . ';' . $date . "\n");//esribimos
+
+    fclose($openTXT); // Cerramos el archivo después de escribir
+
+    } else {
+        echo "";
+    }
+
+}
+
+
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -27,7 +73,22 @@
 
 <div id="recordButton">
 
-    <button>Guardar Record</button>
+    <button id="openWindows">Guardar Record</button>
+
+</div>
+
+<div id="popup" class="modal">
+    <div class="windowsForm">
+        <span class="close">&times;</span>
+   
+        <form id="myForm" method="POST" action="game.php">
+            <label for="name">Introdueix el Nom:</label><br>
+            <input type="text" id="name" name="name" value="" required><br><br>
+             <!-- Contenedor para mensajes de largo nombre -->
+             <div id="longName"></div><br>
+            <button type="submit">Guardar</button>
+        </form>
+    </div>
 
 </div>
 

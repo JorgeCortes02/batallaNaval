@@ -110,10 +110,18 @@ function getScore(currentScore, message) {
     return Math.max(0, score);
 }
 
+
+// Función para mostrar el botón
+
+function showButtom() {
+    document.getElementById("recordButton").style.display = "block"; // cambiamos el display para hacer visible el boton
+}
+
+
+
+
+
 //para pruebas de funcion 
-
-
-
 score = getScore(score, 'touched');  // El jugador toca algo
 updateScoreDisplay(score); 
 score = getScore(score, 'water');    // El jugador falla
@@ -122,3 +130,83 @@ score = getScore(score, 'sunken');   // El jugador hunde una nave
 updateScoreDisplay(score); 
 
 console.log("Puntaje actual:", score); // Ver el puntaje actualizado
+
+
+
+// Obtener elementos del DOM
+var modal = document.getElementById("popup");
+var ow = document.getElementById("openWindows");
+var span = document.getElementsByClassName("close")[0];
+
+// Cuando el usuario hace clic en el botón, se abre el modal
+ow.onclick = function() {
+    modal.style.display = "block";
+}
+
+// Cuando el usuario hace clic en la "X", se cierra el modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// Cuando el usuario hace clic fuera del contenido del modal, se cierra también
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+
+//pasar los datos al php para el txt
+// Añadir el listener para el envío del formulario
+document.getElementById('myForm').addEventListener('submit', function(e) {
+    e.preventDefault(); // Prevenir el envío del formulario por defecto
+
+    const name = document.getElementById('name').value; // Captura el nombre ingresado por el usuario
+    const score = parseInt(document.getElementById('scoreDisplay').textContent); // Obtener el puntaje del marcador
+
+    // Suponiendo que `longNameMessage` es el ID del elemento que muestra el mensaje de error
+    const longNameMessage = document.getElementById('longName'); // Debes asegurarte de que este elemento exista
+    
+    // Limpiar el mensaje anterior
+    longNameMessage.style.display = 'none';
+
+    // Validar longitud del nombre
+    if (name.length < 3 || name.length > 14) { // Cambié 'nameInput' a 'name'
+        longNameMessage.textContent = "El nom ha de tenir entre 3 i 14 caràcters.";
+        longNameMessage.style.display = 'block'; // Mostrar el mensaje
+    } else {
+        // Crear un objeto FormData para enviar el nombre y score al PHP
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('score', score); // Enviar el score capturado
+
+        // Enviar los datos a PHP mediante fetch
+        fetch('game.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+            console.log('Respuesta del servidor:', data); // Ver la respuesta del servidor
+            // Opcional: puedes mostrar un mensaje en pantalla de que se ha guardado correctamente
+            //alert('Score guardado correctamente'); // Mensaje de éxito
+            // Aquí asumo que quieres cerrar el modal
+            document.getElementById("popup").style.display = "none"; // Cierra el modal después de guardar
+        })
+        .catch(error => {
+            console.error('Error al guardar el score:', error);
+        });
+    }
+});
+
+  // Cerrar el modal y limpiar los campos
+  document.querySelector('.close').addEventListener('click', function() {
+    document.getElementById('popup').style.display = "none"; // Cierra el modal
+    clearForm(); // Limpia el formulario
+});
+
+function clearForm() {
+    document.getElementById('myForm').reset(); // Limpia todos los campos del formulario
+    const longNameMessage = document.getElementById('longName');
+    longNameMessage.style.display = 'none'; // Oculta el mensaje de error
+}
