@@ -28,12 +28,9 @@ body.page-index {
     background-repeat: no-repeat;
     background-attachment: fixed;
 
-    margin: 0;
-
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 90vh;
 
 }
 
@@ -163,23 +160,21 @@ body.page-index {
 body.page-index div.main_container {
 
     width: 45%;
+    height: 70%;
+    padding: 1.75%;
 
     font-family: 'Cinzel', serif;
-    font-size: 1rem;
-
-    background: linear-gradient(135deg, #d4af37, #e5c18a);
     color: #3b240b;
-    border: 5px double #8b4513;
-    border-radius: 25px;
-
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 
+    background: linear-gradient(135deg, #d4af37, #e5c18a);
+    border: 5px double #8b4513;
+    border-radius: 25px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+   
     display: flex;
     flex-direction: column;
-    justify-content: center;
-
-    padding: 1.75%;
+    justify-content: center;    
 
 }
 
@@ -279,7 +274,7 @@ body.page-index div.main_container {
 body.page-index div.main_container h1 {
 
     text-align: center;
-    font-size: 3.8em;
+    font-size: 3.8rem;
     margin: 1.5%;
 
 }
@@ -354,24 +349,27 @@ body.page-index .warning {
 }
 
 /* RANKING CSS */
+
 body.page-ranking {
+    
     background-image: url('../IMG/fondoPagina.jpeg');
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
 
-    font-size: 25px;
-
     display: flex;
     justify-content: center;
     align-items: center;
+
 }
 
-/* Main container styling */
+/* BLACK BOX STYLING */
 body.page-ranking div.main_container {
+
     background-color: rgba(8, 8, 8, 0.5);
     border: 5px double #8b4513;
 
+    /* Set space occupied by it */
     width: 70%;
     height: 80%;
     padding: 3%;
@@ -380,60 +378,64 @@ body.page-ranking div.main_container {
     flex-direction: column;
 }
 
+/* WRAPPER USED TO HIDE THE SCROLLBAR OVERFLOW */
 body.page-ranking div.main_container div.table_wrapper {
+
+    /* Space styling */
     height: 90%;
-    overflow: hidden;
-    /* Hide overflow to avoid scrollbars */
+    overflow: hidden; /* Hide overflow to avoid scrollbars */
+
+    background: linear-gradient(135deg, #d4af37, #e5c18a);
     border: 5px double #8b4513;
     border-radius: 25px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+
+    /* Font styling for all the table */
     text-align: center;
     font-family: 'Cinzel', serif;
     font-size: 1.25rem;
-
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 
-    background: linear-gradient(135deg, #d4af37, #e5c18a);
 }
 
-/* Table wrapper styling */
-body.page-ranking div.main_container div.table_wrapper div.table_container {
-    height: 100%;
-    /* Fill the container */
-    overflow-y: auto;
-    /* Allow vertical scrolling */
-    overflow-x: hidden;
-    /* Hide horizontal scrolling if not needed */
-    border-radius: 20px;
-    /* Ensure this matches the container's border radius */
+/* TABLE CONTAINER THAT IS INSIDE THE TABLE WRAPPER */
+body.page-ranking div.main_container div.table_wrapper div.table_container  {
 
-    background: linear-gradient(135deg, #d4af37, #e5c18a);
+    height: 100%; /* to fill de container */
+
+    overflow-y: auto; /* Allow vertical scrolling */
+    overflow-x: hidden; /* Hide horizontal scrolling if not needed */
+
+    border-radius: 20px; /* so it fits correctly */
+
 }
 
-/* Table styling */
+/* TABLE STYLING */
 body.page-ranking div.main_container div.table_container table {
-    width: 100%;
+    
+    width: 100%; /* To take all available horizontal space from the container */
     border-collapse: collapse;
-    table-layout: fixed;
+    table-layout: fixed; /* same column width*/
 }
 
-/* Styling for table headers and cells */
-body.page-ranking div.main_container div.table_container table thead tr th,
+/* PADDING FOR DATA */
 body.page-ranking div.main_container div.table_container table tbody tr td {
 
     padding: 10px;
 
 }
 
-
-
-/* Sticky header styling */
+/* HEADERS OF THE TABLE */
 body.page-ranking div.main_container div.table_container table thead tr th {
 
-    background: #b3942c;
+    padding: 10px;
 
+    /* Font styling */
     font-size: 1.5rem;
-    padding: 5px;
+
+    background: #b3942c;
+ 
+    /* Set it sticky so it follows when scrolling down the table data */
     position: sticky;
     top: 0;
     z-index: 1;
@@ -444,7 +446,8 @@ body.page-ranking div.main_container div.table_container table tbody tr td.empty
     padding-top: 20%;
 }
 
-/* Number section styling */
+/* NUMBER SECTION STYLING */
+/* Number section container */
 body.page-ranking div.main_container div.number_section {
     margin-top: 3%;
     height: 10%;
@@ -454,30 +457,27 @@ body.page-ranking div.main_container div.number_section {
     align-items: center;
 }
 
-
+/* Number section anchors */
 body.page-ranking div.main_container div.number_section a {
-
-    text-decoration: none;
-
-    background: #7a6a55;
-    border: 3px solid #7a6a55;
-    border-radius: 12px;
-
-    background-image: url('https://www.transparenttextures.com/patterns/concrete-wall.png');
-    background-size: cover;
-
-    color: #ffffff;
-    font-size: 18px;
-    font-family: 'Cinzel', serif;
-    font-weight: bold;
 
     padding: 10px 25px 10px;
     margin: 0px 5px 0px;
 
-    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.6);
-
     cursor: pointer;
 
+    background: #7a6a55;
+    Background-image: url('https://www.transparenttextures.com/patterns/concrete-wall.png');
+    background-size: cover;
+    border: 3px solid #7a6a55;
+    border-radius: 12px;
+    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.6);
+
+    /* Font styling */
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 18px;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
 }
 
 body.page-ranking div.main_container div.number_section a:hover {
@@ -486,31 +486,29 @@ body.page-ranking div.main_container div.number_section a:hover {
 
 }
 
-body.page-ranking div.main_container div.number_section a.current_page {
+/* Current page styling */
+body.page-ranking div.main_container div.number_section a.current_page{
 
     box-shadow: inset 0px 10px 14px rgba(0, 0, 0, 0.7), 0px 9px 14px rgba(0, 0, 0, 0.7);
 
     background: #a8a5a2;
-    pointer-events: none;
-    /* Disable mouse interactions */
-    color: white;
-    /* Change color to indicate it's disabled */
-    cursor: not-allowed;
-    /* Change cursor to indicate it's not clickable */
+    color: white;   
+    pointer-events: none;       /* Disable mouse interactions */
+    cursor: not-allowed;        /* Change cursor to indicate it's not clickable */   
 
 }
 
-body.page-ranking ::-webkit-scrollbar {
+body.page-ranking div.main_container ::-webkit-scrollbar {
     background-color: yellow;
 }
 
-body.page-ranking ::-webkit-scrollbar-thumb {
+body.page-ranking div.main_container ::-webkit-scrollbar-thumb {
     background-color: #836445;
     box-shadow: 0px 7px 12px rgba(0, 0, 0, 0.5);
 
 }
 
-body.page-ranking ::-webkit-scrollbar-track {
+body.page-ranking div.main_container ::-webkit-scrollbar-track {
     box-shadow: inset 0px 10px 14px rgba(0, 0, 0, 0.5);
     background-color: #6d3e00;
     padding: 5px;
