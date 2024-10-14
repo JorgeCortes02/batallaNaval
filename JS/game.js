@@ -5,7 +5,7 @@ var selectesHorders = [0, 0, 0, 0];
 const buttons = document.getElementsByClassName("tableButton");
 
 //Array with the game sounds
-const gameSounds = [new Audio('../Sounds/water1.mp3'), new Audio('../Sounds/victory.mp3'), new Audio('../Sounds/perfect.mp3'), new Audio('../Sounds/gameover.mp3')];
+const gameSounds = [new Audio('../Sounds/water1.mp3'), new Audio('../Sounds/victory.mp3'), new Audio('../Sounds/perfect.mp3'), new Audio('../Sounds/gameover.mp3'), new Audio('../Sounds/zombie.mp3')];
 
 
 // Wait for the DOM to fully load before executing the script
@@ -165,7 +165,7 @@ function generateSound(inputOfGame) {
             break;
         case "touched":
 
-            gameSounds[2].play();
+            gameSounds[4].play();
             break;
 
         case "gameover":
