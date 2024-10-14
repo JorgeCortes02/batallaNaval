@@ -12,6 +12,9 @@
 
 <body class="page-game">
 
+
+
+
     <?php
 
     $horders = [[2], [3], [4], [5]];  // Define an array of ship lengths (2, 3, 4, and 5).
@@ -364,6 +367,9 @@
             jugar.
         </div>
     </noscript>
+
+    <div id="notificationsDiv"></div>
+
     <div class="PrincipalDiv">
         <table>
 

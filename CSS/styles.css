@@ -33,7 +33,40 @@ body.page-ranking {
 
 
 /* --------------------------------------------*/
+/*CSS Notification Sistem*/
 
+
+
+#notificationsDiv {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    /*Coloca los elementos al final para hacer posible la transicion.*/
+    align-items: flex-end;
+
+}
+
+.notification {
+    background-color: rgb(59, 36, 11);
+    color: white;
+    padding: 15px;
+    margin: 10px;
+    border-radius: 5px;
+    border: 5px double #d4af37;
+    opacity: 1;
+
+    /*Se encarga de la aparición en desplazamiento de las notificaciones*/
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    transform: translateX(100%);
+    /* Comienza fuera de la pantalla */
+}
+
+.notification.show {
+    transform: translateX(0);
+    /* Desplaza a su posición visible */
+}
 
 /* Elements page game*/
 
@@ -63,7 +96,6 @@ body.page-ranking {
     border: 1px solid black;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     border-collapse: collapse;
-
     margin-top: 25px;
     margin-bottom: 25px;
 }
@@ -254,8 +286,6 @@ body.page-game #easterEggMessageBox div.easterEggMessageBoxTextWrapper button:ho
     text-align: center;
 
     font-size: 1rem;
-
-
 
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 
