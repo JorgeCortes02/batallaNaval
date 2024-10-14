@@ -82,7 +82,6 @@
     
                     $horders[$i][1] = [];  // Initialize the position storage for the ship.
     
-
                     $freePosition = isFreePosV($row, $column, $arrayPosiciones, $horders[$i][0]);
                 }
 
@@ -98,6 +97,7 @@
             }
         }
     }
+    // Función para verificar si una posición es válida (sin tocar otros barcos)
     function isFreePosH($row, $column, $arrayPosiciones, $horderCount)
     {
         // Check if the position is not on the edges 
@@ -107,13 +107,13 @@
 
                 for ($j = -1; $j <= $horderCount; $j++) {
 
-                    // For the cells just before the start of the ship and just after the end
+                    // For the cells just before the start of the ship and just after the end (X o o X)
                     if ($j == -1 || $j == $horderCount) {
                         if ($arrayPosiciones[$row][$column + $j] != "^^^") {
 
                             return false;
                         }
-
+                        // Checks all top, middle and bottom positions (from )
                     } elseif ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
                         return false;
                     }
@@ -124,11 +124,7 @@
             // Only checks the bottom-right surrounding area
             for ($i = 0; $i <= 1; $i++) {
                 for ($j = 0; $j <= $horderCount; $j++) {
-                    if ($j == $horderCount) {
-                        if ($arrayPosiciones[$row][$column + $j] != "^^^") {
-                            return false;
-                        }
-                    } elseif ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
+                    if ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
                         return false;
                     }
                 }
@@ -138,11 +134,7 @@
             // Only checks the bottom-left surrounding area
             for ($i = 0; $i <= 1; $i++) {
                 for ($j = -1; $j < $horderCount; $j++) {
-                    if ($j == -1) {
-                        if ($arrayPosiciones[$row][$column + $j] != "^^^") {
-                            return false;
-                        }
-                    } elseif ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
+                    if ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
                         return false;
                     }
                 }
@@ -152,11 +144,7 @@
             // Only checks the top-right surrounding area
             for ($i = -1; $i < 1; $i++) {
                 for ($j = 0; $j <= $horderCount; $j++) {
-                    if ($j == $horderCount) {
-                        if ($arrayPosiciones[$row][$column + $j] != "^^^") {
-                            return false;
-                        }
-                    } elseif ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
+                    if ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
                         return false;
                     }
                 }
@@ -166,11 +154,7 @@
             // Only checks the top-left surrounding area
             for ($i = -1; $i < 1; $i++) {
                 for ($j = -1; $j < $horderCount; $j++) {
-                    if ($j == -1) {
-                        if ($arrayPosiciones[$row][$column + $j] != "^^^") {
-                            return false;
-                        }
-                    } elseif ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
+                    if ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
                         return false;
                     }
                 }
@@ -180,11 +164,7 @@
             // Check left, right, and bottom surrounding cells
             for ($i = 0; $i <= 1; $i++) {
                 for ($j = -1; $j <= $horderCount; $j++) {
-                    if ($j == -1 || $j == $horderCount) {
-                        if ($arrayPosiciones[$row][$column + $j] != "^^^") {
-                            return false;
-                        }
-                    } elseif ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
+                    if ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
                         return false;
                     }
                 }
@@ -194,11 +174,7 @@
             // Check top, bottom, and right surrounding cells
             for ($i = -1; $i <= 1; $i++) {
                 for ($j = 0; $j <= $horderCount; $j++) {
-                    if ($j == $horderCount) {
-                        if ($arrayPosiciones[$row][$column + $j] != "^^^") {
-                            return false;
-                        }
-                    } elseif ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
+                    if ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
                         return false;
                     }
                 }
@@ -208,11 +184,7 @@
             // Check left, right, and top surrounding cells
             for ($i = -1; $i < 1; $i++) {
                 for ($j = -1; $j <= $horderCount; $j++) {
-                    if ($j == -1 || $j == $horderCount) {
-                        if ($arrayPosiciones[$row][$column + $j] != "^^^") {
-                            return false;
-                        }
-                    } elseif ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
+                    if ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
                         return false;
                     }
                 }
@@ -222,11 +194,7 @@
             // Check top, bottom, and left surrounding cells
             for ($i = -1; $i <= 1; $i++) {
                 for ($j = -1; $j < $horderCount; $j++) {
-                    if ($j == -1) {
-                        if ($arrayPosiciones[$row][$column + $j] != "^^^") {
-                            return false;
-                        }
-                    } elseif ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
+                    if ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
                         return false;
                     }
                 }
@@ -246,13 +214,7 @@
                 for ($j = -1; $j <= 1; $j++) {  // Checks horizontally around the ship
     
                     // For the cells just before the start of the ship and just after the end
-                    if ($i == -1 || $i == $horderCount) {
-                        if ($arrayPosiciones[$row + $i][$column] != "^^^") {
-
-                            return false;
-                        }
-                        // For the cells within the ship's area (including adjacent horizontal cells)
-                    } elseif ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
+                    if ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
                         return false;
                     }
                 }
@@ -264,11 +226,7 @@
 
                 for ($j = 0; $j <= 1; $j++) {
 
-                    if ($i == $horderCount) {
-                        if ($arrayPosiciones[$row + $i][$column] != "^^^") {
-                            return false;
-                        }
-                    } elseif ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
+                    if ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
                         return false;
                     }
                 }
@@ -280,11 +238,7 @@
 
                 for ($j = -1; $j < 1; $j++) {
 
-                    if ($i == $horderCount) {
-                        if ($arrayPosiciones[$row + $i][$column] != "^^^") {
-                            return false;
-                        }
-                    } elseif ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
+                    if ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
                         return false;
                     }
                 }
@@ -296,11 +250,7 @@
 
                 for ($j = 0; $j <= 1; $j++) {
 
-                    if ($i == -1) {
-                        if ($arrayPosiciones[$row + $i][$column] != "^^^") {
-                            return false;
-                        }
-                    } elseif ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
+                    if ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
                         return false;
                     }
                 }
@@ -313,11 +263,7 @@
 
                 for ($j = -1; $j < 1; $j++) {
 
-                    if ($i == -1) {
-                        if ($arrayPosiciones[$row + $i][$column] != "^^^") {
-                            return false;
-                        }
-                    } elseif ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
+                    if ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
                         return false;
                     }
                 }
@@ -330,11 +276,7 @@
 
                 for ($j = -1; $j <= 1; $j++) {
 
-                    if ($i == $horderCount) {
-                        if ($arrayPosiciones[$row + $i][$column] != "^^^") {
-                            return false;
-                        }
-                    } elseif ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
+                    if ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
                         return false;
                     }
                 }
@@ -347,11 +289,7 @@
 
                 for ($j = 0; $j <= 1; $j++) {
 
-                    if ($i == -1 || $i == $horderCount) {
-                        if ($arrayPosiciones[$row + $i][$column] != "^^^") {
-                            return false;
-                        }
-                    } elseif ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
+                    if ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
                         return false;
                     }
                 }
@@ -364,11 +302,7 @@
 
                 for ($j = -1; $j <= 1; $j++) {
 
-                    if ($i == -1) {
-                        if ($arrayPosiciones[$row + $i][$column] != "^^^") {
-                            return false;
-                        }
-                    } elseif ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
+                    if ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
                         return false;
                     }
                 }
@@ -381,11 +315,7 @@
 
                 for ($j = -1; $j < 1; $j++) {
 
-                    if ($i == -1 || $i == $horderCount) {
-                        if ($arrayPosiciones[$row + $i][$column] != "^^^") {
-                            return false;
-                        }
-                    } elseif ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
+                    if ($arrayPosiciones[$row + $i][$column + $j] != "^^^") {
                         return false;
                     }
                 }
@@ -430,7 +360,8 @@
     ?>
     <noscript>
         <div class="warning">
-            Atención: JavaScript está deshabilitado en su navegador. Por favor, habilite JavaScript para jugar.
+            Atenció: El JavaScript està deshabilitat al teu navegador. Si us plau, habilita el JavaScript per poder
+            jugar.
         </div>
     </noscript>
     <div class="PrincipalDiv">

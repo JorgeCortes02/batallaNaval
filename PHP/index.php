@@ -17,7 +17,8 @@
     <div class="main_container">
         <noscript>
             <div class="warning">
-                Atención: JavaScript está deshabilitado en su navegador. Por favor, habilite JavaScript para jugar.
+                Atenció: El JavaScript està deshabilitat al teu navegador. Si us plau, habilita el JavaScript per poder
+                jugar.
             </div>
         </noscript>
         <h1>LOST IN THE SANDS</h1>
@@ -30,8 +31,8 @@
             L'estratègia, la punteria i una mica de sort seran les teves millors aliades en aquesta aventura.
             Dispara amb precisió per aconseguir la victòria!</p>
         <div class="button_container">
-            <button id="initGame" class="button-disabled">PARTIDA CLÀSICA</button>
-            <button id="goToHall" class="buttonActive">HALL OF FAME</button>
+            <a href="game.php"><button id="initGame" class="button-disabled">PARTIDA CLÀSICA</button></a>
+            <a href="ranking.php"><button id="goToHall" class="buttonActive">HALL OF FAME</button></a>
         </div>
     </div>
 

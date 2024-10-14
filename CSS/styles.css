@@ -44,12 +44,13 @@ body.page-index {
 
 /*Warning in case JS disabled*/
 .page-game .warning {
-
+    position: fixed;
+    top: 0;
+    width: 100%;
     background-color: red;
     padding: 20px;
     color: white;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
+
     font-weight: bold;
     text-align: center;
 
@@ -289,30 +290,61 @@ body.page-index div.main_container div.button_container {
 
     display: flex;
     /* border: 1px solid black; */
-    justify-content: space-around;
+
     margin-top: 2.5%;
+    margin: 0 auto;
+    width: 90%;
 
 }
+
+body.page-index div.main_container div.button_container .buttonActive:hover {
+
+    background: #7a6a55;
+    border: 3px solid #7a6a55;
+    border-radius: 12px;
+    background-image: url('https://www.transparenttextures.com/patterns/concrete-wall.png');
+    background-size: cover;
+    color: #ffffff;
+    font-size: 14px;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+
+    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.6);
+    cursor: pointer;
+    width: 100%;
+    height: 60px;
+    text-align: center;
+    margin: 0 auto;
+
+    box-shadow: inset 0px 6px 10px rgba(0, 0, 0, 0.5), 0px 7px 12px rgba(0, 0, 0, 0.7);
+}
+
 
 body.page-index div.main_container div.button_container .buttonActive {
 
     background: #7a6a55;
     border: 3px solid #7a6a55;
     border-radius: 12px;
-
     background-image: url('https://www.transparenttextures.com/patterns/concrete-wall.png');
     background-size: cover;
-
     color: #ffffff;
-    font-size: 18px;
+    font-size: 14px;
     font-family: 'Cinzel', serif;
     font-weight: bold;
 
-    padding: 16px 36px;
-
     box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.6);
-
     cursor: pointer;
+    width: 100%;
+    height: 60px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+body.page-index div.main_container div.button_container a {
+
+    width: 30%;
+    height: 50px;
+    margin: 0 auto;
 
 }
 
@@ -325,22 +357,21 @@ body.page-index div.main_container div.button_container .button-disabled {
     background-image: url('https://www.transparenttextures.com/patterns/concrete-wall.png');
     background-size: cover;
     color: #787676;
-    font-size: 18px;
+    font-size: 14px;
+    text-align: center;
     font-family: 'Cinzel', serif;
     font-weight: bold;
-    padding: 16px 36px;
+
     box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.6);
     pointer-events: none;
     /* Desactivar eventos */
     cursor: not-allowed;
-
+    width: 100%;
+    height: 60px;
 }
 
-body.page-index div.main_container div.button_container .buttonActive {
 
-    box-shadow: inset 0px 6px 10px rgba(0, 0, 0, 0.5), 0px 7px 12px rgba(0, 0, 0, 0.7);
 
-}
 
 
 /*Warning in case JS disabled*/
