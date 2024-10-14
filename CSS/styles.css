@@ -95,8 +95,8 @@ body.page-ranking {
     height: 95%;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     border-collapse: collapse;
-    border-top: 25px;
-    border-bottom: 25px;
+    margin-top: 25px;
+    matgin-bottom: 25px;
 }
 
 .page-game td,
