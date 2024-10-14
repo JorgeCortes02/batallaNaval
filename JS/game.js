@@ -2,9 +2,8 @@
 var selectesHorders = [0, 0, 0, 0];
 
 
-
 //Array with the game sounds
-const gameSounds = [new Audio('../Sounds/water1.mp3'), new Audio('../Sounds/victory.mp3'), new Audio('../Sounds/perfect.mp3'), new Audio('../Sounds/gameover.mp3'), new Audio('../Sounds/zombie.mp3')];
+const gameSounds = [new Audio('../Sounds/water1.mp3'), new Audio('../Sounds/victory.mp3'), new Audio('../Sounds/perfect.mp3'), new Audio('../Sounds/gameover.mp3'), new Audio('../Sounds/zombie.mp3'), new Audio('../Sounds/IndianaJonesTheme.mp3')];
 
 
 // Wait for the DOM to fully load before executing the script
@@ -19,7 +18,68 @@ document.addEventListener("DOMContentLoaded", function () {
     for (let buttonGame of buttons) {
         buttonGame.addEventListener("click", turnACell);
     }
+
+    // Get the easterEggButton
+    const easterEggButton = document.getElementById('easterEggButton');
+    // Execute the easterEgg event with parameter once:true so it will execute only once if clicked
+    easterEggButton.addEventListener('click', easterEggEvent, { once: true });
+
 });
+
+function easterEggEvent() {
+
+    // Creation of easter egg div which will contain elements
+    const easterEggBox = document.createElement('div');
+    easterEggBox.setAttribute('id', 'easterEggMessageBox')
+
+    // Creation of easter egg wrapper which will contain text + button and give opacity
+    const easterEggMessageBox = document.createElement('div');
+    easterEggMessageBox.setAttribute('class', 'easterEggMessageBoxTextWrapper')
+    
+    // p tag + text generation
+    const firstMessageInEasterEggBox = document.createElement('p');
+    firstMessageInEasterEggBox.innerText= 'Has trobat l\'arca perduda.';
+    const secondMessageInEasterEggBox = document.createElement('p');
+    secondMessageInEasterEggBox.innerText= 'Enhorabona!';
+
+    // Button to close box generation
+    const closeButtonInEasterEggBox = document.createElement('button');
+    closeButtonInEasterEggBox.textContent = "Tancar";
+    
+    // Add remove event in close button
+    closeButtonInEasterEggBox.addEventListener('click', function () {
+        easterEggBox.remove();
+    });
+
+    // Add elements to the wrapper div
+    easterEggMessageBox.appendChild(firstMessageInEasterEggBox);
+    easterEggMessageBox.appendChild(secondMessageInEasterEggBox);
+    easterEggMessageBox.appendChild(closeButtonInEasterEggBox);
+    easterEggBox.appendChild(easterEggMessageBox); // Add wrapper to the easter egg box
+
+    // Add element to the DOM
+    document.body.appendChild(easterEggBox);
+
+    // Generate sound of the Easter Egg (--> will trigger indiana jones arrayOfSounds[5])
+    generateSound("easterEgg");
+}
+
+// Function to handle cell click events
+function turnACell(e) {
+    const value = e.target.value; // Get the value of the clicked button
+    stateCell = sumFoundPositions(value); // This variable will hold the state of the cell (e.g., victory)
+
+    // Change the class from "tableButton" to "button-disabled"
+    e.target.classList.replace("tableButton", "button-disabled");
+    generateSound(stateCell);
+    e.target.innerText = stateCell; // Change the button's text to reflect its state
+
+    // If the state is "victory", disable all buttons and generate new buttons
+    if (stateCell === "victory") {
+        disableTableIfVictory(buttons);
+        generateRankingAndHomeButtons();
+    }
+}
 
 
 function generateNewNotification(typeNotification) {
@@ -237,6 +297,9 @@ function generateSound(inputOfGame) {
 
         case "water":
             gameSounds[0].play();
+            break;
+        case "easterEgg":
+            gameSounds[5].play(); // falta cargar sonido
             break;
     }
 

@@ -335,7 +335,7 @@
             for ($j = 0; $j <= 10; $j++) {
 
                 if ($i == 0 && $j == 0) {
-                    echo "<td></td>";
+                    echo "<td><button id='easterEggButton'></button></td>";
                 } elseif ($i == 0 && $j != 0) {
 
                     echo "<th>" . chr($char) . "</th>";
