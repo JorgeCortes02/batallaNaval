@@ -93,7 +93,6 @@ body.page-ranking {
     background-position: center;
     width: 60%;
     height: 95%;
-    border: 1px solid black;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     border-collapse: collapse;
     margin-top: 25px;
@@ -103,7 +102,7 @@ body.page-ranking {
 .page-game td,
 .page-game th {
 
-    border: 2px double #d4af37;
+    border: 2px double black;
     width: 65px;
     height: 65px;
 }
@@ -257,7 +256,7 @@ body.page-game #easterEggMessageBox div.easterEggMessageBoxTextWrapper button:ho
 /* REUSABLE ----> Yellow box */
 .yellowBox {
     background: linear-gradient(135deg, #d4af37, #e5c18a);
-    border: 5px double #8b4513;
+    border: 5px double rgb(59, 36, 11);
     border-radius: 25px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
 
@@ -266,7 +265,7 @@ body.page-game #easterEggMessageBox div.easterEggMessageBoxTextWrapper button:ho
 /* REUSABLE ----> Black box */
 
 .blackBox {
-    border: 5px double #8b4513;
+    border: 5px double #d4af37;
     background-color: rgba(8, 8, 8, 0.5);
 
 }
@@ -277,8 +276,8 @@ body.page-game #easterEggMessageBox div.easterEggMessageBoxTextWrapper button:ho
 .page-game .scoreboard {
 
 
-    /* Degradado dorado y beige */
-    color: #3b240b;
+
+    color: rgb(59, 36, 11);
 
     width: 30%;
     height: 95%;
@@ -300,7 +299,7 @@ body.page-index div.main_container {
     height: 60%;
 
     padding: 1.75%;
-    color: #3b240b;
+    color: rgb(59, 36, 11);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 
 
@@ -318,7 +317,7 @@ body.page-index div.main_container {
 .page-game .button-disabled {
     background-color: #A9A9A9;
     /* Gris oscuro para el botón deshabilitado */
-    color: #FFFFFF;
+    color: white;
     /* Blanco para el texto */
     pointer-events: none;
     /* Desactivar eventos */
@@ -351,12 +350,10 @@ body.page-index div.main_container {
 
 /*Style of buttoms when gamed is end.*/
 .page-game .divButtonsFinalGame button {
-    background: #7a6a55;
-    border: 3px solid #7a6a55;
+    background: rgb(59, 36, 11);
+    border: 3px solid rgb(59, 36, 11);
     border-radius: 12px;
-    background-image: url('https://www.transparenttextures.com/patterns/concrete-wall.png');
-    background-size: cover;
-    color: #ffffff;
+    color: white;
     font-size: 14px;
     font-family: 'Cinzel', serif;
     font-weight: bold;
@@ -373,9 +370,9 @@ body.page-index div.main_container {
     background: #7a6a55;
     border: 3px solid #7a6a55;
     border-radius: 12px;
-    background-image: url('https://www.transparenttextures.com/patterns/concrete-wall.png');
-    background-size: cover;
-    color: #ffffff;
+
+
+    color: white;
     font-size: 14px;
     font-family: 'Cinzel', serif;
     font-weight: bold;
@@ -414,11 +411,11 @@ body.page-index div.main_container div.button_container {
 
 body.page-index div.main_container div.button_container .buttonActive:hover {
 
-    background: #7a6a55;
+    background: rgb(59, 36, 11);
     border: 3px solid #7a6a55;
     border-radius: 12px;
-    background-image: url('https://www.transparenttextures.com/patterns/concrete-wall.png');
-    background-size: cover;
+
+
     color: #ffffff;
     font-size: 14px;
     font-family: 'Cinzel', serif;
@@ -437,11 +434,9 @@ body.page-index div.main_container div.button_container .buttonActive:hover {
 
 body.page-index div.main_container div.button_container .buttonActive {
 
-    background: #7a6a55;
+    background: rgb(59, 36, 11);
     border: 3px solid #7a6a55;
     border-radius: 12px;
-    background-image: url('https://www.transparenttextures.com/patterns/concrete-wall.png');
-    background-size: cover;
     color: #ffffff;
     font-size: 14px;
     font-family: 'Cinzel', serif;
