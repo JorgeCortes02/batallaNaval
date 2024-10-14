@@ -364,7 +364,7 @@
             jugar.
         </div>
     </noscript>
-    <div class="PrincipalDiv blackBox">
+    <div class="PrincipalDiv">
         <table>
 
             <?php
