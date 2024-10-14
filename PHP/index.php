@@ -14,7 +14,7 @@
 <body class="page-index">
 
 
-    <div class="main_container">
+    <div class="main_container yellowBox">
         <noscript>
             <div class="warning">
                 Atenció: El JavaScript està deshabilitat al teu navegador. Si us plau, habilita el JavaScript per poder
