@@ -515,21 +515,24 @@ body.page-ranking div.main_container ::-webkit-scrollbar-track {
     padding: 5px;
 
 
+
 }
 
 /*--------------------------------------------------------------------------------------------------------------------------------------------------*/
-.page-game .scoreboard {
-    display: flex;
-    flex-wrap: wrap;
-}
+
 
 
 /*cronometro------------------------------------------------------------------------*/
 
-.page-game #time {
+.page-game .time-marker, .buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; /* Distribuye el espacio uniformemente */
+    align-items: center; /* Alinea verticalmente los elementos en el centro */
+    margin-bottom: 20px;
     width: 100%;
     height: 50px;
-    text-align: center;
+    
     /*position: relative; 
     display: inline-block;  */
     
@@ -538,9 +541,9 @@ body.page-ranking div.main_container ::-webkit-scrollbar-track {
 
 .page-game #chronometer {
     color:  /*#3b240b;*/brown; 
-    position: absolute; /* Posiciona el cronómetro de manera absoluta dentro del contenedor */
     
-    font-family: 'Cinzel', serif;
+    margin: 0 auto;
+    font-family: 'Liberation Mono', monospace;
     font-size: 2.5em;
    
      /* Fondo semitransparente para mejorar la legibilidad */
@@ -554,37 +557,31 @@ body.page-ranking div.main_container ::-webkit-scrollbar-track {
 /*marcador de puntos---------------------------------------------------------------------------------*/
 
 
-.page-game #marker {
-    width: 100%;
-    height: 50px;
-    margin: 20px;
-    /*position: relative;  
-    display: inline-block;  */
-    /*background-color: black; /* Fondo negro para el contenedor */
-    
+
     
 
-}
+
 
 .page-game #scoreDisplay {
-    width: 80px;
-    height: 30px;
-    background-color: black;
+    width: 90px;
+    height: 40px;
+    background-color: white;
     color: brown; /* color que se ve*/
     font-family: 'Liberation Mono', monospace;/*fuente que mantiene el mismo tamaño sea el numero que sea*/
-    font-size: 1.5em; /* Tamaño de la fuente */
-    margin: 10px; /* Espacio alrededor del contenedor */
+    font-size: 2em; /* Tamaño de la fuente */
+    margin: 0 auto;
     padding: 1px; /* Espacio interno del cronómetro (opcional) */
     /*line-height: 0; /* Controlar la altura de la línea para reducir el espacio */
     padding: 4px; /* Espacio interno reducido, menos arriba y abajo */
-    border: 3px double  brown; /* Borde marrón */
+    border: 5px double  #3b240b; /* Borde marrón */
     
     border-radius: 5px; /* Bordes redondeados opcionales */
 }
 
 .page-game #scoreDisplay:hover {
     color: red; 
-    font-size: 1.5em; 
+    font-size: 2em; 
+    border: 5px double  red;
    
     
 
@@ -594,10 +591,15 @@ body.page-ranking div.main_container ::-webkit-scrollbar-track {
 /*boton para insertar jugador en ranquin--------------------------------------------------------------*/
 
 .page-game #recordButton {
+    display: flex;
+    flex-direction: row;
+    
+    align-items: center; /* Alinea verticalmente los elementos en el centro */
    
     width: 100%;
-    height: 25%;
-    margin: 20px;
+    height: 20%;
+    margin: 0 auto; 
+    
    
 }
 
@@ -620,6 +622,7 @@ body.page-ranking div.main_container ::-webkit-scrollbar-track {
 
 
 .page-game #openWindows:hover {
+    color:red;
     border: 3px solid red;
 }
 
@@ -628,36 +631,37 @@ body.page-ranking div.main_container ::-webkit-scrollbar-track {
 /*pantalla emergente--------------------------------------------*/
 
 /* El popup está oculto por defecto */
-.page-game .popup {
-    display: none;/*hace no visible la pantalla y se cambia al vlicar el boton*/
+.page-game #popup {
+    display: none;
+    flex-direction: row;
+    margin-bottom: 20px;
+    align-items: center; /* Alinea verticalmente los elementos en el centro */
     
     z-index: 1;
     width: 100%;
-    height: 25%;
+    height: auto;
     
-    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+    /*background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
 }
 
 /* Contenido de la ventana */
 .page-game .windowsForm {
-    left: 0%; /* Centrado horizontalmente */
-    top: 50%;  /* Centrado verticalmente */
-    transform: translate(-50%, -50%); /* Ajusta para centrar */
-    width: 70%; /* Ancho del contenedor */
-    height: 48%; /* Altura mínima */
-    background-image: url('../IMG/registro4.jpg');
+    
+    
+    width: 80%; /* Ancho del contenedor */
+    height: auto; 
+    background-image: url('../IMG/button.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    margin: 15% auto;
+    margin: 0 auto;
     padding: 20px;
-    border: 5px solid rgb(179, 17, 17);
-   
+    border: 5px solid  rgb(80, 20, 20);
     border-radius: 10px;
 }
 
 .page-game h1 {
-    color: /*#3b240b;*/rgb(97, 9, 9);
+    color: /*#3b240b;*/ rgb(80, 20, 20);
 }
 
 .page-game #myForm {
@@ -665,34 +669,38 @@ body.page-ranking div.main_container ::-webkit-scrollbar-track {
 }
 
 .page-game #myForm button {
-    color: rgb(231, 18, 18);
-    background-color: black;
+    color:  white;
+    background-color: gray;
     font-size: 1em;
     background-position: center;
     cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
-    border: 3px double  rgb(231, 18, 18); /* Borde marrón */
+    border: 3px double  rgb(80, 20, 20); /* Borde marrón */
     border-radius: 10px;
 
 }
 
 .page-game #myForm label {
+    font-weight:bold;
+    text-decoration: underline;
     color: black;
     font-size: 2em;
 }
 
 .page-game #longName {
-    display: none;/*hace no visible la pantalla y se cambia al vlicar el boton*/
-    position: fixed;
-    color: black; 
-    margin-bottom: 5px;
-    width: 100%;
-    height: 50%;
+    display: none; /* Empieza oculto */
+    position: absolute;
+    transform: translateY(-50%); /* Ajustar para centrar */
+    color: black; /* Color rojo para mayor visibilidad */
+    font-weight:bold;
+    font-size: 1em; /* Aumentar el tamaño del texto */
+    margin-top: 10px; /* Un poco de espacio arriba */
+    text-align: center; /* Centrar el texto */
 }
 
 .page-game #name {
     border: 3px double  rgb(231, 18, 18); /* Borde marrón */
     border-radius: 10px;
-    width: 30%;
+    width: 50%;
     height: 10%;
 
 }
@@ -702,6 +710,7 @@ body.page-ranking div.main_container ::-webkit-scrollbar-track {
 /* Botón para cerrar el modal (X) */
 .page-game .close {
     color: black;
+    font-weight:bold;
     float: right;
     font-size: 32px;
     font-weight: bold;

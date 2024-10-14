@@ -19,7 +19,7 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
 
     $date = date('Y-m-d H:i'); // Formato de fecha y hora
 
-    $newTXT = "ranking.txt";
+    $newTXT = "../TXT/ranking.txt";
 
     $openTXT = fopen($newTXT, "a");
 
@@ -53,8 +53,10 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
     <title>Game</title>
     <link rel="stylesheet" href="../CSS/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Liberation+Sans:wght@400;700&display=swap" rel="stylesheet">
     <script src="../JS/game.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Liberation+Sans:wght@400;700&display=swap" rel="stylesheet">
+
+    
 </head>
 
 <body class="page-game">
@@ -488,7 +490,6 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
             printTable($arrayPosiciones);
 
             ?>
-           
 
 
 
@@ -496,24 +497,18 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
 
         <div class="scoreboard">
             <h1>Lost in the Sand</h1>
-            <div id="time">
+
+            <div class="time-marker">
 
                 <time id="chronometer" datetime="clock">00:00:00</time>
-
-            </div>
-
-            <div id="marker">
-
                 <p id="scoreDisplay">00000</p>
 
+            </div>
+
+            <div class="buttons">
 
             </div>
 
-            <div id="recordButton">
-
-                <button id="openWindows">Guardar Record</button>
-
-            </div>
             <div id="popup" class="modal">
                 <div class="windowsForm">
                     <span class="close">&times;</span>
@@ -529,14 +524,19 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
 
             </div>
 
+           
             
-
         </div>
+        
+       
 
 
     </div>
-    <script src="../JS/game.js"></script>
     
+
+    
+    
+
     <footer>
 
         <h3>Desarrollado por Pau Gracia, William Sargisson y Jorge Cortes</h3>
@@ -547,11 +547,5 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
 </body>
 
 
-
 </html>
-
-
-
-
-
 

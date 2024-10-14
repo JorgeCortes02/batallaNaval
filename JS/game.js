@@ -21,9 +21,13 @@ document.addEventListener("DOMContentLoaded", function () {
         generateSound(stateCell);
         e.target.innerText = stateCell; // Change the button's text to reflect its state
 
+         // Calcula el nuevo puntaje basándose en el estado del juego
+        score = getScore(score, stateCell);
+        updateScoreDisplay(score); // Actualiza el marcador en la pantalla
         // If the state is "victory", disable all buttons and generate new buttons
         if (stateCell === "victory") {
             disableTableIfVictory(buttons);
+            stopTimer(); // Detener el cronómetro
             generateRankingAndHomeButtons();
         }
     }
@@ -32,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
     for (let buttonGame of buttons) {
         buttonGame.addEventListener("click", turnACell);
     }
-});
+//
 
 // Function to disable all buttons when the game is won
 function disableTableIfVictory() {
@@ -44,10 +48,16 @@ function disableTableIfVictory() {
     }
 }
 
+// Función para mostrar el modal
+function openModal() {
+    var modal = document.getElementById("popup"); // Obtiene el modal
+    modal.style.display = "flex"; // Muestra el modal
+}
+
 // Function to generate buttons for ranking and home
 function generateRankingAndHomeButtons() {
     // Get the scoreboard container element
-    let scoreBoard = document.getElementsByClassName("scoreboard")[0];
+    let scoreBoard = document.getElementsByClassName("buttons")[0];
 
     // Create a new div for the final game buttons
     let newDiv = document.createElement("div");
@@ -61,6 +71,10 @@ function generateRankingAndHomeButtons() {
     let buttonHall = document.createElement("button");
     buttonHall.innerText = "Hall of Fame"; // Set the button text
 
+     // Create the "Guardar Record" button
+     let buttonSaveRecord = document.createElement("button");
+     buttonSaveRecord.innerText = "Guardar Record"; // Set the button text for save record
+
     // Add an event listener to redirect to the home page when clicked
     buttonHome.addEventListener("click", function () {
         window.location.href = "index.php"; // Redirect to index.php
@@ -71,9 +85,15 @@ function generateRankingAndHomeButtons() {
         window.location.href = "ranking.php"; // Redirect to ranking.php
     });
 
+    // Add an event listener to open the popup for saving record when clicked
+    buttonSaveRecord.addEventListener("click", function () {
+        openModal(); // Llama a la función para abrir el modal
+    });
+
     // Append the buttons to the new div
     newDiv.appendChild(buttonHome);
     newDiv.appendChild(buttonHall);
+    newDiv.appendChild(buttonSaveRecord);
 
     // Append the new div to the scoreboard container
     scoreBoard.appendChild(newDiv);
@@ -177,6 +197,7 @@ function generateSound(inputOfGame) {
             break;
     }
 
+
 }
 
 
@@ -189,7 +210,7 @@ function generateSound(inputOfGame) {
 //------------------------------------------------------------------------------------------------------------------------------------------------------
 //pau
 
-
+//document.addEventListener("DOMContentLoaded", function () {
 
 let score = 0; // Puntaje inicial
 let startTime;
@@ -304,102 +325,74 @@ function getScore(currentScore, message) {
 }
 
 
-// Función para mostrar el botón
-
-function showButtom() {
-    document.getElementById("openWindows").style.display = "block"; // cambiamos el display para hacer visible el boton
-}
-
-
-
-
-
-//para pruebas de funcion 
-score = getScore(score, 'touched');  // El jugador toca algo
-updateScoreDisplay(score); 
-score = getScore(score, 'water');    // El jugador falla
-updateScoreDisplay(score); 
-score = getScore(score, 'sunken');   // El jugador hunde una nave
-updateScoreDisplay(score); 
-
-console.log("Puntaje actual:", score); // Ver el puntaje actualizado
-
 
 
 // Obtener elementos del DOM
-var modal = document.getElementById("popup");
-var ow = document.getElementById("openWindows");
-var span = document.getElementsByClassName("close")[0];
+var modal = document.getElementById("popup"); // El modal principal
+var ow = document.getElementById("openWindows"); // El botón que abre el modal
+var span = document.getElementsByClassName("close")[0]; // El botón de cierre (X)
 
-// Cuando el usuario hace clic en el botón, se abre el modal
-ow.onclick = function() {
-    modal.style.display = "block";
-}
+// Mostrar el modal al hacer clic en el botón "Guardar Record"
+//ow.onclick = function () {
+   // modal.style.display = "flex"; // Mostrar el modal con flexbox
+//};
 
-// Cuando el usuario hace clic en la "X", se cierra el modal
-span.onclick = function() {
-    modal.style.display = "none";
-}
+// Cerrar el modal cuando se hace clic en la "X"
+span.onclick = function () {
+    modal.style.display = "none"; // Ocultar el modal
+    clearForm(); // Limpiar el formulario al cerrar el modal
+};
 
-// Cuando el usuario hace clic fuera del contenido del modal, se cierra también
-window.onclick = function(event) {
+// Cerrar el modal al hacer clic fuera del contenido del modal
+window.onclick = function (event) {
     if (event.target == modal) {
-        modal.style.display = "none";
+        modal.style.display = "none"; // Ocultar el modal si se hace clic fuera
+        clearForm(); // Limpiar el formulario al cerrar el modal
     }
-}
+};
 
-
-//pasar los datos al php para el txt
 // Añadir el listener para el envío del formulario
-document.getElementById('myForm').addEventListener('submit', function(e) {
+document.getElementById('myForm').addEventListener('submit', function (e) {
     e.preventDefault(); // Prevenir el envío del formulario por defecto
 
     const name = document.getElementById('name').value; // Captura el nombre ingresado por el usuario
     const score = parseInt(document.getElementById('scoreDisplay').textContent); // Obtener el puntaje del marcador
 
-    // Suponiendo que `longNameMessage` es el ID del elemento que muestra el mensaje de error
-    const longNameMessage = document.getElementById('longName'); // Debes asegurarte de que este elemento exista
-    
-    // Limpiar el mensaje anterior
-    longNameMessage.style.display = 'none';
+    const longNameMessage = document.getElementById('longName');
+    longNameMessage.style.display = 'none'; // Limpiar mensaje anterior
 
     // Validar longitud del nombre
-    if (name.length < 3 || name.length > 14) { // Cambié 'nameInput' a 'name'
+    if (name.length < 3 || name.length > 14) {
         longNameMessage.textContent = "El nom ha de tenir entre 3 i 14 caràcters.";
-        longNameMessage.style.display = 'block'; // Mostrar el mensaje
+        longNameMessage.style.display = 'block'; // Mostrar el mensaje de error
     } else {
-        // Crear un objeto FormData para enviar el nombre y score al PHP
+        // Crear un objeto FormData para enviar el nombre y el puntaje al PHP
         const formData = new FormData();
         formData.append('name', name);
-        formData.append('score', score); // Enviar el score capturado
+        formData.append('score', score);
 
-        // Enviar los datos a PHP mediante fetch
+        // Enviar los datos al PHP mediante fetch
         fetch('game.php', {
             method: 'POST',
             body: formData
         })
         .then(response => response.text())
         .then(data => {
-            console.log('Respuesta del servidor:', data); // Ver la respuesta del servidor
-            // Opcional: puedes mostrar un mensaje en pantalla de que se ha guardado correctamente
-            //alert('Score guardado correctamente'); // Mensaje de éxito
-            // Aquí asumo que quieres cerrar el modal
-            document.getElementById("popup").style.display = "none"; // Cierra el modal después de guardar
+            console.log('Respuesta del servidor:', data);
+            // Cerrar el modal después de guardar
+            modal.style.display = "none";
+            clearForm(); // Limpiar formulario después de enviar
         })
         .catch(error => {
             console.error('Error al guardar el score:', error);
         });
     }
-});
+    });
 
-  // Cerrar el modal y limpiar los campos
-  document.querySelector('.close').addEventListener('click', function() {
-    document.getElementById('popup').style.display = "none"; // Cierra el modal
-    clearForm(); // Limpia el formulario
+    // Función para limpiar el formulario
+    function clearForm() {
+        document.getElementById('myForm').reset(); // Limpia todos los campos del formulario
+        const longNameMessage = document.getElementById('longName');
+        longNameMessage.style.display = 'none'; // Oculta el mensaje de error
+    }
 });
-
-function clearForm() {
-    document.getElementById('myForm').reset(); // Limpia todos los campos del formulario
-    const longNameMessage = document.getElementById('longName');
-    longNameMessage.style.display = 'none'; // Oculta el mensaje de error
-}
