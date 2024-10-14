@@ -80,46 +80,48 @@
             $positionOfPlayerInRanking = $initialIndex + 1;
             
             echo "<div class='main_container'>";
-            echo "<div class='table_wrapper'>";
-                echo "<div class='table_container'>";
-                    // SHOW PLAYER DATA
-                    echo "<table>";
 
-                        // Table hader
-                        echo "<thead>";
-                            echo "<th>POSICIÓ</th>";
-                            echo "<th>NOM</th>";
-                            echo "<th>PUNTUACIÓ</th>";
-                            echo "<th>DATA DE REGISTRE</th>";
-                        echo "</thead>";
+                echo "<div class='table_wrapper'>"; // used to hide scrollbar
+                    echo "<div class='table_container'>";
                     
-                        // Table body
-                        echo "<tbody>";
-                        if (count($playersRecords) > 0) {
+                        // SHOW PLAYER DATA
+                        echo "<table>";
 
-                            // Each Row
-                            foreach ($playersRecordsOfTheCurrentPage as $playerRecord) {
+                            // Table hader
+                            echo "<thead>";
+                                echo "<th>POSICIÓ</th>";
+                                echo "<th>NOM</th>";
+                                echo "<th>PUNTUACIÓ</th>";
+                                echo "<th>DATA DE REGISTRE</th>";
+                            echo "</thead>";
+                        
+                            // Table body
+                            echo "<tbody>";
+                            if (count($playersRecords) > 0) {
+
+                                // Each Row
+                                foreach ($playersRecordsOfTheCurrentPage as $playerRecord) {
+                                    echo "<tr>";
+                                        echo "<td>{$positionOfPlayerInRanking}</td>";
+                                        echo "<td>{$playerRecord[0]}</td>";
+                                        echo "<td>{$playerRecord[1]}</td>";
+                                        echo "<td>{$playerRecord[2]}</td>";
+                                    echo "</tr>";
+                                    
+                                    $positionOfPlayerInRanking += 1;
+                                }
+
+                            } else {
                                 echo "<tr>";
-                                    echo "<td>{$positionOfPlayerInRanking}</td>";
-                                    echo "<td>{$playerRecord[0]}</td>";
-                                    echo "<td>{$playerRecord[1]}</td>";
-                                    echo "<td>{$playerRecord[2]}</td>";
+                                    echo "<td colspan='4' class='empty_records' >No existeix cap registre! Vols ser el primer?</td>";
                                 echo "</tr>";
-                                
-                                $positionOfPlayerInRanking += 1;
                             }
 
-                        } else {
-                            echo "<tr>";
-                                echo "<td colspan='4' class='empty_records' >No existeix cap registre! Vols ser el primer?</td>";
-                            echo "</tr>";
-                        }
+                            echo "</tbody>";
 
-                        echo "</tbody>";
+                        echo "</table>";
 
-                    echo "</table>";
-
-                echo "</div>";
+                    echo "</div>";
                 echo "</div>";
 
                 // GENERATE PAGINATION IF THERE ARE MORE THAN 25 RECORDS
