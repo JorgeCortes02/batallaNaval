@@ -364,7 +364,7 @@
             jugar.
         </div>
     </noscript>
-    <div class="PrincipalDiv">
+    <div class="PrincipalDiv blackBox">
         <table>
 
             <?php
@@ -376,18 +376,13 @@
 
         </table>
 
-        <div class="scoreboard">
+        <div class="scoreboard yellowBox">
             <h1>Lost in the Sand</h1>
         </div>
 
 
     </div>
 
-    <footer>
-
-        <h3>Desarrollado por Pau Gracia, William Sargisson y Jorge Cortes</h3>
-
-    </footer>
 
 </body>
 

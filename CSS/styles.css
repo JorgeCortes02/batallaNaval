@@ -1,38 +1,36 @@
 /* FONDOS DE PANTALLA ----------------------*/
 html,
 body {
+
     height: 100%;
     margin: 0;
     padding: 0;
+
+    background-image: url('../IMG/fondoPagina.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: 'Cinzel', serif;
+
+
 }
 
 .page-game {
-    font-family: 'Cinzel', serif;
-
     display: flex;
     flex-direction: column;
-    background-image: url('../IMG/fondoPagina.jpeg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    margin: 0;
-    padding: 0;
-    height: 100%;
-
 }
 
-body.page-index {
-
-    background-image: url('../IMG/fondoPagina.jpeg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+body.page-index,
+body.page-ranking {
 
     display: flex;
     justify-content: center;
     align-items: center;
 
 }
+
+
+
 
 /* --------------------------------------------*/
 
@@ -44,6 +42,7 @@ body.page-index {
     position: fixed;
     top: 0;
     width: 100%;
+
     background-color: red;
     padding: 20px;
     color: white;
@@ -64,7 +63,6 @@ body.page-index {
     border: 1px solid black;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     border-collapse: collapse;
-
 
 }
 
@@ -94,6 +92,7 @@ body.page-index {
 
     width: 100%;
     height: 100%;
+
     background-image: url('../IMG/jero1.jpg');
     background-size: cover;
     background-repeat: no-repeat;
@@ -121,35 +120,48 @@ body.page-index {
     gap: 20px;
     width: 90%;
     height: 850px;
-    background-color: rgba(8, 8, 8, 0.5);
     margin: 0 auto;
-    margin-top: 50px;
-    border: 5px double #8b4513;
+    margin-top: 25px;
+    margin-bottom: 25px;
     align-items: center;
 
 }
 
 
+/* REUSABLE ----> Yellow box */
+.yellowBox {
+    background: linear-gradient(135deg, #d4af37, #e5c18a);
+    border: 5px double #8b4513;
+    border-radius: 25px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+
+}
+
+/* REUSABLE ----> Black box */
+
+.blackBox {
+    border: 5px double #8b4513;
+    background-color: rgba(8, 8, 8, 0.5);
+
+}
 
 
-
-/* REUSABLE ----> BOX DEL MARCADOR Y DEL INDEX */
 
 /*Style of the information div*/
 .page-game .scoreboard {
 
-    background: linear-gradient(135deg, #d4af37, #e5c18a);
+
     /* Degradado dorado y beige */
     color: #3b240b;
-    border: 5px double #8b4513;
+
     width: 30%;
     height: 95%;
-    border-radius: 25px;
+
     text-align: center;
-    font-family: 'Cinzel', serif;
+
     font-size: 1rem;
 
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+
 
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 
@@ -161,40 +173,22 @@ body.page-index {
 body.page-index div.main_container {
 
     width: 45%;
-    height: 65%;
+    height: 60%;
 
     padding: 1.75%;
-
-    font-family: 'Cinzel', serif;
     color: #3b240b;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 
-    background: linear-gradient(135deg, #d4af37, #e5c18a);
-    border: 5px double #8b4513;
-    border-radius: 25px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
-   
+
     display: flex;
     flex-direction: column;
-    justify-content: center;  
-    
+    justify-content: center;
+
     overflow: hidden;
 
 }
 
-/*Style of footer*/
-.page-game footer {
 
-    background-color: black;
-    color: white;
-    width: 100%;
-    height: 70px;
-    text-align: center;
-    margin: 0;
-    margin-top: 5%;
-    bottom: 0 auto;
-
-}
 
 /*Style for table buttoms where this are disabled*/
 .page-game .button-disabled {
@@ -287,8 +281,9 @@ body.page-index div.main_container div.button_container {
     display: flex;
     /* border: 1px solid black; */
 
-    margin-top: 2.5%;
+
     margin: 0 auto;
+    margin-top: 2.5%;
     width: 90%;
 
 }
@@ -382,24 +377,10 @@ body.page-index .warning {
 
 /* RANKING CSS */
 
-body.page-ranking {
-    
-    background-image: url('../IMG/fondoPagina.jpeg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-}
 
 /* BLACK BOX STYLING */
 body.page-ranking div.main_container {
 
-    background-color: rgba(8, 8, 8, 0.5);
-    border: 5px double #8b4513;
 
     /* Set space occupied by it */
     width: 70%;
@@ -415,39 +396,40 @@ body.page-ranking div.main_container div.table_wrapper {
 
     /* Space styling */
     height: 90%;
-    overflow: hidden; /* Hide overflow to avoid scrollbars */
-
-    background: linear-gradient(135deg, #d4af37, #e5c18a);
-    border: 5px double #8b4513;
-    border-radius: 25px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    /* Hide overflow to avoid scrollbars */
 
     /* Font styling for all the table */
     text-align: center;
-    font-family: 'Cinzel', serif;
     font-size: 1.25rem;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 
 }
 
 /* TABLE CONTAINER THAT IS INSIDE THE TABLE WRAPPER */
-body.page-ranking div.main_container div.table_wrapper div.table_container  {
+body.page-ranking div.main_container div.table_wrapper div.table_container {
 
-    height: 100%; /* to fill de container */
+    height: 100%;
+    /* to fill de container */
 
-    overflow-y: auto; /* Allow vertical scrolling */
-    overflow-x: hidden; /* Hide horizontal scrolling if not needed */
+    overflow-y: auto;
+    /* Allow vertical scrolling */
+    overflow-x: hidden;
+    /* Hide horizontal scrolling if not needed */
 
-    border-radius: 20px; /* so it fits correctly */
+    border-radius: 20px;
+    /* so it fits correctly */
 
 }
 
 /* TABLE STYLING */
 body.page-ranking div.main_container div.table_container table {
-    
-    width: 100%; /* To take all available horizontal space from the container */
+
+    width: 100%;
+    /* To take all available horizontal space from the container */
     border-collapse: collapse;
-    table-layout: fixed; /* same column width*/
+    table-layout: fixed;
+    /* same column width*/
 }
 
 /* PADDING FOR DATA */
@@ -466,7 +448,7 @@ body.page-ranking div.main_container div.table_container table thead tr th {
     font-size: 1.5rem;
 
     background: #b3942c;
- 
+
     /* Set it sticky so it follows when scrolling down the table data */
     position: sticky;
     top: 0;
@@ -519,14 +501,16 @@ body.page-ranking div.main_container div.number_section a:hover {
 }
 
 /* Current page styling */
-body.page-ranking div.main_container div.number_section a.current_page{
+body.page-ranking div.main_container div.number_section a.current_page {
 
     box-shadow: inset 0px 10px 14px rgba(0, 0, 0, 0.7), 0px 9px 14px rgba(0, 0, 0, 0.7);
 
     background: #a8a5a2;
-    color: white;   
-    pointer-events: none;       /* Disable mouse interactions */
-    cursor: not-allowed;        /* Change cursor to indicate it's not clickable */   
+    color: white;
+    pointer-events: none;
+    /* Disable mouse interactions */
+    cursor: not-allowed;
+    /* Change cursor to indicate it's not clickable */
 
 }
 
