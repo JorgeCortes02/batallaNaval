@@ -16,7 +16,7 @@
     // READ FILE AND LOAD PLAYER DATA
     
     $playersRecords = [];
-    $rankingPathFile = "../TXT/ranking225registros.txt";
+    $rankingPathFile = "../TXT/ranking.txt";
     if (file_exists($rankingPathFile)) { // check if file exists
         $rankingFile = fopen($rankingPathFile, "r"); // load file
         while (!feof($rankingFile)) { // while there are lines left

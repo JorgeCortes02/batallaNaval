@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 //zona horaria
 date_default_timezone_set('Europe/Madrid'); // Cambia 'Europe/Madrid' a la zona horaria que necesites
@@ -14,17 +13,17 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
     $score = $_POST['score'];
 
     // Validación del nombre
-    if (strlen($name) < 3 || strlen($name) > 14) {
+    if (strlen($name) < 3 || strlen($name) > 30) {
 
-        echo "El nombre debe tener entre 3 y 14 caracteres.";
+        echo "El nombre debe tener entre 3 y 30 caracteres.";
         exit; // Detener la ejecución del script
     }
 
     $date = date('Y-m-d H:i'); // Formato de fecha y hora
 
-    $newTXT = "../TXT/ranking.txt";
 
-    $openTXT = fopen($newTXT, "a");
+
+    $openTXT = fopen("../TXT/ranking.txt", "a");
 
 
 
@@ -521,15 +520,11 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
                     <span class="close">&times;</span>
 
                     <form id="myForm" method="POST" action="game.php">
-                        <!-- Etiqueta sin subrayado -->
-                        <label for="name">Introduce tu Nombre:</label><br>
-
-                        <!-- Cuadro de texto más grande -->
+                        <label for="name">Introdueix el Nom:</label><br>
                         <input type="text" id="name" name="name" value="" required><br><br>
-
-                        <!-- Botón con estilo actualizado -->
+                        <!-- Contenedor para mensajes de largo nombre -->
+                        <div id="longName"></div><br>
                         <button type="submit">Guardar</button>
-                    </form>
                 </div>
             </div>
         </div>

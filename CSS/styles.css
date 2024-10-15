@@ -157,11 +157,12 @@ body.page-game #easterEggButton {
 /* this contains the image */
 body.page-game #easterEggMessageBox {
 
-    background: url('../IMG/easterEggImg.jpeg'); 
-    background-size: cover; 
-    background-repeat: no-repeat; 
-    background-position: center; /* center image */
-    
+    background: url('../IMG/easterEggImg.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    /* center image */
+
     width: 40%;
     height: 30%;
 
@@ -175,8 +176,8 @@ body.page-game #easterEggMessageBox {
     z-index: 1;
 
     color: white;
-    
-    border: 3px solid #8b4513;
+
+    border: 3px solid rgb(59, 36, 11);
     border-radius: 25px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
     text-align: center;
@@ -193,14 +194,14 @@ body.page-game #easterEggMessageBox {
 /* this contains the text and button with opacity*/
 body.page-game #easterEggMessageBox div.easterEggMessageBoxTextWrapper {
 
-    width: 80%; 
+    width: 80%;
     height: 80%;
 
     padding: 20px;
 
     /* to give opacity */
-    background: rgba(0, 0, 0, 0.7); 
-    border: 3px solid #8b4513;
+    background: rgba(0, 0, 0, 0.7);
+    border: 3px solid rgb(59, 36, 11);
     border-radius: 15px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 
@@ -209,15 +210,15 @@ body.page-game #easterEggMessageBox div.easterEggMessageBoxTextWrapper {
 }
 
 body.page-game #easterEggMessageBox div.easterEggMessageBoxTextWrapper p {
-    margin: 10px 0; 
-    font-size: 18px; 
+    margin: 10px 0;
+    font-size: 18px;
 }
 
 body.page-game #easterEggMessageBox div.easterEggMessageBoxTextWrapper button {
 
-    width: 50%; 
-    height: 40px; 
-    margin-top: 20px; 
+    width: 50%;
+    height: 40px;
+    margin-top: 20px;
 
     background: #7a6a55;
     border: 3px solid #7a6a55;
@@ -231,7 +232,7 @@ body.page-game #easterEggMessageBox div.easterEggMessageBoxTextWrapper button {
     font-size: 14px;
     font-weight: bold;
 
-    cursor: pointer;    
+    cursor: pointer;
 }
 
 body.page-game #easterEggMessageBox div.easterEggMessageBoxTextWrapper button:hover {
@@ -451,7 +452,17 @@ body.page-index div.main_container div.button_container .buttonActive {
     margin: 0 auto;
 }
 
-body.page-index div.main_container div.button_container a {
+body.page-index div.main_container div.button_container .aDisabled {
+
+    width: 30%;
+    height: 50px;
+    margin: 0 auto;
+    pointer-events: none;
+    /* Desactivar eventos */
+    cursor: not-allowed;
+}
+
+body.page-index div.main_container div.button_container .aActive {
 
     width: 30%;
     height: 50px;
@@ -472,11 +483,7 @@ body.page-index div.main_container div.button_container .button-disabled {
     text-align: center;
     font-family: 'Cinzel', serif;
     font-weight: bold;
-
     box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.6);
-    pointer-events: none;
-    /* Desactivar eventos */
-    cursor: not-allowed;
     width: 100%;
     height: 60px;
 }
@@ -740,7 +747,7 @@ body.page-ranking div.main_container div.number_section a.current_page {
 #arrow {
     color:
         /*#3b240b;*/
-        rgb(119, 68, 14);
+        rgb(59, 36, 11);
     margin-left: auto;
     margin-right: 10px;
 
@@ -751,7 +758,7 @@ body.page-ranking div.main_container div.number_section a.current_page {
 .page-game #chronometer {
     color:
         /*#3b240b;*/
-        rgb(119, 68, 14);
+        rgb(59, 36, 11);
     margin: 0 auto;
     font-family: 'Liberation Mono', monospace;
     font-size: 2em;
@@ -856,7 +863,7 @@ body.page-game #easterEggMessageBox div.easterEggMessageBoxTextWrapper button:ho
 /*marcador de puntos---------------------------------------------------------------------------------*/
 
 .page-game #scoreDisplay {
-    color: rgb(119, 68, 14);
+    color: rgb(59, 36, 11);
     /* color que se ve*/
     font-family: 'Liberation Mono', monospace;
     /*fuente que mantiene el mismo tamaño sea el numero que sea*/
@@ -865,13 +872,6 @@ body.page-game #easterEggMessageBox div.easterEggMessageBoxTextWrapper button:ho
     margin: 0 auto;
 }
 
-.page-game #scoreDisplay:hover,
-#chronometer:hover {
-    color: rgb(255, 136, 0);
-    font-size: 2em;
-
-
-}
 
 
 /*boton para insertar jugador en ranquin--------------------------------------------------------------*/
@@ -969,8 +969,9 @@ body.page-game #easterEggMessageBox div.easterEggMessageBoxTextWrapper button:ho
     transform: translateY(-50%);
     color: black;
     font-weight: bold;
-    font-size: 1em;
+    font-size: 0.9em;
     margin-top: 10px;
+    margin-bottom: 10px;
     text-align: center;
 }
 
