@@ -96,7 +96,7 @@ body.page-ranking {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     border-collapse: collapse;
     margin-top: 25px;
-    matgin-bottom: 25px;
+    margin-bottom: 25px;
 }
 
 .page-game td,
@@ -187,11 +187,12 @@ body.page-ranking {
 
     width: 30%;
     height: 95%;
-
     text-align: center;
+    align-items: center;
+
 
     font-size: 1rem;
-
+    top: 25px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 
     display: block;
@@ -403,9 +404,8 @@ body.page-index .warning {
 /* RANKING CSS */
 
 
-/* BLACK BOX STYLING */
+/* Black box styling*/
 body.page-ranking div.main_container {
-
 
     /* Set space occupied by it */
     width: 70%;
@@ -416,7 +416,14 @@ body.page-ranking div.main_container {
     flex-direction: column;
 }
 
-/* WRAPPER USED TO HIDE THE SCROLLBAR OVERFLOW */
+/* Hall of fame header*/
+body.page-ranking div.main_container>h1 {
+    padding: 5px 0px 5px;
+    margin: 0;
+    text-align: center;
+}
+
+/* Wrapper to hide the scrollbar overflow od the table */
 body.page-ranking div.main_container div.table_wrapper {
 
     /* Space styling */
@@ -474,7 +481,7 @@ body.page-ranking div.main_container div.table_container table thead tr th {
 
     background: #b3942c;
 
-    /* Set it sticky so it follows when scrolling down the table data */
+    /* Sticky so it follows when scrolling down the table data */
     position: sticky;
     top: 0;
     z-index: 1;
@@ -482,14 +489,82 @@ body.page-ranking div.main_container div.table_container table thead tr th {
 }
 
 body.page-ranking div.main_container div.table_container table tbody tr td.empty_records {
-    padding-top: 20%;
+    padding-top: 12%;
 }
 
-/* NUMBER SECTION STYLING */
-/* Number section container */
-body.page-ranking div.main_container div.number_section {
+body.page-ranking div.main_container ::-webkit-scrollbar {
+    background-color: yellow;
+}
+
+body.page-ranking div.main_container ::-webkit-scrollbar-thumb {
+    background-color: #836445;
+    box-shadow: 0px 7px 12px rgba(0, 0, 0, 0.5);
+
+}
+
+body.page-ranking div.main_container ::-webkit-scrollbar-track {
+    box-shadow: inset 0px 10px 14px rgba(0, 0, 0, 0.5);
+    background-color: #6d3e00;
+    padding: 5px;
+
+
+}
+
+/* BUTTONS AND NUMBER CONTAINER STYLING */
+
+/* both empty and pagination containers*/
+body.page-ranking div.main_container>div {
     margin-top: 3%;
     height: 10%;
+}
+
+/* IF NUMBER SECTION IS EMPTY */
+
+body.page-ranking div.main_container div.buttons_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* IF NUMBER SECTION IS NOT EMPTY*/
+
+body.page-ranking div.main_container div.buttonsAndPagination_container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+/* Buttons that are not pagination */
+body.page-ranking div.main_container>div>a>button {
+
+    width: 100%;
+    height: 60px;
+
+    background: rgb(59, 36, 11);
+    border: 3px solid #7a6a55;
+    border-radius: 12px;
+    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.6);
+
+    color: #ffffff;
+    font-size: 14px;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    text-align: center;
+    padding: 20px;
+
+}
+
+body.page-ranking div.main_container>div>a>button:hover {
+
+    box-shadow: inset 0px 6px 10px rgba(0, 0, 0, 0.5), 0px 7px 12px rgba(0, 0, 0, 0.7);
+}
+
+
+/* Number section container */
+body.page-ranking div.main_container div.number_section {
 
     display: flex;
     justify-content: center;
@@ -504,9 +579,7 @@ body.page-ranking div.main_container div.number_section a {
 
     cursor: pointer;
 
-    background: #7a6a55;
-    Background-image: url('https://www.transparenttextures.com/patterns/concrete-wall.png');
-    background-size: cover;
+    background: rgb(59, 36, 11);
     border: 3px solid #7a6a55;
     border-radius: 12px;
     box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.6);
@@ -539,20 +612,336 @@ body.page-ranking div.main_container div.number_section a.current_page {
 
 }
 
-body.page-ranking div.main_container ::-webkit-scrollbar {
-    background-color: yellow;
+/*cronometro------------------------------------------------------------------------*/
+
+.page-game .time-marker,
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* Distribuye el espacio uniformemente */
+    align-items: center;
+    /* Alinea verticalmente los elementos en el centro */
+    margin-bottom: 20px;
+    width: 100%;
+    height: 50px;
+
+
+
+
 }
 
-body.page-ranking div.main_container ::-webkit-scrollbar-thumb {
-    background-color: #836445;
-    box-shadow: 0px 7px 12px rgba(0, 0, 0, 0.5);
+.page-game .time,
+.marker {
+    display: flex;
+    align-items: center;
+    /* Alinea verticalmente los elementos al centro */
+
+    /* Permite que el contenedor se ajuste al contenido */
+    margin: 0 auto;
 
 }
 
-body.page-ranking div.main_container ::-webkit-scrollbar-track {
-    box-shadow: inset 0px 10px 14px rgba(0, 0, 0, 0.5);
-    background-color: #6d3e00;
-    padding: 5px;
+.page-game #clock,
+#arrow {
+    color:
+        /*#3b240b;*/
+        rgb(119, 68, 14);
+    margin-left: auto;
+    margin-right: 10px;
+
+}
 
 
+
+.page-game #chronometer {
+    color:
+        /*#3b240b;*/
+        rgb(119, 68, 14);
+    margin: 0 auto;
+    font-family: 'Liberation Mono', monospace;
+    font-size: 2em;
+
+}
+
+/* EASTER EGG STYLING */
+
+body.page-game #easterEggButton {
+
+    width: 100%;
+    height: 100%;
+    background: none;
+    border: none;
+}
+
+/* this contains the image */
+body.page-game #easterEggMessageBox {
+
+    background: url('../IMG/easterEggImg.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    /* center image */
+
+    width: 40%;
+    height: 30%;
+
+    padding: 20px;
+
+    /* center in screen */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+
+    color: white;
+
+    border: 3px solid #8b4513;
+    border-radius: 25px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+    text-align: center;
+
+    /* center content-wrapper */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    overflow: hidden;
+}
+
+/* this contains the text and button with opacity*/
+body.page-game #easterEggMessageBox div.easterEggMessageBoxTextWrapper {
+
+    width: 80%;
+    height: 80%;
+
+    padding: 20px;
+
+    /* to give opacity */
+    background: rgba(0, 0, 0, 0.7);
+    border: 3px solid #8b4513;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+
+    overflow: hidden;
+
+}
+
+body.page-game #easterEggMessageBox div.easterEggMessageBoxTextWrapper p {
+    margin: 10px 0;
+    font-size: 18px;
+}
+
+body.page-game #easterEggMessageBox div.easterEggMessageBoxTextWrapper button {
+
+    width: 50%;
+    height: 40px;
+    margin-top: 20px;
+
+    background: #7a6a55;
+    border: 3px solid #7a6a55;
+    border-radius: 12px;
+    background-image: url('https://www.transparenttextures.com/patterns/concrete-wall.png');
+    background-size: cover;
+    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.6);
+
+    color: #ffffff;
+    font-family: 'Cinzel', serif;
+    font-size: 14px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+body.page-game #easterEggMessageBox div.easterEggMessageBoxTextWrapper button:hover {
+    box-shadow: inset 0px 6px 10px rgba(0, 0, 0, 0.5), 0px 7px 12px rgba(0, 0, 0, 0.7);
+}
+
+/*marcador de puntos---------------------------------------------------------------------------------*/
+
+.page-game #scoreDisplay {
+    color: rgb(119, 68, 14);
+    /* color que se ve*/
+    font-family: 'Liberation Mono', monospace;
+    /*fuente que mantiene el mismo tamaño sea el numero que sea*/
+    font-size: 2em;
+    /* Tamaño de la fuente */
+    margin: 0 auto;
+}
+
+.page-game #scoreDisplay:hover,
+#chronometer:hover {
+    color: rgb(255, 136, 0);
+    font-size: 2em;
+
+
+}
+
+
+/*boton para insertar jugador en ranquin--------------------------------------------------------------*/
+
+.page-game #recordButton {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    height: 20%;
+    margin: 0 auto;
+
+
+}
+
+.page-game #openWindows {
+    width: 100px;
+    /* Ancho fijo del contenedor */
+    height: 50px;
+    /* Altura fija del contenedor */
+    display: block;
+    /*se utiliza para hacer desaparecer al boton PONER EN NONE PARA FUNCIONAMIENTO NORMAL*/
+    margin: 10px;
+    color: rgb(119, 68, 14);
+    font-size: 1em;
+    background-image: url('../IMG/button.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    /* Cambia el cursor al pasar sobre el botón */
+    border: 5px double rgb(119, 68, 14);
+    /* Borde marrón */
+    border-radius: 10px;
+}
+
+
+
+/*pantalla emergente--------------------------------------------*/
+
+/* El popup está oculto por defecto */
+.page-game #popup {
+    display: none;
+    flex-direction: row;
+    margin-bottom: 20px;
+    align-items: center;
+    z-index: 1;
+    width: 100%;
+    height: auto;
+}
+
+/* Contenido de la ventana */
+.page-game .windowsForm {
+    width: 80%;
+    height: auto;
+    background-image: url('../IMG/button.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 0 auto;
+    padding: 20px;
+    border: 5px solid rgb(119, 68, 14);
+    border-radius: 10px;
+}
+
+.page-game #myForm {
+    text-align: center;
+}
+
+.page-game #myForm button {
+    color: white;
+    background-color: gray;
+    font-size: 1em;
+    background-position: center;
+    cursor: pointer;
+    border: 3px double rgb(119, 68, 14);
+    border-radius: 10px;
+}
+
+.page-game #myForm button:hover {
+    color: black;
+    border: 3px double black;
+}
+
+.page-game #myForm label {
+    font-weight: bold;
+    text-decoration: underline;
+    color: black;
+    font-size: 2em;
+}
+
+.page-game #longName {
+    display: none;
+    position: absolute;
+    transform: translateY(-50%);
+    color: black;
+    font-weight: bold;
+    font-size: 1em;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.page-game #name {
+    border: 3px double rgb(119, 68, 14);
+    border-radius: 10px;
+    text-align: right;
+    width: 50%;
+    height: 10%;
+}
+
+/* Botón para cerrar el modal (X) */
+.page-game .close {
+    color: black;
+    font-weight: bold;
+    float: right;
+    font-size: 32px;
+    cursor: pointer;
+}
+
+.page-game .close:hover,
+.close:focus {
+    color: rgb(255, 136, 0);
+}
+
+/* Eliminar subrayado */
+.windowsForm label {
+    font-family: 'Cinzel', serif;
+    font-size: 18px;
+    text-decoration: none;
+    /* Elimina el subrayado */
+    color: #333333;
+    /* Cambia el color si es necesario */
+}
+
+/* Cuadro de texto más grande */
+.windowsForm input[type="text"] {
+    width: 100%;
+    /* Ocupa todo el ancho disponible */
+    height: 40px;
+    /* Aumentar altura */
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    /* Mantiene el padding dentro del ancho */
+}
+
+/* Aplicar diseño a botón */
+.windowsForm button {
+    font-family: 'Cinzel', serif;
+    background-color: #333333;
+    /* Color de fondo */
+    color: #f5c518;
+    /* Color de texto */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.windowsForm button:hover {
+    background-color: #555555;
+    /* Color cuando el mouse está sobre el botón */
 }

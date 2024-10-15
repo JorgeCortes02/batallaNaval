@@ -16,10 +16,9 @@
     // READ FILE AND LOAD PLAYER DATA
     
     $playersRecords = [];
-    $rankingFile = fopen("../TXT/emptyRanking.txt", "r"); // load file
-    
-    if ($rankingFile) { // check if file exists
-    
+    $rankingPathFile = "../TXT/ranking225registros.txt";
+    if (file_exists($rankingPathFile)) { // check if file exists
+        $rankingFile = fopen($rankingPathFile, "r"); // load file
         while (!feof($rankingFile)) { // while there are lines left
     
             $playerTextRecord = fgets($rankingFile); // read line
@@ -81,6 +80,8 @@
 
     echo "<div class='main_container blackBox'>";
 
+    echo "<h1 class='yellowBox' >HALL OF FAME</h1>";
+
     echo "<div class='table_wrapper yellowBox'>"; // used to hide scrollbar
     echo "<div class='table_container'>";
 
@@ -127,6 +128,10 @@
     // GENERATE PAGINATION IF THERE ARE MORE THAN 25 RECORDS
     if ($totalPages > 1) {
 
+        echo "<div class='buttonsAndPagination_container'>";
+
+        echo "<a href='index.php'><button>MENÚ PRINCIPAL</button></a>";
+
         // GENERATE NUMBER SECTION
         echo "<div class='number_section'>";
 
@@ -157,7 +162,16 @@
         }
 
         echo "</div>";
+
+        echo "</div>";
+
+    } else {
+
+        echo "<div class='buttons_container'>";
+        echo "<a href='index.php'><button>MENÚ PRINCIPAL</button></a>";
+        echo "</div>";
     }
+
     echo "</div>";
     ?>
 </body>
