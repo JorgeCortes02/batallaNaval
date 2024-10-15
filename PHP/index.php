@@ -31,8 +31,9 @@
             L'estratègia, la punteria i una mica de sort seran les teves millors aliades en aquesta aventura.
             Dispara amb precisió per aconseguir la victòria!</p>
         <div class="button_container">
-            <a href="game.php"><button id="initGame" class="button-disabled">PARTIDA CLÀSICA</button></a>
-            <a href="ranking.php"><button id="goToHall" class="buttonActive">HALL OF FAME</button></a>
+            <a id="toGameA" class="aDisabled" href="game.php"><button id="initGame" class="button-disabled">PARTIDA
+                    CLÀSICA</button></a>
+            <a class="aActive" href="ranking.php"><button id="goToHall" class="buttonActive">HALL OF FAME</button></a>
         </div>
     </div>
 
