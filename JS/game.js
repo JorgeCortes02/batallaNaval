@@ -2,27 +2,34 @@
 var selectesHorders = [0, 0, 0, 0];
 
 
+
 // Get all buttons with the class "tableButton"
 const buttons = document.getElementsByClassName("tableButton");
+
 //Array with the game sounds
-const gameSounds = [new Audio('../Sounds/water1.mp3'), new Audio('../Sounds/victory.mp3'), new Audio('../Sounds/perfect.mp3'), new Audio('../Sounds/gameover.mp3'), new Audio('../Sounds/zombie.mp3')];
+const gameSounds = [new Audio('../Sounds/water1.mp3'), new Audio('../Sounds/victory.mp3'), new Audio('../Sounds/perfect.mp3'), new Audio('../Sounds/gameover.mp3'), new Audio('../Sounds/zombie.mp3'), new Audio('../Sounds/IndianaJonesTheme.mp3')];
 
 
 // Wait for the DOM to fully load before executing the script
 document.addEventListener("DOMContentLoaded", function () {
-    // Get the easterEggButton
-    const easterEggButton = document.getElementById('easterEggButton');
-    // Execute the easterEgg event with parameter once:true so it will execute only once if clicked
-    easterEggButton.addEventListener('click', easterEggEvent, { once: true });
+
     const notificationsDiv = document.getElementById("notificationsDiv");
 
     // Attach click event listener to each button
     for (let buttonGame of buttons) {
         buttonGame.addEventListener("click", turnACell);
     }
+
+    // Get the easterEggButton
+    const easterEggButton = document.getElementById('easterEggButton');
+    // Execute the easterEgg event with parameter once:true so it will execute only once if clicked
+    easterEggButton.addEventListener('click', easterEggEvent, { once: true });
+
 });
 
 function easterEggEvent() {
+
+
 
     // Creation of easter egg div which will contain elements
     const easterEggBox = document.createElement('div');
@@ -34,7 +41,7 @@ function easterEggEvent() {
 
     // p tag + text generation
     const firstMessageInEasterEggBox = document.createElement('p');
-    firstMessageInEasterEggBox.innerText = "Has trobat l'arca perduda.";
+    firstMessageInEasterEggBox.innerText = 'Has trobat l\'arca perduda.';
     const secondMessageInEasterEggBox = document.createElement('p');
     secondMessageInEasterEggBox.innerText = 'Enhorabona!';
 
@@ -59,6 +66,10 @@ function easterEggEvent() {
     // Generate sound of the Easter Egg (--> will trigger indiana jones arrayOfSounds[5])
     generateSound("easterEgg");
 }
+
+
+
+
 function generateNewNotification(typeNotification) {
 
     // Create a new div element for the notification
