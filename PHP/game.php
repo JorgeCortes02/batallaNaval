@@ -1,3 +1,52 @@
+<?php
+session_start();
+
+//zona horaria
+date_default_timezone_set('Europe/Madrid'); // Cambia 'Europe/Madrid' a la zona horaria que necesites
+
+
+// Inicializamos la variable por defecto para evitar errores.
+$name = "";
+
+// Verificar si se envió el formulario
+if (isset($_POST['name']) && isset($_POST['score'])) {
+    $name = $_POST['name'];
+    $score = $_POST['score'];
+
+    // Validación del nombre
+    if (strlen($name) < 3 || strlen($name) > 14) {
+
+        echo "El nombre debe tener entre 3 y 14 caracteres.";
+        exit; // Detener la ejecución del script
+    }
+
+    $date = date('Y-m-d H:i'); // Formato de fecha y hora
+
+    $newTXT = "../TXT/ranking.txt";
+
+    $openTXT = fopen($newTXT, "a");
+
+
+
+    if ($openTXT) {
+
+
+        fwrite($openTXT, $name . ';' . $score . ';' . $date . "\n");//esribimos
+
+        fclose($openTXT); // Cerramos el archivo después de escribir
+
+    } else {
+        echo "";
+    }
+
+}
+
+
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -404,6 +453,7 @@
             echo "<tr>";
             for ($j = 0; $j <= 10; $j++) {
 
+
                 if ($i == 0 && $j == 0) {
                     echo "<td><button id='easterEggButton'></button></td>";
                 } elseif ($i == 0 && $j != 0) {
@@ -454,6 +504,34 @@
 
         <div class="scoreboard yellowBox">
             <h1>Lost in the Sand</h1>
+
+            <div class="time-marker">
+                <div class="time">
+                    <img id="clock" src="../IMG/tiempo-pasado.png" alt="Icono de un reloj" width="30px" height="30px">
+                    <time id="chronometer" datetime="clock">00:00:00</time>
+                </div>
+                <div class="marker">
+                    <img id="arrow" src="../IMG/flecha-de-diana.png" alt="diana" width="30px" height="30px">
+                    <p id="scoreDisplay">00000</p>
+                </div>
+
+            </div>
+            <div id="popup" class="modal">
+                <div class="windowsForm">
+                    <span class="close">&times;</span>
+
+                    <form id="myForm" method="POST" action="game.php">
+                        <!-- Etiqueta sin subrayado -->
+                        <label for="name">Introduce tu Nombre:</label><br>
+
+                        <!-- Cuadro de texto más grande -->
+                        <input type="text" id="name" name="name" value="" required><br><br>
+
+                        <!-- Botón con estilo actualizado -->
+                        <button type="submit">Guardar</button>
+                    </form>
+                </div>
+            </div>
         </div>
 
 

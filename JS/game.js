@@ -2,15 +2,16 @@
 var selectesHorders = [0, 0, 0, 0];
 
 
+
+// Get all buttons with the class "tableButton"
+const buttons = document.getElementsByClassName("tableButton");
+
 //Array with the game sounds
 const gameSounds = [new Audio('../Sounds/water1.mp3'), new Audio('../Sounds/victory.mp3'), new Audio('../Sounds/perfect.mp3'), new Audio('../Sounds/gameover.mp3'), new Audio('../Sounds/zombie.mp3'), new Audio('../Sounds/IndianaJonesTheme.mp3')];
 
 
 // Wait for the DOM to fully load before executing the script
 document.addEventListener("DOMContentLoaded", function () {
-
-    // Get all buttons with the class "tableButton"
-    const buttons = document.getElementsByClassName("tableButton");
 
     const notificationsDiv = document.getElementById("notificationsDiv");
 
@@ -28,6 +29,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function easterEggEvent() {
 
+
+
     // Creation of easter egg div which will contain elements
     const easterEggBox = document.createElement('div');
     easterEggBox.setAttribute('id', 'easterEggMessageBox')
@@ -35,17 +38,17 @@ function easterEggEvent() {
     // Creation of easter egg wrapper which will contain text + button and give opacity
     const easterEggMessageBox = document.createElement('div');
     easterEggMessageBox.setAttribute('class', 'easterEggMessageBoxTextWrapper')
-    
+
     // p tag + text generation
     const firstMessageInEasterEggBox = document.createElement('p');
-    firstMessageInEasterEggBox.innerText= 'Has trobat l\'arca perduda.';
+    firstMessageInEasterEggBox.innerText = 'Has trobat l\'arca perduda.';
     const secondMessageInEasterEggBox = document.createElement('p');
-    secondMessageInEasterEggBox.innerText= 'Enhorabona!';
+    secondMessageInEasterEggBox.innerText = 'Enhorabona!';
 
     // Button to close box generation
     const closeButtonInEasterEggBox = document.createElement('button');
     closeButtonInEasterEggBox.textContent = "Tancar";
-    
+
     // Add remove event in close button
     closeButtonInEasterEggBox.addEventListener('click', function () {
         easterEggBox.remove();
@@ -64,22 +67,7 @@ function easterEggEvent() {
     generateSound("easterEgg");
 }
 
-// Function to handle cell click events
-function turnACell(e) {
-    const value = e.target.value; // Get the value of the clicked button
-    stateCell = sumFoundPositions(value); // This variable will hold the state of the cell (e.g., victory)
 
-    // Change the class from "tableButton" to "button-disabled"
-    e.target.classList.replace("tableButton", "button-disabled");
-    generateSound(stateCell);
-    e.target.innerText = stateCell; // Change the button's text to reflect its state
-
-    // If the state is "victory", disable all buttons and generate new buttons
-    if (stateCell === "victory") {
-        disableTableIfVictory(buttons);
-        generateRankingAndHomeButtons();
-    }
-}
 
 
 function generateNewNotification(typeNotification) {
@@ -149,6 +137,10 @@ function disableTableIfVictory() {
         // Change each button's class to "button-disabled"
         buttonGame.classList.replace("tableButton", "button-disabled");
     }
+    const easterEggButton = document.getElementById('easterEggButton');
+    if (easterEggButton) {
+        easterEggButton.disabled = true; // Disable the button
+    }
 }
 // Function to handle cell click events
 function turnACell(e) {
@@ -160,10 +152,13 @@ function turnACell(e) {
     generateSound(stateCell);
     generateNewNotification(stateCell)
     e.target.innerText = stateCell; // Change the button's text to reflect its state
-
+    // Calcula el nuevo puntaje basándose en el estado del juego
+    score = getScore(score, stateCell);
+    updateScoreDisplay(score); // Actualiza el marcador en la pantalla
     // If the state is "victory", disable all buttons and generate new buttons
     if (stateCell === "victory") {
-        disableTableIfVictory(buttons);
+        disableTableIfVictory();
+        stopTimer(); // Detener el cronómetro
         generateRankingAndHomeButtons();
     }
 }
@@ -193,11 +188,19 @@ function generateRankingAndHomeButtons() {
     buttonHall.addEventListener("click", function () {
         window.location.href = "ranking.php"; // Redirect to ranking.php
     });
+    // Create the "Guardar Record" button
+    let buttonSaveRecord = document.createElement("button");
+    buttonSaveRecord.innerText = "Guardar Record"; // Set the button text for save record
+
+    // Add an event listener to open the popup for saving record when clicked
+    buttonSaveRecord.addEventListener("click", function () {
+        openModal(); // Llama a la función para abrir el modal
+    });
 
     // Append the buttons to the new div
     newDiv.appendChild(buttonHome);
     newDiv.appendChild(buttonHall);
-
+    newDiv.appendChild(buttonSaveRecord);
     // Append the new div to the scoreboard container
     scoreBoard.appendChild(newDiv);
 }
@@ -304,3 +307,193 @@ function generateSound(inputOfGame) {
     }
 
 }
+
+// Función para mostrar la ventana emergente.
+function openModal() {
+    var modal = document.getElementById("popup"); // Obtiene el modal
+    modal.style.display = "flex"; // Muestra el modal
+}
+
+
+//Pau Score and Timer
+
+let score = 0; // Puntaje inicial
+let startTime;
+let timerInterval;
+let elapsedTime = 0; // Variable para almacenar el tiempo transcurrido
+
+// Formatear el tiempo
+function formatTime(ms) {
+    let seconds = Math.floor(ms / 1000) % 60;
+    let minutes = Math.floor(ms / (1000 * 60)) % 60;
+    let hours = Math.floor(ms / (1000 * 60 * 60));
+
+    // Agregar ceros a la izquierda
+    hours = (hours < 10) ? "0" + hours : hours;
+    minutes = (minutes < 10) ? "0" + minutes : minutes;
+    seconds = (seconds < 10) ? "0" + seconds : seconds;
+
+    return `${hours}:${minutes}:${seconds}`;
+}
+
+// Iniciar cronómetro cuando se carga la página
+window.onload = function () {
+    startTime = new Date().getTime(); // Tiempo de inicio
+    timerInterval = setInterval(function () {
+        let currentTime = new Date().getTime();
+        let elapsedTime = currentTime - startTime;
+        document.querySelector("#chronometer").textContent = formatTime(elapsedTime);
+        //document.querySelector("#chronometer").style.color = "#3b240b"; 
+
+    }, 1000); // Actualizar cada segundo
+};
+
+// Función para obtener el tiempo transcurrido en segundos
+function getElapsedTimeInSeconds() {
+    return Math.floor(elapsedTime / 1000); // Devuelve el tiempo en segundos
+}
+
+// Función para detener el cronómetro
+function stopTimer() {
+    clearInterval(timerInterval); // Detener el cronómetro
+}
+
+
+//para ver tiempo transcurrido
+setInterval(() => {
+    console.log("Tiempo transcurrido en segundos: " + getElapsedTimeInSeconds());
+}, 5000); // Muestra el tiempo cada 5 segundos
+
+
+
+
+// Detener cronómetro cuando la página se cierra o se cambia de pestaña
+window.onbeforeunload = function () {
+    clearInterval(timerInterval);
+};
+
+
+
+// funcion para actualizar el marcador con la nueva cifra
+function updateScoreDisplay(newScore) {
+    //document.getElementById("scoreDisplay").textContent = newScore;
+    document.getElementById("scoreDisplay").textContent = String(newScore).padStart(5, '0');//siempre tendra 5 cifras
+}
+
+
+//funcion para carcular puntuacion
+function getScore(currentScore, message) {
+    let score = currentScore;
+    let time = getElapsedTimeInSeconds()
+    let counter = 0;
+
+    if (message === 'water') {
+        if (time <= 300) {
+            score -= 4
+            counter = 0
+
+        } else {
+            score -= 2
+
+        }
+        counter = 0; // Reiniciar combo en caso de fallo
+    } else if (message === 'touched') {
+        counter++;
+        if (time <= 300) {
+            if (counter != 0) {
+                score += 30 * counter
+            } else {
+                score += 30
+            }
+        } else {
+            if (counter != 0) {
+                score += 20 * counter
+            } else {
+                score += 20
+            }
+        }
+    } else if (message === "sunken") {
+        if (time <= 300) {
+            score += 1000
+
+        } else {
+            score += 100
+        }
+    } else if (message === "victory") {
+        if (time <= 600) {
+            score += 5000
+        }
+
+    }
+
+    return Math.max(0, score);
+}
+
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    // Obtener elementos del DOM
+    var modal = document.getElementById("popup"); // El modal principal
+    var ow = document.getElementById("openWindows"); // El botón que abre el modal
+    var span = document.getElementsByClassName("close")[0]; // El botón de cierre (X)
+
+
+    // Cerrar el modal cuando se hace clic en la "X"
+    span.onclick = function () {
+        modal.style.display = "none"; // Ocultar el modal
+        clearForm(); // Limpiar el formulario al cerrar el modal
+    };
+
+    // Cerrar el modal al hacer clic fuera del contenido del modal
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none"; // Ocultar el modal si se hace clic fuera
+            clearForm(); // Limpiar el formulario al cerrar el modal
+        }
+    };
+
+    // Añadir el listener para el envío del formulario
+    document.getElementById('myForm').addEventListener('submit', function (e) {
+        e.preventDefault(); // Prevenir el envío del formulario por defecto
+
+        const name = document.getElementById('name').value; // Captura el nombre ingresado por el usuario
+        const score = parseInt(document.getElementById('scoreDisplay').textContent); // Obtener el puntaje del marcador
+
+        const longNameMessage = document.getElementById('longName');
+        longNameMessage.style.display = 'none'; // Limpiar mensaje anterior
+
+        // Validar longitud del nombre
+        if (name.length < 3 || name.length > 14) {
+            longNameMessage.textContent = "El nom ha de tenir entre 3 i 14 caràcters.";
+            longNameMessage.style.display = 'block'; // Mostrar el mensaje de error
+        } else {
+            // Crear un objeto FormData para enviar el nombre y el puntaje al PHP
+            const formData = new FormData();
+            formData.append('name', name);
+            formData.append('score', score);
+
+            // Enviar los datos al PHP mediante fetch
+            fetch('game.php', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.text())
+                .then(data => {
+                    console.log('Respuesta del servidor:', data);
+                    // Cerrar el modal después de guardar
+                    modal.style.display = "none";
+                    clearForm(); // Limpiar formulario después de enviar
+                })
+                .catch(error => {
+                    console.error('Error al guardar el score:', error);
+                });
+        }
+    });
+
+    // Función para limpiar el formulario
+    function clearForm() {
+        document.getElementById('myForm').reset(); // Limpia todos los campos del formulario
+        const longNameMessage = document.getElementById('longName');
+        longNameMessage.style.display = 'none'; // Oculta el mensaje de error
+    }
+});
