@@ -54,6 +54,7 @@ Els botons que conformen la taula de joc tenen com a fons la imatge d'un jerogl�
 
 
 Per a les cel·les que indiquen les files i els números hem posat una cenefa que també imita la fusta:
+
 <img width="59" alt="Captura de pantalla 2024-10-16 a las 6 07 28 p  m" src="https://github.com/user-attachments/assets/be0c9732-d751-4bc9-a6f8-6b35c6f9e9ae">
 
 Per a les notificacions hem utilitzat els colors vermell, blau, verd i groc depenent del seu tipus (Error, advertència...).
