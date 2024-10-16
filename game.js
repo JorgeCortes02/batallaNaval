@@ -7,7 +7,7 @@ var selectesHorders = [0, 0, 0, 0];
 const buttons = document.getElementsByClassName("tableButton");
 
 //Array with the game sounds
-const gameSounds = [new Audio('../Sounds/water1.mp3'), new Audio('../Sounds/victory.mp3'), new Audio('../Sounds/perfect.mp3'), new Audio('../Sounds/gameover.mp3'), new Audio('../Sounds/zombie.mp3'), new Audio('../Sounds/IndianaJonesTheme.mp3')];
+const gameSounds = [new Audio('../sounds/water1.mp3'), new Audio('../sounds/victory.mp3'), new Audio('../sounds/perfect.mp3'), new Audio('../sounds/gameover.mp3'), new Audio('../sounds/zombie.mp3'), new Audio('../sounds/IndianaJonesTheme.mp3')];
 
 
 // Wait for the DOM to fully load before executing the script
@@ -203,7 +203,7 @@ function disableTableIfVictory() {
 // Function to handle cell click events
 function turnACell(e) {
     const value = e.target.value; // Get the value of the clicked button
-    stateCell = "victory"//sumFoundPositions(value); // This variable will hold the state of the cell (e.g., victory)
+    stateCell = sumFoundPositions(value); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
 
     // Change the class from "tableButton" to "button-disabled"
     e.target.classList.replace("tableButton", "button-disabled");

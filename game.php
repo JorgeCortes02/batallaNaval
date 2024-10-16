@@ -23,7 +23,7 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
 
 
 
-    $openTXT = fopen("../TXT/ranking.txt", "a");
+    $openTXT = fopen("ranking.txt", "a");
 
 
 
@@ -53,9 +53,9 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game</title>
-    <link rel="stylesheet" type="text/css" href="../CSS/styles.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
-    <script src="../JS/game.js"></script>
+    <script src="game.js"></script>
 </head>
 
 <body class="page-game">
@@ -506,11 +506,11 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
 
             <div class="time-marker">
                 <div class="time">
-                    <img id="clock" src="../IMG/tiempo-pasado.png" alt="Icono de un reloj" width="30px" height="30px">
+                    <img id="clock" src="../Images/tiempo-pasado.png" alt="Icono de un reloj" width="30px" height="30px">
                     <time id="chronometer" datetime="clock">00:00:00</time>
                 </div>
                 <div class="marker">
-                    <img id="arrow" src="../IMG/flecha-de-diana.png" alt="diana" width="30px" height="30px">
+                    <img id="arrow" src="../Images/flecha-de-diana.png" alt="diana" width="30px" height="30px">
                     <p id="scoreDisplay">00000</p>
                 </div>
 

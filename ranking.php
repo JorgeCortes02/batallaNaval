@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hall of fame</title>
-    <link rel="stylesheet" type="text/css" href="../CSS/styles.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
@@ -16,7 +16,7 @@
     // READ FILE AND LOAD PLAYER DATA
     
     $playersRecords = [];
-    $rankingPathFile = "../TXT/ranking.txt";
+    $rankingPathFile = "ranking.txt";
     
     if (file_exists($rankingPathFile)) { // check if file exists
         $rankingFile = fopen($rankingPathFile, "r"); // load file
