@@ -106,6 +106,7 @@ El menú principal conté un marc que actúa com a contenidor dels següents ele
 - Contenidor dels botons: contindrà els botons que redigirán a les següents págines:
   - Joc: redirigirà al game.php
   - Hall of fame: redirigirà al ranking.php
+
 ![image](https://github.com/user-attachments/assets/d80a05df-cec2-40b6-ac0e-f1a4a84cbad8)
 
 ## Game: El joc
@@ -122,8 +123,10 @@ Situat a la meitat dreta, contindrà tots els elements informatius de la partida
 Inicialment contindrà, des de l’inici de la partida: 
 - Títol del joc
 - El cronòmetre. 
-- La puntuació de la partida. 
+- La puntuació de la partida.
+  
 Posteriorment, una vegada acaba la partida, sortiran els següents botons:
+
 - ÍNDEX: redirigirà a index.php
 - HALL OF FAME: redirigirà a ranking.php
 - GUARDAR RECORD: en el cas que el jugador vulgui guardar la seva puntuació al ranking, li donarà click al botó i s’obrirá el recuadre que conté el títol d’introducció del nom, el textBox on introduirà el nom, el possible error si s’introdueix nom erroni i el botó de guardar. 
@@ -145,7 +148,7 @@ En el cas que no hi hagi paginació, al centre inferior es trobarà el botó per
 
 En el cas que si hi hagi paginació, a la part esquerra apareixerà el botó de retorn al index.php, i a la dreta, els botons de paginació. 
 
-![Uploading image.png…]()
+![image](https://github.com/user-attachments/assets/e00cb4eb-98e2-440d-b462-a13f9cf7fbdf)
 
 # Look and Feel
 
