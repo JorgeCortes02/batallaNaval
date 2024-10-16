@@ -94,9 +94,58 @@ Obre el teu navegador i navega a [http://localhost:8000/PHP/index](http://localh
 
 - **Desenvolupadors**: Pau Gracia, Jorge Cortes, William Sargisson.
 
+# Wireframe
+El diferents elements del projecte es distribuiran tal i com s’especifica en aquest Wireframe. Tot i que la distribució por canviar de pantalla a pantalla, sempre es compartiran la següent característica:
+- El fons de pantalla sempre serà la imatge de les esfinx.
+- Les notificacions ocuparan el terç dret de la pantalla. 
 
+## Index.php: el menú principal
+El menú principal conté un marc que actúa com a contenidor dels següents elements:
+- Títol: serà el nom del joc.
+- Descripció: una descripció utilitzada de forma informativa i comercial.
+- Contenidor dels botons: contindrà els botons que redigirán a les següents págines:
+  - Joc: redirigirà al game.php
+  - Hall of fame: redirigirà al ranking.php
+![image](https://github.com/user-attachments/assets/d80a05df-cec2-40b6-ac0e-f1a4a84cbad8)
 
+## Game: El joc
+La pantalla de joc estarà formada per dos grans elements:  la taula de joc i el taulell informatiu.
 
+### Taula de joc
+Situat en la meitat esquerra, contindrà totes les cel·les amb les següents característiques:
+- L’extrem superior contindrà els números de columna
+- L’extrem esquerra tindrà les lletres que corresponen a les files. 
+- El 10 x 10 interior contindrà tots els botons amb els que els jugadors interactuaran.
+
+### Taulell informatiu
+Situat a la meitat dreta, contindrà tots els elements informatius de la partida. 
+Inicialment contindrà, des de l’inici de la partida: 
+- Títol del joc
+- El cronòmetre. 
+- La puntuació de la partida. 
+Posteriorment, una vegada acaba la partida, sortiran els següents botons:
+- ÍNDEX: redirigirà a index.php
+- HALL OF FAME: redirigirà a ranking.php
+- GUARDAR RECORD: en el cas que el jugador vulgui guardar la seva puntuació al ranking, li donarà click al botó i s’obrirá el recuadre que conté el títol d’introducció del nom, el textBox on introduirà el nom, el possible error si s’introdueix nom erroni i el botó de guardar. 
+
+![image](https://github.com/user-attachments/assets/5fdc4f9c-630f-46bf-b64c-eeffa135d88c)
+
+## Ranking.php
+El ranking estarà format per un contenidor que contindrà tots els elements.
+
+A la part superior, estarà el títol de la pantalla.
+
+Al centre, ocupant la major part del contenidor, es trobarà la taula, amb els diferents elements i la corresponent informació. La informació a l’interior, tret el els títols de la columna que son sticky, tindrà barra per poder baixar i pujar pels diferents registres.
+
+A la part inferior, es trobarà el contenidor de botons. Aquest disseny canvia segons si hi ha paginació (quan es superen els 25 registres).
+
+En el cas que no hi hagi paginació, al centre inferior es trobarà el botó per anar al index.php.
+
+![image](https://github.com/user-attachments/assets/996e0728-b801-4f7c-bc06-f2863c9b4100)
+
+En el cas que si hi hagi paginació, a la part esquerra apareixerà el botó de retorn al index.php, i a la dreta, els botons de paginació. 
+
+![Uploading image.png…]()
 
 # Look and Feel
 
