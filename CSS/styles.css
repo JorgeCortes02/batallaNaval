@@ -1,4 +1,5 @@
-/* FONDOS DE PANTALLA ----------------------*/
+/* BASIC DISPLAY CONFIGURATION ----------------------*/
+
 html,
 body {
 
@@ -29,13 +30,29 @@ body.page-ranking {
 
 }
 
+/* REUSABLE ----> Yellow box */
+.yellowBox {
+    background: linear-gradient(135deg, #d4af37, #e5c18a);
+    border: 5px double rgb(59, 36, 11);
+    border-radius: 25px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+
+}
+
+/* REUSABLE ----> Black box */
+
+.blackBox {
+    border: 5px double #d4af37;
+    background-color: rgba(8, 8, 8, 0.5);
+
+}
+
+/* ------------------------------ */
 
 
 
 /* --------------------------------------------*/
 /*CSS Notification Sistem*/
-
-
 
 #notificationsDiv {
     position: fixed;
@@ -68,7 +85,7 @@ body.page-ranking {
     /* Desplaza a su posición visible */
 }
 
-/* Elements page game*/
+/* ELEMENTS OF PAGE GAME */
 
 /*Warning in case JS disabled*/
 .page-game .warning {
@@ -144,6 +161,7 @@ body.page-ranking {
     border: 1px solid red;
 }
 
+
 /* EASTER EGG STYLING */
 
 body.page-game #easterEggButton {
@@ -239,6 +257,7 @@ body.page-game #easterEggMessageBox div.easterEggMessageBoxTextWrapper button:ho
     box-shadow: inset 0px 6px 10px rgba(0, 0, 0, 0.5), 0px 7px 12px rgba(0, 0, 0, 0.7);
 }
 
+
 /* Styles of the div that contains the table and the information div*/
 .page-game .PrincipalDiv {
 
@@ -252,26 +271,6 @@ body.page-game #easterEggMessageBox div.easterEggMessageBoxTextWrapper button:ho
     align-items: center;
 
 }
-
-
-/* REUSABLE ----> Yellow box */
-.yellowBox {
-    background: linear-gradient(135deg, #d4af37, #e5c18a);
-    border: 5px double rgb(59, 36, 11);
-    border-radius: 25px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
-
-}
-
-/* REUSABLE ----> Black box */
-
-.blackBox {
-    border: 5px double #d4af37;
-    background-color: rgba(8, 8, 8, 0.5);
-
-}
-
-
 
 /*Style of the information div*/
 .page-game .scoreboard {
@@ -292,28 +291,6 @@ body.page-game #easterEggMessageBox div.easterEggMessageBoxTextWrapper button:ho
 
     display: block;
 }
-
-
-
-body.page-index div.main_container {
-
-    width: 45%;
-    height: 60%;
-
-    padding: 1.75%;
-    color: rgb(59, 36, 11);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    overflow: hidden;
-
-}
-
-
 
 /*Style for table buttoms where this are disabled*/
 .page-game .button-disabled {
@@ -355,12 +332,13 @@ body.page-index div.main_container {
     background: rgb(59, 36, 11);
     border: 3px solid rgb(59, 36, 11);
     border-radius: 12px;
+    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.6);
+
     color: white;
     font-size: 14px;
     font-family: 'Cinzel', serif;
     font-weight: bold;
 
-    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.6);
     cursor: pointer;
     width: 30%;
     height: 50px;
@@ -372,345 +350,18 @@ body.page-index div.main_container {
     background: #7a6a55;
     border: 3px solid #7a6a55;
     border-radius: 12px;
-
+    box-shadow: inset 0px 6px 10px rgba(0, 0, 0, 0.5), 0px 7px 12px rgba(0, 0, 0, 0.7);
 
     color: white;
     font-size: 14px;
     font-family: 'Cinzel', serif;
     font-weight: bold;
-    box-shadow: inset 0px 6px 10px rgba(0, 0, 0, 0.5), 0px 7px 12px rgba(0, 0, 0, 0.7);
+
     cursor: pointer;
     width: 30%;
     height: 50px;
     text-align: center;
     margin: 0 auto;
-}
-
-
-/* INDEX ------------------------------------ */
-
-
-body.page-index div.main_container h1 {
-
-    text-align: center;
-    font-size: 3.8rem;
-    margin: 1.5%;
-
-}
-
-
-body.page-index div.main_container div.button_container {
-
-    display: flex;
-    /* border: 1px solid black; */
-
-
-    margin: 0 auto;
-    margin-top: 2.5%;
-    width: 90%;
-
-}
-
-body.page-index div.main_container div.button_container .buttonActive:hover {
-
-    background: rgb(59, 36, 11);
-    border: 3px solid #7a6a55;
-    border-radius: 12px;
-
-
-    color: #ffffff;
-    font-size: 14px;
-    font-family: 'Cinzel', serif;
-    font-weight: bold;
-
-    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.6);
-    cursor: pointer;
-    width: 100%;
-    height: 60px;
-    text-align: center;
-    margin: 0 auto;
-
-    box-shadow: inset 0px 6px 10px rgba(0, 0, 0, 0.5), 0px 7px 12px rgba(0, 0, 0, 0.7);
-}
-
-
-body.page-index div.main_container div.button_container .buttonActive {
-
-    background: rgb(59, 36, 11);
-    border: 3px solid #7a6a55;
-    border-radius: 12px;
-    color: #ffffff;
-    font-size: 14px;
-    font-family: 'Cinzel', serif;
-    font-weight: bold;
-
-    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.6);
-    cursor: pointer;
-    width: 100%;
-    height: 60px;
-    text-align: center;
-    margin: 0 auto;
-}
-
-body.page-index div.main_container div.button_container .aDisabled {
-
-    width: 30%;
-    height: 50px;
-    margin: 0 auto;
-    pointer-events: none;
-    /* Desactivar eventos */
-    cursor: not-allowed;
-}
-
-body.page-index div.main_container div.button_container .aActive {
-
-    width: 30%;
-    height: 50px;
-    margin: 0 auto;
-
-}
-
-/*Button disabled*/
-body.page-index div.main_container div.button_container .button-disabled {
-
-    background: gray;
-    border: 3px solid #7a6a55;
-    border-radius: 12px;
-    background-image: url('https://www.transparenttextures.com/patterns/concrete-wall.png');
-    background-size: cover;
-    color: #787676;
-    font-size: 14px;
-    text-align: center;
-    font-family: 'Cinzel', serif;
-    font-weight: bold;
-    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.6);
-    width: 100%;
-    height: 60px;
-}
-
-
-
-
-
-/*Warning in case JS disabled*/
-body.page-index .warning {
-
-    background-color: red;
-    padding: 20px;
-    color: white;
-    border-radius: 15px;
-    font-weight: bold;
-}
-
-/* RANKING CSS */
-
-
-/* Black box styling*/
-body.page-ranking div.main_container {
-
-    /* Set space occupied by it */
-    width: 70%;
-    height: 80%;
-    padding: 3%;
-
-    display: flex;
-    flex-direction: column;
-}
-
-/* Hall of fame header*/
-body.page-ranking div.main_container>h1 {
-    padding: 5px 0px 5px;
-    margin: 0;
-    text-align: center;
-}
-
-/* Wrapper to hide the scrollbar overflow od the table */
-body.page-ranking div.main_container div.table_wrapper {
-
-    /* Space styling */
-    height: 90%;
-    overflow: hidden;
-    /* Hide overflow to avoid scrollbars */
-
-    /* Font styling for all the table */
-    text-align: center;
-    font-size: 1.25rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-
-}
-
-/* TABLE CONTAINER THAT IS INSIDE THE TABLE WRAPPER */
-body.page-ranking div.main_container div.table_wrapper div.table_container {
-
-    height: 100%;
-    /* to fill de container */
-
-    overflow-y: auto;
-    /* Allow vertical scrolling */
-    overflow-x: hidden;
-    /* Hide horizontal scrolling if not needed */
-
-    border-radius: 20px;
-    /* so it fits correctly */
-
-}
-
-/* TABLE STYLING */
-body.page-ranking div.main_container div.table_container table {
-
-    width: 100%;
-    /* To take all available horizontal space from the container */
-    border-collapse: collapse;
-    table-layout: fixed;
-    /* same column width*/
-}
-
-/* PADDING FOR DATA */
-body.page-ranking div.main_container div.table_container table tbody tr td {
-
-    padding: 10px;
-
-}
-
-/* HEADERS OF THE TABLE */
-body.page-ranking div.main_container div.table_container table thead tr th {
-
-    padding: 10px;
-
-    /* Font styling */
-    font-size: 1.5rem;
-
-    background: #b3942c;
-
-    /* Sticky so it follows when scrolling down the table data */
-    position: sticky;
-    top: 0;
-    z-index: 1;
-
-}
-
-body.page-ranking div.main_container div.table_container table tbody tr td.empty_records {
-    padding-top: 12%;
-}
-
-body.page-ranking div.main_container ::-webkit-scrollbar {
-    background-color: yellow;
-}
-
-body.page-ranking div.main_container ::-webkit-scrollbar-thumb {
-    background-color: #836445;
-    box-shadow: 0px 7px 12px rgba(0, 0, 0, 0.5);
-
-}
-
-body.page-ranking div.main_container ::-webkit-scrollbar-track {
-    box-shadow: inset 0px 10px 14px rgba(0, 0, 0, 0.5);
-    background-color: #6d3e00;
-    padding: 5px;
-
-
-}
-
-/* BUTTONS AND NUMBER CONTAINER STYLING */
-
-/* both empty and pagination containers*/
-body.page-ranking div.main_container>div {
-    margin-top: 3%;
-    height: 10%;
-}
-
-/* IF NUMBER SECTION IS EMPTY */
-
-body.page-ranking div.main_container div.buttons_container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* IF NUMBER SECTION IS NOT EMPTY*/
-
-body.page-ranking div.main_container div.buttonsAndPagination_container {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-
-/* Buttons that are not pagination */
-body.page-ranking div.main_container>div>a>button {
-
-    width: 100%;
-    height: 60px;
-
-    background: rgb(59, 36, 11);
-    border: 3px solid #7a6a55;
-    border-radius: 12px;
-    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.6);
-
-    color: #ffffff;
-    font-size: 14px;
-    font-family: 'Cinzel', serif;
-    font-weight: bold;
-
-    cursor: pointer;
-
-    text-align: center;
-    padding: 20px;
-
-}
-
-body.page-ranking div.main_container>div>a>button:hover {
-
-    box-shadow: inset 0px 6px 10px rgba(0, 0, 0, 0.5), 0px 7px 12px rgba(0, 0, 0, 0.7);
-}
-
-
-/* Number section container */
-body.page-ranking div.main_container div.number_section {
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Number section anchors */
-body.page-ranking div.main_container div.number_section a {
-
-    padding: 10px 25px 10px;
-    margin: 0px 5px 0px;
-
-    cursor: pointer;
-
-    background: rgb(59, 36, 11);
-    border: 3px solid #7a6a55;
-    border-radius: 12px;
-    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.6);
-
-    /* Font styling */
-    text-decoration: none;
-    color: #ffffff;
-    font-size: 18px;
-    font-family: 'Cinzel', serif;
-    font-weight: bold;
-}
-
-body.page-ranking div.main_container div.number_section a:hover {
-
-    box-shadow: inset 0px 6px 10px rgba(0, 0, 0, 0.5), 0px 7px 12px rgba(0, 0, 0, 0.7);
-
-}
-
-/* Current page styling */
-body.page-ranking div.main_container div.number_section a.current_page {
-
-    box-shadow: inset 0px 10px 14px rgba(0, 0, 0, 0.7), 0px 9px 14px rgba(0, 0, 0, 0.7);
-
-    background: #a8a5a2;
-    color: white;
-    pointer-events: none;
-    /* Disable mouse interactions */
-    cursor: not-allowed;
-    /* Change cursor to indicate it's not clickable */
-
 }
 
 /*cronometro------------------------------------------------------------------------*/
@@ -765,100 +416,7 @@ body.page-ranking div.main_container div.number_section a.current_page {
 
 }
 
-/* EASTER EGG STYLING */
 
-body.page-game #easterEggButton {
-
-    width: 100%;
-    height: 100%;
-    background: none;
-    border: none;
-}
-
-/* this contains the image */
-body.page-game #easterEggMessageBox {
-
-    background: url('../IMG/easterEggImg.jpeg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    /* center image */
-
-    width: 40%;
-    height: 30%;
-
-    padding: 20px;
-
-    /* center in screen */
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1;
-
-    color: white;
-
-    border: 3px solid #8b4513;
-    border-radius: 25px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
-    text-align: center;
-
-    /* center content-wrapper */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-
-    overflow: hidden;
-}
-
-/* this contains the text and button with opacity*/
-body.page-game #easterEggMessageBox div.easterEggMessageBoxTextWrapper {
-
-    width: 80%;
-    height: 80%;
-
-    padding: 20px;
-
-    /* to give opacity */
-    background: rgba(0, 0, 0, 0.7);
-    border: 3px solid #8b4513;
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-
-    overflow: hidden;
-
-}
-
-body.page-game #easterEggMessageBox div.easterEggMessageBoxTextWrapper p {
-    margin: 10px 0;
-    font-size: 18px;
-}
-
-body.page-game #easterEggMessageBox div.easterEggMessageBoxTextWrapper button {
-
-    width: 50%;
-    height: 40px;
-    margin-top: 20px;
-
-    background: #7a6a55;
-    border: 3px solid #7a6a55;
-    border-radius: 12px;
-    background-image: url('https://www.transparenttextures.com/patterns/concrete-wall.png');
-    background-size: cover;
-    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.6);
-
-    color: #ffffff;
-    font-family: 'Cinzel', serif;
-    font-size: 14px;
-    font-weight: bold;
-
-    cursor: pointer;
-}
-
-body.page-game #easterEggMessageBox div.easterEggMessageBoxTextWrapper button:hover {
-    box-shadow: inset 0px 6px 10px rgba(0, 0, 0, 0.5), 0px 7px 12px rgba(0, 0, 0, 0.7);
-}
 
 /*marcador de puntos---------------------------------------------------------------------------------*/
 
@@ -1039,4 +597,322 @@ body.page-game #easterEggMessageBox div.easterEggMessageBoxTextWrapper button:ho
 .windowsForm button:hover {
     background-color: #555555;
     /* Color cuando el mouse está sobre el botón */
+}
+
+
+/* INDEX ------------------------------------ */
+
+/* THIS + .yellowBox*/
+body.page-index div.main_container {
+
+    width: 45%;
+    height: 60%;
+
+    padding: 1.75%;
+    color: rgb(59, 36, 11);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    overflow: hidden;
+
+}
+
+/* Lost in the sands header */
+body.page-index div.main_container h1 {
+
+    text-align: center;
+    font-size: 3.8rem;
+    margin: 1.5%;
+
+}
+
+/* Container that has game + hall of fame button */
+body.page-index div.main_container div.button_container {
+
+    display: flex;
+    margin: 0 auto;
+    margin-top: 2.5%;
+    width: 90%;
+
+}
+
+body.page-index div.main_container div.button_container .buttonActive {
+
+    background: rgb(59, 36, 11);
+    border: 3px solid #7a6a55;
+    border-radius: 12px;
+
+    color: #ffffff;
+    font-size: 14px;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+
+    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.6);
+    cursor: pointer;
+    width: 100%;
+    height: 60px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+body.page-index div.main_container div.button_container .buttonActive:hover {
+
+    box-shadow: inset 0px 6px 10px rgba(0, 0, 0, 0.5), 0px 7px 12px rgba(0, 0, 0, 0.7);
+}
+
+body.page-index div.main_container div.button_container .aDisabled {
+
+    width: 30%;
+    height: 50px;
+    margin: 0 auto;
+    pointer-events: none;
+    /* Desactivar eventos */
+    cursor: not-allowed;
+}
+
+body.page-index div.main_container div.button_container .aActive {
+
+    width: 30%;
+    height: 50px;
+    margin: 0 auto;
+
+}
+
+/*Button disabled*/
+body.page-index div.main_container div.button_container .button-disabled {
+
+    background: gray;
+    border: 3px solid #7a6a55;
+    border-radius: 12px;
+    background-image: url('https://www.transparenttextures.com/patterns/concrete-wall.png');
+    background-size: cover;
+    color: #787676;
+    font-size: 14px;
+    text-align: center;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.6);
+    width: 100%;
+    height: 60px;
+}
+
+/*Warning in case JS disabled*/
+body.page-index .warning {
+
+    background-color: red;
+    padding: 20px;
+    color: white;
+    border-radius: 15px;
+    font-weight: bold;
+}
+
+
+/* RANKING CSS */
+
+/* Black box styling: contains header + table container + button container*/
+body.page-ranking div.main_container {
+
+    /* Set space occupied by it */
+    width: 70%;
+    height: 80%;
+    padding: 3%;
+
+    display: flex;
+    flex-direction: column;
+}
+
+/* Hall of fame header*/
+body.page-ranking div.main_container>h1 {
+    padding: 5px 0px 5px;
+    margin: 0;
+    text-align: center;
+}
+
+/* Wrapper to hide the scrollbar overflow of the table */
+body.page-ranking div.main_container div.table_wrapper {
+
+    /* Space styling */
+    height: 90%;
+    overflow: hidden;
+    /* Hide overflow of the scrollbar */
+
+    /* Font styling for all the table */
+    text-align: center;
+    font-size: 1.25rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+
+}
+
+/* Table container that is inside the table wrapper */
+body.page-ranking div.main_container div.table_wrapper div.table_container {
+
+    height: 100%;
+    /* to fill de container */
+    overflow-y: auto;
+    /* Allow vertical scrolling */
+    overflow-x: hidden;
+    border-radius: 20px;
+    /* so it fits its parent border-radius correctly */
+}
+
+/* Table styling */
+body.page-ranking div.main_container div.table_container table {
+
+    width: 100%;
+    /* To take all available horizontal space from the container */
+    border-collapse: collapse;
+    table-layout: fixed;
+    /* same column width */
+
+}
+
+/* HEADERS OF THE TABLE */
+body.page-ranking div.main_container div.table_container table thead tr th {
+
+    padding: 10px;
+    font-size: 1.5rem;
+    /* Font styling */
+    background: #b3942c;
+
+    /* Sticky so it follows when scrolling down the table data */
+    position: sticky;
+    top: 0;
+    z-index: 1;
+
+}
+
+/* PADDING FOR DATA */
+body.page-ranking div.main_container div.table_container table tbody tr td {
+
+    padding: 10px;
+
+}
+
+/* Padding of text if there's no data (so it seems it's at the center)*/
+body.page-ranking div.main_container div.table_container table tbody tr td.empty_records {
+    padding-top: 12%;
+}
+
+/* Scrollbar config of the table overflow */
+body.page-ranking div.main_container ::-webkit-scrollbar {
+    background-color: yellow;
+}
+
+body.page-ranking div.main_container ::-webkit-scrollbar-thumb {
+    background-color: #836445;
+    box-shadow: 0px 7px 12px rgba(0, 0, 0, 0.5);
+
+}
+
+body.page-ranking div.main_container ::-webkit-scrollbar-track {
+    box-shadow: inset 0px 10px 14px rgba(0, 0, 0, 0.5);
+    background-color: #6d3e00;
+    padding: 5px;
+}
+
+/* BUTTONS AND NUMBER CONTAINER STYLING */
+
+/* Affects to both empty (.buttons_container) and pagination containers (.buttonsAndPagination_container)*/
+body.page-ranking div.main_container>div {
+    margin-top: 3%;
+    height: 10%;
+}
+
+/* IF NUMBER SECTION IS EMPTY */
+
+body.page-ranking div.main_container div.buttons_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* IF NUMBER SECTION IS NOT EMPTY*/
+
+body.page-ranking div.main_container div.buttonsAndPagination_container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+/* Buttons that are not pagination */
+body.page-ranking div.main_container>div>a>button {
+
+    width: 100%;
+    height: 60px;
+
+    background: rgb(59, 36, 11);
+    border: 3px solid #7a6a55;
+    border-radius: 12px;
+    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.6);
+
+    color: #ffffff;
+    font-size: 14px;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    text-align: center;
+    padding: 20px;
+
+}
+
+body.page-ranking div.main_container>div>a>button:hover {
+
+    box-shadow: inset 0px 6px 10px rgba(0, 0, 0, 0.5), 0px 7px 12px rgba(0, 0, 0, 0.7);
+}
+
+
+/* Number section container */
+body.page-ranking div.main_container div.number_section {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Number section anchors */
+body.page-ranking div.main_container div.number_section a {
+
+    padding: 10px 25px 10px;
+    margin: 0px 5px 0px;
+
+    cursor: pointer;
+
+    background: rgb(59, 36, 11);
+    border: 3px solid #7a6a55;
+    border-radius: 12px;
+    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.6);
+
+    /* Font styling */
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 18px;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+}
+
+body.page-ranking div.main_container div.number_section a:hover {
+
+    box-shadow: inset 0px 6px 10px rgba(0, 0, 0, 0.5), 0px 7px 12px rgba(0, 0, 0, 0.7);
+
+}
+
+/* Current page styling */
+body.page-ranking div.main_container div.number_section a.current_page {
+
+    box-shadow: inset 0px 10px 14px rgba(0, 0, 0, 0.7), 0px 9px 14px rgba(0, 0, 0, 0.7);
+
+    background: #a8a5a2;
+    color: white;
+    pointer-events: none;
+    /* Disable interaction */
+    cursor: not-allowed;
+    /* Change cursor to indicate it's not clickable */
+
+
 }
