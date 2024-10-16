@@ -26,6 +26,7 @@
   - Game.php: El Joc
     - Taula de joc
     - Taulell informatiu
+  - Ranking.php
 - **Look & Feel**
 
 
