@@ -127,9 +127,9 @@ Inicialment contindrà, des de l’inici de la partida:
   
 Posteriorment, una vegada acaba la partida, sortiran els següents botons:
 
-- ÍNDEX: redirigirà a index.php
-- HALL OF FAME: redirigirà a ranking.php
-- GUARDAR RECORD: en el cas que el jugador vulgui guardar la seva puntuació al ranking, li donarà click al botó i s’obrirá el recuadre que conté el títol d’introducció del nom, el textBox on introduirà el nom, el possible error si s’introdueix nom erroni i el botó de guardar. 
+- Índex: redirigirà a index.php
+- Hall of fame: redirigirà a ranking.php
+- Guardar record: en el cas que el jugador vulgui guardar la seva puntuació al ranking, li donarà click al botó i s’obrirá el recuadre que conté el títol d’introducció del nom, el textBox on introduirà el nom, el possible error si s’introdueix nom erroni i el botó de guardar. 
 
 ![image](https://github.com/user-attachments/assets/5fdc4f9c-630f-46bf-b64c-eeffa135d88c)
 
