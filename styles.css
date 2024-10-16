@@ -238,6 +238,10 @@ body.page-ranking {
     border: 1px solid red;
 }
 
+.page-game table .touch {
+
+    background-color: red;
+}
 
 /* EASTER EGG STYLING */
 
