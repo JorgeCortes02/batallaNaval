@@ -1,26 +1,3 @@
-git clone https://github.com/tu-usuari/perduts-a-la-sorra.git
-
-# 2. Configuració del Servidor Local:
-
-### Instal·lar PHP:
-És necessari instal·lar PHP i utilitzar el seu servidor web integrat. Ves a la pàgina oficial de PHP: [https://www.php.net/downloads.php](https://www.php.net/downloads.php) i descarrega la versió adequada per al teu sistema.
-
-### Començar el servidor integrat:
-Un cop PHP estigui instal·lat, obre una terminal i navega fins a la carpeta on hi ha el teu codi de PHP. Executa la següent comanda per iniciar el servidor:
-
-```bash
-php -S localhost:8000
-
-Això començarà un servidor local al port 8000. Pots accedir al teu lloc web a [http://localhost:8000/](http://localhost:8000/).
-
-Obre el teu navegador i navega a [http://localhost:8000/PHP/index](http://localhost:8000/PHP/index) per iniciar el joc.
-
-## Crèdits
-
-- **Desenvolupadors**: Pau Gracia, Jorge Cortes, William Sargisson.
-
-
-
 
 # Look and Feel
 
