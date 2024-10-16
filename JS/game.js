@@ -173,7 +173,7 @@ function generateRankingAndHomeButtons() {
 
     // Create the "Home" button
     let buttonHome = document.createElement("button");
-    buttonHome.innerText = "Inicio"; // Set the button text to "Inicio" (Home)
+    buttonHome.innerText = "Inici"; // Set the button text to "Inicio" (Home)
 
     // Create the "Hall of Fame" button
     let buttonHall = document.createElement("button");
@@ -412,7 +412,7 @@ function getScore(currentScore, message) {
                 score += 20
             }
         }
-    } else if (message === "sunken") {
+    } else if (message === "sunk") {
         if (time <= 300) {
             score += 1000
 
@@ -463,8 +463,8 @@ document.addEventListener("DOMContentLoaded", function () {
         longNameMessage.style.display = 'none'; // Limpiar mensaje anterior
 
         // Validar longitud del nombre
-        if (name.length < 3 || name.length > 14) {
-            longNameMessage.textContent = "El nom ha de tenir entre 3 i 14 caràcters.";
+        if (name.length < 3 || name.length > 30) {
+            longNameMessage.textContent = "El nom ha de tenir entre 3 i 30 caràcters.";
             longNameMessage.style.display = 'block'; // Mostrar el mensaje de error
         } else {
             // Crear un objeto FormData para enviar el nombre y el puntaje al PHP
