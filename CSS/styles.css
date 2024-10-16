@@ -236,12 +236,13 @@ body.page-ranking {
     background: rgb(59, 36, 11);
     border: 3px solid rgb(59, 36, 11);
     border-radius: 12px;
+    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.6);
+
     color: white;
     font-size: 14px;
     font-family: 'Cinzel', serif;
     font-weight: bold;
 
-    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.6);
     cursor: pointer;
     width: 30%;
     height: 50px;
@@ -253,13 +254,13 @@ body.page-ranking {
     background: #7a6a55;
     border: 3px solid #7a6a55;
     border-radius: 12px;
-
+    box-shadow: inset 0px 6px 10px rgba(0, 0, 0, 0.5), 0px 7px 12px rgba(0, 0, 0, 0.7);
 
     color: white;
     font-size: 14px;
     font-family: 'Cinzel', serif;
     font-weight: bold;
-    box-shadow: inset 0px 6px 10px rgba(0, 0, 0, 0.5), 0px 7px 12px rgba(0, 0, 0, 0.7);
+
     cursor: pointer;
     width: 30%;
     height: 50px;
@@ -640,6 +641,7 @@ body.page-index div.main_container div.button_container .buttonActive {
     background: rgb(59, 36, 11);
     border: 3px solid #7a6a55;
     border-radius: 12px;
+
     color: #ffffff;
     font-size: 14px;
     font-family: 'Cinzel', serif;
@@ -654,23 +656,6 @@ body.page-index div.main_container div.button_container .buttonActive {
 }
 
 body.page-index div.main_container div.button_container .buttonActive:hover {
-
-    background: rgb(59, 36, 11);
-    border: 3px solid #7a6a55;
-    border-radius: 12px;
-
-
-    color: #ffffff;
-    font-size: 14px;
-    font-family: 'Cinzel', serif;
-    font-weight: bold;
-
-    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.6);
-    cursor: pointer;
-    width: 100%;
-    height: 60px;
-    text-align: center;
-    margin: 0 auto;
 
     box-shadow: inset 0px 6px 10px rgba(0, 0, 0, 0.5), 0px 7px 12px rgba(0, 0, 0, 0.7);
 }
