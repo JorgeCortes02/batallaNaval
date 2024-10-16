@@ -32,8 +32,9 @@ Per al fons de la taula de joc hem utilitzat un fons que imita la fusta:
 ![fondo-madera](https://github.com/user-attachments/assets/f2f9af71-58bd-4378-9cce-d898f26fb231)
 
 Els botons segueixen l'estètica de colors marrons i grisos:
+![Uploading Captura de pantalla 2024-10-16 a las 6.08.07 p. m..png…]()
 
-![Uploading Captura de pantalla 2024-10-16 a las 6.08.01 p. m..png…]()
+
 
 Si el botó està desactivat, el color es torna gris:
 
