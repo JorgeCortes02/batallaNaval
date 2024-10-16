@@ -107,7 +107,7 @@ function generateNewNotification(typeNotification) {
     // Append the notification div to the notifications container
     notificationsDiv.appendChild(newNotificationDiv);
     setTimeout(() => {
-        newNotificationDiv.classList.add("show");
+        newNotificationDiv.classList.add("showNot");
     }, 0); // Asegúrate de añadir la clase inmediatamente
 
     // Set a timeout to start fading out the notification after 3 seconds
@@ -128,6 +128,65 @@ function generateNewNotification(typeNotification) {
     }, 4000); // Wait 3 seconds before starting to fade out
 }
 
+function notificationWarningsAndErrors(typeNotification, msg) {
+
+    // Create a new div element for the notification
+    let newNotificationDiv = document.createElement("div");
+    // Assign the 'notification' class for styling
+
+    // Create a new paragraph element for the notification text
+    let newText = document.createElement("p");
+    let typeMessage;
+    // Determine the notification message based on the type of notification
+    switch (typeNotification) {
+        case "error":
+            newNotificationDiv.setAttribute("class", "errorNot");
+            newText.innerHTML = "<span>" + typeNotification + ":</span> " + msg; // Error message
+            break;
+
+        case "success":
+            newText.innerHTML = "<span>" + typeNotification + ":</span> " + msg; // Error message
+            newNotificationDiv.setAttribute("class", "succesNot");
+
+            break;
+
+        case "warning":
+            newNotificationDiv.setAttribute("class", "warningNot");
+            newText.innerHTML = "<span>" + typeNotification + ":</span> " + msg; // Error message
+            break;
+
+        case "notice":
+            newNotificationDiv.setAttribute("class", "noticeNot");
+            newText.innerHTML = "<span>" + typeNotification + ":</span> " + msg; // Error message
+            break;
+
+    }
+
+    // Append the text element to the notification div
+    newNotificationDiv.appendChild(newText);
+    // Append the notification div to the notifications container
+    notificationsDiv.appendChild(newNotificationDiv);
+    setTimeout(() => {
+        newNotificationDiv.classList.add("showNot");
+    }, 0); // Asegúrate de añadir la clase inmediatamente
+
+    // Set a timeout to start fading out the notification after 3 seconds
+    setTimeout(() => {
+        // Gradually change the opacity to 0
+        let opacity = 1; // Initial opacity
+        const fadeOutInterval = setInterval(() => {
+            opacity -= 0.1; // Decrease opacity by 0.1
+            newNotificationDiv.style.opacity = opacity; // Set the new opacity
+
+            // If the opacity reaches 0, stop the interval and remove the element
+            if (opacity <= 0) {
+                clearInterval(fadeOutInterval); // Clear the interval to stop it
+                notificationsDiv.removeChild(newNotificationDiv); // Remove the notification from the DOM
+            }
+        }, 150); // Change opacity every 150 ms
+
+    }, 4000); // Wait 3 seconds before starting to fade out
+}
 
 // Function to disable all buttons when the game is won
 function disableTableIfVictory() {
@@ -151,6 +210,10 @@ function turnACell(e) {
     e.target.classList.replace("tableButton", "button-disabled");
     generateSound(stateCell);
     generateNewNotification(stateCell)
+    notificationWarningsAndErrors("error", "Es un mensaje de error")
+    notificationWarningsAndErrors("warning", "Es un mensaje de warning")
+    notificationWarningsAndErrors("notice", "Es un mensaje de notice")
+    notificationWarningsAndErrors("success", "Es un mensaje de succes")
     e.target.innerText = stateCell; // Change the button's text to reflect its state
     // Calcula el nuevo puntaje basándose en el estado del juego
     score = getScore(score, stateCell);

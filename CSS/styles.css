@@ -65,6 +65,11 @@ body.page-ranking {
 
 }
 
+#notificationsDiv span {
+    font-weight: bold;
+
+}
+
 .notification {
     background-color: rgb(59, 36, 11);
     color: white;
@@ -80,10 +85,82 @@ body.page-ranking {
     /* Comienza fuera de la pantalla */
 }
 
-.notification.show {
+.warningNot {
+    background-color: rgb(206, 219, 17);
+    color: white;
+    padding: 15px;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    height: 20px;
+    border-radius: 20px;
+    border: 5px double black;
+    opacity: 1;
+    /*Se encarga de la aparición en desplazamiento de las notificaciones*/
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    transform: translateX(100%);
+    /* Comienza fuera de la pantalla */
+}
+
+.succesNot {
+    background-color: rgb(55, 166, 7);
+    color: white;
+    padding: 15px;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    height: 20px;
+    border-radius: 20px;
+    border: 5px double black;
+    opacity: 1;
+
+    /*Se encarga de la aparición en desplazamiento de las notificaciones*/
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    transform: translateX(100%);
+    /* Comienza fuera de la pantalla */
+}
+
+.noticeNot {
+    background-color: rgb(16, 31, 202);
+    color: white;
+    padding: 15px;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    height: 20px;
+    border-radius: 20px;
+    border: 5px double black;
+    opacity: 1;
+
+    /*Se encarga de la aparición en desplazamiento de las notificaciones*/
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    transform: translateX(100%);
+    /* Comienza fuera de la pantalla */
+}
+
+.errorNot {
+    background-color: rgb(162, 32, 28);
+    color: white;
+    padding: 15px;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    height: 20px;
+    border-radius: 20px;
+    border: 5px double black;
+    opacity: 1;
+
+    /*Se encarga de la aparición en desplazamiento de las notificaciones*/
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    transform: translateX(100%);
+    /* Comienza fuera de la pantalla */
+}
+
+.showNot {
     transform: translateX(0);
     /* Desplaza a su posición visible */
 }
+
 
 /* ELEMENTS OF PAGE GAME */
 
@@ -606,7 +683,7 @@ body.page-game #easterEggMessageBox div.easterEggMessageBoxTextWrapper button:ho
 body.page-index div.main_container {
 
     width: 45%;
-    height: 60%;
+    height: auto;
 
     padding: 1.75%;
     color: rgb(59, 36, 11);
