@@ -27,17 +27,21 @@ Per al fons de pantalla hem utilitzat una imatge amb escultures egípcies.
 
 ![fondoPagina](https://github.com/user-attachments/assets/3bf4e3c1-081e-481b-a353-7b4c870c9bd0)
 
+
 Per al fons de la taula de joc hem utilitzat un fons que imita la fusta:
 
 ![fondo-madera](https://github.com/user-attachments/assets/f2f9af71-58bd-4378-9cce-d898f26fb231)
+
 
 Els botons segueixen l'estètica de colors marrons i grisos:
 
 <img width="192" alt="Captura de pantalla 2024-10-16 a las 6 08 07 p  m" src="https://github.com/user-attachments/assets/07cf5a83-472a-493a-8d61-9cc96c730c1f">
 
+
 Si el botó està desactivat, el color es torna gris:
 
 <img width="149" alt="Captura de pantalla 2024-10-16 a las 6 11 31 p  m" src="https://github.com/user-attachments/assets/d93929d6-c8ea-4920-87a3-f7f7410db3b2">
+
 
 Per als fons dels marcs informatius hem utilitzat colors daurats:
 
@@ -45,11 +49,12 @@ Per als fons dels marcs informatius hem utilitzat colors daurats:
 
 Els botons que conformen la taula de joc tenen com a fons la imatge d'un jeroglífic.
 
+
 <img width="75" alt="Captura de pantalla 2024-10-16 a las 6 07 47 p  m" src="https://github.com/user-attachments/assets/2f8b6f90-625e-4a6c-b0a8-b532b6db6138">
+
 
 Per a les cel·les que indiquen les files i els números hem posat una cenefa que també imita la fusta:
 <img width="59" alt="Captura de pantalla 2024-10-16 a las 6 07 28 p  m" src="https://github.com/user-attachments/assets/be0c9732-d751-4bc9-a6f8-6b35c6f9e9ae">
-
 
 Per a les notificacions hem utilitzat els colors vermell, blau, verd i groc depenent del seu tipus (Error, advertència...).
 
