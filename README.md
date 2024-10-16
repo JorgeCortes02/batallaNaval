@@ -69,6 +69,7 @@ Obre el teu navegador i navega a [http://localhost:8000/PHP/index](http://localh
 
 
 
+
 # Look and Feel
 
 La nostra intenció en desenvolupar aquest projecte era evocar una imatge que ens transportés a l'antic Egipte.  
@@ -93,35 +94,44 @@ Els colors utilitzats han estat:
 
 ## Imatge de fons de pantalla:
 
-Per al fons de pantalla hem utilitzat una imatge amb escultures egípcies.
+-Per al fons de pantalla hem utilitzat una imatge amb escultures egípcies.
 
 ![fondoPagina](https://github.com/user-attachments/assets/3bf4e3c1-081e-481b-a353-7b4c870c9bd0)
 
-Per al fons de la taula de joc hem utilitzat un fons que imita la fusta:
+
+-Per al fons de la taula de joc hem utilitzat un fons que imita la fusta:
 
 ![fondo-madera](https://github.com/user-attachments/assets/f2f9af71-58bd-4378-9cce-d898f26fb231)
 
-Els botons segueixen l'estètica de colors marrons i grisos:
 
-![Uploading Captura de pantalla 2024-10-16 a las 6.08.01 p. m..png…]()
+-Els botons segueixen l'estètica de colors marrons i grisos:
 
-Si el botó està desactivat, el color es torna gris:
+<img width="192" alt="Captura de pantalla 2024-10-16 a las 6 08 07 p  m" src="https://github.com/user-attachments/assets/07cf5a83-472a-493a-8d61-9cc96c730c1f">
 
-/Users/jorgecortes/Desktop/Captura de pantalla 2024-10-16 a las 6.11.31 p. m..png
 
-Per als fons dels marcs informatius hem utilitzat colors daurats:
-/Users/jorgecortes/Desktop/Captura de pantalla 2024-10-16 a las 6.08.27 p. m..png
+-Si el botó està desactivat, el color es torna gris:
 
-Els botons que conformen la taula de joc tenen com a fons la imatge d'un jeroglífic.
+<img width="149" alt="Captura de pantalla 2024-10-16 a las 6 11 31 p  m" src="https://github.com/user-attachments/assets/d93929d6-c8ea-4920-87a3-f7f7410db3b2">
 
-/Users/jorgecortes/Desktop/Captura de pantalla 2024-10-16 a las 6.07.47 p. m..png
 
-Per a les cel·les que indiquen les files i els números hem posat una cenefa que també imita la fusta:
-/Users/jorgecortes/Desktop/Captura de pantalla 2024-10-16 a las 6.07.28 p. m..png
+-Per als fons dels marcs informatius hem utilitzat colors daurats:
 
-Per a les notificacions hem utilitzat els colors vermell, blau, verd i groc depenent del seu tipus (Error, advertència...).
+<img width="783" alt="Captura de pantalla 2024-10-16 a las 6 08 27 p  m" src="https://github.com/user-attachments/assets/23df40c9-5abb-4bc2-8a1a-9572f07cdb20">
+
+
+-Els botons que conformen la taula de joc tenen com a fons la imatge d'un jeroglífic.
+
+
+<img width="75" alt="Captura de pantalla 2024-10-16 a las 6 07 47 p  m" src="https://github.com/user-attachments/assets/2f8b6f90-625e-4a6c-b0a8-b532b6db6138">
+
+
+-Per a les cel·les que indiquen les files i els números hem posat una cenefa que també imita la fusta:
+
+<img width="59" alt="Captura de pantalla 2024-10-16 a las 6 07 28 p  m" src="https://github.com/user-attachments/assets/be0c9732-d751-4bc9-a6f8-6b35c6f9e9ae">
+
+
+-Per a les notificacions hem utilitzat els colors vermell, blau, verd i groc depenent del seu tipus (Error, advertència...).
 
 <img width="379" alt="Captura de pantalla 2024-10-16 a las 6 17 49 p  m" src="https://github.com/user-attachments/assets/b30262fa-2452-4993-bbf6-9892687cc6ec">
-
 
 
