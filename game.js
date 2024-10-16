@@ -214,6 +214,10 @@ function turnACell(e) {
     notificationWarningsAndErrors("notice", "Es un mensaje de notice")
     notificationWarningsAndErrors("success", "Es un mensaje de succes")
     e.target.innerText = stateCell; // Change the button's text to reflect its state
+    if (stateCell !== "water") {
+        e.target.classList.add("touch");
+
+    }
     // Calcula el nuevo puntaje basándose en el estado del juego
     score = getScore(score, stateCell);
     updateScoreDisplay(score); // Actualiza el marcador en la pantalla
