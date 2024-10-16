@@ -46,7 +46,7 @@ El joc presenta un tauler de 10x10 on s’amaguen diverses ordes de diferents mi
 ### 1. Clonar el Repositori:
 ```bash
 git clone https://github.com/tu-usuari/perduts-a-la-sorra.git
-
+```
 # 2. Configuració del Servidor Local:
 
 ### Instal·lar PHP:
@@ -57,7 +57,7 @@ Un cop PHP estigui instal·lat, obre una terminal i navega fins a la carpeta on 
 
 ```bash
 php -S localhost:8000
-
+```
 Això començarà un servidor local al port 8000. Pots accedir al teu lloc web a [http://localhost:8000/](http://localhost:8000/).
 
 Obre el teu navegador i navega a [http://localhost:8000/PHP/index](http://localhost:8000/PHP/index) per iniciar el joc.
