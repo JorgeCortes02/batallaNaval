@@ -1,8 +1,35 @@
-
-
-
-
 # Lost in the Sand
+
+# Índex
+
+## Wikipedia
+- **Descripció del Joc**
+- **Jugabilitat**
+  1. Objectiu del joc
+  2. Tauler
+  3. Com jugar
+  4. Cronòmetre i temps límit
+  5. Desar puntuacions
+  6. Sistema de Puntuació
+- **Característiques del Joc**
+  - Tauler Aleatori
+  - Validació de Posicions
+  - Interfície d’Usuari Amigable
+  - Desament de Puntuacions
+  - Cronòmetre
+- **Instal·lació i Configuració**
+  1. Clonar el Repositori i instal·lar PHP
+
+## Apartats tècnics:
+- **Wireframes**
+  - Index.php: Menú principal
+  - Game.php: El Joc
+    - Taula de joc
+    - Taulell informatiu
+- **Look & Feel**
+
+
+# Wikipedia
 
 **Lost in the Sand** és un emocionant joc d’estratègia basat en el concepte clàssic d’Enfonsar la flota (Battleship). Els jugadors es troben en un vast desert on les ordes enemigues estan enterrades sota la sorra. El teu objectiu és trobar-los i destruir-los abans que s’acabi el temps. Amb cada tret, t’acostes més a descobrir la flota oculta, però compte: el rellotge no s’atura, i cada segon compta.
 
