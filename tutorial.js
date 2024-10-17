@@ -216,171 +216,77 @@ function sumFoundPositions(positionString) {
     const elements = positionString.split(",");
     numHorder = elements[1];
     longHorder = elements[0];
-
-    console.log(numHorder)
-    console.log(longHorder)
+    let indexArray = 0;
+    let touchOrSunk = "";
     // Check the type of horde based on the positionString value
-    if (longHorder == "4") {
+    switch (longHorder) {
+        case "4":
+            indexArray = 0;
+            selectesHorders[indexArray][parseInt(numHorder)] += 1;
+            checkVictoryText = checkVictory();
+            if (checkVictoryText == "victory") {
+                return checkVictoryText;
+            }
 
+            touchOrSunk = checkIfTouchedOrSunk(indexArray, parseInt(numHorder), parseInt(longHorder));
+            return touchOrSunk;
+            break;
 
-        selectesHorders[0][0] += 1; // Increment the count for the first horde
+        case "3":
+            indexArray = 1;
+            selectesHorders[indexArray][parseInt(numHorder)] += 1;
+            checkVictoryText = checkVictory();
+            if (checkVictoryText == "victory") {
+                return checkVictoryText;
+            }
 
-        // Check if all positions have been found
-        // Check if all positions have been found
-        checkVictoryText = checkVictory();
+            touchOrSunk = checkIfTouchedOrSunk(indexArray, parseInt(numHorder), parseInt(longHorder));
+            return touchOrSunk;
 
-        if (checkVictoryText == "victory") {
-            return checkVictoryText;
-        }
+            break;
 
-        // Check if the first horde is sunk
-        if (selectesHorders[0][0] == 4) {
-            return "sunk"; // Return "sunk" if the first horde has been fully hit
-        } else {
-            return "touched"; // Return "touched" if the first horde is hit but not sunk
-        }
-    } else if (longHorder == "3") {
+        case "2":
+            indexArray = 2;
+            selectesHorders[indexArray][parseInt(numHorder)] += 1;
+            checkVictoryText = checkVictory();
+            if (checkVictoryText == "victory") {
+                return checkVictoryText;
+            }
 
+            touchOrSunk = checkIfTouchedOrSunk(indexArray, parseInt(numHorder), parseInt(longHorder));
+            return touchOrSunk;
+            break;
 
-        switch (numHorder) {
+        case "1":
+            indexArray = 3;
+            selectesHorders[indexArray][parseInt(numHorder)] += 1;
+            checkVictoryText = checkVictory();
+            if (checkVictoryText == "victory") {
+                return checkVictoryText;
+            }
 
-            case "0":
+            touchOrSunk = checkIfTouchedOrSunk(indexArray, parseInt(numHorder), parseInt(longHorder));
+            return touchOrSunk;
+            break;
 
-                selectesHorders[1][0] += 1
-                checkVictoryText = checkVictory();
-                if (checkVictoryText == "victory") {
-                    return checkVictoryText;
-                }
-                // Check if the second horde is sunk
-                if (selectesHorders[1][0] == 3) {
-                    return "sunk";
-                } else {
-                    return "touched";
-                }
-                break;
+        default:
 
-            case "1":
-                selectesHorders[1][1] += 1
-                checkVictoryText = checkVictory();
-                if (checkVictoryText == "victory") {
-                    return checkVictoryText;
-                }
-                // Check if the second horde is sunk
-                if (selectesHorders[1][1] == 3) {
-                    return "sunk";
-                } else {
-                    return "touched";
-                }
-                break;
-        }
-
-    } else if (longHorder == "2") {
-
-        switch (numHorder) {
-            case "0":
-
-                selectesHorders[2][0] += 1
-                checkVictoryText = checkVictory();
-                if (checkVictoryText == "victory") {
-                    return checkVictoryText;
-                }
-                // Check if the second horde is sunk
-                if (selectesHorders[2][0] == 2) {
-                    return "sunk";
-                } else {
-                    return "touched";
-                }
-                break;
-
-            case "1":
-                selectesHorders[2][1] += 1
-                checkVictoryText = checkVictory();
-                if (checkVictoryText == "victory") {
-                    return checkVictoryText;
-                }
-                // Check if the second horde is sunk
-                if (selectesHorders[2][1] == 2) {
-                    return "sunk";
-                } else {
-                    return "touched";
-                }
-                break;
-            case "2":
-                selectesHorders[2][2] += 1
-                checkVictoryText = checkVictory();
-                if (checkVictoryText == "victory") {
-                    return checkVictoryText;
-                }
-                // Check if the second horde is sunk
-                if (selectesHorders[2][2] == 2) {
-                    return "sunk";
-                } else {
-                    return "touched";
-                }
-                break;
-        }
-    } else if (longHorder == "1") {
-        switch (numHorder) {
-            case "0":
-
-                selectesHorders[3][0] += 1
-                checkVictoryText = checkVictory();
-                if (checkVictoryText == "victory") {
-                    return checkVictoryText;
-                }
-                // Check if the second horde is sunk
-                if (selectesHorders[3][0] == 1) {
-                    return "sunk";
-                } else {
-                    return "touched";
-                }
-                break;
-
-            case "1":
-                selectesHorders[3][1] += 1
-                checkVictoryText = checkVictory();
-                if (checkVictoryText == "victory") {
-                    return checkVictoryText;
-                }
-                // Check if the second horde is sunk
-                if (selectesHorders[3][1] == 1) {
-                    return "sunk";
-                } else {
-                    return "touched";
-                }
-                break;
-            case "2":
-                selectesHorders[3][2] += 1
-                checkVictoryText = checkVictory();
-                if (checkVictoryText == "victory") {
-                    return checkVictoryText;
-                }
-                // Check if the second horde is sunk
-                if (selectesHorders[3][2] == 1) {
-                    return "sunk";
-                } else {
-                    return "touched";
-                }
-                break;
-            case "3":
-                selectesHorders[3][3] += 1
-                checkVictoryText = checkVictory();
-                if (checkVictoryText == "victory") {
-                    return checkVictoryText;
-                }
-                // Check if the second horde is sunk
-                if (selectesHorders[3][3] == 1) {
-                    return "sunk";
-                } else {
-                    return "touched";
-                }
-                break;
-        }
+            return "water"; // Return "water" if the position is not a hit
     }
 
 
+}
 
-    return "water"; // Return "water" if the position is not a hit
+
+
+function checkIfTouchedOrSunk(indexArray, numHorder, longHorder) {
+
+    // Check if the second horde is sunk
+    if (selectesHorders[indexArray][numHorder] == longHorder) {
+        return "sunk";
+    } else {
+        return "touched";
+    }
 }
 
 //Function for generate de sounds
