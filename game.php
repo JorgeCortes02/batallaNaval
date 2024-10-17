@@ -493,7 +493,13 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
         </div>
     </noscript>
 
-    <div id="notificationsDiv"></div>
+    <div id="notificationsDiv">
+        <div class="notification" id="victoryNotification">Has guanyat!</div>
+        <div class="notification" id="sunkNotification">Has eliminat tota l'horda!</div>
+        <div class="notification" id="touchedNotification">Has eliminat un enemic!</div>
+        <div class="notification" id="gameoverNotification">Has perdut!</div>
+        <div class="notification" id="waterNotification">Directe a l'aigua!</div>
+    </div>
 
     <div class="PrincipalDiv">
         <table>
