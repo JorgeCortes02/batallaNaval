@@ -55,7 +55,7 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
     <title>Game</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
-    <script src="game.js"></script>
+    <script src="tutorial.js"></script>
 </head>
 
 <body class="page-game">
