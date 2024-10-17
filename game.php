@@ -528,6 +528,7 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
                 </div>
 
             </div>
+            <a href="win.php">Ir</a>
             <div id="popup" class="modal">
                 <div class="windowsForm">
                     <span class="close">&times;</span>
