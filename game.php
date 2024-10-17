@@ -65,7 +65,7 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
 
     <?php
 
-    $horders = [[2], [3], [4], [5]];  // Define an array of ship lengths (2, 3, 4, and 5).
+    $horders = [[1, 4], [2, 3], [3, 2], [4, 1]];  // Define an array of ship lengths (2, 3, 4, and 5).
     
     $arrayPosiciones = array();  // Initialize an empty array to hold the positions on the board.
     
@@ -86,65 +86,70 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
     //Function for generate the random holders.
     function generateRandomHorders(&$horders, &$arrayPosiciones)
     {
-        // Loop through each ship length defined in $horders.
-        for ($i = 0; $i < count($horders); $i++) {
+        foreach ($horders as $horder) {
+            $countHorder = 0;
+            // Loop through each ship length defined in $horders.
+            for ($i = 0; $i < $horder[0]; $i++) {
 
-            // Randomly decide the orientation.
-            $orientation = rand(0, 1);
+                // Randomly decide the orientation.
+                $orientation = rand(0, 1);
 
-            // If orientation is horizontal...
-            if ($orientation == 0) {
+                // If orientation is horizontal...
+                if ($orientation == 0) {
 
-                $freePosition = false;  // Flag to check if a free position is found.
+                    $freePosition = false;  // Flag to check if a free position is found.
     
 
-                while ($freePosition == false) {
-                    // Generate random row and column positions for the ship.
-                    $row = rand(0, count($arrayPosiciones) - 1);  // Random row index.
-                    // Calculate the column index, ensuring the ship fits within the array.
-                    $column = rand(0, count($arrayPosiciones[$row]) - 1 - $horders[$i][0]);
+                    while ($freePosition == false) {
+                        // Generate random row and column positions for the ship.
+                        $row = rand(0, count($arrayPosiciones) - 1);  // Random row index.
+                        // Calculate the column index, ensuring the ship fits within the array.
+                        $column = rand(0, count($arrayPosiciones[$row]) - 1 - $horder[1]);
 
-                    $horders[$i][1] = [];  // Initialize the position storage for the ship.
+                        // Initialize the position storage for the ship.
     
-                    // Check if the chosen position is free using the function isFreePosH.
-                    $freePosition = isFreePosH($row, $column, $arrayPosiciones, $horders[$i][0]);
-                }
+                        // Check if the chosen position is free using the function isFreePosH.
+                        $freePosition = isFreePosH($row, $column, $arrayPosiciones, $horder[1]);
+                    }
 
 
-                if ($freePosition == true) {
-                    // Place the ship on the board horizontally.
-                    for ($j = 0; $j < $horders[$i][0]; $j++) {
-                        // Mark the ship's positions in the array with its length.
-                        $arrayPosiciones[$row][$column + $j] = $horders[$i][0];
+                    if ($freePosition == true) {
+                        // Place the ship on the board horizontally.
+                        for ($j = 0; $j < $horder[1]; $j++) {
+                            // Mark the ship's positions in the array with its length.
+                            $arrayPosiciones[$row][$column + $j] = "$horder[1],$countHorder";
 
+                        }
+                    }
+
+                    // If the orientation is vertical:
+                } else {
+                    $freePosition = false;  // Reset the flag to check for free position.
+    
+                    // Keep searching for a random position to place the ship until a free position is found.
+                    while ($freePosition == false) {
+                        // Generate random row and column positions for the ship.
+    
+                        $row = rand(0, count($arrayPosiciones) - 1 - $horder[1]);
+                        $column = rand(0, count($arrayPosiciones[$row]) - 1);  // Random column index.
+    
+                        // Initialize the position storage for the ship.
+    
+                        $freePosition = isFreePosV($row, $column, $arrayPosiciones, $horder[1]);
+                    }
+
+                    // If a free position is confirmed...
+                    if ($freePosition == true) {
+
+                        for ($j = 0; $j < $horder[1]; $j++) {
+                            // Mark the ship's positions in the array with its length.
+                            $arrayPosiciones[$row + $j][$column] = "$horder[1],$countHorder";
+
+                        }
                     }
                 }
 
-                // If the orientation is vertical:
-            } else {
-                $freePosition = false;  // Reset the flag to check for free position.
-    
-                // Keep searching for a random position to place the ship until a free position is found.
-                while ($freePosition == false) {
-                    // Generate random row and column positions for the ship.
-    
-                    $row = rand(0, count($arrayPosiciones) - 1 - $horders[$i][0]);
-                    $column = rand(0, count($arrayPosiciones[$row]) - 1);  // Random column index.
-    
-                    $horders[$i][1] = [];  // Initialize the position storage for the ship.
-    
-                    $freePosition = isFreePosV($row, $column, $arrayPosiciones, $horders[$i][0]);
-                }
-
-                // If a free position is confirmed...
-                if ($freePosition == true) {
-
-                    for ($j = 0; $j < $horders[$i][0]; $j++) {
-                        // Mark the ship's positions in the array with its length.
-                        $arrayPosiciones[$row + $j][$column] = $horders[$i][0];
-
-                    }
-                }
+                $countHorder += 1;
             }
         }
     }
@@ -445,6 +450,7 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
 
         return true;
     }
+    print_r($arrayPosiciones);
     function printTable($arrayPosiciones)
     {
         $char = 65;
@@ -506,7 +512,8 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
 
             <div class="time-marker">
                 <div class="time">
-                    <img id="clock" src="../Images/tiempo-pasado.png" alt="Icono de un reloj" width="30px" height="30px">
+                    <img id="clock" src="../Images/tiempo-pasado.png" alt="Icono de un reloj" width="30px"
+                        height="30px">
                     <time id="chronometer" datetime="clock">00:00:00</time>
                 </div>
                 <div class="marker">
