@@ -67,127 +67,65 @@ function easterEggEvent() {
 }
 
 
-
+// Variables para guardar el timeout y el intervalo
+let fadeOutTimeout;
+let fadeOutInterval;
 
 function generateNewNotification(typeNotification) {
+    // Limpia el timeout y el intervalo anteriores para reiniciar el temporizador
+    if (fadeOutTimeout) clearTimeout(fadeOutTimeout);
+    if (fadeOutInterval) clearInterval(fadeOutInterval);
 
-    // Create a new div element for the notification
-    let newNotificationDiv = document.createElement("div");
-    newNotificationDiv.setAttribute("class", "notification"); // Assign the 'notification' class for styling
+    // Selecciona todas las notificaciones y oculta las que están visibles
+    let notifications = document.getElementsByClassName('notification');
+    for (let i = 0; i < notifications.length; i++) {
+        notifications[i].classList.remove('showNot');
+        notifications[i].style.opacity = '1'; // Reinicia la opacidad (opcional)
+    }
 
-    // Create a new paragraph element for the notification text
-    let newText = document.createElement("p");
-
-    // Determine the notification message based on the type of notification
+    // Muestra la notificación correcta según el tipo
+    let notificationToShow;
     switch (typeNotification) {
         case "victory":
-            newText.innerText = "Has guanyat!"; // Victory message
+            notificationToShow = document.getElementById("victoryNotification");
             break;
-
         case "sunk":
-            newText.innerText = "Has eliminat tota l'horda!"; // Sunk message
+            notificationToShow = document.getElementById("sunkNotification");
             break;
-
         case "touched":
-            newText.innerText = "Has eliminat un enemic!"; // Touched message
+            notificationToShow = document.getElementById("touchedNotification");
             break;
-
         case "gameover":
-            newText.innerText = "Has perdut!"; // Game over message
+            notificationToShow = document.getElementById("gameoverNotification");
             break;
-
         case "water":
-            newText.innerText = "Directe a l'aigua!"; // Water message
+            notificationToShow = document.getElementById("waterNotification");
             break;
     }
 
-    // Append the text element to the notification div
-    newNotificationDiv.appendChild(newText);
-    // Append the notification div to the notifications container
-    notificationsDiv.appendChild(newNotificationDiv);
-    setTimeout(() => {
-        newNotificationDiv.classList.add("showNot");
-    }, 0); // Asegúrate de añadir la clase inmediatamente
+    // Añade la clase showNot para que la notificación se deslice hacia dentro
+    if (notificationToShow) {
+        notificationToShow.classList.add("showNot");
 
-    // Set a timeout to start fading out the notification after 3 seconds
-    setTimeout(() => {
-        // Gradually change the opacity to 0
-        let opacity = 1; // Initial opacity
-        const fadeOutInterval = setInterval(() => {
-            opacity -= 0.1; // Decrease opacity by 0.1
-            newNotificationDiv.style.opacity = opacity; // Set the new opacity
+        // Inicia el timeout para desvanecer la notificación
+        fadeOutTimeout = setTimeout(() => {
+            let opacity = 1; // Opacidad inicial
 
-            // If the opacity reaches 0, stop the interval and remove the element
-            if (opacity <= 0) {
-                clearInterval(fadeOutInterval); // Clear the interval to stop it
-                notificationsDiv.removeChild(newNotificationDiv); // Remove the notification from the DOM
-            }
-        }, 150); // Change opacity every 150 ms
+            // Inicia el intervalo para desvanecer gradualmente
+            fadeOutInterval = setInterval(() => {
+                opacity -= 0.1; // Decrementa la opacidad gradualmente
+                notificationToShow.style.opacity = opacity;
 
-    }, 4000); // Wait 3 seconds before starting to fade out
-}
-
-function notificationWarningsAndErrors(typeNotification, msg) {
-
-    // Create a new div element for the notification
-    let newNotificationDiv = document.createElement("div");
-    // Assign the 'notification' class for styling
-
-    // Create a new paragraph element for the notification text
-    let newText = document.createElement("p");
-    let typeMessage;
-    // Determine the notification message based on the type of notification
-    switch (typeNotification) {
-        case "error":
-            newNotificationDiv.setAttribute("class", "errorNot");
-            newText.innerHTML = "<span>" + typeNotification + ":</span> " + msg; // Error message
-            break;
-
-        case "success":
-            newText.innerHTML = "<span>" + typeNotification + ":</span> " + msg; // Error message
-            newNotificationDiv.setAttribute("class", "succesNot");
-
-            break;
-
-        case "warning":
-            newNotificationDiv.setAttribute("class", "warningNot");
-            newText.innerHTML = "<span>" + typeNotification + ":</span> " + msg; // Error message
-            break;
-
-        case "notice":
-            newNotificationDiv.setAttribute("class", "noticeNot");
-            newText.innerHTML = "<span>" + typeNotification + ":</span> " + msg; // Error message
-            break;
-
+                if (opacity <= 0) {
+                    clearInterval(fadeOutInterval); // Detiene el desvanecimiento
+                    notificationToShow.classList.remove("showNot"); // Oculta el div
+                }
+            }, 150); // Desvanece cada 150ms
+        }, 5000); // Comienza a desvanecer después de 6 segundos
     }
-
-    // Append the text element to the notification div
-    newNotificationDiv.appendChild(newText);
-    // Append the notification div to the notifications container
-    notificationsDiv.appendChild(newNotificationDiv);
-    setTimeout(() => {
-        newNotificationDiv.classList.add("showNot");
-    }, 0); // Asegúrate de añadir la clase inmediatamente
-
-    // Set a timeout to start fading out the notification after 3 seconds
-    setTimeout(() => {
-        // Gradually change the opacity to 0
-        let opacity = 1; // Initial opacity
-        const fadeOutInterval = setInterval(() => {
-            opacity -= 0.1; // Decrease opacity by 0.1
-            newNotificationDiv.style.opacity = opacity; // Set the new opacity
-
-            // If the opacity reaches 0, stop the interval and remove the element
-            if (opacity <= 0) {
-                clearInterval(fadeOutInterval); // Clear the interval to stop it
-                notificationsDiv.removeChild(newNotificationDiv); // Remove the notification from the DOM
-            }
-        }, 150); // Change opacity every 150 ms
-
-    }, 4000); // Wait 3 seconds before starting to fade out
 }
 
-// Function to disable all buttons when the game is won
+
 function disableTableIfVictory() {
     // Convert the HTMLCollection to an array for easier manipulation
     let buttons1 = Array.from(document.getElementsByClassName("tableButton"));
@@ -208,7 +146,7 @@ function turnACell(e) {
     // Change the class from "tableButton" to "button-disabled"
     e.target.classList.replace("tableButton", "button-disabled");
     generateSound(stateCell);
-    generateNewNotification(stateCell)
+
 
     e.target.innerText = stateCell;
     if (stateCell !== "water") {
