@@ -27,6 +27,76 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
+// Function to handle cell click events
+function turnACell(e) {
+    const value = e.target.value; // Get the value of the clicked button
+    stateCell = sumFoundPositions(value); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
+
+    // Change the class from "tableButton" to "button-disabled"
+    e.target.classList.replace("tableButton", "button-disabled");
+    generateSound(stateCell);
+    generateNewNotification(stateCell)
+
+
+
+    e.target.innerText = stateCell; // Change the button's text to reflect its state
+    if (stateCell !== "water") {
+        e.target.classList.add("touch");
+
+    }
+    // Calcula el nuevo puntaje basándose en el estado del juego
+    score = getScore(score, stateCell);
+    updateScoreDisplay(score); // Actualiza el marcador en la pantalla
+    // If the state is "victory", disable all buttons and generate new buttons
+    if (stateCell === "victory") {
+        disableTableIfVictory();
+        stopTimer(); // Detener el cronómetro
+        generateRankingAndHomeButtons();
+    }
+}
+// Function to generate buttons for ranking and home
+function generateRankingAndHomeButtons() {
+    // Get the scoreboard container element
+    let scoreBoard = document.getElementsByClassName("scoreboard")[0];
+
+    // Create a new div for the final game buttons
+    let newDiv = document.createElement("div");
+    newDiv.className = "divButtonsFinalGame";
+
+    // Create the "Home" button
+    let buttonHome = document.createElement("button");
+    buttonHome.innerText = "Inici"; // Set the button text to "Inicio" (Home)
+
+    // Create the "Hall of Fame" button
+    let buttonHall = document.createElement("button");
+    buttonHall.innerText = "Hall of Fame"; // Set the button text
+
+    // Add an event listener to redirect to the home page when clicked
+    buttonHome.addEventListener("click", function () {
+        window.location.href = "index.php"; // Redirect to index.php
+    });
+
+    // Add an event listener to redirect to the ranking page when clicked
+    buttonHall.addEventListener("click", function () {
+        window.location.href = "ranking.php"; // Redirect to ranking.php
+    });
+    // Create the "Guardar Record" button
+    let buttonSaveRecord = document.createElement("button");
+    buttonSaveRecord.innerText = "Guardar Record"; // Set the button text for save record
+
+    // Add an event listener to open the popup for saving record when clicked
+    buttonSaveRecord.addEventListener("click", function () {
+        openModal(); // Llama a la función para abrir el modal
+    });
+
+    // Append the buttons to the new div
+    newDiv.appendChild(buttonHome);
+    newDiv.appendChild(buttonHall);
+    newDiv.appendChild(buttonSaveRecord);
+    // Append the new div to the scoreboard container
+    scoreBoard.appendChild(newDiv);
+}
+
 function easterEggEvent() {
 
     // Creation of easter egg div which will contain elements
@@ -200,76 +270,7 @@ function disableTableIfVictory() {
         easterEggButton.disabled = true; // Disable the button
     }
 }
-// Function to handle cell click events
-function turnACell(e) {
-    const value = e.target.value; // Get the value of the clicked button
-    stateCell = sumFoundPositions(value); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
 
-    // Change the class from "tableButton" to "button-disabled"
-    e.target.classList.replace("tableButton", "button-disabled");
-    generateSound(stateCell);
-    generateNewNotification(stateCell)
-    notificationWarningsAndErrors("error", "Es un mensaje de error")
-    notificationWarningsAndErrors("warning", "Es un mensaje de warning")
-    notificationWarningsAndErrors("notice", "Es un mensaje de notice")
-    notificationWarningsAndErrors("success", "Es un mensaje de succes")
-    e.target.innerText = stateCell; // Change the button's text to reflect its state
-    if (stateCell !== "water") {
-        e.target.classList.add("touch");
-
-    }
-    // Calcula el nuevo puntaje basándose en el estado del juego
-    score = getScore(score, stateCell);
-    updateScoreDisplay(score); // Actualiza el marcador en la pantalla
-    // If the state is "victory", disable all buttons and generate new buttons
-    if (stateCell === "victory") {
-        disableTableIfVictory();
-        stopTimer(); // Detener el cronómetro
-        generateRankingAndHomeButtons();
-    }
-}
-// Function to generate buttons for ranking and home
-function generateRankingAndHomeButtons() {
-    // Get the scoreboard container element
-    let scoreBoard = document.getElementsByClassName("scoreboard")[0];
-
-    // Create a new div for the final game buttons
-    let newDiv = document.createElement("div");
-    newDiv.className = "divButtonsFinalGame";
-
-    // Create the "Home" button
-    let buttonHome = document.createElement("button");
-    buttonHome.innerText = "Inici"; // Set the button text to "Inicio" (Home)
-
-    // Create the "Hall of Fame" button
-    let buttonHall = document.createElement("button");
-    buttonHall.innerText = "Hall of Fame"; // Set the button text
-
-    // Add an event listener to redirect to the home page when clicked
-    buttonHome.addEventListener("click", function () {
-        window.location.href = "index.php"; // Redirect to index.php
-    });
-
-    // Add an event listener to redirect to the ranking page when clicked
-    buttonHall.addEventListener("click", function () {
-        window.location.href = "ranking.php"; // Redirect to ranking.php
-    });
-    // Create the "Guardar Record" button
-    let buttonSaveRecord = document.createElement("button");
-    buttonSaveRecord.innerText = "Guardar Record"; // Set the button text for save record
-
-    // Add an event listener to open the popup for saving record when clicked
-    buttonSaveRecord.addEventListener("click", function () {
-        openModal(); // Llama a la función para abrir el modal
-    });
-
-    // Append the buttons to the new div
-    newDiv.appendChild(buttonHome);
-    newDiv.appendChild(buttonHall);
-    newDiv.appendChild(buttonSaveRecord);
-    // Append the new div to the scoreboard container
-    scoreBoard.appendChild(newDiv);
-}
 
 // Function to track the positions found (hits on the ships)
 function sumFoundPositions(positionString) {

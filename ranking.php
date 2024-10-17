@@ -16,8 +16,9 @@
     // READ FILE AND LOAD PLAYER DATA
     
     $playersRecords = [];
-    $rankingPathFile = "ranking.txt";
-    
+    $rankingPathFile = "ranking225registros.txt";
+
+
     if (file_exists($rankingPathFile)) { // check if file exists
         $rankingFile = fopen($rankingPathFile, "r"); // load file
         while (!feof($rankingFile)) { // while there are lines left
@@ -82,7 +83,7 @@
     echo "<div class='main_container blackBox'>";
 
     echo "<h1 class='yellowBox' >HALL OF FAME</h1>";
-    
+
     echo "<div class='table_wrapper yellowBox'>"; // used to hide scrollbar
     echo "<div class='table_container'>";
 
@@ -128,48 +129,48 @@
 
     // GENERATE PAGINATION IF THERE ARE MORE THAN 25 RECORDS
     if ($totalPages > 1) {
-    
+
         echo "<div class='buttonsAndPagination_container'>";
 
-            echo "<a href='index.php'><button>MENÚ PRINCIPAL</button></a>";
+        echo "<a href='index.php'><button>MENÚ PRINCIPAL</button></a>";
 
-            // GENERATE NUMBER SECTION
-            echo "<div class='number_section'>";
+        // GENERATE NUMBER SECTION
+        echo "<div class='number_section'>";
 
-            // PREVIOUS PAGE ( << )
-            if ($currentPage > 1) {
-                $previousPage = $currentPage - 1;
-                echo "<a href='?page=$previousPage'>&laquo;</a> ";
+        // PREVIOUS PAGE ( << )
+        if ($currentPage > 1) {
+            $previousPage = $currentPage - 1;
+            echo "<a href='?page=$previousPage'>&laquo;</a> ";
+        }
+
+        // NUMBER GENERATION
+        $maxShownPages = 5; // Max anchors (max. 5)
+        $initialPage = max(1, $currentPage - floor($maxShownPages / 2)); // Dinamic initial paging (HIGHEST OF --> 1 or (currentPage - 2))
+        $endingPage = min($totalPages, $initialPage + $maxShownPages - 1); // Dinamic initial paging (LOWEST OF --> total pages or (currentPage + 2))
+    
+        // Anchor generation
+        for ($i = $initialPage; $i <= $endingPage; $i++) {
+            if ($i == $currentPage) {
+                echo "<a class='current_page' href='?page=$i'>$i</a>"; // Página actual
+            } else {
+                echo "<a href='?page=$i'>$i</a>";
             }
+        }
 
-            // NUMBER GENERATION
-            $maxShownPages = 5; // Max anchors (max. 5)
-            $initialPage = max(1, $currentPage - floor($maxShownPages / 2)); // Dinamic initial paging (HIGHEST OF --> 1 or (currentPage - 2))
-            $endingPage = min($totalPages, $initialPage + $maxShownPages - 1); // Dinamic initial paging (LOWEST OF --> total pages or (currentPage + 2))
-        
-            // Anchor generation
-            for ($i = $initialPage; $i <= $endingPage; $i++) {
-                if ($i == $currentPage) {
-                    echo "<a class='current_page' href='?page=$i'>$i</a>"; // Página actual
-                } else {
-                    echo "<a href='?page=$i'>$i</a>";
-                }
-            }
+        // NEXT PAGE ( >> )
+        if ($currentPage < $totalPages) {
+            $nextPage = $currentPage + 1;
+            echo "<a href='?page=$nextPage'>&raquo;</a>";
+        }
 
-            // NEXT PAGE ( >> )
-            if ($currentPage < $totalPages) {
-                $nextPage = $currentPage + 1;
-                echo "<a href='?page=$nextPage'>&raquo;</a>";
-            }
-
-            echo "</div>";           
+        echo "</div>";
 
         echo "</div>";
 
     } else {
 
         echo "<div class='buttons_container'>";
-            echo "<a href='index.php'><button>MENÚ PRINCIPAL</button></a>";
+        echo "<a href='index.php'><button>MENÚ PRINCIPAL</button></a>";
         echo "</div>";
     }
 
