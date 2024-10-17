@@ -60,14 +60,12 @@ body.page-ranking {
     right: 20px;
     display: flex;
     flex-direction: column;
-    /*Coloca los elementos al final para hacer posible la transicion.*/
+    /* Coloca los elementos al final para hacer posible la transición */
     align-items: flex-end;
-
 }
 
 #notificationsDiv span {
     font-weight: bold;
-
 }
 
 .notification {
@@ -77,88 +75,21 @@ body.page-ranking {
     margin: 10px;
     border-radius: 5px;
     border: 5px double #d4af37;
-    opacity: 1;
-
-    /*Se encarga de la aparición en desplazamiento de las notificaciones*/
+    display: none;
+    /* Se encarga de la aparición con desplazamiento de las notificaciones */
     transition: transform 0.5s ease, opacity 0.5s ease;
     transform: translateX(100%);
-    /* Comienza fuera de la pantalla */
+    /* Comienza fuera de la pantalla (derecha) */
+    opacity: 0;
+    /* Invisible inicialmente */
 }
 
-.warningNot {
-    background-color: rgb(206, 219, 17);
-    color: white;
-    padding: 15px;
-    margin: 10px;
+.notification.showNot {
     display: flex;
-    align-items: center;
-    height: 20px;
-    border-radius: 20px;
-    border: 5px double black;
-    opacity: 1;
-    /*Se encarga de la aparición en desplazamiento de las notificaciones*/
-    transition: transform 0.5s ease, opacity 0.5s ease;
-    transform: translateX(100%);
-    /* Comienza fuera de la pantalla */
-}
-
-.succesNot {
-    background-color: rgb(55, 166, 7);
-    color: white;
-    padding: 15px;
-    margin: 10px;
-    display: flex;
-    align-items: center;
-    height: 20px;
-    border-radius: 20px;
-    border: 5px double black;
-    opacity: 1;
-
-    /*Se encarga de la aparición en desplazamiento de las notificaciones*/
-    transition: transform 0.5s ease, opacity 0.5s ease;
-    transform: translateX(100%);
-    /* Comienza fuera de la pantalla */
-}
-
-.noticeNot {
-    background-color: rgb(16, 31, 202);
-    color: white;
-    padding: 15px;
-    margin: 10px;
-    display: flex;
-    align-items: center;
-    height: 20px;
-    border-radius: 20px;
-    border: 5px double black;
-    opacity: 1;
-
-    /*Se encarga de la aparición en desplazamiento de las notificaciones*/
-    transition: transform 0.5s ease, opacity 0.5s ease;
-    transform: translateX(100%);
-    /* Comienza fuera de la pantalla */
-}
-
-.errorNot {
-    background-color: rgb(162, 32, 28);
-    color: white;
-    padding: 15px;
-    margin: 10px;
-    display: flex;
-    align-items: center;
-    height: 20px;
-    border-radius: 20px;
-    border: 5px double black;
-    opacity: 1;
-
-    /*Se encarga de la aparición en desplazamiento de las notificaciones*/
-    transition: transform 0.5s ease, opacity 0.5s ease;
-    transform: translateX(100%);
-    /* Comienza fuera de la pantalla */
-}
-
-.showNot {
     transform: translateX(0);
-    /* Desplaza a su posición visible */
+    /* Se desplaza a su posición visible */
+    opacity: 1;
+    /* Aparece completamente visible */
 }
 
 
@@ -238,6 +169,10 @@ body.page-ranking {
     border: 1px solid red;
 }
 
+.page-game table .touch {
+
+    background-color: red;
+}
 
 /* EASTER EGG STYLING */
 
