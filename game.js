@@ -68,7 +68,6 @@ function easterEggEvent() {
 
 
 
-
 // Variables para guardar el timeout y el intervalo
 let fadeOutTimeout;
 let fadeOutInterval;
@@ -126,7 +125,9 @@ function generateNewNotification(typeNotification) {
         }, 5000); // Comienza a desvanecer después de 6 segundos
     }
 }
+
 // Function to disable all buttons when the game is won
+
 function disableTableIfVictory() {
     // Convert the HTMLCollection to an array for easier manipulation
     let buttons1 = Array.from(document.getElementsByClassName("tableButton"));
@@ -147,7 +148,7 @@ function turnACell(e) {
     // Change the class from "tableButton" to "button-disabled"
     e.target.classList.replace("tableButton", "button-disabled");
     generateSound(stateCell);
-    generateNewNotification(stateCell)
+
 
     e.target.innerText = stateCell;
 
