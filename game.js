@@ -258,7 +258,7 @@ function activeTable() {
 function turnACell(e) {
     const value = e.target.value; // Get the value of the clicked button
     disableTable();
-    stateCell = "water"//sumFoundPositions(value, selectesPlayerHorders); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
+    stateCell = sumFoundPositions(value, selectesPlayerHorders); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
 
     // Change the class from "tableButton" to "button-disabled"
     e.target.classList.replace("tableButton", "button-disabled");
