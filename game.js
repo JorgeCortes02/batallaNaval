@@ -281,10 +281,12 @@ function turnACell(e) {
         disableTableIfVictory();
         window.location.href = "win.php";
         //stopTimer(); // Detener el cronómetro
-
     }
     if (stateCell !== "touched" && stateCell !== "sunk") {
         changeTurn();
+    } else {
+        activeTable();
+
     }
 }
 // Function to generate buttons for ranking and home
