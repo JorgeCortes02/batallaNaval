@@ -1,26 +1,14 @@
 <?php
-session_start();  // Inicia la sesión o reanuda la existente
 
-// Verifica si se ha enviado el formulario con el nombre
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['name'])) {
-    // Guardar el nombre en la sesión
-    $_SESSION["name"] = htmlspecialchars($_POST['name']);  // Evita posibles inyecciones de HTML
-}
-$nombreFormulario = htmlspecialchars($_POST['name']);
+//zona horaria
+date_default_timezone_set('Europe/Madrid'); // Cambia 'Europe/Madrid' a la zona horaria que necesites
 
 
+// Inicializamos la variable por defecto para evitar errores.
 $name = "";
-/*
-$score = "";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['score'])) {
-    // Guardar el nombre en la sesión
-    $_SESSION["score"] = htmlspecialchars($_POST['score']);  // Evita posibles inyecciones de HTML
-}
-$score = htmlspecialchars($_POST['score']);
-
-// Verificar si se envió el formulario y llegada de info
-/*if (isset($_POST['name']) || isset($_POST['score'])) {
+// Verificar si se envió el formulario
+if (isset($_POST['name']) && isset($_POST['score'])) {
     $name = $_POST['name'];
     $score = $_POST['score'];
 
@@ -30,7 +18,6 @@ $score = htmlspecialchars($_POST['score']);
         echo "El nombre debe tener entre 3 y 30 caracteres.";
         exit; // Detener la ejecución del script
     }
-
 
     $date = date('Y-m-d H:i'); // Formato de fecha y hora
 
@@ -51,8 +38,7 @@ $score = htmlspecialchars($_POST['score']);
         echo "";
     }
 
-
-*/
+}
 
 
 ?>
@@ -69,22 +55,19 @@ $score = htmlspecialchars($_POST['score']);
     <title>Game</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
-    <script src="game.js"></script>
+    <script src="tutorial.js"></script>
 </head>
 
-<body class="page-game">
-
+<body class="page-tutorial">
     <?php
 
     $horders = [[1, 4], [2, 3], [3, 2], [4, 1]];  // Define an array of ship lengths (2, 3, 4, and 5).
     
-    $arrayPosicionsPlayer = array();  // Initialize an empty array to hold the positions on the board.
-    $arrayPosicionsEnemy = array();
-    initPosicionArray($arrayPosicionsPlayer);
-    generateRandomHorders($horders, $arrayPosicionsPlayer);
+    $arrayPosiciones = array();  // Initialize an empty array to hold the positions on the board.
+    
+    initPosicionArray($arrayPosiciones);
+    generateRandomHorders($horders, $arrayPosiciones);
 
-    initPosicionArray($arrayPosicionsEnemy);
-    generateRandomHorders($horders, $arrayPosicionsEnemy);
     //Function for init the positionArray(the board of the players).
     function initPosicionArray(&$arrayPosiciones)
     {
@@ -464,10 +447,8 @@ $score = htmlspecialchars($_POST['score']);
         return true;
     }
 
-    function printEnemyTable($arrayPosiciones)
+    function printTable($arrayPosiciones)
     {
-
-
         $char = 65;
         for ($i = 0; $i <= 10; $i++) {
             echo "<tr>";
@@ -492,42 +473,6 @@ $score = htmlspecialchars($_POST['score']);
 
 
                     echo "<td><button class='tableButton' value =" . $arrayPosiciones[$i - 1][$j - 1] . "></button></td>";
-
-                }
-
-            }
-            echo "</tr>";
-        }
-    }
-
-    function printPlayerTable($arrayPosiciones)
-    {
-
-
-        $char = 65;
-        for ($i = 0; $i <= 10; $i++) {
-            echo "<tr>";
-            for ($j = 0; $j <= 10; $j++) {
-
-
-                if ($i == 0 && $j == 0) {
-                    echo "<td><button id='easterEggButton'></button></td>";
-                } elseif ($i == 0 && $j != 0) {
-
-                    echo "<th>" . chr($char) . "</th>";
-
-                    $char += 1;
-
-
-                } elseif ($i != 0 && $j == 0) {
-
-
-                    echo "<th>$i</th>";
-
-                } else {
-
-
-                    echo "<td class='playerCell' data-value='" . $arrayPosiciones[$i - 1][$j - 1] . "'></td>";
 
                 }
 
@@ -561,37 +506,45 @@ $score = htmlspecialchars($_POST['score']);
     </div>
 
     <div class="PrincipalDiv">
-    <div id="printName">
-       
+        <table>
+
             <?php
-            
-            echo "<h1>" .$nombreFormulario. "</h1>"; // Mostrar el nombre capturado desde index
+
+            printTable($arrayPosiciones);
+
             ?>
+
+
+        </table>
+
+        <div class="scoreboard yellowBox">
+            <h1>Lost in the Sand</h1>
+
+            <div class="time-marker">
+                <div class="time">
+                    <img id="clock" src="../Images/tiempo-pasado.png" alt="Icono de un reloj" width="30px"
+                        height="30px">
+                    <time id="chronometer" datetime="clock">00:00:00</time>
+                </div>
+                <div class="marker">
+                    <img id="arrow" src="../Images/flecha-de-diana.png" alt="diana" width="30px" height="30px">
+                    <p id="scoreDisplay">00000</p>
+                </div>
+
+            </div>
+            <div id="popup" class="modal">
+                <div class="windowsForm">
+                    <span class="close">&times;</span>
+
+                    <form id="myForm" method="POST" action="game.php">
+                        <label for="name">Introdueix el Nom:</label><br>
+                        <input type="text" id="name" name="name" value="" required><br><br>
+                        <!-- Contenedor para mensajes de largo nombre -->
+                        <div id="longName"></div><br>
+                        <button type="submit">Guardar</button>
+                </div>
+            </div>
         </div>
-        <table>
-
-            <?php
-
-            printEnemyTable($arrayPosicionsPlayer);
-
-            ?>
-
-
-        </table>
-        <table>
-
-            <?php
-
-            printPlayerTable($arrayPosicionsEnemy);
-
-            ?>
-       
-
-
-        </table>
-
-
-
 
 
     </div>

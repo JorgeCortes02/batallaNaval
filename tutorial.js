@@ -1,6 +1,6 @@
 // Array to keep track of selected hordes (ships)
-var selectesPlayerHorders = [[0], [0, 0], [0, 0, 0], [0, 0, 0, 0]];
-var selectesEnemyHorders = [[0], [0, 0], [0, 0, 0], [0, 0, 0, 0]];
+var selectesHorders = [[0], [0, 0], [0, 0, 0], [0, 0, 0, 0]];
+
 
 
 // Get all buttons with the class "tableButton"
@@ -9,7 +9,6 @@ const buttons = document.getElementsByClassName("tableButton");
 //Array with the game sounds
 const gameSounds = [new Audio('sounds/water1.mp3'), new Audio('sounds/victory.mp3'), new Audio('sounds/perfect.mp3'), new Audio('sounds/gameover.mp3'), new Audio('sounds/zombie.mp3'), new Audio('sounds/IndianaJonesTheme.mp3')];
 
-var nowAttackPlayer = 1;
 
 // Wait for the DOM to fully load before executing the script
 document.addEventListener("DOMContentLoaded", function () {
@@ -28,70 +27,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
-var nowAttackPlayer = 0;
-function changeTurn() {
-
-    if (nowAttackPlayer === 1) {
-        nowAttackPlayer = 0
-        activeTable();
-
-    } else {
-        nowAttackPlayer = 1
-        enemyTurn();
-        disableTable();
-    }
-
-    console.log(nowAttackPlayer)
-
-}
-
-function enemyTurn() {
-
-    setTimeout(function () {
-        randomPosition = getRandomNumber(cellsPlayerTable.length);
-        console.log(randomPosition);
-        actualCell = cellsPlayerTable[randomPosition];
-        console.log(actualCell.getAttribute('data-value'));
-        stateCell = sumFoundPositions(actualCell.getAttribute('data-value'), selectesEnemyHorders);
-
-
-        if (stateCell === "water") {
-
-            actualCell.style.background = "blue";
-        } else if (stateCell === "touched") {
-
-            actualCell.style.background = "orange";
-        } else if (stateCell === "sunk") {
-
-            actualCell.style.background = "red";
-        }// Change the button's text to reflect its state
-
-        // If the state is "victory", disable all buttons and generate new buttons
-
-        if (stateCell === "victory") {
-            disableTableIfVictory();
-            //stopTimer(); // Detener el cronómetro
-            window.location.href = "lose.php";
-        }
-
-        if (stateCell == "touch" || stateCell == "sunk") {
-            enemyTurn();
-        } else {
-            changeTurn();
-        }
-
-    }, 3000); //
-    cellsPlayerTable = document.getElementsByClassName("playerCell");
-
-
-}
-
-function getRandomNumber(long) {
-
-    return Math.floor(Math.random() * long);
-
-}
-
 function easterEggEvent() {
 
     // Creation of easter egg div which will contain elements
@@ -109,9 +44,8 @@ function easterEggEvent() {
 
     // Generate sound of the Easter Egg (--> will trigger indiana jones arrayOfSounds[5])
     generateSound("easterEgg");
+    
 }
-
-
 
 
 // Variables para guardar el timeout y el intervalo
@@ -174,7 +108,6 @@ function generateNewNotification(typeNotification) {
 
 // Function to disable all buttons when the game is won
 
-
 function disableTableIfVictory() {
     // Convert the HTMLCollection to an array for easier manipulation
     let buttons1 = Array.from(document.getElementsByClassName("tableButton"));
@@ -187,39 +120,10 @@ function disableTableIfVictory() {
         easterEggButton.disabled = true; // Disable the button
     }
 }
-function disableTable() {
-    // Convert the HTMLCollection to an array for easier manipulation
-    let buttons1 = Array.from(document.getElementsByClassName("tableButton"));
-    for (let buttonGame of buttons1) {
-        // Change each button's class to "button-disabled"
-        buttonGame.classList.add("disabledIfSound");
-    }
-    const easterEggButton = document.getElementById('easterEggButton');
-    if (easterEggButton) {
-        easterEggButton.disabled = true; // Disable the button
-    }
-}
-
-function activeTable() {
-    // Convert the HTMLCollection to an array for easier manipulation
-    let buttons1 = Array.from(document.getElementsByClassName("tableButton"));
-    for (let buttonGame of buttons1) {
-        // Change each button's class to "button-disabled"
-        buttonGame.classList.remove("disabledIfSound")
-
-    }
-    const easterEggButton = document.getElementById('easterEggButton');
-    if (easterEggButton) {
-        easterEggButton.disabled = false; // Disable the button
-    }
-}
-
-
 // Function to handle cell click events
 function turnACell(e) {
     const value = e.target.value; // Get the value of the clicked button
-    disableTable();
-    stateCell = sumFoundPositions(value, selectesPlayerHorders); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
+    stateCell = sumFoundPositions(value); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
 
     // Change the class from "tableButton" to "button-disabled"
     e.target.classList.replace("tableButton", "button-disabled");
@@ -234,26 +138,13 @@ function turnACell(e) {
         e.target.classList.add("touch");
     } // Change the button's text to reflect its state
     // Calcula el nuevo puntaje basándose en el estado del juego
-    //score = getScore(score, stateCell);
-    //updateScoreDisplay(score); // Actualiza el marcador en la pantalla
+    score = getScore(score, stateCell);
+    updateScoreDisplay(score); // Actualiza el marcador en la pantalla
     // If the state is "victory", disable all buttons and generate new buttons
-
     if (stateCell === "victory") {
         disableTableIfVictory();
-        //stopTimer(); // Detener el cronómetro
-
-    } else {
-        // If it's not a victory, reactivate the table after a delay (e.g., 1 second)
-        setTimeout(() => {
-            activeTable(); // Activate the table after 1 second
-            console.log("Activado")
-        }, 3000); // 1000ms = 1 second delay
-    }
-    if (stateCell !== "touched" && stateCell !== "sunk") {
-
-
-        changeTurn();
-        console.log("cipoteee")
+        stopTimer(); // Detener el cronómetro
+        generateRankingAndHomeButtons();
     }
 }
 // Function to generate buttons for ranking and home
@@ -300,8 +191,7 @@ function generateRankingAndHomeButtons() {
 }
 
 // Function to track the positions found (hits on the ships)
-// Function to track the positions found (hits on the ships)
-function sumFoundPositions(positionString, selectesHorders) {
+function sumFoundPositions(positionString) {
     let checkVictoryText = "";
     const elements = positionString.split(",");
     numHorder = elements[1];
@@ -313,24 +203,24 @@ function sumFoundPositions(positionString, selectesHorders) {
         case "4":
             indexArray = 0;
             selectesHorders[indexArray][parseInt(numHorder)] += 1;
-            checkVictoryText = checkVictory(selectesHorders);
+            checkVictoryText = checkVictory();
             if (checkVictoryText == "victory") {
                 return checkVictoryText;
             }
 
-            touchOrSunk = checkIfTouchedOrSunk(indexArray, parseInt(numHorder), parseInt(longHorder), selectesHorders);
+            touchOrSunk = checkIfTouchedOrSunk(indexArray, parseInt(numHorder), parseInt(longHorder));
             return touchOrSunk;
             break;
 
         case "3":
             indexArray = 1;
             selectesHorders[indexArray][parseInt(numHorder)] += 1;
-            checkVictoryText = checkVictory(selectesHorders);
+            checkVictoryText = checkVictory();
             if (checkVictoryText == "victory") {
                 return checkVictoryText;
             }
 
-            touchOrSunk = checkIfTouchedOrSunk(indexArray, parseInt(numHorder), parseInt(longHorder), selectesHorders);
+            touchOrSunk = checkIfTouchedOrSunk(indexArray, parseInt(numHorder), parseInt(longHorder));
             return touchOrSunk;
 
             break;
@@ -338,22 +228,24 @@ function sumFoundPositions(positionString, selectesHorders) {
         case "2":
             indexArray = 2;
             selectesHorders[indexArray][parseInt(numHorder)] += 1;
-            checkVictoryText = checkVictory(selectesHorders); if (checkVictoryText == "victory") {
+            checkVictoryText = checkVictory();
+            if (checkVictoryText == "victory") {
                 return checkVictoryText;
             }
 
-            touchOrSunk = checkIfTouchedOrSunk(indexArray, parseInt(numHorder), parseInt(longHorder), selectesHorders);
+            touchOrSunk = checkIfTouchedOrSunk(indexArray, parseInt(numHorder), parseInt(longHorder));
             return touchOrSunk;
             break;
 
         case "1":
             indexArray = 3;
             selectesHorders[indexArray][parseInt(numHorder)] += 1;
-            checkVictoryText = checkVictory(selectesHorders); if (checkVictoryText == "victory") {
+            checkVictoryText = checkVictory();
+            if (checkVictoryText == "victory") {
                 return checkVictoryText;
             }
 
-            touchOrSunk = checkIfTouchedOrSunk(indexArray, parseInt(numHorder), parseInt(longHorder), selectesHorders);
+            touchOrSunk = checkIfTouchedOrSunk(indexArray, parseInt(numHorder), parseInt(longHorder));
             return touchOrSunk;
             break;
 
@@ -365,18 +257,9 @@ function sumFoundPositions(positionString, selectesHorders) {
 
 }
 
-function checkVictory(selectesHorders) {
 
-    // Check if all positions have been found
-    if (selectesHorders.reduce((accumulator, currentArray) => {
-        // Sumar los elementos dentro del array actual
-        return accumulator + currentArray.reduce((innerAcc, currentValue) => innerAcc + currentValue, 0);
-    }, 0) === 20) {
-        return "victory";
-    }
-}
 
-function checkIfTouchedOrSunk(indexArray, numHorder, longHorder, selectesHorders) {
+function checkIfTouchedOrSunk(indexArray, numHorder, longHorder) {
 
     // Check if the second horde is sunk
     if (selectesHorders[indexArray][numHorder] == longHorder) {
@@ -389,7 +272,6 @@ function checkIfTouchedOrSunk(indexArray, numHorder, longHorder, selectesHorders
 //Function for generate de sounds
 function generateSound(inputOfGame) {
     //We must insert how a attribute an input with the information of the sound.
-
     switch (inputOfGame) {
 
         case "victory":
@@ -447,7 +329,17 @@ function formatTime(ms) {
     return `${hours}:${minutes}:${seconds}`;
 }
 
+// Iniciar cronómetro cuando se carga la página
+window.onload = function () {
+    startTime = new Date().getTime(); // Tiempo de inicio
+    timerInterval = setInterval(function () {
+        let currentTime = new Date().getTime();
+        let elapsedTime = currentTime - startTime;
+        document.querySelector("#chronometer").textContent = formatTime(elapsedTime);
+        //document.querySelector("#chronometer").style.color = "#3b240b"; 
 
+    }, 1000); // Actualizar cada segundo
+};
 
 // Función para obtener el tiempo transcurrido en segundos
 function getElapsedTimeInSeconds() {
@@ -538,13 +430,13 @@ document.addEventListener("DOMContentLoaded", function () {
     var ow = document.getElementById("openWindows"); // El botón que abre el modal
     var span = document.getElementsByClassName("close")[0]; // El botón de cierre (X)
 
-    /*
+
     // Cerrar el modal cuando se hace clic en la "X"
     span.onclick = function () {
         modal.style.display = "none"; // Ocultar el modal
         clearForm(); // Limpiar el formulario al cerrar el modal
     };
-    */
+
     // Cerrar el modal al hacer clic fuera del contenido del modal
     window.onclick = function (event) {
         if (event.target == modal) {
@@ -552,7 +444,7 @@ document.addEventListener("DOMContentLoaded", function () {
             clearForm(); // Limpiar el formulario al cerrar el modal
         }
     };
-/*
+
     // Añadir el listener para el envío del formulario
     document.getElementById('myForm').addEventListener('submit', function (e) {
         e.preventDefault(); // Prevenir el envío del formulario por defecto
@@ -598,4 +490,13 @@ document.addEventListener("DOMContentLoaded", function () {
         longNameMessage.style.display = 'none'; // Oculta el mensaje de error
     }
 });
-*/});
+function checkVictory() {
+
+    // Check if all positions have been found
+    if (selectesHorders.reduce((accumulator, currentArray) => {
+        // Sumar los elementos dentro del array actual
+        return accumulator + currentArray.reduce((innerAcc, currentValue) => innerAcc + currentValue, 0);
+    }, 0) === 20) {
+        return "victory";
+    }
+}
