@@ -551,8 +551,6 @@ body.page-ranking {
     color: black;
     font-weight: bold;
     font-size: 0.9em;
-    margin-top: 10px;
-    margin-bottom: 20px;
     text-align: center;
 }
 
@@ -969,6 +967,7 @@ body.page-ranking {
     text-decoration: underline;
     color: black;
     font-size: 2em;
+    margin-top: 20px;
 }
 
 .page-game #longName {
