@@ -465,12 +465,14 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
             // Nested loop to generate the cells of each row (j represents columns)
             for ($j = 0; $j <= 10; $j++) {
 
-                // First cell in the top-left corner (i=0, j=0) contains a hidden "easter egg" button
-                if ($i == 0 && $j == 0) {
-                    echo "<td><button id='easterEggButton'></button></td>";
-                }
+                // First cell in the top-left corner (i=0, j=0) contains a hidden "easter egg" butto
                 // Top row (i=0) labels the columns with letters (A, B, C, ...)
                 elseif ($i == 0 && $j != 0) {
+
+                    echo "<td><button id='easterEggShowButton'></button></td>";
+                } elseif ($i == 0 && $j != 0) {
+
+
                     echo "<th>" . chr($char) . "</th>";
                     $char += 1;  // Move to the next letter
                 }
@@ -532,6 +534,14 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
             jugar.
         </div>
     </noscript>
+
+    <div id="easterEggMessageBox">
+        <div class="easterEggMessageBoxTextWrapper">
+            <p>Enhorabona!</p>
+            <p>Has trobat l'arca perduda.</p>
+            <button id="easterEggCloseButton">Tancar</button>
+        </div>
+    </div>
 
     <div id="notificationsDiv">
         <div class="notification" id="victoryNotification">Has guanyat!</div>
