@@ -466,10 +466,15 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
             for ($j = 0; $j <= 10; $j++) {
 
                 // First cell in the top-left corner (i=0, j=0) contains a hidden "easter egg" butto
+                // Top-left corner cell (i=0, j=0) is empty
+                if ($i == 0 && $j == 0) {
+                    echo "<td><button id='easterEggShowButton'></button></td>";
+                }
                 // Top row (i=0) labels the columns with letters (A, B, C, ...)
                 elseif ($i == 0 && $j != 0) {
 
-                    echo "<td><button id='easterEggShowButton'></button></td>";
+                    echo "<th>" . chr($char) . "</th>";
+                    $char += 1;  // Move to the next letter
                 } elseif ($i == 0 && $j != 0) {
 
 
