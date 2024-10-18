@@ -60,18 +60,17 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
 
 <body class="page-game">
 
-
-
-
     <?php
 
     $horders = [[1, 4], [2, 3], [3, 2], [4, 1]];  // Define an array of ship lengths (2, 3, 4, and 5).
     
-    $arrayPosiciones = array();  // Initialize an empty array to hold the positions on the board.
-    
-    initPosicionArray($arrayPosiciones);
-    generateRandomHorders($horders, $arrayPosiciones);
+    $arrayPosicionsPlayer = array();  // Initialize an empty array to hold the positions on the board.
+    $arrayPosicionsEnemy = array();
+    initPosicionArray($arrayPosicionsPlayer);
+    generateRandomHorders($horders, $arrayPosicionsPlayer);
 
+    initPosicionArray($arrayPosicionsEnemy);
+    generateRandomHorders($horders, $arrayPosicionsEnemy);
     //Function for init the positionArray(the board of the players).
     function initPosicionArray(&$arrayPosiciones)
     {
@@ -451,8 +450,10 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
         return true;
     }
 
-    function printTable($arrayPosiciones)
+    function printEnemyTable($arrayPosiciones)
     {
+
+
         $char = 65;
         for ($i = 0; $i <= 10; $i++) {
             echo "<tr>";
@@ -485,6 +486,42 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
         }
     }
 
+    function printPlayerTable($arrayPosiciones)
+    {
+
+
+        $char = 65;
+        for ($i = 0; $i <= 10; $i++) {
+            echo "<tr>";
+            for ($j = 0; $j <= 10; $j++) {
+
+
+                if ($i == 0 && $j == 0) {
+                    echo "<td><button id='easterEggButton'></button></td>";
+                } elseif ($i == 0 && $j != 0) {
+
+                    echo "<th>" . chr($char) . "</th>";
+
+                    $char += 1;
+
+
+                } elseif ($i != 0 && $j == 0) {
+
+
+                    echo "<th>$i</th>";
+
+                } else {
+
+
+                    echo "<td class='playerCell' data-value='" . $arrayPosiciones[$i - 1][$j - 1] . "'></td>";
+
+                }
+
+            }
+            echo "</tr>";
+        }
+    }
+
     ?>
     <noscript>
         <div class="warning">
@@ -506,42 +543,24 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
 
             <?php
 
-            printTable($arrayPosiciones);
+            printEnemyTable($arrayPosicionsPlayer);
+
+            ?>
+
+
+        </table>
+        <table>
+
+            <?php
+
+            printPlayerTable($arrayPosicionsEnemy);
 
             ?>
 
 
         </table>
 
-        <div class="scoreboard yellowBox">
-            <h1>Lost in the Sand</h1>
 
-            <div class="time-marker">
-                <div class="time">
-                    <img id="clock" src="../Images/tiempo-pasado.png" alt="Icono de un reloj" width="30px"
-                        height="30px">
-                    <time id="chronometer" datetime="clock">00:00:00</time>
-                </div>
-                <div class="marker">
-                    <img id="arrow" src="../Images/flecha-de-diana.png" alt="diana" width="30px" height="30px">
-                    <p id="scoreDisplay">00000</p>
-                </div>
-
-            </div>
-            <a href="win.php">Ir</a>
-            <div id="popup" class="modal">
-                <div class="windowsForm">
-                    <span class="close">&times;</span>
-
-                    <form id="myForm" method="POST" action="game.php">
-                        <label for="name">Introdueix el Nom:</label><br>
-                        <input type="text" id="name" name="name" value="" required><br><br>
-                        <!-- Contenedor para mensajes de largo nombre -->
-                        <div id="longName"></div><br>
-                        <button type="submit">Guardar</button>
-                </div>
-            </div>
-        </div>
 
 
     </div>
