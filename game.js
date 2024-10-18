@@ -7,13 +7,15 @@ var selectesEnemyHorders = [[0], [0, 0], [0, 0, 0], [0, 0, 0, 0]];
 const buttons = document.getElementsByClassName("tableButton");
 
 //Array with the game sounds
-const gameSounds = [new Audio('sounds/water1.mp3'), new Audio('sounds/victory.mp3'), new Audio('sounds/perfect.mp3'), new Audio('sounds/gameover.mp3'), new Audio('sounds/zombie.mp3'), new Audio('sounds/IndianaJonesTheme.mp3')];
+const gameSounds = [new Audio('sounds/water1.mp3'), new Audio('sounds/victory.mp3'), new Audio('sounds/perfect.mp3'), new Audio('sounds/gameover.mp3'), new Audio('sounds/zombie.mp3'), new Audio('sounds/IndianaJonesTheme.mp3'), new Audio("sounds/cañonEnemigo.mp3")];
 
-var nowAttackPlayer = 1;
-
+var nowAttackPlayer = 0;
+var cellsPlayerTable = null;
 // Wait for the DOM to fully load before executing the script
 document.addEventListener("DOMContentLoaded", function () {
+    cellsPlayerTable = Array.from(document.getElementsByClassName("playerCell"));
 
+    showPlayerHorders();
     const notificationsDiv = document.getElementById("notificationsDiv");
 
     // Attach click event listener to each button
@@ -28,68 +30,105 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
-var nowAttackPlayer = 0;
+
 function changeTurn() {
-
+    // Check if it's the enemy's turn (nowAttackPlayer is 1)
     if (nowAttackPlayer === 1) {
-        nowAttackPlayer = 0
-        activeTable();
-
+        // Change turn to the player
+        nowAttackPlayer = 0;
+        // Activate the player's table for interaction
+        setTimeout(function () {
+            activeTable()
+        }, 2000);
     } else {
-        nowAttackPlayer = 1
+        // Change turn to the enemy
+        nowAttackPlayer = 1;
+        // Execute the enemy's turn logic
         enemyTurn();
+        // Disable the player's table to prevent interaction
         disableTable();
     }
-
-    console.log(nowAttackPlayer)
-
 }
 
 function enemyTurn() {
 
     setTimeout(function () {
+        generateSound("canonEnemy");
         randomPosition = getRandomNumber(cellsPlayerTable.length);
-        console.log(randomPosition);
         actualCell = cellsPlayerTable[randomPosition];
-        console.log(actualCell.getAttribute('data-value'));
-        stateCell = sumFoundPositions(actualCell.getAttribute('data-value'), selectesEnemyHorders);
+
+        setTimeout(function () { animateCellColorChange(actualCell); }, 1000);
+
+        setTimeout(function () {
+
+            stateCell = sumFoundPositions(actualCell.getAttribute('data-value'), selectesEnemyHorders);
+
+            generateSound(stateCell);
+            setTimeout(function () {
+
+                if (stateCell === "water") {
+
+                    actualCell.style.background = "blue";
+
+                } else if (stateCell === "touched") {
+
+                    actualCell.style.background = "orange";
+
+                } else if (stateCell === "sunk") {
+
+                    actualCell.style.background = "red";
+
+                }// Change the button's text to reflect its state
+                cellsPlayerTable.splice(randomPosition, 1);
+                // If the state is "victory", disable all buttons and generate new buttons
+
+                if (stateCell === "victory") {
+                    actualCell.style.background = "red";
+                    window.location.href = "win.php";
+                }
+
+                console.log(cellsPlayerTable.length)
+                if (stateCell == "touched" || stateCell == "sunk") {
+                    console.log("cambio")
+                    enemyTurn();
+
+                } else {
+                    changeTurn();
+                }
+            }, 2000);
 
 
-        if (stateCell === "water") {
 
-            actualCell.style.background = "blue";
-        } else if (stateCell === "touched") {
+        }, 2000); //
 
-            actualCell.style.background = "orange";
-        } else if (stateCell === "sunk") {
-
-            actualCell.style.background = "red";
-        }// Change the button's text to reflect its state
-
-        // If the state is "victory", disable all buttons and generate new buttons
-
-        if (stateCell === "victory") {
-            disableTableIfVictory();
-            //stopTimer(); // Detener el cronómetro
-            window.location.href = "lose.php";
-        }
-
-        if (stateCell == "touch" || stateCell == "sunk") {
-            enemyTurn();
-        } else {
-            changeTurn();
-        }
-
-    }, 3000); //
-    cellsPlayerTable = document.getElementsByClassName("playerCell");
-
+    }, 2000); //
 
 }
 
+function animateCellColorChange(actualCell) {
+    // Add the class to start the animation
+    actualCell.classList.add("cell-color-animation");
+
+    // Remove the class after 2 seconds (duration of the animation)
+    setTimeout(function () {
+        actualCell.classList.remove("cell-color-animation");
+    }, 5000); // 
+}
+
+function showPlayerHorders() {
+    // Iterate over each cell in the player's table
+    cellsPlayerTable.forEach(element => {
+        // If the cell's data-value attribute is not "^^^" (indicating a non-empty cell)
+        if (element.getAttribute("data-value") !== "^^^") {
+            // Set the cell's background color to gray
+            element.style.background = "gray";
+        }
+    });
+}
+
 function getRandomNumber(long) {
-
+    // Return a random number between 0 and the length of the array
     return Math.floor(Math.random() * long);
-
 }
 
 function easterEggEvent() {
@@ -219,7 +258,7 @@ function activeTable() {
 function turnACell(e) {
     const value = e.target.value; // Get the value of the clicked button
     disableTable();
-    stateCell = sumFoundPositions(value, selectesPlayerHorders); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
+    stateCell = "water"//sumFoundPositions(value, selectesPlayerHorders); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
 
     // Change the class from "tableButton" to "button-disabled"
     e.target.classList.replace("tableButton", "button-disabled");
@@ -240,20 +279,21 @@ function turnACell(e) {
 
     if (stateCell === "victory") {
         disableTableIfVictory();
+        window.location.href = "win.php";
         //stopTimer(); // Detener el cronómetro
 
     } else {
         // If it's not a victory, reactivate the table after a delay (e.g., 1 second)
         setTimeout(() => {
             activeTable(); // Activate the table after 1 second
-            console.log("Activado")
+
         }, 3000); // 1000ms = 1 second delay
     }
     if (stateCell !== "touched" && stateCell !== "sunk") {
 
 
         changeTurn();
-        console.log("cipoteee")
+
     }
 }
 // Function to generate buttons for ranking and home
@@ -300,71 +340,80 @@ function generateRankingAndHomeButtons() {
 }
 
 // Function to track the positions found (hits on the ships)
-// Function to track the positions found (hits on the ships)
 function sumFoundPositions(positionString, selectesHorders) {
     let checkVictoryText = "";
+
+    // Split the positionString by comma to separate values
     const elements = positionString.split(",");
-    numHorder = elements[1];
-    longHorder = elements[0];
+
+    numHorder = elements[1];  // Extract the number of the horde
+    longHorder = elements[0];  // Extract the length of the horde
     let indexArray = 0;
     let touchOrSunk = "";
+
     // Check the type of horde based on the positionString value
     switch (longHorder) {
         case "4":
-            indexArray = 0;
-            selectesHorders[indexArray][parseInt(numHorder)] += 1;
-            checkVictoryText = checkVictory(selectesHorders);
+
+
+            indexArray = 0;  // Assign the index for horde of length 4
+            selectesHorders[indexArray][parseInt(numHorder)] += 1;  // Update the position found
+            checkVictoryText = checkVictory(selectesHorders);  // Check for victory after updating
             if (checkVictoryText == "victory") {
-                return checkVictoryText;
+                return checkVictoryText;  // Return if victory condition is met
             }
 
+            // Check if the horde is touched or sunk
             touchOrSunk = checkIfTouchedOrSunk(indexArray, parseInt(numHorder), parseInt(longHorder), selectesHorders);
-            return touchOrSunk;
+            return touchOrSunk;  // Return whether the horde is touched or sunk
             break;
 
         case "3":
-            indexArray = 1;
-            selectesHorders[indexArray][parseInt(numHorder)] += 1;
-            checkVictoryText = checkVictory(selectesHorders);
+
+            indexArray = 1;  // Assign the index for horde of length 3
+            selectesHorders[indexArray][parseInt(numHorder)] += 1;  // Update the position found
+            checkVictoryText = checkVictory(selectesHorders);  // Check for victory after updating
             if (checkVictoryText == "victory") {
-                return checkVictoryText;
+                return checkVictoryText;  // Return if victory condition is met
             }
 
+            // Check if the horde is touched or sunk
             touchOrSunk = checkIfTouchedOrSunk(indexArray, parseInt(numHorder), parseInt(longHorder), selectesHorders);
-            return touchOrSunk;
-
+            return touchOrSunk;  // Return whether the horde is touched or sunk
             break;
 
         case "2":
-            indexArray = 2;
-            selectesHorders[indexArray][parseInt(numHorder)] += 1;
-            checkVictoryText = checkVictory(selectesHorders); if (checkVictoryText == "victory") {
-                return checkVictoryText;
+
+            indexArray = 2;  // Assign the index for horde of length 2
+            selectesHorders[indexArray][parseInt(numHorder)] += 1;  // Update the position found
+            checkVictoryText = checkVictory(selectesHorders);  // Check for victory after updating
+            if (checkVictoryText == "victory") {
+                return checkVictoryText;  // Return if victory condition is met
             }
 
+            // Check if the horde is touched or sunk
             touchOrSunk = checkIfTouchedOrSunk(indexArray, parseInt(numHorder), parseInt(longHorder), selectesHorders);
-            return touchOrSunk;
+            return touchOrSunk;  // Return whether the horde is touched or sunk
             break;
 
         case "1":
-            indexArray = 3;
-            selectesHorders[indexArray][parseInt(numHorder)] += 1;
-            checkVictoryText = checkVictory(selectesHorders); if (checkVictoryText == "victory") {
-                return checkVictoryText;
+
+            indexArray = 3;  // Assign the index for horde of length 1
+            selectesHorders[indexArray][parseInt(numHorder)] += 1;  // Update the position found
+            checkVictoryText = checkVictory(selectesHorders);  // Check for victory after updating
+            if (checkVictoryText == "victory") {
+                return checkVictoryText;  // Return if victory condition is met
             }
 
+            // Check if the horde is touched or sunk
             touchOrSunk = checkIfTouchedOrSunk(indexArray, parseInt(numHorder), parseInt(longHorder), selectesHorders);
-            return touchOrSunk;
+            return touchOrSunk;  // Return whether the horde is touched or sunk
             break;
 
         default:
-
             return "water"; // Return "water" if the position is not a hit
     }
-
-
 }
-
 function checkVictory(selectesHorders) {
 
     // Check if all positions have been found
@@ -414,6 +463,9 @@ function generateSound(inputOfGame) {
             break;
         case "easterEgg":
             gameSounds[5].play(); // falta cargar sonido
+            break;
+        case "canonEnemy":
+            gameSounds[6].play(); // falta cargar sonido
             break;
     }
 

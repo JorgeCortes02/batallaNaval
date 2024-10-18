@@ -43,9 +43,6 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
 
 ?>
 
-
-
-
 <!DOCTYPE html>
 <html lang="ca">
 
@@ -64,24 +61,30 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
 
     $horders = [[1, 4], [2, 3], [3, 2], [4, 1]];  // Define an array of ship lengths (2, 3, 4, and 5).
     
-    $arrayPosicionsPlayer = array();  // Initialize an empty array to hold the positions on the board.
-    $arrayPosicionsEnemy = array();
+    $arrayPosicionsPlayer = array();  // Initialize an empty array to hold the positions on the player's board.
+    $arrayPosicionsEnemy = array();   // Initialize an empty array to hold the positions on the enemy's board.
+    
+    // Initialize the player's board by setting all positions to the default value.
     initPosicionArray($arrayPosicionsPlayer);
+    // Generate random positions for the player's ships based on the $horders array.
     generateRandomHorders($horders, $arrayPosicionsPlayer);
 
+    // Initialize the enemy's board by setting all positions to the default value.
     initPosicionArray($arrayPosicionsEnemy);
+    // Generate random positions for the enemy's ships based on the $horders array.
     generateRandomHorders($horders, $arrayPosicionsEnemy);
-    //Function for init the positionArray(the board of the players).
+
+    // Function to initialize the positions array (representing the player's or enemy's board).
     function initPosicionArray(&$arrayPosiciones)
     {
-
+        // Loop through a 10x10 grid (board)
         for ($i = 0; $i <= 9; $i++) {
             for ($j = 0; $j <= 9; $j++) {
+                // Set each position on the board to the default value "^^^" (indicating an empty or unhit position).
                 $arrayPosiciones[$i][$j] = "^^^";
             }
         }
     }
-
     //Function for generate the random holders.
     function generateRandomHorders(&$horders, &$arrayPosiciones)
     {
@@ -452,33 +455,35 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
 
     function printEnemyTable($arrayPosiciones)
     {
-
-
+        // Variable to store the starting character (A) for column labels
         $char = 65;
+
+        // Loop to generate the rows of the table (i represents rows)
         for ($i = 0; $i <= 10; $i++) {
             echo "<tr>";
+
+            // Nested loop to generate the cells of each row (j represents columns)
             for ($j = 0; $j <= 10; $j++) {
 
+                // First cell in the top-left corner (i=0, j=0) contains a hidden "easter egg" butto
+                // Top row (i=0) labels the columns with letters (A, B, C, ...)
+                elseif ($i == 0 && $j != 0) {
 
-                if ($i == 0 && $j == 0) {
                     echo "<td><button id='easterEggShowButton'></button></td>";
                 } elseif ($i == 0 && $j != 0) {
 
+
                     echo "<th>" . chr($char) . "</th>";
-
-                    $char += 1;
-
-
-                } elseif ($i != 0 && $j == 0) {
-
-
+                    $char += 1;  // Move to the next letter
+                }
+                // First column (j=0) labels the rows with numbers (1, 2, 3, ...)
+                elseif ($i != 0 && $j == 0) {
                     echo "<th>$i</th>";
-
-                } else {
-
-
+                }
+                // The remaining cells represent the enemy's board
+                else {
+                    // Each button has a value from the $arrayPosiciones corresponding to the enemy's positions
                     echo "<td><button class='tableButton' value =" . $arrayPosiciones[$i - 1][$j - 1] . "></button></td>";
-
                 }
 
             }
@@ -488,33 +493,33 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
 
     function printPlayerTable($arrayPosiciones)
     {
-
-
+        // Variable to store the starting character (A) for column labels
         $char = 65;
+
+        // Loop to generate the rows of the table (i represents rows)
         for ($i = 0; $i <= 10; $i++) {
             echo "<tr>";
+
+            // Nested loop to generate the cells of each row (j represents columns)
             for ($j = 0; $j <= 10; $j++) {
 
-
+                // Top-left corner cell (i=0, j=0) is empty
                 if ($i == 0 && $j == 0) {
-                    echo "<td><button id='easterEggButton'></button></td>";
-                } elseif ($i == 0 && $j != 0) {
-
+                    echo "<td></td>";
+                }
+                // Top row (i=0) labels the columns with letters (A, B, C, ...)
+                elseif ($i == 0 && $j != 0) {
                     echo "<th>" . chr($char) . "</th>";
-
-                    $char += 1;
-
-
-                } elseif ($i != 0 && $j == 0) {
-
-
+                    $char += 1;  // Move to the next letter
+                }
+                // First column (j=0) labels the rows with numbers (1, 2, 3, ...)
+                elseif ($i != 0 && $j == 0) {
                     echo "<th>$i</th>";
-
-                } else {
-
-
+                }
+                // The remaining cells represent the player's board
+                else {
+                    // Each cell contains a position from the $arrayPosiciones, with a 'data-value' attribute for the ship positions
                     echo "<td class='playerCell' data-value='" . $arrayPosiciones[$i - 1][$j - 1] . "'></td>";
-
                 }
 
             }
