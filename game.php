@@ -1,42 +1,58 @@
 <?php
-session_start();
+session_start();  // Inicia la sesión o reanuda la existente
+
+// Verifica si se ha enviado el formulario con el nombre
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['name'])) {
+    // Guardar el nombre en la sesión
+    $_SESSION["name"] = htmlspecialchars($_POST['name']);  // Evita posibles inyecciones de HTML
+}
+$nombreFormulario = htmlspecialchars($_POST['name']);
 
 
-// Inicializamos la variable por defecto para evitar errores.
 $name = "";
+/*
+$score = "";
 
-// Verificar si se envió el formulario
-if (isset($_POST['name']) && isset($_POST['score'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['score'])) {
+    // Guardar el nombre en la sesión
+    $_SESSION["score"] = htmlspecialchars($_POST['score']);  // Evita posibles inyecciones de HTML
+}
+$score = htmlspecialchars($_POST['score']);
+
+// Verificar si se envió el formulario y llegada de info
+/*if (isset($_POST['name']) || isset($_POST['score'])) {
     $name = $_POST['name'];
     $score = $_POST['score'];
 
-     // Validación del nombre
-     if (strlen($name) < 3 || strlen($name) > 14) {
-        
-        echo "El nombre debe tener entre 3 y 14 caracteres.";
+    // Validación del nombre
+    if (strlen($name) < 3 || strlen($name) > 30) {
+
+        echo "El nombre debe tener entre 3 y 30 caracteres.";
         exit; // Detener la ejecución del script
     }
 
+
     $date = date('Y-m-d H:i'); // Formato de fecha y hora
 
-    $newTXT = "../TXT/ranking.txt";
 
-    $openTXT = fopen($newTXT, "a");
+
+    $openTXT = fopen("ranking.txt", "a");
 
 
 
     if ($openTXT) {
-    
 
-    fwrite($openTXT, $name . ';' . $score . ';' . $date . "\n");//esribimos
 
-    fclose($openTXT); // Cerramos el archivo después de escribir
+        fwrite($openTXT, $name . ';' . $score . ';' . $date . "\n");//esribimos
+
+        fclose($openTXT); // Cerramos el archivo después de escribir
 
     } else {
         echo "";
     }
 
-}
+
+*/
 
 
 ?>
@@ -45,31 +61,30 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
 
 
 <!DOCTYPE html>
-<html lang="es">
+<html lang="ca">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game</title>
-    <link rel="stylesheet" href="../CSS/styles.css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
-    <script src="../JS/game.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Liberation+Sans:wght@400;700&display=swap" rel="stylesheet">
-
-    
+    <script src="game.js"></script>
 </head>
 
 <body class="page-game">
 
     <?php
 
-    $horders = [[2], [3], [4], [5]];  // Define an array of ship lengths (2, 3, 4, and 5).
+    $horders = [[1, 4], [2, 3], [3, 2], [4, 1]];  // Define an array of ship lengths (2, 3, 4, and 5).
     
-    $arrayPosiciones = array();  // Initialize an empty array to hold the positions on the board.
-    
-    initPosicionArray($arrayPosiciones);
-    generateRandomHorders($horders, $arrayPosiciones);
+    $arrayPosicionsPlayer = array();  // Initialize an empty array to hold the positions on the board.
+    $arrayPosicionsEnemy = array();
+    initPosicionArray($arrayPosicionsPlayer);
+    generateRandomHorders($horders, $arrayPosicionsPlayer);
 
+    initPosicionArray($arrayPosicionsEnemy);
+    generateRandomHorders($horders, $arrayPosicionsEnemy);
     //Function for init the positionArray(the board of the players).
     function initPosicionArray(&$arrayPosiciones)
     {
@@ -84,69 +99,74 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
     //Function for generate the random holders.
     function generateRandomHorders(&$horders, &$arrayPosiciones)
     {
-        // Loop through each ship length defined in $horders.
-        for ($i = 0; $i < count($horders); $i++) {
+        foreach ($horders as $horder) {
+            $countHorder = 0;
+            // Loop through each ship length defined in $horders.
+            for ($i = 0; $i < $horder[0]; $i++) {
 
-            // Randomly decide the orientation.
-            $orientation = rand(0, 1);
+                // Randomly decide the orientation.
+                $orientation = rand(0, 1);
 
-            // If orientation is horizontal...
-            if ($orientation == 0) {
+                // If orientation is horizontal...
+                if ($orientation == 0) {
 
-                $freePosition = false;  // Flag to check if a free position is found.
+                    $freePosition = false;  // Flag to check if a free position is found.
     
 
-                while ($freePosition == false) {
-                    // Generate random row and column positions for the ship.
-                    $row = rand(0, count($arrayPosiciones) - 1);  // Random row index.
-                    // Calculate the column index, ensuring the ship fits within the array.
-                    $column = rand(0, count($arrayPosiciones[$row]) - 1 - $horders[$i][0]);
+                    while ($freePosition == false) {
+                        // Generate random row and column positions for the ship.
+                        $row = rand(0, count($arrayPosiciones) - 1);  // Random row index.
+                        // Calculate the column index, ensuring the ship fits within the array.
+                        $column = rand(0, count($arrayPosiciones[$row]) - 1 - $horder[1]);
 
-                    $horders[$i][1] = [];  // Initialize the position storage for the ship.
+                        // Initialize the position storage for the ship.
     
-                    // Check if the chosen position is free using the function isFreePosH.
-                    $freePosition = isFreePosH($row, $column, $arrayPosiciones, $horders[$i][0]);
-                }
+                        // Check if the chosen position is free using the function isFreePosH.
+                        $freePosition = isFreePosH($row, $column, $arrayPosiciones, $horder[1]);
+                    }
 
 
-                if ($freePosition == true) {
-                    // Place the ship on the board horizontally.
-                    for ($j = 0; $j < $horders[$i][0]; $j++) {
-                        // Mark the ship's positions in the array with its length.
-                        $arrayPosiciones[$row][$column + $j] = $horders[$i][0];
+                    if ($freePosition == true) {
+                        // Place the ship on the board horizontally.
+                        for ($j = 0; $j < $horder[1]; $j++) {
+                            // Mark the ship's positions in the array with its length.
+                            $arrayPosiciones[$row][$column + $j] = "$horder[1],$countHorder";
 
+                        }
+                    }
+
+                    // If the orientation is vertical:
+                } else {
+                    $freePosition = false;  // Reset the flag to check for free position.
+    
+                    // Keep searching for a random position to place the ship until a free position is found.
+                    while ($freePosition == false) {
+                        // Generate random row and column positions for the ship.
+    
+                        $row = rand(0, count($arrayPosiciones) - 1 - $horder[1]);
+                        $column = rand(0, count($arrayPosiciones[$row]) - 1);  // Random column index.
+    
+                        // Initialize the position storage for the ship.
+    
+                        $freePosition = isFreePosV($row, $column, $arrayPosiciones, $horder[1]);
+                    }
+
+                    // If a free position is confirmed...
+                    if ($freePosition == true) {
+
+                        for ($j = 0; $j < $horder[1]; $j++) {
+                            // Mark the ship's positions in the array with its length.
+                            $arrayPosiciones[$row + $j][$column] = "$horder[1],$countHorder";
+
+                        }
                     }
                 }
 
-                // If the orientation is vertical:
-            } else {
-                $freePosition = false;  // Reset the flag to check for free position.
-    
-                // Keep searching for a random position to place the ship until a free position is found.
-                while ($freePosition == false) {
-                    // Generate random row and column positions for the ship.
-    
-                    $row = rand(0, count($arrayPosiciones) - 1 - $horders[$i][0]);
-                    $column = rand(0, count($arrayPosiciones[$row]) - 1);  // Random column index.
-    
-                    $horders[$i][1] = [];  // Initialize the position storage for the ship.
-    
-
-                    $freePosition = isFreePosV($row, $column, $arrayPosiciones, $horders[$i][0]);
-                }
-
-                // If a free position is confirmed...
-                if ($freePosition == true) {
-
-                    for ($j = 0; $j < $horders[$i][0]; $j++) {
-                        // Mark the ship's positions in the array with its length.
-                        $arrayPosiciones[$row + $j][$column] = $horders[$i][0];
-
-                    }
-                }
+                $countHorder += 1;
             }
         }
     }
+    // Función para verificar si una posición es válida (sin tocar otros barcos)
     function isFreePosH($row, $column, $arrayPosiciones, $horderCount)
     {
         // Check if the position is not on the edges 
@@ -443,15 +463,19 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
 
         return true;
     }
-    function printTable($arrayPosiciones)
+
+    function printEnemyTable($arrayPosiciones)
     {
+
+
         $char = 65;
         for ($i = 0; $i <= 10; $i++) {
             echo "<tr>";
             for ($j = 0; $j <= 10; $j++) {
 
+
                 if ($i == 0 && $j == 0) {
-                    echo "<td></td>";
+                    echo "<td><button id='easterEggShowButton'></button></td>";
                 } elseif ($i == 0 && $j != 0) {
 
                     echo "<th>" . chr($char) . "</th>";
@@ -476,76 +500,105 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
         }
     }
 
+    function printPlayerTable($arrayPosiciones)
+    {
+
+
+        $char = 65;
+        for ($i = 0; $i <= 10; $i++) {
+            echo "<tr>";
+            for ($j = 0; $j <= 10; $j++) {
+
+
+                if ($i == 0 && $j == 0) {
+                    echo "<td><button id='easterEggButton'></button></td>";
+                } elseif ($i == 0 && $j != 0) {
+
+                    echo "<th>" . chr($char) . "</th>";
+
+                    $char += 1;
+
+
+                } elseif ($i != 0 && $j == 0) {
+
+
+                    echo "<th>$i</th>";
+
+                } else {
+
+
+                    echo "<td class='playerCell' data-value='" . $arrayPosiciones[$i - 1][$j - 1] . "'></td>";
+
+                }
+
+            }
+            echo "</tr>";
+        }
+    }
+
     ?>
     <noscript>
         <div class="warning">
-            Atención: JavaScript está deshabilitado en su navegador. Por favor, habilite JavaScript para jugar.
+            Atenció: El JavaScript està deshabilitat al teu navegador. Si us plau, habilita el JavaScript per poder
+            jugar.
         </div>
     </noscript>
+
+    <div id="easterEggMessageBox">
+        <div class="easterEggMessageBoxTextWrapper">
+            <p>Enhorabona!</p>
+            <p>Has trobat l'arca perduda.</p>
+            <button id="easterEggCloseButton">Tancar</button>
+        </div>
+    </div>
+
+    <div id="notificationsDiv">
+        <div class="notification" id="victoryNotification">Has guanyat!</div>
+        <div class="notification" id="sunkNotification">Has eliminat tota l'horda!</div>
+        <div class="notification" id="touchedNotification">Has eliminat un enemic!</div>
+        <div class="notification" id="gameoverNotification">Has perdut!</div>
+        <div class="notification" id="waterNotification">Directe a l'aigua!</div>
+    </div>
+
     <div class="PrincipalDiv">
+    <div id="printName">
+       
+            <?php
+            
+            echo "<h1>" .$nombreFormulario. "</h1>"; // Mostrar el nombre capturado desde index
+            ?>
+        </div>
         <table>
 
             <?php
 
-            printTable($arrayPosiciones);
+            printEnemyTable($arrayPosicionsPlayer);
 
             ?>
 
 
-
         </table>
+        <table>
 
-        <div class="scoreboard">
-            <h1>Lost in the Sand</h1>
+            <?php
 
-            <div class="time-marker">
+            printPlayerTable($arrayPosicionsEnemy);
 
-                <time id="chronometer" datetime="clock">00:00:00</time>
-                <p id="scoreDisplay">00000</p>
-
-            </div>
-
-            <div class="buttons">
-
-            </div>
-
-            <div id="popup" class="modal">
-                <div class="windowsForm">
-                    <span class="close">&times;</span>
-            
-                    <form id="myForm" method="POST" action="game.php">
-                        <label for="name">Introdueix el Nom:</label><br>
-                        <input type="text" id="name" name="name" value="" required><br><br>
-                        <!-- Contenedor para mensajes de largo nombre -->
-                        <div id="longName"></div><br>
-                        <button type="submit">Guardar</button>
-                    </form>
-                </div>
-
-            </div>
-
-           
-            
-        </div>
-        
+            ?>
        
 
 
+        </table>
+
+
+
+
+
     </div>
-    
 
-    
-    
-
-    <footer>
-
-        <h3>Desarrollado por Pau Gracia, William Sargisson y Jorge Cortes</h3>
-
-    </footer>
-    
 
 </body>
 
 
-</html>
 
+</html>
