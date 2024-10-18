@@ -21,50 +21,31 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Get the easterEggButton
-    const easterEggButton = document.getElementById('easterEggButton');
+    const easterEggShowButton = document.getElementById('easterEggShowButton');
     // Execute the easterEgg event with parameter once:true so it will execute only once if clicked
-    easterEggButton.addEventListener('click', easterEggEvent, { once: true });
+    easterEggShowButton.addEventListener('click', easterEggEvent, { once: true });
 
 });
 
 function easterEggEvent() {
 
     // Creation of easter egg div which will contain elements
-    const easterEggBox = document.createElement('div');
-    easterEggBox.setAttribute('id', 'easterEggMessageBox')
-
-    // Creation of easter egg wrapper which will contain text + button and give opacity
-    const easterEggMessageBox = document.createElement('div');
-    easterEggMessageBox.setAttribute('class', 'easterEggMessageBoxTextWrapper')
-
-    // p tag + text generation
-    const firstMessageInEasterEggBox = document.createElement('p');
-    firstMessageInEasterEggBox.innerText = 'Has trobat l\'arca perduda.';
-    const secondMessageInEasterEggBox = document.createElement('p');
-    secondMessageInEasterEggBox.innerText = 'Enhorabona!';
-
-    // Button to close box generation
-    const closeButtonInEasterEggBox = document.createElement('button');
-    closeButtonInEasterEggBox.textContent = "Tancar";
-
-    // Add remove event in close button
-    closeButtonInEasterEggBox.addEventListener('click', function () {
-        easterEggBox.remove();
+    const easterEggBox = document.getElementById('easterEggMessageBox');
+    easterEggBox.style.display = "flex";
+    
+    // Add display: none to easterEggBox to close it
+    const easterEggCloseButton = document.getElementById('easterEggCloseButton');
+    easterEggCloseButton.addEventListener('click', function () {
+        easterEggBox.style.display = "none";
     });
 
-    // Add elements to the wrapper div
-    easterEggMessageBox.appendChild(firstMessageInEasterEggBox);
-    easterEggMessageBox.appendChild(secondMessageInEasterEggBox);
-    easterEggMessageBox.appendChild(closeButtonInEasterEggBox);
-    easterEggBox.appendChild(easterEggMessageBox); // Add wrapper to the easter egg box
-
-    // Add element to the DOM
-    document.body.appendChild(easterEggBox);
-
+    // Add points to score
     updateScoreDisplay(score + 7000);
+
     // Generate sound of the Easter Egg (--> will trigger indiana jones arrayOfSounds[5])
     generateSound("easterEgg");
 }
+
 
 
 

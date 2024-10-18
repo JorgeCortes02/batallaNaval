@@ -460,7 +460,7 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
 
 
                 if ($i == 0 && $j == 0) {
-                    echo "<td><button id='easterEggButton'></button></td>";
+                    echo "<td><button id='easterEggShowButton'></button></td>";
                 } elseif ($i == 0 && $j != 0) {
 
                     echo "<th>" . chr($char) . "</th>";
@@ -492,6 +492,14 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
             jugar.
         </div>
     </noscript>
+
+    <div id="easterEggMessageBox">
+        <div class="easterEggMessageBoxTextWrapper">
+            <p>Enhorabona!</p>
+            <p>Has trobat l'arca perduda.</p>
+            <button id="easterEggCloseButton">Tancar</button>
+        </div>
+    </div>
 
     <div id="notificationsDiv">
         <div class="notification" id="victoryNotification">Has guanyat!</div>
