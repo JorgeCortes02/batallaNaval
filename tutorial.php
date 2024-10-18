@@ -58,11 +58,7 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
     <script src="tutorial.js"></script>
 </head>
 
-<body class="page-game">
-
-
-
-
+<body class="page-tutorial">
     <?php
 
     $horders = [[1, 4], [2, 3], [3, 2], [4, 1]];  // Define an array of ship lengths (2, 3, 4, and 5).
@@ -460,7 +456,7 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
 
 
                 if ($i == 0 && $j == 0) {
-                    echo "<td><button id='easterEggButton'></button></td>";
+                    echo "<td><button id='easterEggShowButton'></button></td>";
                 } elseif ($i == 0 && $j != 0) {
 
                     echo "<th>" . chr($char) . "</th>";
@@ -492,6 +488,14 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
             jugar.
         </div>
     </noscript>
+
+    <div id="easterEggMessageBox">
+        <div class="easterEggMessageBoxTextWrapper">
+            <p>Enhorabona!</p>
+            <p>Has trobat l'arca perduda.</p>
+            <button id="easterEggCloseButton">Tancar</button>
+        </div>
+    </div>
 
     <div id="notificationsDiv">
         <div class="notification" id="victoryNotification">Has guanyat!</div>
