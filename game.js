@@ -37,9 +37,9 @@ function changeTurn() {
         // Change turn to the player
         nowAttackPlayer = 0;
         // Activate the player's table for interaction
-        setTimeout(function () {
-            activeTable()
-        }, 2000);
+
+        activeTable()
+
     } else {
         // Change turn to the enemy
         nowAttackPlayer = 1;
@@ -136,7 +136,7 @@ function easterEggEvent() {
     // Creation of easter egg div which will contain elements
     const easterEggBox = document.getElementById('easterEggMessageBox');
     easterEggBox.style.display = "flex";
-    
+
     // Add display: none to easterEggBox to close it
     const easterEggCloseButton = document.getElementById('easterEggCloseButton');
     easterEggCloseButton.addEventListener('click', function () {
@@ -282,18 +282,9 @@ function turnACell(e) {
         window.location.href = "win.php";
         //stopTimer(); // Detener el cronómetro
 
-    } else {
-        // If it's not a victory, reactivate the table after a delay (e.g., 1 second)
-        setTimeout(() => {
-            activeTable(); // Activate the table after 1 second
-
-        }, 3000); // 1000ms = 1 second delay
     }
     if (stateCell !== "touched" && stateCell !== "sunk") {
-
-
         changeTurn();
-
     }
 }
 // Function to generate buttons for ranking and home
