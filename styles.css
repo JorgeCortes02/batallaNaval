@@ -757,6 +757,12 @@ body.page-ranking {
 
 }
 
+.page-game .disabledIfSound {
+    pointer-events: none;
+    /* Desactivar eventos */
+    cursor: not-allowed;
+}
+
 /*Style of div buttoms when gamed is end.*/
 .page-game .divButtonsFinalGame {
 
