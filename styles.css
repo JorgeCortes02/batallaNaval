@@ -575,7 +575,7 @@ body.page-game #easterEggMessageBox div.easterEggMessageBoxTextWrapper button:ho
     text-align: center;
 }
 
-.page-game #myForm button {
+.page-game #myForm button, .page-index {
     color: white;
     background-color: gray;
     font-size: 1em;
@@ -675,24 +675,36 @@ body.page-game #easterEggMessageBox div.easterEggMessageBoxTextWrapper button:ho
     /* Color cuando el mouse está sobre el botón */
 }
 
+/*div para nombre jugador que viene de index*/
+#printName {
+    width: 20%;
+    height: 10%;
+}
+/*estilo simple para nombre*/
+#printName h1 {
+    font-family: 'Cinzel', serif; /* Tipografía importada en tu HTML */
+    font-size: 3em; /* Tamaño grande para destacar el nombre */
+    color: black /* Color dorado */
+    
+}
+
+
+
 
 /* INDEX ------------------------------------ */
 
 /* THIS + .yellowBox*/
 body.page-index div.main_container {
 
-    width: 45%;
+    width: 70%;
     height: auto;
 
     padding: 1.75%;
     color: rgb(59, 36, 11);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-
-
     display: flex;
     flex-direction: column;
     justify-content: center;
-
     overflow: hidden;
 
 }
@@ -707,14 +719,60 @@ body.page-index div.main_container h1 {
 }
 
 /* Container that has game + hall of fame button */
-body.page-index div.main_container div.button_container {
 
-    display: flex;
-    margin: 0 auto;
-    margin-top: 2.5%;
-    width: 90%;
+body.page-index div.main_container div.button_container {
+    display: flex;             
+    justify-content: center; 
+    align-items: center;      
+      
+        
 
 }
+/*div de formularior*/
+body.page-index div.main_container div.button_container #myForm {
+    width: 90%;
+}
+
+/*div de poner user*/
+body.page-index div.main_container div.button_container #nameRecord {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    
+}
+
+/*etiqueta text area*/
+body.page-index div.main_container div.button_container #nameRecord label {
+    
+    font-size: 1.4em;
+    width: 40%;
+    margin: 0 auto;
+}
+
+
+/*div mensaje texto user error*/
+body.page-index div.main_container div.button_container #longUser {
+    text-align: center;
+    height: 40%;
+    
+}
+
+/*texto mensaje error user*/
+body.page-index div.main_container div.button_container #longUser h3 {
+    visibility: hidden;/*poner visible para ver mensaje*/
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+
+
+body.page-index div.main_container div.button_container #buttonPlay {
+    display: flex;
+    width: 100%;
+    
+}
+
+
 
 body.page-index div.main_container div.button_container .buttonActive {
 
@@ -734,6 +792,22 @@ body.page-index div.main_container div.button_container .buttonActive {
     text-align: center;
     margin: 0 auto;
 }
+/*text arrea*/
+body.page-index div.main_container div.button_container #nameIndex {
+    color: white;
+    background-color: gray;
+    font-size: 1em;
+    background-position: center;
+    cursor: pointer;
+    border: 3px double rgb(119, 68, 14);
+    border-radius: 10px;   
+    cursor: pointer;
+    width: 50%;
+    height: 30px;
+    text-align: center;
+    margin: 0 auto;
+   
+}
 
 body.page-index div.main_container div.button_container .buttonActive:hover {
 
@@ -748,6 +822,15 @@ body.page-index div.main_container div.button_container .aDisabled {
     pointer-events: none;
     /* Desactivar eventos */
     cursor: not-allowed;
+}
+
+body.page-index div.main_container div.button_container #initGame {
+    width: 30%;
+    height: 50px;
+    margin: 0 auto;
+   
+
+
 }
 
 body.page-index div.main_container div.button_container .aActive {

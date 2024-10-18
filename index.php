@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+$_SESSION["name"] = "name"
+
+?>
+
+
+
 <!DOCTYPE html>
 
 <html lang="ca">
@@ -30,10 +39,28 @@
             trobaran.
             L'estratègia, la punteria i una mica de sort seran les teves millors aliades en aquesta aventura.
             Dispara amb precisió per aconseguir la victòria!</p>
+        
         <div class="button_container">
-            <a id="toGameA" class="aDisabled" href="game.php"><button id="initGame" class="button-disabled">PARTIDA
-                    CLÀSICA</button></a>
-            <a class="aActive" href="ranking.php"><button id="goToHall" class="buttonActive">HALL OF FAME</button></a>
+            
+                <form id="myForm" method="POST" action="game.php">
+                    <div id="nameRecord">
+                        <label for="name">Allista't, com et dius:</label>
+                        <input type="text" id="nameIndex" name="name" value="" required>
+                    </div>
+                    <div id="longUser">
+                        <h3>El jugador ha de tenir entre 3 i 30 caràcters.</h3>
+                    </div>
+                    <div id="buttonPlay">
+                        <a class="aActive" href="tutorial.php"><button id="initGameB" class="buttonActive">TUTORIAL OF GAME</button></a>
+                        <button id="initGame" class="button-disabled" type="submit">PARTIDA CLÀSICA</button>
+                        <a class="aActive" href="ranking.php"><button id="goToHall" class="buttonActive">HALL OF FAME</button></a>
+                    </>
+                </form>
+                        
+            
+
+            <!--<a id="toGameA" class="aDisabled" href="game.php"><button id="initGame" class="button-disabled">PARTIDA CLÀSICA</button></a>-->
+            
         </div>
     </div>
 

@@ -1,14 +1,26 @@
 <?php
+session_start();  // Inicia la sesión o reanuda la existente
 
-//zona horaria
-date_default_timezone_set('Europe/Madrid'); // Cambia 'Europe/Madrid' a la zona horaria que necesites
+// Verifica si se ha enviado el formulario con el nombre
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['name'])) {
+    // Guardar el nombre en la sesión
+    $_SESSION["name"] = htmlspecialchars($_POST['name']);  // Evita posibles inyecciones de HTML
+}
+$nombreFormulario = htmlspecialchars($_POST['name']);
 
 
-// Inicializamos la variable por defecto para evitar errores.
 $name = "";
+/*
+$score = "";
 
-// Verificar si se envió el formulario
-if (isset($_POST['name']) && isset($_POST['score'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['score'])) {
+    // Guardar el nombre en la sesión
+    $_SESSION["score"] = htmlspecialchars($_POST['score']);  // Evita posibles inyecciones de HTML
+}
+$score = htmlspecialchars($_POST['score']);
+
+// Verificar si se envió el formulario y llegada de info
+/*if (isset($_POST['name']) || isset($_POST['score'])) {
     $name = $_POST['name'];
     $score = $_POST['score'];
 
@@ -18,6 +30,7 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
         echo "El nombre debe tener entre 3 y 30 caracteres.";
         exit; // Detener la ejecución del script
     }
+*/
 
     $date = date('Y-m-d H:i'); // Formato de fecha y hora
 
@@ -38,7 +51,8 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
         echo "";
     }
 
-}
+
+
 
 
 ?>
@@ -490,6 +504,13 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
     <div id="notificationsDiv"></div>
 
     <div class="PrincipalDiv">
+    <div id="printName">
+       
+            <?php
+            
+            echo "<h1>" .$nombreFormulario. "</h1>"; // Mostrar el nombre capturado desde index
+            ?>
+        </div>
         <table>
 
             <?php
@@ -497,6 +518,7 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
             printTable($arrayPosiciones);
 
             ?>
+       
 
 
         </table>
@@ -525,6 +547,7 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
                         <!-- Contenedor para mensajes de largo nombre -->
                         <div id="longName"></div><br>
                         <button type="submit">Guardar</button>
+                        
                 </div>
             </div>
         </div>
