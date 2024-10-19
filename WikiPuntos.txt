@@ -1,0 +1,23 @@
+SISTEMA DE PUNTUACIÓ:
+
+El sistema de puntuació per matar les mòmies tindrà bonificació per temps i per encerts.
+
+-Puntuació básica:
+
+Tocat: 20 punts.
+Aigua: -2 punts.
+Combo de tocats: Els punts de tocat es multipliquen pel nombre de combo.
+Enfonsat: 100 punts.
+
+-Bonus de temps:
+
+Durant els primers 5 minuts:
+Tocat: +10 punts més.
+Aigua: -2 punts menys.
+Enfonsat: +1000 punts més.
+
+-Normes generals:
+
+El marcador no pot ser menor de 0.
+Si la partida acaba durant els primers 10 minuts, el jugador percebrà una bonificació de 5000 punts.
+

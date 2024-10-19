@@ -352,7 +352,8 @@ body.page-ranking {
 }
 
 /*Style of buttoms when gamed is end.*/
-.page-tutorial .divButtonsFinalGame button {
+.page-tutorial #divButtonsFinalGame button {
+    display: none;
     background: rgb(59, 36, 11);
     border: 3px solid rgb(59, 36, 11);
     border-radius: 12px;
@@ -368,9 +369,10 @@ body.page-ranking {
     height: 50px;
     text-align: center;
     margin: 0 auto;
+    margin-bottom: 10%;
 }
 
-.page-tutorial .divButtonsFinalGame button:hover {
+.page-tutorial #divButtonsFinalGame button:hover {
     background: #7a6a55;
     border: 3px solid #7a6a55;
     border-radius: 12px;
@@ -546,7 +548,7 @@ body.page-ranking {
 
 .page-tutorial #longName {
     display: none;
-    position: absolute;
+   
     transform: translateY(-50%);
     color: black;
     font-weight: bold;
@@ -973,14 +975,12 @@ body.page-ranking {
 
 .page-game #longName {
     display: none;
-    position: absolute;
-    transform: translateY(-50%);
+    text-align: center;
     color: black;
     font-weight: bold;
     font-size: 0.9em;
-    margin-top: 10px;
-    margin-bottom: 20px;
-    text-align: center;
+    margin-left: 10%;
+    
 }
 
 .page-game #name {
@@ -1070,7 +1070,7 @@ body.page-ranking {
 /* THIS + .yellowBox*/
 body.page-index div.main_container {
 
-    width: 70%;
+    width: 50%;
     height: auto;
 
     padding: 1.75%;
@@ -1131,12 +1131,27 @@ body.page-index div.main_container div.button_container #longUser {
     
 }
 
+/*div mensaje texto user error*/
+body.page-index div.main_container div.button_container #nolongUser {
+    text-align: center;
+    height: 40%;
+    
+}
+body.page-index div.main_container div.button_container #nolongUser h3 {
+    visibility: hidden;/*poner visible para ver mensaje*/
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+
 /*texto mensaje error user*/
 body.page-index div.main_container div.button_container #longUser h3 {
     visibility: hidden;/*poner visible para ver mensaje*/
     font-size: 1.4em;
     font-weight: bold;
 }
+
+
 
 
 
@@ -1194,23 +1209,92 @@ body.page-index div.main_container div.button_container .aDisabled {
     height: 50px;
     margin: 0 auto;
     pointer-events: none;
-    /* Desactivar eventos */
+    /* Desactivar eventos*/ 
     cursor: not-allowed;
+
 }
 
 body.page-index div.main_container div.button_container #initGame {
-    width: 30%;
-    height: 50px;
-    margin: 0 auto;
+    background: rgb(59, 36, 11);
+    border: 3px solid #7a6a55;
+    border-radius: 12px;
+
+    color: #ffffff;
+    font-size: 14px;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+
+    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.6);
+    cursor: pointer;
+    width: 100%;
+    height: 60px;
+    text-align: center;
+    margin: 3px;
+    
+   
+
+
+}
+body.page-index div.main_container div.button_container #initGameB {
+    background: rgb(59, 36, 11);
+    border: 3px solid #7a6a55;
+    border-radius: 12px;
+
+    color: #ffffff;
+    font-size: 14px;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+
+    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.6);
+    cursor: pointer;
+    width: 100%;
+    height: 60px;
+    text-align: center;
+    margin: 3px;
    
 
 
 }
 
+body.page-index div.main_container div.button_container #initGameC {
+    background: rgb(59, 36, 11);
+    border: 3px solid #7a6a55;
+    border-radius: 12px;
+
+    color: #ffffff;
+    font-size: 14px;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+
+    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.6);
+    cursor: pointer;
+    width: 100%;
+    height: 60px;
+    text-align: center;
+    margin: 3px;
+   
+
+
+}
+
+
+
 body.page-index div.main_container div.button_container .aActive {
 
-    width: 30%;
-    height: 50px;
+    background: rgb(59, 36, 11);
+    border: 3px solid #7a6a55;
+    border-radius: 12px;
+
+    color: #ffffff;
+    font-size: 14px;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+
+    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.6);
+    cursor: pointer;
+    width: 100%;
+    height: 60px;
+    text-align: center;
     margin: 0 auto;
 
 }
