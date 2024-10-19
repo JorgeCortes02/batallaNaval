@@ -561,12 +561,14 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
     <div class="main_container">
     
         <div class="header_of_players yellowBox">
-            <h1>[PLAYER] vs IA</h1>
-            <h3>TORN ACTUAL: <br> [PLAYER or IA]</h3>
-            <h3>20:00:00</h3>
+            <h1>[PLAYER] vs IA</h1> 
+            <h3>TORN ACTUAL: <br> [PLAYER or IA]</h3> <!-- turn -->
+            <h3>20:00:00</h3> <!-- time -->
         </div> 
 
+        <!-- NOTIFICATION BOX -->
         <!-- <div class="notification_container .enemy_turn_style"> -->
+        <!-- <div class="notification_container .player_turn_style"> -->
         <div class="notification_container yellowBox">
             <p>EL JOC COMENÇA! ÉS EL TEU TORN [PLAYER] </p>
         </div>
@@ -580,7 +582,6 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
                 printEnemyTable($arrayPosicionsPlayer);
 
                 ?>
-
 
             </table>
 
