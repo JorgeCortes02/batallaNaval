@@ -5,7 +5,7 @@ date_default_timezone_set('Europe/Madrid'); // Cambia 'Europe/Madrid' a la zona 
 
 
 // Inicializamos la variable por defecto para evitar errores.
-$name = "Pepe";
+$name = "";
 
 // Verificar si se envió el formulario
 if (isset($_POST['name']) && isset($_POST['score'])) {
@@ -155,7 +155,7 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
             }
         }
     }
-    
+
     // Función para verificar si una posición es válida (sin tocar otros barcos)
     function isFreePosH($row, $column, $arrayPosiciones, $horderCount)
     {
@@ -598,10 +598,7 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
                             <p id="enemyAmmoTag">40 (ENEMY)</p>
                         </div>
                     </div>
-<<<<<<< HEAD
-
-=======
->>>>>>> ff5f63606e6036b175dd56d2ea878571173e6c31
+                    <<<<<<< HEAD=======>>>>>>> ff5f63606e6036b175dd56d2ea878571173e6c31
                 </div>
 
                 <table class="player_board">

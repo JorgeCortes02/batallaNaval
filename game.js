@@ -59,7 +59,9 @@ function changeTurn() {
     if (nowAttackPlayer === 1) {
         // Change turn to the player
         nowAttackPlayer = 0;
-        changeTurnText("turn0")
+        setTimeout(() => {
+            changeTurnText("turn0");
+        }, 2000);
         // Activate the player's table for interaction
         activeTable()
 
@@ -217,13 +219,13 @@ function generateNotificationWithAction(typeNotification) {
                     paragrafNotification.innerText = "Has derribat a tota l'horda enemiga. Tornes a atacar!"; // You have sunk the entire enemy horde. You attack again!
                     break;
                 case "touched":
-                    paragrafNotification.innerText = "Has acertat, una menys! Tornes a atacar!."; // You hit, one less! You attack again!
+                    paragrafNotification.innerText = "Has encertat, una menys! Tornes a atacar!"; // You hit, one less! You attack again!
                     break;
                 case "gameover":
                     paragrafNotification.innerText = "Has perdut."; // You have lost.
                     break;
                 case "water":
-                    paragrafNotification.innerText = "Directe a l'aigua, més sort la proxima vegada..."; // Direct hit to the water, better luck next time...
+                    paragrafNotification.innerText = "Directe a l’aigua! Més sort la pròxima vegada…"; // Direct hit to the water, better luck next time...
                     break;
             }
             break;
@@ -234,13 +236,13 @@ function generateNotificationWithAction(typeNotification) {
                     paragrafNotification.innerText = "Has perdut!"; // You have lost!
                     break;
                 case "sunk":
-                    paragrafNotification.innerText = "L'enemic ha eliminat la teva horda! Torna a l'atac."; // The enemy has eliminated your horde! Attack again.
+                    paragrafNotification.innerText = "L’enemic ha eliminat la teva horda! Torna a atacar!"; // The enemy has eliminated your horde! Attack again.
                     break;
                 case "touched":
-                    paragrafNotification.innerText = "L'enemic ha trobat una de les teves momies! Torna a atacar."; // The enemy has found one of your mummies! Attack again.
+                    paragrafNotification.innerText = "L’enemic ha trobat una de les teves momies! Torna a atacar!"; // The enemy has found one of your mummies! Attack again.
                     break;
                 case "water":
-                    paragrafNotification.innerText = "Atac enemic directe a l'aigua..."; // Enemy attack goes directly into the water...
+                    paragrafNotification.innerText = "Atac enemic directe a l’aigua!"; // Enemy attack goes directly into the water...
                     break;
             }
             break;
@@ -256,31 +258,43 @@ function generateNotificationWithAction(typeNotification) {
 function changeTurnText(turn) {
     const turnNotification = document.getElementById("turn");
 
-    // Reset the opacity manually (optional, not needed if using CSS)
-    turnNotification.classList.remove('show'); // Remove the 'show' class to reset the opacity
-    void turnNotification.offsetWidth; // Trigger a reflow to reset the animation
+    // Remove the 'show' class to reset opacity
+    turnNotification.classList.remove('show');
+
+    // Trigger reflow to reset the animation
+    void turnNotification.offsetWidth;
 
     // Change the text and classes based on the turn
     switch (turn) {
         case "turn0":
-            turnNotification.innerText = "Es el teu torn, sort camarada!"; // It is your turn, good luck comrade!
+            turnNotification.innerText = "És el teu torn! Sort, camarada!"; // It is your turn, good luck comrade!
             turnNotification.classList.replace("notificationEnemyTurn", "notificationPlayerTurn"); // Replace classes for styling
             fadeIn(turnNotification); // Start the fade-in animation
             break;
 
         case "turn1":
-            turnNotification.innerText = "Es el torn de l'enemic, a cobert!"; // It is the enemy's turn, take cover!
+            turnNotification.innerText = "És el torn de l’enemic! A cobert!"; // It is the enemy's turn, take cover!
             turnNotification.classList.replace("notificationPlayerTurn", "notificationEnemyTurn"); // Replace classes for styling
             fadeIn(turnNotification); // Start the fade-in animation
             break;
     }
-}
 
-function fadeIn(element) {
     // Add the 'show' class to trigger the CSS transition
-    element.classList.add('show');
+    fadeIn(turnNotification); // Start the fade-in animation
 }
 
+// Función para aumentar la opacidad gradualmente
+function fadeIn(element) {
+    let opacity = 0;
+    const interval = setInterval(() => {
+        opacity += 0.05; // Aumenta la opacidad gradualmente
+        element.style.opacity = opacity;
+
+        if (opacity >= 1) { // Detener el intervalo cuando la opacidad llega a 1
+            clearInterval(interval);
+        }
+    }, 20); // Controla la velocidad de la transición (aquí se actualiza cada 50ms)
+}
 
 // Function to disable all buttons when the game is won
 
@@ -389,7 +403,7 @@ function checkMunitionDepletedToSeeIfWinOrLose(playerHordes, enemyHordes, turn) 
         }
     }
 }
-var countFirtsPlayerAttack;
+var countFirtsPlayerAttack = 0;
 
 // Function to handle cell click events
 function turnACell(e) {
