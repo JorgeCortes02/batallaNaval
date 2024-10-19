@@ -155,6 +155,7 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
             }
         }
     }
+    
     // Función para verificar si una posición es válida (sin tocar otros barcos)
     function isFreePosH($row, $column, $arrayPosiciones, $horderCount)
     {
@@ -595,11 +596,16 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
                         <img src="images/game_scoreIcon.png" alt="time_logo">
                         <p>XXXXX</p>
                     </div>
-                    <div class="single_element_container">
-                        <img src="images/game_cannonIcon.png" alt="time_logo">
-                        <p>40 projectiles</p>
+                    <div class="ammo_container">
+                        <div class="playerAmmo">
+                            <img src="images/game_cannonIcon.png" alt="time_logo">
+                            <p id="playerAmmoTag">40 (PLAYER)</p>
+                        </div>
+                        <div class="enemyAmmo">
+                            <img src="images/game_cannonIcon.png" alt="time_logo">
+                            <p id="enemyAmmoTag">40 (ENEMY)</p>
+                        </div>
                     </div>
-                   
                 </div>
 
                 <table class="player_board">
