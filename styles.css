@@ -639,7 +639,7 @@ body.page-ranking {
 /* Styles of the div that contains the header + notification + info_game + (player/enemy) tables*/
 body.page-game div.main_container {
 
-    margin: 15px 7.5%;
+    margin: 10px 7.5%;
 
     height: 100%;
 
@@ -674,9 +674,26 @@ body.page-game div.main_container div.header_of_players > h1 {
     margin: 0;
 }
 
-body.page-game div.main_container div.header_of_players > h3 {
+body.page-game div.main_container div.header_of_players h3 {
     font-size: 1.15rem;
     margin: 0;
+}
+
+body.page-game div.main_container div.header_of_players div.timer,
+body.page-game div.main_container div.game_boards div.player_and_information_board div.information_board div.single_element_container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+body.page-game div.main_container div.game_boards div.player_and_information_board div.information_board div.single_element_container {
+    margin: 5px 0;
+}
+
+body.page-game div.main_container div.header_of_players div.timer img,
+body.page-game div.main_container div.game_boards div.player_and_information_board div.information_board div.single_element_container img {
+    width: 25px;
+    height: 25px;
 }
 
 /* NOTIFICATION BOX IN GAME ( JORGE ) */
@@ -789,7 +806,6 @@ body.page-game div.main_container div.game_boards div.player_and_information_boa
        
     color: white;
     margin: 0;
-    margin: 5px 0;
     font-size: 0.95rem;
 
 }
@@ -835,6 +851,7 @@ body.page-game div.main_container div.game_boards table.enemy_board td button.ta
 
     width: 100%; /* Full width of the cell */
     height: 100%; /* Full height of the cell */
+    padding: 0;
 
     background-image: url('../Images/jero1.jpg');
     background-size: cover;

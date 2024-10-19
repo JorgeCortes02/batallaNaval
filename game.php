@@ -563,7 +563,10 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
         <div class="header_of_players yellowBox">
             <h1>[PLAYER] vs IA</h1> 
             <h3>TORN ACTUAL: <br> [PLAYER or IA]</h3> <!-- turn -->
-            <h3>20:00:00</h3> <!-- time -->
+            <div class="timer">
+                <img src="images/tiempo-pasado.png" alt="time_logo">
+                <h3>20:00:00</h3> <!-- time -->
+            </div>
         </div> 
 
         <!-- NOTIFICATION BOX -->
@@ -588,8 +591,15 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
             <div class="player_and_information_board">   
 
                 <div class="information_board blackBox">
-                    <p>PUNTS: XXXXX</p>
-                    <p>MUNICIÓ: 40 projectiles</p>
+                    <div class="single_element_container">
+                        <img src="images/tiempo-pasado.png" alt="time_logo">
+                        <p>XXXXX</p>
+                    </div>
+                    <div class="single_element_container">
+                        <img src="images/icons8-cannon-50.png" alt="time_logo">
+                        <p>40 projectiles</p>
+                    </div>
+                   
                 </div>
 
                 <table class="player_board">
