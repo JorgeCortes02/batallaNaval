@@ -1,8 +1,13 @@
 // Array to keep track of selected hordes (ships)
-var selectesPlayerHorders = [[4], [3, 0], [2, 2, 0], [1, 1, 0, 0]];
-var selectesEnemyHorders = [[1], [3, 2], [2, 2, 1], [6, 1, 3, 0]];
+var selectesPlayerHorders = [[0], [0, 0], [0, 0, 0], [0, 0, 0, 0]];
+var selectesEnemyHorders = [[0], [0, 0], [0, 0, 0], [0, 0, 0, 0]];
 
+// MODES ACTIVATED
+var ammoEnabled = true; // (get from game.php) --> true para pruebas
+
+// MODES VARIABLES
 var playerAmmo = 40; // document.getElementById("playerAmmoTag");
+var enemyAmmo = 40; // document.getElementById("enemyAmmoTag");
 
 // Get all buttons with the class "tableButton"
 const buttons = document.getElementsByClassName("tableButton");
@@ -81,6 +86,21 @@ function enemyTurn() {
         setTimeout(function () {
 
             stateCell = sumFoundPositions(actualCell.getAttribute('data-value'), selectesEnemyHorders);
+
+            // AMMO MANAGEMENT FOR IA 
+            if(ammoEnabled) { 
+
+                enemyAmmo -= 1; // subtract player ammo each time he selects something
+                ammoTag = document.getElementById("enemyAmmoTag");
+                ammoTag.innerText = enemyAmmo + " (ENEMY)";
+
+
+                if (enemyAmmo <= 0  && stateCell != "victory") { //  checks if last click was victory to give win without comparation
+                    // returns victory or lose comparing how many boats have been sunk
+                    stateCell = checkMunitionDepletedToSeeIfWinOrLose(selectesPlayerHorders, selectesEnemyHorders, "enemy") 
+                } 
+
+            } 
 
             generateSound(stateCell);
             setTimeout(function () {
@@ -179,6 +199,68 @@ function activeTable() {
     }
 }
 
+function countSunkHordes(touchedHordes){
+
+    counterOfSunkHordes = 0;
+
+    // Iterate selectesPlayerHorders - selectesEnemyHorders to check if hordes are sunk (== 4,3,2,1)
+    for (let i = 0; i < touchedHordes.length; i++) {
+        // console.log(touchedHordes[i])
+        for (let j = 0; j < touchedHordes[i].length; j++){
+            // console.log(touchedHordes[i][j])
+            if (i == 0) {
+                if (touchedHordes[i][j] == 4){
+                    counterOfSunkHordes += 1;
+                    // console.log("ADDED TO COUNT");
+                }
+            } else if (i == 1) {
+                if (touchedHordes[i][j] == 3){
+                    counterOfSunkHordes += 1;
+                    // console.log("ADDED TO COUNT");
+                }
+            } else if (i == 2) {
+                if (touchedHordes[i][j] == 2){
+                    counterOfSunkHordes += 1;
+                    // console.log("ADDED TO COUNT");
+                }
+            } else if (i == 3) {
+                if (touchedHordes[i][j] == 1){
+                    counterOfSunkHordes += 1;
+                    // console.log("ADDED TO COUNT");
+                }
+            } 
+        }
+    }
+    return counterOfSunkHordes;
+}
+
+function checkMunitionDepletedToSeeIfWinOrLose(playerHordes, enemyHordes, turn) {
+    // Count how many hordes have been defeated by player and enemy side
+    playerSunkHorderCount = countSunkHordes(playerHordes);
+    enemySunkHorderCount = countSunkHordes(enemyHordes);
+
+    console.log("PLAYER DESTROYED " + playerSunkHorderCount)
+    console.log("IA DESTROYED " + enemySunkHorderCount)
+
+    if (playerSunkHorderCount > enemySunkHorderCount) { // player sank more hordes
+        if (turn === "player") {
+            return "victory";
+        } else {
+            return "lose";
+        }
+    } else if (playerSunkHorderCount === enemySunkHorderCount) { // QUE HACER EN CASO DE EMPATE?
+
+        console.log("EMPATE")
+        return "EMPATE"
+
+    } else {  // IA sank more hordes
+        if (turn === "player") {
+            return "lose";
+        } else {
+            return "victory";
+        }
+    }
+}
 
 // Function to handle cell click events
 function turnACell(e) {
@@ -194,9 +276,6 @@ function turnACell(e) {
 
     e.target.innerText = stateCell; 
 
-    // AMMO MANAGEMENT
-    /* have to check if option is activated */
-
     //If the position is diferent to water, print the position in table with red background
     if (stateCell !== "water") {
 
@@ -208,6 +287,21 @@ function turnACell(e) {
     //updateScoreDisplay(score); // Actualiza el marcador en la pantalla
     // If the state is "victory", disable all buttons and generate new buttons
 
+    // AMMO MANAGEMENT 
+    // (after all visual effects from selecting the button)
+    // have to check if option is activated 
+    if(ammoEnabled) { 
+
+        playerAmmo -= 1; // subtract player ammo each time he selects something
+        ammoTag = document.getElementById("playerAmmoTag");
+        ammoTag.innerText = playerAmmo + " (PLAYER)";
+
+        if (playerAmmo <= 0  && stateCell != "victory") { //  checks if last click was victory to give win without comparation
+            // returns victory or lose comparing how many boats have been sunk
+            stateCell = checkMunitionDepletedToSeeIfWinOrLose(selectesPlayerHorders, selectesEnemyHorders, "player"); 
+        } 
+    } 
+        
     if (stateCell === "victory") {
         disableTableIfVictory();
         window.location.href = "win.php";
@@ -299,55 +393,7 @@ function sumFoundPositions(positionString, selectesHorders) {
     }
 }
 
-function countSunkHordes(touchedHordes){
 
-    counterOfSunkHordes = 0;
-
-    // Iterate selectesPlayerHorders - selectesEnemyHorders to check if hordes are sunk (== 4,3,2,1)
-    for (let i = 0; i < touchedHordes.length; i++) {
-        // console.log(touchedHordes[i])
-        for (let j = 0; j < touchedHordes[i].length; j++){
-            // console.log(touchedHordes[i][j])
-            if (i == 0) {
-                if (touchedHordes[i][j] == 4){
-                    counterOfSunkHordes += 1;
-                    // console.log("ADDED TO COUNT");
-                }
-            } else if (i == 1) {
-                if (touchedHordes[i][j] == 3){
-                    counterOfSunkHordes += 1;
-                    // console.log("ADDED TO COUNT");
-                }
-            } else if (i == 2) {
-                if (touchedHordes[i][j] == 2){
-                    counterOfSunkHordes += 1;
-                    // console.log("ADDED TO COUNT");
-                }
-            } else if (i == 3) {
-                if (touchedHordes[i][j] == 1){
-                    counterOfSunkHordes += 1;
-                    // console.log("ADDED TO COUNT");
-                }
-            } 
-        }
-    }
-    return counterOfSunkHordes;
-}
-
-function checkMunitionDepletedWin(playerHordes, enemyHordes) {
-    // Count how many hordes have been defeated by player and enemy side
-    playerSunkHorderCount = countSunkHordes(playerHordes);
-    enemySunkHorderCount = countSunkHordes(enemyHordes);
-
-    // Do...
-    if (playerSunkHorderCount > enemySunkHorderCount) { // 
-
-    } else if (playerSunkHorderCount === enemySunkHorderCount) {
-
-    } else {
-        
-    }
-}
 
 // count of sunk horders to check after munition depleted
 
