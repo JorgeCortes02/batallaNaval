@@ -144,8 +144,9 @@ function easterEggEvent() {
     });
 
     // Add points to score
+    /*
     updateScoreDisplay(score + 7000);
-
+    */
     // Generate sound of the Easter Egg (--> will trigger indiana jones arrayOfSounds[5])
     generateSound("easterEgg");
 }
@@ -455,7 +456,7 @@ function generateSound(inputOfGame) {
             gameSounds[0].play();
             break;
         case "easterEgg":
-            gameSounds[5].play(); // falta cargar sonido
+            gameSounds[5].play();
             break;
         case "canonEnemy":
             gameSounds[6].play(); // falta cargar sonido
