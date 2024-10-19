@@ -696,18 +696,26 @@ body.page-game div.main_container div.header_of_players>h1 {
 
 
 body.page-game div.main_container div.header_of_players div.timer,
-body.page-game div.main_container div.game_boards div.player_and_information_board div.information_board div.single_element_container {
+body.page-game div.main_container div.game_boards div.player_and_information_board div.information_board div {
     display: flex;
     align-items: center;
-    gap: 20px;
-}
-
-body.page-game div.main_container div.game_boards div.player_and_information_board div.information_board div.single_element_container {
+    gap: 15px;
     margin: 5px 0;
 }
 
+body.page-game div.main_container div.game_boards div.player_and_information_board div.information_board div.ammo_container {
+
+    display: flex;
+    flex-direction: row;
+
+}
+
+body.page-game div.main_container div.game_boards div.player_and_information_board div.information_board div.ammo_container div {
+    width: 50%;
+}
+
 body.page-game div.main_container div.header_of_players div.timer img,
-body.page-game div.main_container div.game_boards div.player_and_information_board div.information_board div.single_element_container img {
+body.page-game div.main_container div.game_boards div.player_and_information_board div.information_board div img {
     width: 25px;
     height: 25px;
 }
@@ -906,6 +914,7 @@ body.page-game div.main_container div.game_boards table.enemy_board td button.ta
     height: 100%;
     /* Full height of the cell */
     padding: 0;
+    overflow: hidden;
 
     background-image: url('../Images/jero1.jpg');
     background-size: cover;

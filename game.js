@@ -2,6 +2,12 @@
 var selectesPlayerHorders = [[0], [0, 0], [0, 0, 0], [0, 0, 0, 0]];
 var selectesEnemyHorders = [[0], [0, 0], [0, 0, 0], [0, 0, 0, 0]];
 
+// MODES ACTIVATED
+var ammoEnabled = true; // (get from game.php) --> true para pruebas
+
+// MODES VARIABLES
+var playerAmmo = 40; // document.getElementById("playerAmmoTag");
+var enemyAmmo = 40; // document.getElementById("enemyAmmoTag");
 
 // Get all buttons with the class "tableButton"
 const buttons = document.getElementsByClassName("tableButton");
@@ -13,12 +19,15 @@ var nowAttackPlayer = 0;
 var cellsPlayerTable = null;
 // Wait for the DOM to fully load before executing the script
 document.addEventListener("DOMContentLoaded", function () {
+
+    // Those are all the cells from the player table with the IA iteracts with  
     cellsPlayerTable = Array.from(document.getElementsByClassName("playerCell"));
 
-    showPlayerHorders();
+    showPlayerHorders(); // Marks horders in player table in gray
+
     const notificationsDiv = document.getElementById("notificationsDiv");
 
-    // Attach click event listener to each button
+    // Attach click event listener to each button (only enemy table have buttons)
     for (let buttonGame of buttons) {
         buttonGame.addEventListener("click", turnACell);
     }
@@ -30,6 +39,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
+function getRandomNumber(long) {
+    // Return a random number between 0 and the length of the array
+    return Math.floor(Math.random() * long);
+}
+
+function animateCellColorChange(actualCell) {
+    // Add the class to start the animation
+    actualCell.classList.add("cell-color-animation");
+
+    // Remove the class after 2 seconds (duration of the animation)
+    setTimeout(function () {
+        actualCell.classList.remove("cell-color-animation");
+    }, 5000); // 
+}
 
 function changeTurn() {
     // Check if it's the enemy's turn (nowAttackPlayer is 1)
@@ -59,6 +82,7 @@ function enemyTurn() {
     // Set a delay before the enemy turn action begins
     setTimeout(function () {
 
+
         // Play the sound of the enemy's cannon firing
         generateSound("canonEnemy");
 
@@ -75,11 +99,26 @@ function enemyTurn() {
             // Get the state of the attacked cell (e.g., water, touched, sunk) by checking enemy hordes
             stateCell = sumFoundPositions(actualCell.getAttribute('data-value'), selectesEnemyHorders);
 
+
             // Generate a notification based on the state of the cell (e.g., "you hit", "you missed")
             generateNotificationWithAction(stateCell);
 
             // Play a sound related to the cell's state (e.g., water splash, hit sound)
-            generateSound(stateCell);
+
+            // AMMO MANAGEMENT FOR IA 
+            if (ammoEnabled) {
+
+                enemyAmmo -= 1; // subtract player ammo each time he selects something
+                ammoTag = document.getElementById("enemyAmmoTag");
+                ammoTag.innerText = enemyAmmo + " (ENEMY)";
+
+
+                if (enemyAmmo <= 0 && stateCell != "victory") { //  checks if last click was victory to give win without comparation
+                    // returns victory or lose comparing how many boats have been sunk
+                    stateCell = checkMunitionDepletedToSeeIfWinOrLose(selectesPlayerHorders, selectesEnemyHorders, "enemy")
+                }
+
+            }
 
             // Set a delay to let the player see the result of the enemy's move
             setTimeout(function () {
@@ -119,15 +158,6 @@ function enemyTurn() {
     }, 3000); // Initial delay before starting the enemy's turn
 }
 
-function animateCellColorChange(actualCell) {
-    // Add the class to start the animation
-    actualCell.classList.add("cell-color-animation");
-
-    // Remove the class after 2 seconds (duration of the animation)
-    setTimeout(function () {
-        actualCell.classList.remove("cell-color-animation");
-    }, 5000); // 
-}
 
 function showPlayerHorders() {
     // Iterate over each cell in the player's table
@@ -139,6 +169,7 @@ function showPlayerHorders() {
         }
     });
 }
+
 
 function getRandomNumber(long) {
     // Return a random number between 0 and the length of the array
@@ -250,22 +281,8 @@ function fadeIn(element) {
     element.classList.add('show');
 }
 
-// Función para aumentar la opacidad gradualmente
-function fadeIn(element) {
-    let opacity = 0;
-    const interval = setInterval(() => {
-        opacity += 0.05; // Aumenta la opacidad gradualmente
-        element.style.opacity = opacity;
-
-        if (opacity >= 1) { // Detener el intervalo cuando la opacidad llega a 1
-            clearInterval(interval);
-        }
-    }, 20); // Controla la velocidad de la transición (aquí se actualiza cada 50ms)
-}
-
 
 // Function to disable all buttons when the game is won
-
 
 function disableTableIfVictory() {
     // Convert the HTMLCollection to an array for easier manipulation
@@ -279,6 +296,7 @@ function disableTableIfVictory() {
         easterEggButton.disabled = true; // Disable the button
     }
 }
+
 function disableTable() {
     // Convert the HTMLCollection to an array for easier manipulation
     let buttons1 = Array.from(document.getElementsByClassName("tableButton"));
@@ -306,7 +324,73 @@ function activeTable() {
     }
 }
 
-var countFirtsPlayerAttack = 0;
+
+
+
+function countSunkHordes(touchedHordes) {
+
+    counterOfSunkHordes = 0;
+
+    // Iterate selectesPlayerHorders - selectesEnemyHorders to check if hordes are sunk (== 4,3,2,1)
+    for (let i = 0; i < touchedHordes.length; i++) {
+        // console.log(touchedHordes[i])
+        for (let j = 0; j < touchedHordes[i].length; j++) {
+            // console.log(touchedHordes[i][j])
+            if (i == 0) {
+                if (touchedHordes[i][j] == 4) {
+                    counterOfSunkHordes += 1;
+                    // console.log("ADDED TO COUNT");
+                }
+            } else if (i == 1) {
+                if (touchedHordes[i][j] == 3) {
+                    counterOfSunkHordes += 1;
+                    // console.log("ADDED TO COUNT");
+                }
+            } else if (i == 2) {
+                if (touchedHordes[i][j] == 2) {
+                    counterOfSunkHordes += 1;
+                    // console.log("ADDED TO COUNT");
+                }
+            } else if (i == 3) {
+                if (touchedHordes[i][j] == 1) {
+                    counterOfSunkHordes += 1;
+                    // console.log("ADDED TO COUNT");
+                }
+            }
+        }
+    }
+    return counterOfSunkHordes;
+}
+
+function checkMunitionDepletedToSeeIfWinOrLose(playerHordes, enemyHordes, turn) {
+    // Count how many hordes have been defeated by player and enemy side
+    playerSunkHorderCount = countSunkHordes(playerHordes);
+    enemySunkHorderCount = countSunkHordes(enemyHordes);
+
+    console.log("PLAYER DESTROYED " + playerSunkHorderCount)
+    console.log("IA DESTROYED " + enemySunkHorderCount)
+
+    if (playerSunkHorderCount > enemySunkHorderCount) { // player sank more hordes
+        if (turn === "player") {
+            return "victory";
+        } else {
+            return "lose";
+        }
+    } else if (playerSunkHorderCount === enemySunkHorderCount) { // QUE HACER EN CASO DE EMPATE?
+
+        console.log("EMPATE")
+        return "EMPATE"
+
+    } else {  // IA sank more hordes
+        if (turn === "player") {
+            return "lose";
+        } else {
+            return "victory";
+        }
+    }
+}
+var countFirtsPlayerAttack;
+
 // Function to handle cell click events
 function turnACell(e) {
 
@@ -333,64 +417,40 @@ function turnACell(e) {
 
         e.target.classList.add("touch");
     } // Change the button's text to reflect its state
+
     // Calcula el nuevo puntaje basándose en el estado del juego
     //score = getScore(score, stateCell);
     //updateScoreDisplay(score); // Actualiza el marcador en la pantalla
     // If the state is "victory", disable all buttons and generate new buttons
 
+    // AMMO MANAGEMENT 
+    // (after all visual effects from selecting the button)
+    // have to check if option is activated 
+    if (ammoEnabled) {
+
+        playerAmmo -= 1; // subtract player ammo each time he selects something
+        ammoTag = document.getElementById("playerAmmoTag");
+        ammoTag.innerText = playerAmmo + " (PLAYER)";
+
+        if (playerAmmo <= 0 && stateCell != "victory") { //  checks if last click was victory to give win without comparation
+            // returns victory or lose comparing how many boats have been sunk
+            stateCell = checkMunitionDepletedToSeeIfWinOrLose(selectesPlayerHorders, selectesEnemyHorders, "player");
+        }
+    }
+
     if (stateCell === "victory") {
         disableTableIfVictory();
         window.location.href = "win.php";
+
         //stopTimer(); // Detener el cronómetro
     }
+
     if (stateCell !== "touched" && stateCell !== "sunk") {
         changeTurn();
     } else {
         activeTable();
 
     }
-}
-// Function to generate buttons for ranking and home
-function generateRankingAndHomeButtons() {
-    // Get the scoreboard container element
-    let scoreBoard = document.getElementsByClassName("scoreboard")[0];
-
-    // Create a new div for the final game buttons
-    let newDiv = document.createElement("div");
-    newDiv.className = "divButtonsFinalGame";
-
-    // Create the "Home" button
-    let buttonHome = document.createElement("button");
-    buttonHome.innerText = "Inici"; // Set the button text to "Inicio" (Home)
-
-    // Create the "Hall of Fame" button
-    let buttonHall = document.createElement("button");
-    buttonHall.innerText = "Hall of Fame"; // Set the button text
-
-    // Add an event listener to redirect to the home page when clicked
-    buttonHome.addEventListener("click", function () {
-        window.location.href = "index.php"; // Redirect to index.php
-    });
-
-    // Add an event listener to redirect to the ranking page when clicked
-    buttonHall.addEventListener("click", function () {
-        window.location.href = "ranking.php"; // Redirect to ranking.php
-    });
-    // Create the "Guardar Record" button
-    let buttonSaveRecord = document.createElement("button");
-    buttonSaveRecord.innerText = "Guardar Record"; // Set the button text for save record
-
-    // Add an event listener to open the popup for saving record when clicked
-    buttonSaveRecord.addEventListener("click", function () {
-        openModal(); // Llama a la función para abrir el modal
-    });
-
-    // Append the buttons to the new div
-    newDiv.appendChild(buttonHome);
-    newDiv.appendChild(buttonHall);
-    newDiv.appendChild(buttonSaveRecord);
-    // Append the new div to the scoreboard container
-    scoreBoard.appendChild(newDiv);
 }
 
 // Function to track the positions found (hits on the ships)
@@ -399,7 +459,7 @@ function sumFoundPositions(positionString, selectesHorders) {
 
     // Split the positionString by comma to separate values
     const elements = positionString.split(",");
-
+    console.log(elements);
     numHorder = elements[1];  // Extract the number of the horde
     longHorder = elements[0];  // Extract the length of the horde
     let indexArray = 0;
@@ -468,6 +528,11 @@ function sumFoundPositions(positionString, selectesHorders) {
             return "water"; // Return "water" if the position is not a hit
     }
 }
+
+
+
+// count of sunk horders to check after munition depleted
+
 function checkVictory(selectesHorders) {
 
     // Check if all positions have been found
@@ -489,11 +554,60 @@ function checkIfTouchedOrSunk(indexArray, numHorder, longHorder, selectesHorders
     }
 }
 
+
+
+// Function to generate buttons for ranking and home
+function generateRankingAndHomeButtons() {
+    // Get the scoreboard container element
+    let scoreBoard = document.getElementsByClassName("scoreboard")[0];
+
+    // Create a new div for the final game buttons
+    let newDiv = document.createElement("div");
+    newDiv.className = "divButtonsFinalGame";
+
+    // Create the "Home" button
+    let buttonHome = document.createElement("button");
+    buttonHome.innerText = "Inici"; // Set the button text to "Inicio" (Home)
+
+    // Create the "Hall of Fame" button
+    let buttonHall = document.createElement("button");
+    buttonHall.innerText = "Hall of Fame"; // Set the button text
+
+    // Add an event listener to redirect to the home page when clicked
+    buttonHome.addEventListener("click", function () {
+        window.location.href = "index.php"; // Redirect to index.php
+    });
+
+    // Add an event listener to redirect to the ranking page when clicked
+    buttonHall.addEventListener("click", function () {
+        window.location.href = "ranking.php"; // Redirect to ranking.php
+    });
+    // Create the "Guardar Record" button
+    let buttonSaveRecord = document.createElement("button");
+    buttonSaveRecord.innerText = "Guardar Record"; // Set the button text for save record
+
+    // Add an event listener to open the popup for saving record when clicked
+    buttonSaveRecord.addEventListener("click", function () {
+        openModal(); // Llama a la función para abrir el modal
+    });
+
+    // Append the buttons to the new div
+    newDiv.appendChild(buttonHome);
+    newDiv.appendChild(buttonHall);
+    newDiv.appendChild(buttonSaveRecord);
+    // Append the new div to the scoreboard container
+    scoreBoard.appendChild(newDiv);
+}
+
 //Function for generate de sounds
 function generateSound(inputOfGame) {
     //We must insert how a attribute an input with the information of the sound.
 
     switch (inputOfGame) {
+
+        case "water":
+            gameSounds[0].play();
+            break;
 
         case "victory":
             gameSounds[1].play();
@@ -512,14 +626,12 @@ function generateSound(inputOfGame) {
             gameSounds[3].play();
             break;
 
-        case "water":
-            gameSounds[0].play();
-            break;
         case "easterEgg":
             gameSounds[5].play();
             break;
+
         case "canonEnemy":
-            gameSounds[6].play(); // falta cargar sonido
+            gameSounds[6].play();
             break;
     }
 
