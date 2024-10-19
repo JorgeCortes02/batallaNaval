@@ -41,6 +41,7 @@ $_SESSION["name"] = "name"
             Dispara amb precisió per aconseguir la victòria!</p>
         
         <div class="button_container">
+
             
                 <form id="myForm" method="POST" action="game.php">
                     <div id="nameRecord">
@@ -65,6 +66,7 @@ $_SESSION["name"] = "name"
 
             <!--<a id="toGameA" class="aDisabled" href="game.php"><button id="initGame" class="button-disabled">PARTIDA CLÀSICA</button></a>-->
             
+
         </div>
     </div>
 
