@@ -31,12 +31,12 @@ body.page-ranking {
 }
 
 /* REUSABLE ----> Yellow box */
+
 .yellowBox {
     background: linear-gradient(135deg, #d4af37, #e5c18a);
     border: 5px double rgb(59, 36, 11);
     border-radius: 25px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
-
 }
 
 /* REUSABLE ----> Black box */
@@ -48,7 +48,6 @@ body.page-ranking {
 }
 
 /* ------------------------------ */
-
 
 
 /* --------------------------------------------*/
@@ -639,14 +638,18 @@ body.page-ranking {
 
 /* Styles table*/
 .page-game table {
+
     background-image: url('../Images/fondo-madera.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+
     width: 60%;
     height: 95%;
+
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     border-collapse: collapse;
+
     margin-top: 25px;
     margin-bottom: 25px;
 }
@@ -701,39 +704,188 @@ body.page-ranking {
     background-color: red;
 }
 
-/* Styles of the div that contains the table and the information div*/
-.page-game .PrincipalDiv {
+/* Styles of the div that contains the header + notification + info_game + (player/enemy) tables*/
+body.page-game div.main_container {
+
+    margin: 15px 7.5%;
+
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 12px;
+}
+
+/* HEADER BOX IN GAME */
+body.page-game div.main_container div.header_of_players {
+
+    width: 100%;
+
+    text-align: center;
+
+    margin: 0;
+    padding: 7px;
+    box-sizing: border-box;
 
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    gap: 20px;
-    width: 90%;
-    height: 850px;
-    margin: 0 auto;
     align-items: center;
 
 }
 
-/*Style of the information div*/
-.page-game .scoreboard {
+body.page-game div.main_container div.header_of_players > h1 {
+    font-size: 1.6rem;
+    margin: 0;
+}
 
+body.page-game div.main_container div.header_of_players > h3 {
+    font-size: 1.15rem;
+    margin: 0;
+}
 
-
-    color: rgb(59, 36, 11);
-
-    width: 30%;
-    height: 95%;
+/* NOTIFICATION BOX IN GAME ( JORGE ) */
+body.page-game div.main_container div.notification_container {
+    
+    width: 100%;
     text-align: center;
-    align-items: center;
+    margin: 0;
+    padding: 10px;
+    box-sizing: border-box;
+    font-size: 1.05rem;
+    color: black;
 
-
-    font-size: 1rem;
-    top: 25px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-
-    display: block;
 }
+
+body.page-game div.main_container div.notification_container p {
+    
+    width: 100%;
+    text-align: center;
+    margin: 0;
+
+    box-sizing: border-box;
+    font-weight: bold;
+}
+
+.player_turn_style {
+    background: linear-gradient(135deg, blue, #e5c18a);
+    border: 5px double rgb(59, 36, 11);
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+}
+
+.enemy_turn_style {
+    background: linear-gradient(135deg, red, #e5c18a);
+    border: 5px double rgb(59, 36, 11);
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* ------------------------------------------------------------------- */
+
+body.page-game div.main_container div.game_boards {
+    display: flex;
+    flex-direction: row;
+    
+    margin: 0;
+    width: 90%;
+
+    justify-content: space-between;
+    gap: 25px;
+
+
+}
+
+body.page-game div.main_container div.game_boards * {
+    box-sizing: border-box;
+}
+
+/* SETTINGS FOR ALL TABLES INSIDE GAME BOARD */
+body.page-game div.main_container div.game_boards table {
+    table-layout: fixed;
+}
+
+/* IT'S THE LEFT BOARD */
+body.page-game div.main_container div.game_boards table.enemy_board {
+    width: 55%; /* related to  div.player_and_information_board width*/
+    margin: 0;
+    height: 100%;
+    table-layout: fixed;
+}
+
+/* RIGHT SIDE OF THE SCREEN WHICH CONTAINS THE INFORMATION BOARD (POINTS + "MUNITION")*/
+body.page-game div.main_container div.game_boards div.player_and_information_board {
+    width: 45%;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+
+}
+
+body.page-game div.main_container div.game_boards div.player_and_information_board div.information_board {
+
+    width: 100%;
+    height: auto;
+    padding: 10px;
+
+    box-sizing: border-box;
+    background-color: rgba(8, 8, 8, 0.9);
+
+    display: flex;
+    flex-direction: column;
+
+    font-size: 0.8rem;
+    font-weight: bold;
+
+}
+
+body.page-game div.main_container div.game_boards div.player_and_information_board div.information_board p {    
+    color: white;
+    margin: 0;
+    margin-bottom: 5px;
+    font-size: 0.95rem;
+}
+
+body.page-game div.main_container div.game_boards div.player_and_information_board div.information_board p:last-child {    
+    margin-top: 5px;
+    margin-bottom: 0;
+}
+
+body.page-game div.main_container div.game_boards div.player_and_information_board table.player_board {
+    width: 100%;
+    margin: 0;
+    height: 100%;
+}
+
+/* Set consistent styling for table cells to ensure squares */
+body.page-game div.main_container div.game_boards table.enemy_board th,
+body.page-game div.main_container div.game_boards table.enemy_board td,
+body.page-game div.main_container div.game_boards table.player_board th,
+body.page-game div.main_container div.game_boards table.player_board td {
+    width: 30px; 
+    height: 38px; 
+    padding: 0; 
+    text-align: center;
+    overflow: hidden;
+    
+}
+
+/* Make sure the button fills the entire cell */
+body.page-game div.main_container div.game_boards table.enemy_board td button,
+body.page-game div.main_container div.game_boards table.player_board td button {
+    width: 100%; /* Full width of the cell */
+    height: 100%; /* Full height of the cell */
+    margin: 0;
+    padding: 0;
+    border: none; /* Ensure border doesn't add to size */
+    display: block; /* Make it fill the entire cell */
+}
+
 
 /*Style for table buttoms where this are disabled*/
 .page-game .button-disabled {
