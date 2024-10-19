@@ -907,6 +907,32 @@ body.page-game div.main_container div.game_boards table.player_board td button {
 
 }
 
+/*For hte enemy cell animation*/
+
+@keyframes colorChange {
+    0% {
+        background-color: red;
+    }
+
+    33% {
+        background-color: orange;
+    }
+
+    66% {
+        background-color: blue;
+    }
+
+    100% {
+        background-color: red;
+    }
+}
+
+.cell-color-animation {
+    animation: colorChange 3s linear;
+}
+
+
+/*Disable the buttoms of the enemy table if a soung is playing.*/
 .page-game .disabledIfSound {
     pointer-events: none;
     /* Desactivar eventos */
