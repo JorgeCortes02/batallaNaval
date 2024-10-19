@@ -50,11 +50,15 @@ $_SESSION["name"] = "name"
                     <div id="longUser">
                         <h3>El jugador ha de tenir entre 3 i 30 caràcters.</h3>
                     </div>
+                    <div id="nolongUser">
+                        <h3>Es obligatori escriure un nom.</h3>
+                    </div>
                     <div id="buttonPlay">
-                        <a class="aActive" href="tutorial.php"><button id="initGameB" class="buttonActive">TUTORIAL OF GAME</button></a>
-                        <button id="initGame" class="button-disabled" type="submit">PARTIDA CLÀSICA</button>
-                        <a class="aActive" href="ranking.php"><button id="goToHall" class="buttonActive">HALL OF FAME</button></a>
-                    </>
+                        <button id="toButton" class="buttonActive" type="button" onclick="location.href='tutorial.php';">TUTORIAL OF GAME</button>
+                        <button id="toGame" class="button-disabled" type="submit">PARTIDA CLÀSICA</button>
+                       
+                        <button id="toButton2" class="buttonActive" type="button" onclick="location.href='ranking.php';">HALL OF FAME</button>
+                    </div>
                 </form>
                         
             

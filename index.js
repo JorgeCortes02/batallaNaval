@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-    let initGameButton = document.getElementById("initGame");
-    let toGameA = document.getElementById("toGameA");
+    let initGameButton = document.getElementById("toGame");
+    let toButton = document.getElementById("toButton");
     //initGameButton.classList.replace("button-disabled", "buttonActive");
     //toGameA.classList.replace("aDisabled", "aActive");
 
@@ -16,6 +16,18 @@ document.addEventListener("DOMContentLoaded", function () {
         h3Element.style.visibility = 'visible';  // Muestra el h3 nuevamente
     }
 
+
+    //cambiar de estado el mensaje de nombre obligatorio
+    function hideNoNameH3() {
+        var h3Element = document.querySelector('#nolongUser h3');
+        h3Element.style.visibility = 'hidden';  // Oculta el h3 pero mantiene su espacio
+    }
+    
+    function showNameH3() {
+        var h3Element = document.querySelector('#nolongUser h3');
+        h3Element.style.visibility = 'visible';  // Muestra el h3 nuevamente
+    }
+
 //para ocultar hideH3(); y para llamar showH3();
 
 function openButtonPClassic() {
@@ -23,25 +35,28 @@ function openButtonPClassic() {
     if (user.length === 0) {
         // si imput vacio no mensaje
         hideH3();
+        showNameH3()
         initGameClassic.classList.replace("buttonActive", "button-disabled");
-        toGameA.classList.replace("aActive", "aDisabled");
+        toButton.classList.replace("aActive", "aDisabled");
         initGameClassic.disabled = true;
         toGameA.style.pointerEvents = 'none';
     } else if(user.length>=3 && user.length<=30) {
         hideH3();
+        hideNoNameH3()
         initGameButton.classList.replace("button-disabled", "buttonActive");
-        toGameA.classList.replace("aDisabled", "aActive");
+        toButton.classList.replace("aDisabled", "aActive");
          // Habilita el botón para que sea clickeable
         initGameButton.disabled = false;
-        toGameA.style.pointerEvents = 'auto';
+        toGame.style.pointerEvents = 'auto';
 
     }else{
         showH3()
+        hideNoNameH3()
          // Desactiva el botón
          initGameButton.classList.replace("buttonActive", "button-disabled");
-         toGameA.classList.replace("aActive", "aDisabled");
+         toButton.classList.replace("aActive", "aDisabled");
          initGameButton.disabled = true;
-         toGameA.style.pointerEvents = 'none';
+         toGame.style.pointerEvents = 'none';
 
     }
 }
@@ -54,3 +69,5 @@ function openButtonPClassic() {
   toGameA.style.pointerEvents = 'none';
 
 });
+
+
