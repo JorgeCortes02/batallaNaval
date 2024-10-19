@@ -36,8 +36,8 @@ function changeTurn() {
     if (nowAttackPlayer === 1) {
         // Change turn to the player
         nowAttackPlayer = 0;
+        changeTurnText("turn0")
         // Activate the player's table for interaction
-
         activeTable()
 
     } else {
@@ -45,6 +45,10 @@ function changeTurn() {
         nowAttackPlayer = 1;
         // Execute the enemy's turn logic
         enemyTurn();
+        setTimeout(() => {
+            changeTurnText("turn1");
+        }, 3000);
+
         // Disable the player's table to prevent interaction
         disableTable();
     }
@@ -52,57 +56,67 @@ function changeTurn() {
 
 function enemyTurn() {
 
+    // Set a delay before the enemy turn action begins
     setTimeout(function () {
-        generateSound("canonEnemy");
-        randomPosition = getRandomNumber(cellsPlayerTable.length);
-        actualCell = cellsPlayerTable[randomPosition];
 
+        // Play the sound of the enemy's cannon firing
+        generateSound("canonEnemy");
+
+        // Generate a random position on the player's table of cells
+        randomPosition = getRandomNumber(cellsPlayerTable.length);
+        actualCell = cellsPlayerTable[randomPosition]; // Get the actual cell at the random position
+
+        // Set a delay before starting the animation to change the cell's color
         setTimeout(function () { animateCellColorChange(actualCell); }, 1000);
 
+        // After the color animation finishes, execute the following
         setTimeout(function () {
 
+            // Get the state of the attacked cell (e.g., water, touched, sunk) by checking enemy hordes
             stateCell = sumFoundPositions(actualCell.getAttribute('data-value'), selectesEnemyHorders);
 
+            // Generate a notification based on the state of the cell (e.g., "you hit", "you missed")
+            generateNotificationWithAction(stateCell);
+
+            // Play a sound related to the cell's state (e.g., water splash, hit sound)
             generateSound(stateCell);
+
+            // Set a delay to let the player see the result of the enemy's move
             setTimeout(function () {
 
+                // Change the color of the cell based on the result
                 if (stateCell === "water") {
-
-                    actualCell.style.background = "blue";
-
+                    actualCell.style.background = "blue";  // Missed the target, hit water
                 } else if (stateCell === "touched") {
-
-                    actualCell.style.background = "orange";
-
+                    actualCell.style.background = "orange";  // Hit a target, but not sunk yet
                 } else if (stateCell === "sunk") {
-
-                    actualCell.style.background = "red";
-
-                }// Change the button's text to reflect its state
-                cellsPlayerTable.splice(randomPosition, 1);
-                // If the state is "victory", disable all buttons and generate new buttons
-
-                if (stateCell === "victory") {
-                    actualCell.style.background = "red";
-                    window.location.href = "win.php";
+                    actualCell.style.background = "red";  // Enemy horde has been sunk
                 }
 
-                console.log(cellsPlayerTable.length)
-                if (stateCell == "touched" || stateCell == "sunk") {
-                    console.log("cambio")
-                    enemyTurn();
+                // Remove the cell from the list of available cells after the attack
+                cellsPlayerTable.splice(randomPosition, 1);
 
+                // Check if the game is over by verifying if the cell's state is "victory"
+                if (stateCell === "victory") {
+                    actualCell.style.background = "red";  // Change the background color to red
+                    window.location.href = "win.php";  // Redirect to the victory page
+                }
+
+                console.log(cellsPlayerTable.length);  // Log the remaining cells
+
+                // If the enemy hit or sunk a target, continue with the enemy's turn
+                if (stateCell == "touched" || stateCell == "sunk") {
+                    console.log("enemy turn continues");
+                    enemyTurn();  // Recursive call to continue enemy attacks
                 } else {
+                    // Otherwise, switch turns and give control to the player
                     changeTurn();
                 }
-            }, 2000);
+            }, 2000); // Delay to show the result before proceeding
 
+        }, 2000); // Delay before generating the notification and sound
 
-
-        }, 2000); //
-
-    }, 2000); //
-
+    }, 3000); // Initial delay before starting the enemy's turn
 }
 
 function animateCellColorChange(actualCell) {
@@ -153,64 +167,102 @@ function easterEggEvent() {
 
 
 
+// Variables to store timeout and interval
 
-// Variables para guardar el timeout y el intervalo
-let fadeOutTimeout;
-let fadeOutInterval;
+function generateNotificationWithAction(typeNotification) {
+    const paragrafNotification = document.getElementById("notificationParagraf");
 
-function generateNewNotification(typeNotification) {
-    // Limpia el timeout y el intervalo anteriores para reiniciar el temporizador
-    if (fadeOutTimeout) clearTimeout(fadeOutTimeout);
-    if (fadeOutInterval) clearInterval(fadeOutInterval);
+    // Remove any previous animation
+    paragrafNotification.classList.remove("showNotification");
 
-    // Selecciona todas las notificaciones y oculta las que están visibles
-    let notifications = document.getElementsByClassName('notification');
-    for (let i = 0; i < notifications.length; i++) {
-        notifications[i].classList.remove('showNot');
-        notifications[i].style.opacity = '1'; // Reinicia la opacidad (opcional)
+    // Check whose turn it is
+    switch (nowAttackPlayer) {
+        case 0: // Player's turn
+            switch (typeNotification) {
+                case "victory":
+                    paragrafNotification.innerText = "Has guanyat!"; // You have won!
+                    break;
+                case "sunk":
+                    paragrafNotification.innerText = "Has derribat a tota l'horda enemiga. Tornes a atacar!"; // You have sunk the entire enemy horde. You attack again!
+                    break;
+                case "touched":
+                    paragrafNotification.innerText = "Has acertat, una menys! Tornes a atacar!."; // You hit, one less! You attack again!
+                    break;
+                case "gameover":
+                    paragrafNotification.innerText = "Has perdut."; // You have lost.
+                    break;
+                case "water":
+                    paragrafNotification.innerText = "Directe a l'aigua, més sort la proxima vegada..."; // Direct hit to the water, better luck next time...
+                    break;
+            }
+            break;
+
+        case 1: // Enemy's turn
+            switch (typeNotification) {
+                case "victory":
+                    paragrafNotification.innerText = "Has perdut!"; // You have lost!
+                    break;
+                case "sunk":
+                    paragrafNotification.innerText = "L'enemic ha eliminat la teva horda! Torna a l'atac."; // The enemy has eliminated your horde! Attack again.
+                    break;
+                case "touched":
+                    paragrafNotification.innerText = "L'enemic ha trobat una de les teves momies! Torna a atacar."; // The enemy has found one of your mummies! Attack again.
+                    break;
+                case "water":
+                    paragrafNotification.innerText = "Atac enemic directe a l'aigua..."; // Enemy attack goes directly into the water...
+                    break;
+            }
+            break;
     }
 
-    // Muestra la notificación correcta según el tipo
-    let notificationToShow;
-    switch (typeNotification) {
-        case "victory":
-            notificationToShow = document.getElementById("victoryNotification");
-            break;
-        case "sunk":
-            notificationToShow = document.getElementById("sunkNotification");
-            break;
-        case "touched":
-            notificationToShow = document.getElementById("touchedNotification");
-            break;
-        case "gameover":
-            notificationToShow = document.getElementById("gameoverNotification");
-            break;
-        case "water":
-            notificationToShow = document.getElementById("waterNotification");
-            break;
-    }
+    // Force a reflow to restart the animation (necessary if the animation is called multiple times)
+    void paragrafNotification.offsetWidth;
 
-    // Añade la clase showNot para que la notificación se deslice hacia dentro
-    if (notificationToShow) {
-        notificationToShow.classList.add("showNot");
+    // Add the class that activates the animation
+    paragrafNotification.classList.add("showNotification");
+}
 
-        // Inicia el timeout para desvanecer la notificación
-        fadeOutTimeout = setTimeout(() => {
-            let opacity = 1; // Opacidad inicial
+function changeTurnText(turn) {
+    const turnNotification = document.getElementById("turn");
 
-            // Inicia el intervalo para desvanecer gradualmente
-            fadeOutInterval = setInterval(() => {
-                opacity -= 0.1; // Decrementa la opacidad gradualmente
-                notificationToShow.style.opacity = opacity;
+    // Reset the opacity manually (optional, not needed if using CSS)
+    turnNotification.classList.remove('show'); // Remove the 'show' class to reset the opacity
+    void turnNotification.offsetWidth; // Trigger a reflow to reset the animation
 
-                if (opacity <= 0) {
-                    clearInterval(fadeOutInterval); // Detiene el desvanecimiento
-                    notificationToShow.classList.remove("showNot"); // Oculta el div
-                }
-            }, 150); // Desvanece cada 150ms
-        }, 5000); // Comienza a desvanecer después de 6 segundos
+    // Change the text and classes based on the turn
+    switch (turn) {
+        case "turn0":
+            turnNotification.innerText = "Es el teu torn, sort camarada!"; // It is your turn, good luck comrade!
+            turnNotification.classList.replace("notificationEnemyTurn", "notificationPlayerTurn"); // Replace classes for styling
+            fadeIn(turnNotification); // Start the fade-in animation
+            break;
+
+        case "turn1":
+            turnNotification.innerText = "Es el torn de l'enemic, a cobert!"; // It is the enemy's turn, take cover!
+            turnNotification.classList.replace("notificationPlayerTurn", "notificationEnemyTurn"); // Replace classes for styling
+            fadeIn(turnNotification); // Start the fade-in animation
+            break;
     }
 }
+
+function fadeIn(element) {
+    // Add the 'show' class to trigger the CSS transition
+    element.classList.add('show');
+}
+
+// Función para aumentar la opacidad gradualmente
+function fadeIn(element) {
+    let opacity = 0;
+    const interval = setInterval(() => {
+        opacity += 0.05; // Aumenta la opacidad gradualmente
+        element.style.opacity = opacity;
+
+        if (opacity >= 1) { // Detener el intervalo cuando la opacidad llega a 1
+            clearInterval(interval);
+        }
+    }, 20); // Controla la velocidad de la transición (aquí se actualiza cada 50ms)
+}
+
 
 // Function to disable all buttons when the game is won
 
@@ -254,17 +306,25 @@ function activeTable() {
     }
 }
 
-
+var countFirtsPlayerAttack = 0;
 // Function to handle cell click events
 function turnACell(e) {
+
+    if (countFirtsPlayerAttack == 0) {
+
+        changeTurnText("turn0");
+        countFirtsPlayerAttack += 1;
+
+    }
     const value = e.target.value; // Get the value of the clicked button
+
     disableTable();
     stateCell = sumFoundPositions(value, selectesPlayerHorders); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
 
     // Change the class from "tableButton" to "button-disabled"
     e.target.classList.replace("tableButton", "button-disabled");
     generateSound(stateCell);
-    generateNewNotification(stateCell)
+    generateNotificationWithAction(stateCell);
 
     e.target.innerText = stateCell;
 

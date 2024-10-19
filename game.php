@@ -5,7 +5,7 @@ date_default_timezone_set('Europe/Madrid'); // Cambia 'Europe/Madrid' a la zona 
 
 
 // Inicializamos la variable por defecto para evitar errores.
-$name = "";
+$name = "Pepe";
 
 // Verificar si se envió el formulario
 if (isset($_POST['name']) && isset($_POST['score'])) {
@@ -550,30 +550,22 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
         </div>
     </div>
 
-    <div id="notificationsDiv">
-        <div class="notification" id="victoryNotification">Has guanyat!</div>
-        <div class="notification" id="sunkNotification">Has eliminat tota l'horda!</div>
-        <div class="notification" id="touchedNotification">Has eliminat un enemic!</div>
-        <div class="notification" id="gameoverNotification">Has perdut!</div>
-        <div class="notification" id="waterNotification">Directe a l'aigua!</div>
-    </div>
+
 
     <div class="main_container">
-    
+
         <div class="header_of_players yellowBox">
-            <h1>[PLAYER] vs IA</h1> 
-            <h3>TORN ACTUAL: <br> [PLAYER or IA]</h3> <!-- turn -->
+            <h1><?php echo $name ?> vs IA</h1>
+            <h3 id="turn" class="notificationPlayerTurn">Toca per començar!</h3> <!-- turn -->
             <div class="timer">
                 <img src="images/tiempo-pasado.png" alt="time_logo">
                 <h3>20:00:00</h3> <!-- time -->
             </div>
-        </div> 
+        </div>
 
-        <!-- NOTIFICATION BOX -->
-        <!-- <div class="notification_container .enemy_turn_style"> -->
-        <!-- <div class="notification_container .player_turn_style"> -->
+
         <div class="notification_container yellowBox">
-            <p>EL JOC COMENÇA! ÉS EL TEU TORN [PLAYER] </p>
+            <p id="notificationParagraf">Benvingut a la batalla! Es el teu torn jugador!</p>
         </div>
 
         <div class="game_boards">
@@ -588,7 +580,7 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
 
             </table>
 
-            <div class="player_and_information_board">   
+            <div class="player_and_information_board">
 
                 <div class="information_board blackBox">
                     <div class="single_element_container">
@@ -599,7 +591,7 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
                         <img src="images/game_cannonIcon.png" alt="time_logo">
                         <p>40 projectiles</p>
                     </div>
-                   
+
                 </div>
 
                 <table class="player_board">
@@ -614,7 +606,7 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
                 </table>
 
             </div>
-            
+
         </div>
 
 

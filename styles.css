@@ -16,7 +16,8 @@ body {
 
 }
 
-.page-tutorial, .page-game {
+.page-tutorial,
+.page-game {
     display: flex;
     flex-direction: column;
 }
@@ -53,15 +54,9 @@ body.page-ranking {
 /* --------------------------------------------*/
 /*CSS Notification Sistem*/
 
-#notificationsDiv {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    display: flex;
-    flex-direction: column;
-    /* Coloca los elementos al final para hacer posible la transición */
-    align-items: flex-end;
-}
+
+
+
 
 #notificationsDiv span {
     font-weight: bold;
@@ -401,9 +396,6 @@ body.page-ranking {
     width: 100%;
     height: 50px;
 
-
-
-
 }
 
 .page-tutorial .time,
@@ -669,15 +661,39 @@ body.page-game div.main_container div.header_of_players {
 
 }
 
-body.page-game div.main_container div.header_of_players > h1 {
+body.page-game div.main_container div.header_of_players>h1 {
     font-size: 1.6rem;
     margin: 0;
 }
 
-body.page-game div.main_container div.header_of_players h3 {
-    font-size: 1.15rem;
-    margin: 0;
+.notificationPlayerTurn {
+    color: rgb(169, 22, 22);
+    font-weight: bold;
+    font-size: 30px;
+
 }
+
+.notificationEnemyTurn {
+
+    color: rgb(18, 18, 171);
+    font-weight: bold;
+    font-size: 30px;
+
+}
+
+/* CSS for fade effect */
+.fade {
+    opacity: 0;
+    /* Start fully transparent */
+    transition: opacity 2s ease;
+    /* Smooth transition */
+}
+
+.fade.show {
+    opacity: 1;
+    /* Fully opaque */
+}
+
 
 body.page-game div.main_container div.header_of_players div.timer,
 body.page-game div.main_container div.game_boards div.player_and_information_board div.information_board div.single_element_container {
@@ -698,7 +714,7 @@ body.page-game div.main_container div.game_boards div.player_and_information_boa
 
 /* NOTIFICATION BOX IN GAME ( JORGE ) */
 body.page-game div.main_container div.notification_container {
-    
+
     width: 100%;
     text-align: center;
     margin: 0;
@@ -709,8 +725,41 @@ body.page-game div.main_container div.notification_container {
 
 }
 
+#notificationParagraf {
+    font-weight: bold;
+
+    color: rgb(26, 5, 5);
+    /* Color del texto */
+    opacity: 0;
+    /* Comienza invisible */
+    clip-path: inset(0 100% 0 0);
+    /* Oculta todo el contenido excepto el lado izquierdo */
+    transition: color 1s ease;
+    /* Transición suave si cambia el color */
+}
+
+/* Animación para hacer que el texto aparezca de izquierda a derecha */
+@keyframes slideInFromLeft {
+    0% {
+        opacity: 0;
+        clip-path: inset(0 100% 0 0);
+        /* Ocultando el texto */
+    }
+
+    100% {
+        opacity: 1;
+        clip-path: inset(0 0% 0 0);
+        /* Mostrando todo el texto */
+    }
+}
+
+/* Clase para activar la animación */
+.showNotification {
+    animation: slideInFromLeft 1s ease forwards;
+}
+
 body.page-game div.main_container div.notification_container p {
-    
+
     width: 100%;
     text-align: center;
     margin: 0;
@@ -738,7 +787,7 @@ body.page-game div.main_container div.notification_container p {
 body.page-game div.main_container div.game_boards {
     display: flex;
     flex-direction: row;
-    
+
     margin: 0;
     width: 85%;
 
@@ -748,7 +797,9 @@ body.page-game div.main_container div.game_boards {
 
 }
 
-body.page-game div.main_container div.game_boards * {box-sizing: border-box;}
+body.page-game div.main_container div.game_boards * {
+    box-sizing: border-box;
+}
 
 /* SETTINGS FOR ALL TABLES INSIDE GAME BOARD */
 body.page-game div.main_container div.game_boards table {
@@ -768,7 +819,8 @@ body.page-game div.main_container div.game_boards table {
 /* IT'S THE LEFT BOARD */
 body.page-game div.main_container div.game_boards table.enemy_board {
 
-    width: 55%; /* related to  div.player_and_information_board width*/
+    width: 55%;
+    /* related to  div.player_and_information_board width*/
     margin: 0;
 
 }
@@ -803,7 +855,7 @@ body.page-game div.main_container div.game_boards div.player_and_information_boa
 }
 
 body.page-game div.main_container div.game_boards div.player_and_information_board div.information_board p {
-       
+
     color: white;
     margin: 0;
     font-size: 0.95rem;
@@ -815,7 +867,7 @@ body.page-game div.main_container div.game_boards div.player_and_information_boa
 
     width: 100%;
     margin: 0;
-    
+
 }
 
 body.page-game div.main_container div.game_boards th {
@@ -835,22 +887,24 @@ body.page-game div.main_container div.game_boards table.enemy_board td,
 body.page-game div.main_container div.game_boards table.player_board th,
 body.page-game div.main_container div.game_boards table.player_board td {
 
-    width: 30px; 
-    height: 38px; 
-    padding: 0; 
+    width: 30px;
+    height: 38px;
+    padding: 0;
 
     text-align: center;
     overflow: hidden;
 
     border: 2px double black;
-    
+
 }
 
 /* Make sure the button fills the entire cell */
 body.page-game div.main_container div.game_boards table.enemy_board td button.tableButton {
 
-    width: 100%; /* Full width of the cell */
-    height: 100%; /* Full height of the cell */
+    width: 100%;
+    /* Full width of the cell */
+    height: 100%;
+    /* Full height of the cell */
     padding: 0;
 
     background-image: url('../Images/jero1.jpg');
@@ -865,7 +919,9 @@ body.page-game div.main_container div.game_boards table.enemy_board td button.ta
     border: 1px solid red;
 }
 
-body.page-game div.main_container div.game_boards table.enemy_board .touch {background-color: red;}
+body.page-game div.main_container div.game_boards table.enemy_board .touch {
+    background-color: red;
+}
 
 
 /*Style for table buttoms where this are disabled*/
