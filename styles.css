@@ -16,7 +16,8 @@ body {
 
 }
 
-.page-tutorial, .page-game {
+.page-tutorial,
+.page-game {
     display: flex;
     flex-direction: column;
 }
@@ -31,12 +32,12 @@ body.page-ranking {
 }
 
 /* REUSABLE ----> Yellow box */
+
 .yellowBox {
     background: linear-gradient(135deg, #d4af37, #e5c18a);
     border: 5px double rgb(59, 36, 11);
     border-radius: 25px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
-
 }
 
 /* REUSABLE ----> Black box */
@@ -50,47 +51,6 @@ body.page-ranking {
 /* ------------------------------ */
 
 
-
-/* --------------------------------------------*/
-/*CSS Notification Sistem*/
-
-#notificationsDiv {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    display: flex;
-    flex-direction: column;
-    /* Coloca los elementos al final para hacer posible la transición */
-    align-items: flex-end;
-}
-
-#notificationsDiv span {
-    font-weight: bold;
-}
-
-.notification {
-    background-color: rgb(59, 36, 11);
-    color: white;
-    padding: 15px;
-    margin: 10px;
-    border-radius: 5px;
-    border: 5px double #d4af37;
-    display: none;
-    /* Se encarga de la aparición con desplazamiento de las notificaciones */
-    transition: transform 0.5s ease, opacity 0.5s ease;
-    transform: translateX(100%);
-    /* Comienza fuera de la pantalla (derecha) */
-    opacity: 0;
-    /* Invisible inicialmente */
-}
-
-.notification.showNot {
-    display: flex;
-    transform: translateX(0);
-    /* Se desplaza a su posición visible */
-    opacity: 1;
-    /* Aparece completamente visible */
-}
 
 
 /* EASTER EGG STYLING */
@@ -402,9 +362,6 @@ body.page-ranking {
     width: 100%;
     height: 50px;
 
-
-
-
 }
 
 .page-tutorial .time,
@@ -551,8 +508,6 @@ body.page-ranking {
     color: black;
     font-weight: bold;
     font-size: 0.9em;
-    margin-top: 10px;
-    margin-bottom: 20px;
     text-align: center;
 }
 
@@ -639,32 +594,256 @@ body.page-ranking {
 
 }
 
-/* Styles table*/
-.page-game table {
+/* Styles of the div that contains the header + notification + info_game + (player/enemy) tables*/
+body.page-game div.main_container {
+
+    margin: 8px 7.5%;
+
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 12px;
+}
+
+/* HEADER BOX IN GAME */
+body.page-game div.main_container div.header_of_players {
+
+    width: 100%;
+
+    text-align: center;
+
+    margin: 0;
+    padding: 7px;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+}
+
+body.page-game div.main_container div.header_of_players>h1 {
+    font-size: 1.6rem;
+    margin: 0;
+}
+
+/*CSS Change Enemy Turn*/
+.notificationPlayerTurn {
+    color: rgb(169, 22, 22);
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.notificationEnemyTurn {
+    color: rgb(18, 18, 171);
+    font-weight: bold;
+    font-size: 30px;
+}
+
+
+
+body.page-game div.main_container div.header_of_players div.timer,
+body.page-game div.main_container div.game_boards div.player_and_information_board div.information_board div {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 5px 0;
+}
+
+body.page-game div.main_container div.game_boards div.player_and_information_board div.information_board div.ammo_container {
+
+    display: flex;
+    flex-direction: row;
+
+}
+
+body.page-game div.main_container div.game_boards div.player_and_information_board div.information_board div.ammo_container div {
+    width: 50%;
+}
+
+body.page-game div.main_container div.header_of_players div.timer img,
+body.page-game div.main_container div.game_boards div.player_and_information_board div.information_board div img {
+    width: 25px;
+    height: 25px;
+}
+
+/* Contenedor que centra el texto y asegura suficiente espacio */
+#notificationContainer {
+    width: 90%;
+    background-color: red;
+    /* Ocupará todo el ancho disponible */
+    height: 50px;
+    /* Ajusta la altura mínima para no quedar muy pequeño */
+    padding: 10px;
+    /* Añadir un pequeño relleno para que el texto no quede pegado */
+    box-sizing: border-box;
+    /* Asegura que el padding se incluya en el tamaño total */
+    text-align: center;
+    /* Centrar el texto */
+    overflow: hidden;
+    /* Oculta el texto que sale del contenedor */
+
+    display: flex;
+
+    justify-content: center;
+    /* Centra horizontalmente */
+    align-items: center;
+    /* Centra verticalmente */
+    background-color: #f4f4f4;
+    /* Fondo para visualizar mejor el marco */
+    border: 2px solid #ccc;
+    /* Añadir un borde para delimitar el marco */
+    border-radius: 8px;
+    /* Bordes redondeados para una apariencia más pulida */
+}
+
+/* Texto de la notificación con animación */
+#notificationParagraf {
+
+    width: 100%;
+    height: 100%;
+    position: relative;
+    font-size: 20px;
+    /* Ajusta el tamaño de la fuente según sea necesario */
+    opacity: 0;
+    /* Comienza invisible */
+    transform: translateX(100%);
+    /* Fuera del contenedor (derecha) */
+    animation: slideIn 2s ease forwards;
+    /* Definimos la animación */
+}
+
+/* Animación para hacer que el texto entre desde la derecha */
+@keyframes slideIn {
+    0% {
+        opacity: 0;
+        transform: translateX(100%);
+        /* Empieza fuera del contenedor */
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+        /* Llega al centro */
+    }
+}
+
+/* Clase que reinicia la animación */
+.slide-in {
+    animation: slideIn 2s ease forwards;
+}
+
+.player_turn_style {
+    background: linear-gradient(135deg, blue, #e5c18a);
+    border: 5px double rgb(59, 36, 11);
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+}
+
+.enemy_turn_style {
+    background: linear-gradient(135deg, red, #e5c18a);
+    border: 5px double rgb(59, 36, 11);
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* ------------------------------------------------------------------- */
+
+body.page-game div.main_container div.game_boards {
+    display: flex;
+    flex-direction: row;
+
+    margin: 0;
+    width: 85%;
+
+    justify-content: space-between;
+    gap: 30px;
+
+
+}
+
+body.page-game div.main_container div.game_boards * {
+    box-sizing: border-box;
+}
+
+/* SETTINGS FOR ALL TABLES INSIDE GAME BOARD */
+body.page-game div.main_container div.game_boards table {
+
     background-image: url('../Images/fondo-madera.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    width: 60%;
-    height: 95%;
+
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     border-collapse: collapse;
-    margin-top: 25px;
-    margin-bottom: 25px;
-}
 
-.page-game td,
-.page-game th {
-
-    border: 2px double black;
-    width: 65px;
-    height: 65px;
+    table-layout: fixed;
 }
 
 
-.page-game th {
+/* IT'S THE LEFT BOARD */
+body.page-game div.main_container div.game_boards table.enemy_board {
+
+    width: 55%;
+    /* related to  div.player_and_information_board width*/
+    margin: 0;
+
+}
+
+/* RIGHT SIDE OF THE SCREEN WHICH CONTAINS THE INFORMATION BOARD (POINTS + "MUNITION")*/
+body.page-game div.main_container div.game_boards div.player_and_information_board {
+
+    width: 45%;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+
+}
+
+body.page-game div.main_container div.game_boards div.player_and_information_board div.information_board {
+
+    width: 100%;
+    height: auto;
+    padding: 10px 10px 10px 18px;
+
+    box-sizing: border-box;
+    background-color: rgba(8, 8, 8, 0.9);
+
+    display: flex;
+    flex-direction: column;
+
+    font-size: 0.8rem;
+    font-weight: bold;
+
+}
+
+body.page-game div.main_container div.game_boards div.player_and_information_board div.information_board p {
 
     color: white;
+    margin: 0;
+    font-size: 0.95rem;
+
+}
+
+
+body.page-game div.main_container div.game_boards div.player_and_information_board table.player_board {
+
+    width: 100%;
+    margin: 0;
+
+}
+
+body.page-game div.main_container div.game_boards th {
+
+    color: white;
+
     background-image: url('../Images/fondo.jpg');
     background-size: cover;
     background-repeat: no-repeat;
@@ -672,70 +851,49 @@ body.page-ranking {
 
 }
 
+/* Set consistent styling for table cells to ensure squares */
+body.page-game div.main_container div.game_boards table.enemy_board th,
+body.page-game div.main_container div.game_boards table.enemy_board td,
+body.page-game div.main_container div.game_boards table.player_board th,
+body.page-game div.main_container div.game_boards table.player_board td {
 
-/*Elements for buttons of table game*/
-.page-game .tableButton {
+    width: 30px;
+    height: 38px;
+    padding: 0;
 
+    text-align: center;
+    overflow: hidden;
 
-    width: 100%;
-    height: 100%;
+    border: 2px double black;
 
-    background-image: url('../Images/jero1.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
 }
 
-
-.page-game table button:hover {
+/* Make sure the button fills the entire cell */
+body.page-game div.main_container div.game_boards table.enemy_board td button.tableButton {
 
     width: 100%;
+    /* Full width of the cell */
     height: 100%;
+    /* Full height of the cell */
+    padding: 0;
+    overflow: hidden;
+
     background-image: url('../Images/jero1.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+
+}
+
+body.page-game div.main_container div.game_boards table.enemy_board td button.tableButton:hover {
+
     border: 1px solid red;
 }
 
-.page-game table .touch {
-
+body.page-game div.main_container div.game_boards table.enemy_board .touch {
     background-color: red;
 }
 
-/* Styles of the div that contains the table and the information div*/
-.page-game .PrincipalDiv {
-
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    gap: 20px;
-    width: 90%;
-    height: 850px;
-    margin: 0 auto;
-    align-items: center;
-
-}
-
-/*Style of the information div*/
-.page-game .scoreboard {
-
-
-
-    color: rgb(59, 36, 11);
-
-    width: 30%;
-    height: 95%;
-    text-align: center;
-    align-items: center;
-
-
-    font-size: 1rem;
-    top: 25px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-
-    display: block;
-}
 
 /*Style for table buttoms where this are disabled*/
 .page-game .button-disabled {
@@ -995,6 +1153,7 @@ body.page-ranking {
     text-decoration: underline;
     color: black;
     font-size: 2em;
+    margin-top: 20px;
 }
 
 .page-game #longName {
