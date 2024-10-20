@@ -166,7 +166,6 @@ $score = htmlspecialchars($_POST['score']);
             }
         }
     }
-
     // Función para verificar si una posición es válida (sin tocar otros barcos)
     function isFreePosH($row, $column, $arrayPosiciones, $horderCount)
     {
@@ -555,25 +554,29 @@ $score = htmlspecialchars($_POST['score']);
         </div>
     </div>
 
-
+    <div id="notificationsDiv">
+        <div class="notification" id="victoryNotification">Has guanyat!</div>
+        <div class="notification" id="sunkNotification">Has eliminat tota l'horda!</div>
+        <div class="notification" id="touchedNotification">Has eliminat un enemic!</div>
+        <div class="notification" id="gameoverNotification">Has perdut!</div>
+        <div class="notification" id="waterNotification">Directe a l'aigua!</div>
+    </div>
 
 
     <div class="main_container">
-
-
+    
         <div class="header_of_players yellowBox">
-            <h1><?php echo $name ?> vs IA</h1>
-            <h3 id="turn" class="notificationPlayerTurn">Toca per començar!</h3> <!-- turn -->
-            <div class="timer">
-                <img src="images/tiempo-pasado.png" alt="time_logo">
-                <h3>20:00:00</h3> <!-- time -->
-            </div>
-        </div>
+            <h1>[PLAYER] vs IA</h1> 
+            <h3>TORN ACTUAL: <br> [PLAYER or IA]</h3> <!-- turn -->
+            <h3>20:00:00</h3> <!-- time -->
+        </div> 
 
 
-
+        <!-- NOTIFICATION BOX -->
+        <!-- <div class="notification_container .enemy_turn_style"> -->
+        <!-- <div class="notification_container .player_turn_style"> -->
         <div class="notification_container yellowBox">
-            <p id="notificationParagraf">Benvingut a la batalla! Es el teu torn jugador!</p>
+            <p>EL JOC COMENÇA! ÉS EL TEU TORN [PLAYER] </p>
         </div>
 
         <div class="game_boards">
@@ -588,24 +591,11 @@ $score = htmlspecialchars($_POST['score']);
 
             </table>
 
-            <div class="player_and_information_board">
+            <div class="player_and_information_board">   
 
                 <div class="information_board blackBox">
-                    <div class="single_element_container">
-                        <img src="images/game_scoreIcon.png" alt="time_logo">
-                        <p>XXXXX</p>
-                    </div>
-                    <div class="ammo_container">
-                        <div class="playerAmmo">
-                            <img src="images/game_cannonIcon.png" alt="time_logo">
-                            <p id="playerAmmoTag">40 (PLAYER)</p>
-                        </div>
-                        <div class="enemyAmmo">
-                            <img src="images/game_cannonIcon.png" alt="time_logo">
-                            <p id="enemyAmmoTag">40 (ENEMY)</p>
-                        </div>
-                    </div>
-                    <<<<<<< HEAD=======>>>>>>> ff5f63606e6036b175dd56d2ea878571173e6c31
+                    <p>PUNTS: XXXXX</p>
+                    <p>MUNICIÓ: 40 projectiles</p>
                 </div>
 
                 <table class="player_board">
@@ -622,7 +612,7 @@ $score = htmlspecialchars($_POST['score']);
 
 
             </div>
-
+            
         </div>
 
 
