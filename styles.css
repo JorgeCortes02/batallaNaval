@@ -667,6 +667,10 @@ body.page-game div.main_container div.header_of_players h3 {
 .notificationPlayerTurn {
 
     color: rgb(18, 18, 171);
+    font-weight: bold;
+    font-size: 1.8rem;
+    margin: 0;
+}
 
 .notificationEnemyTurn {
     color: rgb(169, 22, 22);
@@ -1092,13 +1096,13 @@ body.page-game div.main_container div.game_boards table.enemy_board .touch {
 /*marcador de puntos---------------------------------------------------------------------------------*/
 
 .page-game #scoreDisplay {
-    color: rgb(59, 36, 11);
+    color: white;
     /* color que se ve*/
     font-family: 'Liberation Mono', monospace;
     /*fuente que mantiene el mismo tamaño sea el numero que sea*/
     font-size: 2em;
     /* Tamaño de la fuente */
-    margin: 0 auto;
+
 }
 
 

@@ -587,7 +587,7 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
                 <div class="information_board blackBox">
                     <div class="single_element_container">
                         <img src="images/game_scoreIcon.png" alt="time_logo">
-                        <p>XXXXX</p>
+                        <p id="scoreDisplay">00000</p>
                     </div>
                     <div class="ammo_container">
                         <div class="playerAmmo">
