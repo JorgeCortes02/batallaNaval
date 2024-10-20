@@ -565,7 +565,7 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
         </div>
 
 
-        <div class="notification_container yellowBox">
+        <div id="notificationContainer" class="yellowBox">
             <p id="notificationParagraf">Benvingut a la batalla! Es el teu torn jugador!</p>
         </div>
 

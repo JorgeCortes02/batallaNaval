@@ -206,7 +206,8 @@ function generateNotificationWithAction(typeNotification) {
     const paragrafNotification = document.getElementById("notificationParagraf");
 
     // Remove any previous animation
-    paragrafNotification.classList.remove("showNotification");
+    // Remover cualquier animación previa (si es que existe)
+    paragrafNotification.style.animation = 'none';
 
     // Check whose turn it is
     switch (nowAttackPlayer) {
@@ -248,11 +249,12 @@ function generateNotificationWithAction(typeNotification) {
             break;
     }
 
-    // Force a reflow to restart the animation (necessary if the animation is called multiple times)
+    // Forzar reflow para reiniciar la animación
     void paragrafNotification.offsetWidth;
 
-    // Add the class that activates the animation
-    paragrafNotification.classList.add("showNotification");
+    // Añadir la clase para activar la animación
+    paragrafNotification.style.animation = ''; // Reinicia la animación
+    paragrafNotification.classList.add("slide-in");
 }
 
 function changeTurnText(turn) {

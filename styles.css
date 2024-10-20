@@ -51,40 +51,6 @@ body.page-ranking {
 /* ------------------------------ */
 
 
-/* --------------------------------------------*/
-/*CSS Notification Sistem*/
-
-
-
-
-
-#notificationsDiv span {
-    font-weight: bold;
-}
-
-.notification {
-    background-color: rgb(59, 36, 11);
-    color: white;
-    padding: 15px;
-    margin: 10px;
-    border-radius: 5px;
-    border: 5px double #d4af37;
-    display: none;
-    /* Se encarga de la aparición con desplazamiento de las notificaciones */
-    transition: transform 0.5s ease, opacity 0.5s ease;
-    transform: translateX(100%);
-    /* Comienza fuera de la pantalla (derecha) */
-    opacity: 0;
-    /* Invisible inicialmente */
-}
-
-.notification.showNot {
-    display: flex;
-    transform: translateX(0);
-    /* Se desplaza a su posición visible */
-    opacity: 1;
-    /* Aparece completamente visible */
-}
 
 
 /* EASTER EGG STYLING */
@@ -706,61 +672,70 @@ body.page-game div.main_container div.game_boards div.player_and_information_boa
     height: 25px;
 }
 
-/* NOTIFICATION BOX IN GAME ( JORGE ) */
-body.page-game div.main_container div.notification_container {
+/* Contenedor que centra el texto y asegura suficiente espacio */
+#notificationContainer {
+    width: 90%;
+    background-color: red;
+    /* Ocupará todo el ancho disponible */
+    height: 50px;
+    /* Ajusta la altura mínima para no quedar muy pequeño */
+    padding: 10px;
+    /* Añadir un pequeño relleno para que el texto no quede pegado */
+    box-sizing: border-box;
+    /* Asegura que el padding se incluya en el tamaño total */
+    text-align: center;
+    /* Centrar el texto */
+    overflow: hidden;
+    /* Oculta el texto que sale del contenedor */
+
+    display: flex;
+
+    justify-content: center;
+    /* Centra horizontalmente */
+    align-items: center;
+    /* Centra verticalmente */
+    background-color: #f4f4f4;
+    /* Fondo para visualizar mejor el marco */
+    border: 2px solid #ccc;
+    /* Añadir un borde para delimitar el marco */
+    border-radius: 8px;
+    /* Bordes redondeados para una apariencia más pulida */
+}
+
+/* Texto de la notificación con animación */
+#notificationParagraf {
 
     width: 100%;
-    text-align: center;
-    margin: 0;
-    padding: 10px;
-    box-sizing: border-box;
-    font-size: 1.05rem;
-    color: black;
-
-}
-
-/*CSS notifications animation*/
-#notificationParagraf {
-    font-weight: bold;
-
-    color: rgb(26, 5, 5);
-    /* Color del texto */
+    height: 100%;
+    position: relative;
+    font-size: 20px;
+    /* Ajusta el tamaño de la fuente según sea necesario */
     opacity: 0;
     /* Comienza invisible */
-    clip-path: inset(0 100% 0 0);
-    /* Oculta todo el contenido excepto el lado izquierdo */
-    transition: color 3s ease;
-    /* Transición suave si cambia el color */
+    transform: translateX(100%);
+    /* Fuera del contenedor (derecha) */
+    animation: slideIn 2s ease forwards;
+    /* Definimos la animación */
 }
 
-/* Animación para hacer que el texto aparezca de izquierda a derecha */
-@keyframes slideInFromLeft {
+/* Animación para hacer que el texto entre desde la derecha */
+@keyframes slideIn {
     0% {
         opacity: 0;
-        clip-path: inset(0 100% 0 0);
-        /* Ocultando el texto */
+        transform: translateX(100%);
+        /* Empieza fuera del contenedor */
     }
 
     100% {
         opacity: 1;
-        clip-path: inset(0 0% 0 0);
-        /* Mostrando todo el texto */
+        transform: translateX(0);
+        /* Llega al centro */
     }
 }
 
-/* Clase para activar la animación */
-.showNotification {
-    animation: slideInFromLeft 1s ease forwards;
-}
-
-body.page-game div.main_container div.notification_container p {
-
-    width: 100%;
-    text-align: center;
-    margin: 0;
-
-    box-sizing: border-box;
-    font-weight: bold;
+/* Clase que reinicia la animación */
+.slide-in {
+    animation: slideIn 2s ease forwards;
 }
 
 .player_turn_style {
