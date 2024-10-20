@@ -383,9 +383,6 @@ function checkMunitionDepletedToSeeIfWinOrLose(playerHordes, enemyHordes, turn) 
     playerSunkHorderCount = countSunkHordes(playerHordes);
     enemySunkHorderCount = countSunkHordes(enemyHordes);
 
-    console.log("PLAYER DESTROYED " + playerSunkHorderCount)
-    console.log("IA DESTROYED " + enemySunkHorderCount)
-
     if (playerSunkHorderCount > enemySunkHorderCount) { // player sank more hordes
         if (turn === "player") {
             return "victory";

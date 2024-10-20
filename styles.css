@@ -628,7 +628,7 @@ body.page-game div.main_container div.header_of_players {
 }
 
 body.page-game div.main_container div.header_of_players h3 {
-    margin:0;
+    margin: 0;
 }
 
 /*CSS Change Enemy Turn*/
@@ -679,7 +679,7 @@ body.page-game div.main_container div.game_boards div.player_and_information_boa
 /* Contenedor que centra el texto y asegura suficiente espacio */
 #notificationContainer {
     width: 90%;
-    background-color: red;
+
     /* Ocupará todo el ancho disponible */
     height: 50px;
     /* Ajusta la altura mínima para no quedar muy pequeño */
@@ -693,12 +693,12 @@ body.page-game div.main_container div.game_boards div.player_and_information_boa
     /* Oculta el texto que sale del contenedor */
 
     display: flex;
-
+    background: radial-gradient(circle, #d4af37 70%, rgb(18, 18, 171) 100%);
     justify-content: center;
     /* Centra horizontalmente */
     align-items: center;
     /* Centra verticalmente */
-    background-color: #f4f4f4;
+    font-weight: 700;
     /* Fondo para visualizar mejor el marco */
     border: 2px double black;
     /* Añadir un borde para delimitar el marco */
@@ -716,6 +716,8 @@ body.page-game div.main_container div.game_boards div.player_and_information_boa
     opacity: 0;
     /* Comienza invisible */
     transform: translateX(100%);
+
+
     /* Fuera del contenedor (derecha) */
     animation: slideIn 2s ease forwards;
     /* Definimos la animación */
