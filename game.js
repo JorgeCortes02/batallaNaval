@@ -121,7 +121,7 @@ function enemyTurn() {
 
             // Get the state of the attacked cell (e.g., water, touched, sunk) by checking enemy hordes
             stateCell = sumFoundPositions(actualCell.getAttribute('data-value'), selectesEnemyHorders);
-
+            generateSound(stateCell);
 
             // Generate a notification based on the state of the cell (e.g., "you hit", "you missed")
             generateNotificationWithAction(stateCell);
@@ -435,9 +435,6 @@ function checkMunitionDepletedToSeeIfWinOrLose(playerHordes, enemyHordes, turn) 
     // Count how many hordes have been defeated by player and enemy side
     playerSunkHorderCount = countSunkHordes(playerHordes);
     enemySunkHorderCount = countSunkHordes(enemyHordes);
-
-    console.log("PLAYER DESTROYED " + playerSunkHorderCount)
-    console.log("IA DESTROYED " + enemySunkHorderCount)
 
     if (playerSunkHorderCount > enemySunkHorderCount) { // player sank more hordes
         if (turn === "player") {
