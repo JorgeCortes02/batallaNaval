@@ -44,6 +44,9 @@ function getRandomNumber(long) {
     return Math.floor(Math.random() * long);
 }
 
+
+
+
 function animateCellColorChange(actualCell) {
     // Add the class to start the animation
     actualCell.classList.add("cell-color-animation");
@@ -59,8 +62,10 @@ function changeTurn() {
     if (nowAttackPlayer === 1) {
         // Change turn to the player
         nowAttackPlayer = 0;
+
         setTimeout(() => {
             changeTurnText("turn0");
+            changeBackgorundNotificationColor();
         }, 2000);
         // Activate the player's table for interaction
         activeTable()
@@ -70,14 +75,17 @@ function changeTurn() {
         nowAttackPlayer = 1;
         // Execute the enemy's turn logic
         enemyTurn();
+
         setTimeout(() => {
             changeTurnText("turn1");
+            changeBackgorundNotificationColor();
         }, 3000);
 
         // Disable the player's table to prevent interaction
         disableTable();
     }
 }
+
 
 function enemyTurn() {
 
@@ -255,6 +263,27 @@ function generateNotificationWithAction(typeNotification) {
     // Añadir la clase para activar la animación
     paragrafNotification.style.animation = ''; // Reinicia la animación
     paragrafNotification.classList.add("slide-in");
+}
+
+function changeBackgorundNotificationColor() {
+    const divNoti = document.getElementById("notificationContainer");
+    if (nowAttackPlayer == 0) {
+
+        if (divNoti.classList.contains("divNotiEnemy")) {
+
+            divNoti.classList.replace("divNotiEnemy", "divNotiPlayer")
+
+        }
+
+    } else {
+        if (divNoti.classList.contains("divNotiPlayer")) {
+
+            divNoti.classList.replace("divNotiPlayer", "divNotiEnemy")
+        }
+
+    }
+
+
 }
 
 function changeTurnText(turn) {

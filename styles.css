@@ -634,13 +634,14 @@ body.page-game div.main_container div.header_of_players>h1 {
 
 /*CSS Change Enemy Turn*/
 .notificationPlayerTurn {
-    color: rgb(169, 22, 22);
+
+    color: rgb(18, 18, 171);
     font-weight: bold;
     font-size: 30px;
 }
 
 .notificationEnemyTurn {
-    color: rgb(18, 18, 171);
+    color: rgb(169, 22, 22);
     font-weight: bold;
     font-size: 30px;
 }
@@ -675,7 +676,7 @@ body.page-game div.main_container div.game_boards div.player_and_information_boa
 /* Contenedor que centra el texto y asegura suficiente espacio */
 #notificationContainer {
     width: 90%;
-    background-color: red;
+
     /* Ocupará todo el ancho disponible */
     height: 50px;
     /* Ajusta la altura mínima para no quedar muy pequeño */
@@ -694,12 +695,20 @@ body.page-game div.main_container div.game_boards div.player_and_information_boa
     /* Centra horizontalmente */
     align-items: center;
     /* Centra verticalmente */
-    background-color: #f4f4f4;
-    /* Fondo para visualizar mejor el marco */
-    border: 2px solid #ccc;
+
+
+    border: 2px solid black;
     /* Añadir un borde para delimitar el marco */
     border-radius: 8px;
     /* Bordes redondeados para una apariencia más pulida */
+}
+
+.divNotiPlayer {
+    background: radial-gradient(circle, #d4af37 50%, rgb(18, 18, 171) 100%);
+}
+
+.divNotiEnemy {
+    background: radial-gradient(circle, #d4af37 50%, rgb(169, 22, 22) 100%);
 }
 
 /* Texto de la notificación con animación */
