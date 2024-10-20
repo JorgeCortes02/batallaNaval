@@ -22,14 +22,22 @@ $_SESSION["name"] = "name"
 
 <body class="page-index">
 
+    
 
     <div class="main_container yellowBox">
+        
         <noscript>
             <div class="warning">
                 Atenció: El JavaScript està deshabilitat al teu navegador. Si us plau, habilita el JavaScript per poder
                 jugar.
             </div>
         </noscript>
+        <div id="option">
+            <label id="titleCheckbox">Opcions:</label>
+            <label><input type="checkbox" id="ammoEnabled" value="limited-Munition" onchange="checkOnlyOne(this)">Munició limitada</label>
+            <label><input type="checkbox" id="box2" value="battleships" onchange="checkOnlyOne(this)"disabled>Vaixells acoirassats</label><!--opciones desabilitadas-->
+            <label><input type="checkbox" id="box3" value="special-attacks" onchange="checkOnlyOne(this)"disabled>Atacs especials</label>
+        </div>
         <h1>LOST IN THE SANDS</h1>
         <p>Endinsa't en el fascinant món de l'antic Egipte en aquest emocionant joc de batalla naval!
             Enmig de les misterioses dunes del desert i sota el sol abrasador, hauràs de comandar la teva pròpia flota

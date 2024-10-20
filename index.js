@@ -68,6 +68,53 @@ function openButtonPClassic() {
   initGameClassic.disabled = true;
   toGameA.style.pointerEvents = 'none';
 
+
+    //verificar si hay datos en sessionStorage al iniciar pagina
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('#option input[type="checkbox"]').forEach(function (checkbox) {
+            const isChecked = sessionStorage.getItem(checkbox.id);
+            checkbox.checked = isChecked === 'true'; // Recuperar y aplicar el estado
+        });
+    });
+
+    // Al hacer clic en un checkbox, almacenar su estado en sessionStorage
+    document.querySelectorAll('#option input[type="checkbox"]').forEach(function (checkbox) {
+        checkbox.addEventListener('change', function () {
+            sessionStorage.setItem(checkbox.id, checkbox.checked);
+        });
+    });
+
+    // Deshabilitar el checkbox con id "box2"
+    document.getElementById("box2").disabled = true;
+
+    // Habilitar el checkbox con id "box2" más tarde (si lo necesitas)
+    document.getElementById("box2").disabled = false;
+    
+
+    //posible funcion para que solo marquen un box
+    /*function checkOnlyOne(checkbox) {
+        //obtener todos los checkboxes dentro del contenedor
+        var checkboxes = document.querySelectorAll('#option input[type="checkbox"]');
+        
+        //contar cuántos checkboxes están marcados
+        let checkedCount = 0;
+        checkboxes.forEach(function(item) {
+            if (item.checked) {
+                checkedCount++;
+            }
+        });
+        
+        //si hay más de 1 marcado, desmarcar el anterior
+        if (checkedCount > 1) {
+            checkboxes.forEach(function(item) {
+                if (item !== checkbox) {
+                    item.checked = false; //desmarcar el checkbox anterior
+                }
+            });
+        }
+    }*/
+
+
 });
 
 
