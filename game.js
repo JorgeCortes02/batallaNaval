@@ -12,6 +12,9 @@ var enemyAmmo = 40; // document.getElementById("enemyAmmoTag");
 // Get all buttons with the class "tableButton"
 const buttons = document.getElementsByClassName("tableButton");
 
+
+
+
 //Array with the game sounds
 const gameSounds = [new Audio('sounds/water1.mp3'), new Audio('sounds/victory.mp3'), new Audio('sounds/perfect.mp3'), new Audio('sounds/gameover.mp3'), new Audio('sounds/zombie.mp3'), new Audio('sounds/IndianaJonesTheme.mp3'), new Audio("sounds/cañonEnemigo.mp3")];
 
@@ -32,6 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
         buttonGame.addEventListener("click", turnACell);
     }
 
+
     // Get the easterEggButton
     const easterEggShowButton = document.getElementById('easterEggShowButton');
     // Execute the easterEgg event with parameter once:true so it will execute only once if clicked
@@ -44,6 +48,9 @@ function getRandomNumber(long) {
     return Math.floor(Math.random() * long);
 }
 
+
+
+
 function animateCellColorChange(actualCell) {
     // Add the class to start the animation
     actualCell.classList.add("cell-color-animation");
@@ -55,12 +62,17 @@ function animateCellColorChange(actualCell) {
 }
 
 function changeTurn() {
+    const tableEnemy = document.getElementsByClassName("enemy_board")[0];
     // Check if it's the enemy's turn (nowAttackPlayer is 1)
     if (nowAttackPlayer === 1) {
         // Change turn to the player
         nowAttackPlayer = 0;
+
         setTimeout(() => {
+            tableEnemy.removeEventListener("click", showNotification);
+
             changeTurnText("turn0");
+            changeBackgorundNotificationColor();
         }, 2000);
         // Activate the player's table for interaction
         activeTable()
@@ -70,14 +82,23 @@ function changeTurn() {
         nowAttackPlayer = 1;
         // Execute the enemy's turn logic
         enemyTurn();
+
         setTimeout(() => {
             changeTurnText("turn1");
+            changeBackgorundNotificationColor();
+
+
+
+            // Aquí es donde registras el evento click para el tablero enemigo
+            tableEnemy.addEventListener("click", showNotification);
+
         }, 3000);
 
         // Disable the player's table to prevent interaction
         disableTable();
     }
 }
+
 
 function enemyTurn() {
 
@@ -160,7 +181,17 @@ function enemyTurn() {
     }, 3000); // Initial delay before starting the enemy's turn
 }
 
+function showNotification() {
+    const notification = document.getElementsByClassName('notification')[0];
 
+    // Añadir la clase para mostrar la notificación
+    notification.classList.add('showNot');
+
+    // Remover la clase después de que la animación termine (6 segundos en total)
+    setTimeout(() => {
+        notification.classList.remove('showNot');
+    }, 6000); // Tiempo de animación + tiempo visible (5s visible + 1s fade)
+}
 function showPlayerHorders() {
     // Iterate over each cell in the player's table
     cellsPlayerTable.forEach(element => {
@@ -226,6 +257,7 @@ function generateNotificationWithAction(typeNotification) {
                     paragrafNotification.innerText = "Has perdut."; // You have lost.
                     break;
                 case "water":
+
                     paragrafNotification.innerText = "Directe a l’aigua! Més sort la pròxima vegada…"; // Direct hit to the water, better luck next time...
                     break;
             }
@@ -255,6 +287,27 @@ function generateNotificationWithAction(typeNotification) {
     // Añadir la clase para activar la animación
     paragrafNotification.style.animation = ''; // Reinicia la animación
     paragrafNotification.classList.add("slide-in");
+}
+
+function changeBackgorundNotificationColor() {
+    const divNoti = document.getElementById("notificationContainer");
+    if (nowAttackPlayer == 0) {
+
+        if (divNoti.classList.contains("divNotiEnemy")) {
+
+            divNoti.classList.replace("divNotiEnemy", "divNotiPlayer")
+
+        }
+
+    } else {
+        if (divNoti.classList.contains("divNotiPlayer")) {
+
+            divNoti.classList.replace("divNotiPlayer", "divNotiEnemy")
+        }
+
+    }
+
+
 }
 
 function changeTurnText(turn) {

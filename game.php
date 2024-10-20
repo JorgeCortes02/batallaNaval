@@ -562,8 +562,11 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
             </div>
         </div>
 
+        <div id="notificationsDiv">
+            <div class="notification" id="victoryNotification">No pots atacar, es el torn de l'enemic.</div>
 
-        <div id="notificationContainer" class="yellowBox">
+        </div>
+        <div id="notificationContainer" class="divNotiPlayer">
             <p id="notificationParagraf">Benvingut a la batalla! Es el teu torn jugador!</p>
         </div>
 
@@ -596,6 +599,7 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
                             <p id="enemyAmmoTag">40 (ENEMY)</p>
                         </div>
                     </div>
+
                 </div>
 
                 <table class="player_board">
