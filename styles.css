@@ -597,7 +597,7 @@ body.page-ranking {
 /* Styles of the div that contains the header + notification + info_game + (player/enemy) tables*/
 body.page-game div.main_container {
 
-    margin: 8px 7.5%;
+    margin: 0 7.5%;
 
     height: 100%;
 
@@ -617,7 +617,7 @@ body.page-game div.main_container div.header_of_players {
     text-align: center;
 
     margin: 0;
-    padding: 7px;
+    padding: 10px;
     box-sizing: border-box;
 
     display: flex;
@@ -627,22 +627,23 @@ body.page-game div.main_container div.header_of_players {
 
 }
 
-body.page-game div.main_container div.header_of_players>h1 {
-    font-size: 1.6rem;
-    margin: 0;
+body.page-game div.main_container div.header_of_players h3 {
+    margin:0;
 }
 
 /*CSS Change Enemy Turn*/
-.notificationPlayerTurn {
+.notificationEnemyTurn {
     color: rgb(169, 22, 22);
     font-weight: bold;
-    font-size: 30px;
+    font-size: 1.8rem;
+    margin: 0;
 }
 
-.notificationEnemyTurn {
+.notificationPlayerTurn {
     color: rgb(18, 18, 171);
     font-weight: bold;
-    font-size: 30px;
+    font-size: 1.8rem;
+    margin: 0;
 }
 
 
@@ -664,6 +665,9 @@ body.page-game div.main_container div.game_boards div.player_and_information_boa
 
 body.page-game div.main_container div.game_boards div.player_and_information_board div.information_board div.ammo_container div {
     width: 50%;
+    margin: 0;
+    display: flex;
+    align-items: center;
 }
 
 body.page-game div.main_container div.header_of_players div.timer img,
@@ -696,7 +700,7 @@ body.page-game div.main_container div.game_boards div.player_and_information_boa
     /* Centra verticalmente */
     background-color: #f4f4f4;
     /* Fondo para visualizar mejor el marco */
-    border: 2px solid #ccc;
+    border: 2px double black;
     /* Añadir un borde para delimitar el marco */
     border-radius: 8px;
     /* Bordes redondeados para una apariencia más pulida */
@@ -706,7 +710,6 @@ body.page-game div.main_container div.game_boards div.player_and_information_boa
 #notificationParagraf {
 
     width: 100%;
-    height: 100%;
     position: relative;
     font-size: 20px;
     /* Ajusta el tamaño de la fuente según sea necesario */
@@ -716,6 +719,7 @@ body.page-game div.main_container div.game_boards div.player_and_information_boa
     /* Fuera del contenedor (derecha) */
     animation: slideIn 2s ease forwards;
     /* Definimos la animación */
+    margin: 0;
 }
 
 /* Animación para hacer que el texto entre desde la derecha */
@@ -736,20 +740,6 @@ body.page-game div.main_container div.game_boards div.player_and_information_boa
 /* Clase que reinicia la animación */
 .slide-in {
     animation: slideIn 2s ease forwards;
-}
-
-.player_turn_style {
-    background: linear-gradient(135deg, blue, #e5c18a);
-    border: 5px double rgb(59, 36, 11);
-    border-radius: 10px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
-}
-
-.enemy_turn_style {
-    background: linear-gradient(135deg, red, #e5c18a);
-    border: 5px double rgb(59, 36, 11);
-    border-radius: 10px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
 }
 
 /* ------------------------------------------------------------------- */
