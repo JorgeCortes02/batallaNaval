@@ -485,8 +485,8 @@ function turnACell(e) {
     } // Change the button's text to reflect its state
 
     // Calcula el nuevo puntaje basándose en el estado del juego
-    //score = getScore(score, stateCell);
-    //updateScoreDisplay(score); // Actualiza el marcador en la pantalla
+    score = getScore(score, stateCell);
+    updateScoreDisplay(score); // Actualiza el marcador en la pantalla
     // If the state is "victory", disable all buttons and generate new buttons
 
     // AMMO MANAGEMENT 
