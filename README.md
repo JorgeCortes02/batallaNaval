@@ -51,31 +51,6 @@ El joc presenta un tauler de 10x10 on s’amaguen diverses ordes de diferents mi
 - Després de cada partida, tindràs l’oportunitat de registrar el teu nom i puntuació en una finestra emergent.
 - Les puntuacions es desen en un fitxer de text (`ranking.txt`) juntament amb la data i hora de la partida. Això permet als jugadors competir per aconseguir la puntuació més alta i comparar el seu rendiment en diferents sessions de joc.
 
-### 6. Sistema de puntuació:
-
-El sistema de puntuació per eliminar les mòmies tindrà bonificacions per temps i encerts. Serà important actuar ràpidament i de manera continuada, però els errors sempre restaran punts.
-
-## Puntuació bàsica:
-
-- **Tocat**: 20 punts.
-- **Aigua**: -2 punts.
-- **Combo de tocats**: Els punts per tocar s'incrementaran multiplicant-se pel nombre de tocats consecutius.
-- **Enfonsat**: 1000 punts.
-
-## Bonus de temps:
-
-Durant els primers 5 minuts:
-- **Tocat**: +10 punts addicionals.
-- **Aigua**: -2 punts menys.
-- **Enfonsat**: +1000 punts addicionals.
-
-## Normes generals:
-
-- El marcador no pot ser menor que 0.
-- Si la partida acaba durant els primers 10 minuts, el jugador rebrà una bonificació de 5000 punts.
-- Si trobes el "Easter Egg" guanya 7000 punts.
-
-
 ## Característiques del Joc
 
 - **Tauler Aleatori**: A cada partida, el tauler de 10x10 es genera aleatòriament amb ordes de diferents mides. Les ordes es poden col·locar tant en posicions horitzontals com verticals, cosa que augmenta el repte de trobar-les.
