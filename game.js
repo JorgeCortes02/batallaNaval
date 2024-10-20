@@ -100,7 +100,7 @@ function enemyTurn() {
 
             // Get the state of the attacked cell (e.g., water, touched, sunk) by checking enemy hordes
             stateCell = sumFoundPositions(actualCell.getAttribute('data-value'), selectesEnemyHorders);
-
+            generateSound(stateCell);
 
             // Generate a notification based on the state of the cell (e.g., "you hit", "you missed")
             generateNotificationWithAction(stateCell);
