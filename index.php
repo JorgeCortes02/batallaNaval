@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+$_SESSION["name"] = "name"
+
+?>
+
+
+
 <!DOCTYPE html>
 
 <html lang="ca">
@@ -13,14 +22,22 @@
 
 <body class="page-index">
 
+    
 
     <div class="main_container yellowBox">
+        
         <noscript>
             <div class="warning">
                 Atenció: El JavaScript està deshabilitat al teu navegador. Si us plau, habilita el JavaScript per poder
                 jugar.
             </div>
         </noscript>
+        <div id="option">
+            <label id="titleCheckbox">Opcions:</label>
+            <label><input type="checkbox" id="ammoEnabled" value="limited-Munition" onchange="checkOnlyOne(this)">Munició limitada</label>
+            <label><input type="checkbox" id="box2" value="battleships" onchange="checkOnlyOne(this)"disabled>Vaixells acoirassats</label><!--opciones desabilitadas-->
+            <label><input type="checkbox" id="box3" value="special-attacks" onchange="checkOnlyOne(this)"disabled>Atacs especials</label>
+        </div>
         <h1>LOST IN THE SANDS</h1>
         <p>Endinsa't en el fascinant món de l'antic Egipte en aquest emocionant joc de batalla naval!
             Enmig de les misterioses dunes del desert i sota el sol abrasador, hauràs de comandar la teva pròpia flota
@@ -30,9 +47,34 @@
             trobaran.
             L'estratègia, la punteria i una mica de sort seran les teves millors aliades en aquesta aventura.
             Dispara amb precisió per aconseguir la victòria!</p>
+        
         <div class="button_container">
-            <a id="toGameA" class="aDisabled" href="tutorial.php"><button id="initGame" class="button-disabled">TUTORIAL</button></a>
-            <a class="aActive" href="ranking.php"><button id="goToHall" class="buttonActive">HALL OF FAME</button></a>
+
+            
+                <form id="myForm" method="POST" action="game.php">
+                    <div id="nameRecord">
+                        <label for="name">Allista't, com et dius:</label>
+                        <input type="text" id="nameIndex" name="name" value="" required>
+                    </div>
+                    <div id="longUser">
+                        <h3>El jugador ha de tenir entre 3 i 30 caràcters.</h3>
+                    </div>
+                    <div id="nolongUser">
+                        <h3>Es obligatori escriure un nom.</h3>
+                    </div>
+                    <div id="buttonPlay">
+                        <button id="toButton" class="buttonActive" type="button" onclick="location.href='tutorial.php';">TUTORIAL OF GAME</button>
+                        <button id="toGame" class="button-disabled" type="submit">PARTIDA CLÀSICA</button>
+                       
+                        <button id="toButton2" class="buttonActive" type="button" onclick="location.href='ranking.php';">HALL OF FAME</button>
+                    </div>
+                </form>
+                        
+            
+
+            <!--<a id="toGameA" class="aDisabled" href="game.php"><button id="initGame" class="button-disabled">PARTIDA CLÀSICA</button></a>-->
+            
+
         </div>
     </div>
 

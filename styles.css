@@ -16,8 +16,7 @@ body {
 
 }
 
-.page-tutorial,
-.page-game {
+.page-tutorial, .page-game {
     display: flex;
     flex-direction: column;
 }
@@ -54,9 +53,15 @@ body.page-ranking {
 /* --------------------------------------------*/
 /*CSS Notification Sistem*/
 
-
-
-
+#notificationsDiv {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    /* Coloca los elementos al final para hacer posible la transición */
+    align-items: flex-end;
+}
 
 #notificationsDiv span {
     font-weight: bold;
@@ -346,7 +351,8 @@ body.page-ranking {
 }
 
 /*Style of buttoms when gamed is end.*/
-.page-tutorial .divButtonsFinalGame button {
+.page-tutorial #divButtonsFinalGame button {
+    display: none;
     background: rgb(59, 36, 11);
     border: 3px solid rgb(59, 36, 11);
     border-radius: 12px;
@@ -362,9 +368,10 @@ body.page-ranking {
     height: 50px;
     text-align: center;
     margin: 0 auto;
+    margin-bottom: 10%;
 }
 
-.page-tutorial .divButtonsFinalGame button:hover {
+.page-tutorial #divButtonsFinalGame button:hover {
     background: #7a6a55;
     border: 3px solid #7a6a55;
     border-radius: 12px;
@@ -395,6 +402,9 @@ body.page-ranking {
     margin-bottom: 20px;
     width: 100%;
     height: 50px;
+
+
+
 
 }
 
@@ -537,7 +547,7 @@ body.page-ranking {
 
 .page-tutorial #longName {
     display: none;
-    position: absolute;
+   
     transform: translateY(-50%);
     color: black;
     font-weight: bold;
@@ -628,10 +638,78 @@ body.page-ranking {
 
 }
 
+/* Styles table*/
+.page-game table {
+
+    background-image: url('../Images/fondo-madera.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    width: 60%;
+    height: 95%;
+
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    border-collapse: collapse;
+
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.page-game td,
+.page-game th {
+
+    border: 2px double black;
+    width: 65px;
+    height: 65px;
+}
+
+
+.page-game th {
+
+    color: white;
+    background-image: url('../Images/fondo.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+}
+
+
+/*Elements for buttons of table game*/
+.page-game .tableButton {
+
+
+    width: 100%;
+    height: 100%;
+
+    background-image: url('../Images/jero1.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
+.page-game table button:hover {
+
+    width: 100%;
+    height: 100%;
+    background-image: url('../Images/jero1.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 1px solid red;
+}
+
+.page-game table .touch {
+
+    background-color: red;
+}
+
 /* Styles of the div that contains the header + notification + info_game + (player/enemy) tables*/
 body.page-game div.main_container {
 
-    margin: 8px 7.5%;
+    margin: 15px 7.5%;
 
     height: 100%;
 
@@ -661,54 +739,19 @@ body.page-game div.main_container div.header_of_players {
 
 }
 
-body.page-game div.main_container div.header_of_players>h1 {
+body.page-game div.main_container div.header_of_players > h1 {
     font-size: 1.6rem;
     margin: 0;
 }
 
-/*CSS Change Enemy Turn*/
-.notificationPlayerTurn {
-    color: rgb(169, 22, 22);
-    font-weight: bold;
-    font-size: 30px;
-}
-
-.notificationEnemyTurn {
-    color: rgb(18, 18, 171);
-    font-weight: bold;
-    font-size: 30px;
-}
-
-
-
-body.page-game div.main_container div.header_of_players div.timer,
-body.page-game div.main_container div.game_boards div.player_and_information_board div.information_board div {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin: 5px 0;
-}
-
-body.page-game div.main_container div.game_boards div.player_and_information_board div.information_board div.ammo_container {
-
-    display: flex;
-    flex-direction: row;
-
-}
-
-body.page-game div.main_container div.game_boards div.player_and_information_board div.information_board div.ammo_container div {
-    width: 50%;
-}
-
-body.page-game div.main_container div.header_of_players div.timer img,
-body.page-game div.main_container div.game_boards div.player_and_information_board div.information_board div img {
-    width: 25px;
-    height: 25px;
+body.page-game div.main_container div.header_of_players > h3 {
+    font-size: 1.15rem;
+    margin: 0;
 }
 
 /* NOTIFICATION BOX IN GAME ( JORGE ) */
 body.page-game div.main_container div.notification_container {
-
+    
     width: 100%;
     text-align: center;
     margin: 0;
@@ -719,42 +762,8 @@ body.page-game div.main_container div.notification_container {
 
 }
 
-/*CSS notifications animation*/
-#notificationParagraf {
-    font-weight: bold;
-
-    color: rgb(26, 5, 5);
-    /* Color del texto */
-    opacity: 0;
-    /* Comienza invisible */
-    clip-path: inset(0 100% 0 0);
-    /* Oculta todo el contenido excepto el lado izquierdo */
-    transition: color 3s ease;
-    /* Transición suave si cambia el color */
-}
-
-/* Animación para hacer que el texto aparezca de izquierda a derecha */
-@keyframes slideInFromLeft {
-    0% {
-        opacity: 0;
-        clip-path: inset(0 100% 0 0);
-        /* Ocultando el texto */
-    }
-
-    100% {
-        opacity: 1;
-        clip-path: inset(0 0% 0 0);
-        /* Mostrando todo el texto */
-    }
-}
-
-/* Clase para activar la animación */
-.showNotification {
-    animation: slideInFromLeft 1s ease forwards;
-}
-
 body.page-game div.main_container div.notification_container p {
-
+    
     width: 100%;
     text-align: center;
     margin: 0;
@@ -782,12 +791,12 @@ body.page-game div.main_container div.notification_container p {
 body.page-game div.main_container div.game_boards {
     display: flex;
     flex-direction: row;
-
+    
     margin: 0;
-    width: 85%;
+    width: 90%;
 
     justify-content: space-between;
-    gap: 30px;
+    gap: 25px;
 
 
 }
@@ -798,31 +807,19 @@ body.page-game div.main_container div.game_boards * {
 
 /* SETTINGS FOR ALL TABLES INSIDE GAME BOARD */
 body.page-game div.main_container div.game_boards table {
-
-    background-image: url('../Images/fondo-madera.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-    border-collapse: collapse;
-
     table-layout: fixed;
 }
 
-
 /* IT'S THE LEFT BOARD */
 body.page-game div.main_container div.game_boards table.enemy_board {
-
-    width: 55%;
-    /* related to  div.player_and_information_board width*/
+    width: 55%; /* related to  div.player_and_information_board width*/
     margin: 0;
-
+    height: 100%;
+    table-layout: fixed;
 }
 
 /* RIGHT SIDE OF THE SCREEN WHICH CONTAINS THE INFORMATION BOARD (POINTS + "MUNITION")*/
 body.page-game div.main_container div.game_boards div.player_and_information_board {
-
     width: 45%;
 
     display: flex;
@@ -836,7 +833,7 @@ body.page-game div.main_container div.game_boards div.player_and_information_boa
 
     width: 100%;
     height: auto;
-    padding: 10px 10px 10px 18px;
+    padding: 10px;
 
     box-sizing: border-box;
     background-color: rgba(8, 8, 8, 0.9);
@@ -849,31 +846,22 @@ body.page-game div.main_container div.game_boards div.player_and_information_boa
 
 }
 
-body.page-game div.main_container div.game_boards div.player_and_information_board div.information_board p {
-
+body.page-game div.main_container div.game_boards div.player_and_information_board div.information_board p {    
     color: white;
     margin: 0;
+    margin-bottom: 5px;
     font-size: 0.95rem;
-
 }
 
+body.page-game div.main_container div.game_boards div.player_and_information_board div.information_board p:last-child {    
+    margin-top: 5px;
+    margin-bottom: 0;
+}
 
 body.page-game div.main_container div.game_boards div.player_and_information_board table.player_board {
-
     width: 100%;
     margin: 0;
-
-}
-
-body.page-game div.main_container div.game_boards th {
-
-    color: white;
-
-    background-image: url('../Images/fondo.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-
+    height: 100%;
 }
 
 /* Set consistent styling for table cells to ensure squares */
@@ -881,42 +869,23 @@ body.page-game div.main_container div.game_boards table.enemy_board th,
 body.page-game div.main_container div.game_boards table.enemy_board td,
 body.page-game div.main_container div.game_boards table.player_board th,
 body.page-game div.main_container div.game_boards table.player_board td {
-
-    width: 30px;
-    height: 38px;
-    padding: 0;
-
+    width: 30px; 
+    height: 38px; 
+    padding: 0; 
     text-align: center;
     overflow: hidden;
-
-    border: 2px double black;
-
+    
 }
 
 /* Make sure the button fills the entire cell */
-body.page-game div.main_container div.game_boards table.enemy_board td button.tableButton {
-
-    width: 100%;
-    /* Full width of the cell */
-    height: 100%;
-    /* Full height of the cell */
+body.page-game div.main_container div.game_boards table.enemy_board td button,
+body.page-game div.main_container div.game_boards table.player_board td button {
+    width: 100%; /* Full width of the cell */
+    height: 100%; /* Full height of the cell */
+    margin: 0;
     padding: 0;
-    overflow: hidden;
-
-    background-image: url('../Images/jero1.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-
-}
-
-body.page-game div.main_container div.game_boards table.enemy_board td button.tableButton:hover {
-
-    border: 1px solid red;
-}
-
-body.page-game div.main_container div.game_boards table.enemy_board .touch {
-    background-color: red;
+    border: none; /* Ensure border doesn't add to size */
+    display: block; /* Make it fill the entire cell */
 }
 
 
@@ -940,32 +909,6 @@ body.page-game div.main_container div.game_boards table.enemy_board .touch {
 
 }
 
-/*For hte enemy cell animation*/
-
-@keyframes colorChange {
-    0% {
-        background-color: red;
-    }
-
-    33% {
-        background-color: orange;
-    }
-
-    66% {
-        background-color: blue;
-    }
-
-    100% {
-        background-color: red;
-    }
-}
-
-.cell-color-animation {
-    animation: colorChange 3s linear;
-}
-
-
-/*Disable the buttoms of the enemy table if a soung is playing.*/
 .page-game .disabledIfSound {
     pointer-events: none;
     /* Desactivar eventos */
@@ -1158,7 +1101,7 @@ body.page-game div.main_container div.game_boards table.enemy_board .touch {
     text-align: center;
 }
 
-.page-game #myForm button {
+.page-game #myForm button, .page-index {
     color: white;
     background-color: gray;
     font-size: 1em;
@@ -1183,14 +1126,12 @@ body.page-game div.main_container div.game_boards table.enemy_board .touch {
 
 .page-game #longName {
     display: none;
-    position: absolute;
-    transform: translateY(-50%);
+    text-align: center;
     color: black;
     font-weight: bold;
     font-size: 0.9em;
-    margin-top: 10px;
-    margin-bottom: 20px;
-    text-align: center;
+    margin-left: 10%;
+    
 }
 
 .page-game #name {
@@ -1259,24 +1200,36 @@ body.page-game div.main_container div.game_boards table.enemy_board .touch {
     /* Color cuando el mouse está sobre el botón */
 }
 
+/*div para nombre jugador que viene de index*/
+#printName {
+    width: 20%;
+    height: 10%;
+}
+/*estilo simple para nombre*/
+#printName h1 {
+    font-family: 'Cinzel', serif; /* Tipografía importada en tu HTML */
+    font-size: 3em; /* Tamaño grande para destacar el nombre */
+    color: black /* Color dorado */
+    
+}
+
+
+
 
 /* INDEX ------------------------------------ */
 
 /* THIS + .yellowBox*/
 body.page-index div.main_container {
 
-    width: 45%;
+    width: 55%;
     height: auto;
 
     padding: 1.75%;
     color: rgb(59, 36, 11);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-
-
     display: flex;
     flex-direction: column;
     justify-content: center;
-
     overflow: hidden;
 
 }
@@ -1285,20 +1238,141 @@ body.page-index div.main_container {
 body.page-index div.main_container h1 {
 
     text-align: center;
-    font-size: 3.8rem;
-    margin: 1.5%;
+    font-size: 4.5rem;
+    margin: 5%;
 
 }
+/*caja de checkbox*/
+body.page-index div.main_container #option {
+    
+    display: flex;
+    justify-content: center;
+    color: white;
+   
+    font-size: 1.2em;
+    background-position: center;
+    
+    border: 3px double rgb(119, 68, 14);
+    border-radius: 10px;   
+    cursor: pointer;
+    width: 85%;
+    height:auto;
+    
+    margin: 0 auto;
+}
+
+/* opciones de checkbox */
+body.page-index div.main_container #option #titleCheckbox {
+    color: rgb(119, 68, 14);
+    margin-right: 20px;
+}
+
+/* cuadrado para el checkbox */
+body.page-index div.main_container #option input[type="checkbox"] {
+    accent-color: rgb(119, 68, 14); /*color del cuadro del checkbox */
+    width: 15px; 
+    height: 15px;
+    margin-right: 10px;
+    margin-left: 30px;
+    
+}
+
+
 
 /* Container that has game + hall of fame button */
-body.page-index div.main_container div.button_container {
 
-    display: flex;
-    margin: 0 auto;
-    margin-top: 2.5%;
-    width: 90%;
+body.page-index div.main_container div.button_container {
+    display: flex;             
+    justify-content: center; 
+    align-items: center;      
+      
+        
 
 }
+/*div de formularior*/
+body.page-index div.main_container div.button_container #myForm {
+    width: 90%;
+}
+
+/*div de poner user*/
+body.page-index div.main_container div.button_container #nameRecord {
+    
+    text-align: center;
+    width: 100%;
+    margin-top: 5%;
+    
+}
+
+/*etiqueta text area*/
+body.page-index div.main_container div.button_container #nameRecord label {
+    
+    font-size: 1.4em;
+    width: 40%;
+    margin: 0 auto;
+}
+
+/*text arrea*/
+body.page-index div.main_container div.button_container #nameIndex {
+    color: white;
+    background-color: gray;
+    font-size: 1em;
+    background-position: center;
+    cursor: pointer;
+    border: 3px double rgb(119, 68, 14);
+    border-radius: 10px;   
+    cursor: pointer;
+    width: 50%;
+    height: 30px;
+    text-align: center;
+    margin: 0 auto;
+   
+}
+
+
+/*div mensaje texto user error*/
+body.page-index div.main_container div.button_container #longUser {
+    text-align: center;
+    height: 40%;
+    
+}
+
+/*div mensaje texto user error*/
+body.page-index div.main_container div.button_container #nolongUser {
+    text-align: center;
+    height: 40%;
+    
+}
+body.page-index div.main_container div.button_container #nolongUser h3 {
+    visibility: hidden;/*poner visible para ver mensaje*/
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+
+/*texto mensaje error user*/
+body.page-index div.main_container div.button_container #longUser h3 {
+    visibility: hidden;/*poner visible para ver mensaje*/
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+
+
+
+
+body.page-index div.main_container div.button_container #buttonPlay {
+    display: flex;
+    width: 100%;
+    
+}
+
+body.page-index div.main_container div.button_container #toButton, #toGame, #toButton2 {
+    margin: 10px;
+    
+}
+
+
+
 
 body.page-index div.main_container div.button_container .buttonActive {
 
@@ -1319,6 +1393,7 @@ body.page-index div.main_container div.button_container .buttonActive {
     margin: 0 auto;
 }
 
+
 body.page-index div.main_container div.button_container .buttonActive:hover {
 
     box-shadow: inset 0px 6px 10px rgba(0, 0, 0, 0.5), 0px 7px 12px rgba(0, 0, 0, 0.7);
@@ -1330,14 +1405,29 @@ body.page-index div.main_container div.button_container .aDisabled {
     height: 50px;
     margin: 0 auto;
     pointer-events: none;
-    /* Desactivar eventos */
+    /* Desactivar eventos*/ 
     cursor: not-allowed;
+
 }
+
+
 
 body.page-index div.main_container div.button_container .aActive {
 
-    width: 30%;
-    height: 50px;
+    background: rgb(59, 36, 11);
+    border: 3px solid #7a6a55;
+    border-radius: 12px;
+
+    color: #ffffff;
+    font-size: 14px;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+
+    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.6);
+    cursor: pointer;
+    width: 100%;
+    height: 60px;
+    text-align: center;
     margin: 0 auto;
 
 }

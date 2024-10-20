@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Execute the easterEgg event with parameter once:true so it will execute only once if clicked
     easterEggShowButton.addEventListener('click', easterEggEvent, { once: true });
 
-});
+
 
 function easterEggEvent() {
 
@@ -123,9 +123,11 @@ function disableTableIfVictory() {
 // Function to handle cell click events
 function turnACell(e) {
     const value = e.target.value; // Get the value of the clicked button
+
     stateCell = sumFoundPositions(value); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
     stateCell = "victory"; 
     
+
     // Change the class from "tableButton" to "button-disabled"
     e.target.classList.replace("tableButton", "button-disabled");
     generateSound(stateCell);
@@ -150,8 +152,11 @@ function turnACell(e) {
 }
 // Function to generate buttons for ranking and home
 function generateRankingAndHomeButtons() {
+    let buttonHome = document.getElementById("buttonHome");
+    let buttonHall = document.getElementById("buttonHall");
+    let buttonSaveRecord = document.getElementById("buttonSaveRecord");
     // Get the scoreboard container element
-    let scoreBoard = document.getElementsByClassName("scoreboard")[0];
+    /*let scoreBoard = document.getElementsByClassName("scoreboard")[0];
 
     // Create a new div for the final game buttons
     let newDiv = document.createElement("div");
@@ -163,34 +168,47 @@ function generateRankingAndHomeButtons() {
 
     // Create the "Hall of Fame" button
     let buttonHall = document.createElement("button");
-    buttonHall.innerText = "Hall of Fame"; // Set the button text
+    buttonHall.innerText = "Hall of Fame"; // Set the button text*/
 
     // Add an event listener to redirect to the home page when clicked
-    buttonHome.addEventListener("click", function () {
-        window.location.href = "index.php"; // Redirect to index.php
-    });
-
-    // Add an event listener to redirect to the ranking page when clicked
-    buttonHall.addEventListener("click", function () {
-        window.location.href = "ranking.php"; // Redirect to ranking.php
-    });
+    
+    
     // Create the "Guardar Record" button
-    let buttonSaveRecord = document.createElement("button");
-    buttonSaveRecord.innerText = "Guardar Record"; // Set the button text for save record
+    //let buttonSaveRecord = document.createElement("button");
+    //buttonSaveRecord.innerText = "Guardar Record"; // Set the button text for save record
 
     // Add an event listener to open the popup for saving record when clicked
-    buttonSaveRecord.addEventListener("click", function () {
-        openModal(); // Llama a la función para abrir el modal
+    // Muestra los botones
+    buttonHome.style.display = "inline-block";
+    buttonHall.style.display = "inline-block";
+    buttonSaveRecord.style.display = "inline-block";
+
+    // Añade funcionalidad a los botones
+
+    // Redirige a la página de inicio cuando se hace clic en el botón "Inici"
+    buttonHome.addEventListener("click", function () {
+        window.location.href = "index.php"; // Redirigir a index.php
     });
 
-    // Append the buttons to the new div
+    // Redirige a la página del Hall of Fame cuando se hace clic en el botón "Hall of Fame"
+    buttonHall.addEventListener("click", function () {
+        window.location.href = "ranking.php"; // Redirigir a ranking.php
+    });
+
+    // Abre el modal para guardar el récord cuando se hace clic en "Guardar Record"
+    buttonSaveRecord.addEventListener("click", function () {
+        openModal(); // Llama a la función que abre el modal
+    });
+
+
+    /*Append the buttons to the new div
     newDiv.appendChild(buttonHome);
     newDiv.appendChild(buttonHall);
     newDiv.appendChild(buttonSaveRecord);
     // Append the new div to the scoreboard container
-    scoreBoard.appendChild(newDiv);
+    scoreBoard.appendChild(newDiv);*/
 }
-
+});
 // Function to track the positions found (hits on the ships)
 function sumFoundPositions(positionString) {
     let checkVictoryText = "";
@@ -302,6 +320,8 @@ function generateSound(inputOfGame) {
 
 }
 
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
 // Función para mostrar la ventana emergente.
 function openModal() {
     var modal = document.getElementById("popup"); // Obtiene el modal
@@ -461,27 +481,16 @@ document.addEventListener("DOMContentLoaded", function () {
             longNameMessage.textContent = "El nom ha de tenir entre 3 i 30 caràcters.";
             longNameMessage.style.display = 'block'; // Mostrar el mensaje de error
         } else {
-            // Crear un objeto FormData para enviar el nombre y el puntaje al PHP
-            const formData = new FormData();
-            formData.append('name', name);
-            formData.append('score', score);
+                // Aquí es donde sincronizamos el puntaje
+            // Asumiendo que el puntaje ya se ha calculado y se muestra en pantalla
+            const score = parseInt(document.getElementById('scoreDisplay').textContent); // Obtener el puntaje mostrado
+            document.getElementById('scoreDisplayText').value = score; // Actualiza el campo oculto
 
-            // Enviar los datos al PHP mediante fetch
-            fetch('game.php', {
-                method: 'POST',
-                body: formData
-            })
-                .then(response => response.text())
-                .then(data => {
-                    console.log('Respuesta del servidor:', data);
-                    // Cerrar el modal después de guardar
-                    modal.style.display = "none";
-                    clearForm(); // Limpiar formulario después de enviar
-                })
-                .catch(error => {
-                    console.error('Error al guardar el score:', error);
-                });
+            
+            document.getElementById('myForm').submit(); // Enviar el formulario
+            
         }
+        //window.location.href = 'index.php';
     });
 
     // Función para limpiar el formulario

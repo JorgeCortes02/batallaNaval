@@ -1,14 +1,26 @@
 <?php
+session_start();  // Inicia la sesión o reanuda la existente
 
-//zona horaria
-date_default_timezone_set('Europe/Madrid'); // Cambia 'Europe/Madrid' a la zona horaria que necesites
+// Verifica si se ha enviado el formulario con el nombre
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['name'])) {
+    // Guardar el nombre en la sesión
+    $_SESSION["name"] = htmlspecialchars($_POST['name']);  // Evita posibles inyecciones de HTML
+}
+$nombreFormulario = htmlspecialchars($_POST['name']);
 
 
-// Inicializamos la variable por defecto para evitar errores.
 $name = "";
+/*
+$score = "";
 
-// Verificar si se envió el formulario
-if (isset($_POST['name']) && isset($_POST['score'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['score'])) {
+    // Guardar el nombre en la sesión
+    $_SESSION["score"] = htmlspecialchars($_POST['score']);  // Evita posibles inyecciones de HTML
+}
+$score = htmlspecialchars($_POST['score']);
+
+// Verificar si se envió el formulario y llegada de info
+/*if (isset($_POST['name']) || isset($_POST['score'])) {
     $name = $_POST['name'];
     $score = $_POST['score'];
 
@@ -18,6 +30,7 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
         echo "El nombre debe tener entre 3 y 30 caracteres.";
         exit; // Detener la ejecución del script
     }
+
 
     $date = date('Y-m-d H:i'); // Formato de fecha y hora
 
@@ -38,10 +51,14 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
         echo "";
     }
 
-}
+
+*/
 
 
 ?>
+
+
+
 
 <!DOCTYPE html>
 <html lang="ca">
@@ -61,30 +78,24 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
 
     $horders = [[1, 4], [2, 3], [3, 2], [4, 1]];  // Define an array of ship lengths (2, 3, 4, and 5).
     
-    $arrayPosicionsPlayer = array();  // Initialize an empty array to hold the positions on the player's board.
-    $arrayPosicionsEnemy = array();   // Initialize an empty array to hold the positions on the enemy's board.
-    
-    // Initialize the player's board by setting all positions to the default value.
+    $arrayPosicionsPlayer = array();  // Initialize an empty array to hold the positions on the board.
+    $arrayPosicionsEnemy = array();
     initPosicionArray($arrayPosicionsPlayer);
-    // Generate random positions for the player's ships based on the $horders array.
     generateRandomHorders($horders, $arrayPosicionsPlayer);
 
-    // Initialize the enemy's board by setting all positions to the default value.
     initPosicionArray($arrayPosicionsEnemy);
-    // Generate random positions for the enemy's ships based on the $horders array.
     generateRandomHorders($horders, $arrayPosicionsEnemy);
-
-    // Function to initialize the positions array (representing the player's or enemy's board).
+    //Function for init the positionArray(the board of the players).
     function initPosicionArray(&$arrayPosiciones)
     {
-        // Loop through a 10x10 grid (board)
+
         for ($i = 0; $i <= 9; $i++) {
             for ($j = 0; $j <= 9; $j++) {
-                // Set each position on the board to the default value "^^^" (indicating an empty or unhit position).
                 $arrayPosiciones[$i][$j] = "^^^";
             }
         }
     }
+
     //Function for generate the random holders.
     function generateRandomHorders(&$horders, &$arrayPosiciones)
     {
@@ -155,7 +166,6 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
             }
         }
     }
-
     // Función para verificar si una posición es válida (sin tocar otros barcos)
     function isFreePosH($row, $column, $arrayPosiciones, $horderCount)
     {
@@ -456,40 +466,33 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
 
     function printEnemyTable($arrayPosiciones)
     {
-        // Variable to store the starting character (A) for column labels
-        $char = 65;
 
-        // Loop to generate the rows of the table (i represents rows)
+
+        $char = 65;
         for ($i = 0; $i <= 10; $i++) {
             echo "<tr>";
-
-            // Nested loop to generate the cells of each row (j represents columns)
             for ($j = 0; $j <= 10; $j++) {
 
-                // First cell in the top-left corner (i=0, j=0) contains a hidden "easter egg" butto
-                // Top-left corner cell (i=0, j=0) is empty
+
                 if ($i == 0 && $j == 0) {
                     echo "<td><button id='easterEggShowButton'></button></td>";
-                }
-                // Top row (i=0) labels the columns with letters (A, B, C, ...)
-                elseif ($i == 0 && $j != 0) {
-
-                    echo "<th>" . chr($char) . "</th>";
-                    $char += 1;  // Move to the next letter
                 } elseif ($i == 0 && $j != 0) {
 
-
                     echo "<th>" . chr($char) . "</th>";
-                    $char += 1;  // Move to the next letter
-                }
-                // First column (j=0) labels the rows with numbers (1, 2, 3, ...)
-                elseif ($i != 0 && $j == 0) {
+
+                    $char += 1;
+
+
+                } elseif ($i != 0 && $j == 0) {
+
+
                     echo "<th>$i</th>";
-                }
-                // The remaining cells represent the enemy's board
-                else {
-                    // Each button has a value from the $arrayPosiciones corresponding to the enemy's positions
+
+                } else {
+
+
                     echo "<td><button class='tableButton' value =" . $arrayPosiciones[$i - 1][$j - 1] . "></button></td>";
+
                 }
 
             }
@@ -499,33 +502,33 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
 
     function printPlayerTable($arrayPosiciones)
     {
-        // Variable to store the starting character (A) for column labels
-        $char = 65;
 
-        // Loop to generate the rows of the table (i represents rows)
+
+        $char = 65;
         for ($i = 0; $i <= 10; $i++) {
             echo "<tr>";
-
-            // Nested loop to generate the cells of each row (j represents columns)
             for ($j = 0; $j <= 10; $j++) {
 
-                // Top-left corner cell (i=0, j=0) is empty
+
                 if ($i == 0 && $j == 0) {
-                    echo "<td></td>";
-                }
-                // Top row (i=0) labels the columns with letters (A, B, C, ...)
-                elseif ($i == 0 && $j != 0) {
+                    echo "<td><button id='easterEggButton'></button></td>";
+                } elseif ($i == 0 && $j != 0) {
+
                     echo "<th>" . chr($char) . "</th>";
-                    $char += 1;  // Move to the next letter
-                }
-                // First column (j=0) labels the rows with numbers (1, 2, 3, ...)
-                elseif ($i != 0 && $j == 0) {
+
+                    $char += 1;
+
+
+                } elseif ($i != 0 && $j == 0) {
+
+
                     echo "<th>$i</th>";
-                }
-                // The remaining cells represent the player's board
-                else {
-                    // Each cell contains a position from the $arrayPosiciones, with a 'data-value' attribute for the ship positions
+
+                } else {
+
+
                     echo "<td class='playerCell' data-value='" . $arrayPosiciones[$i - 1][$j - 1] . "'></td>";
+
                 }
 
             }
@@ -551,22 +554,29 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
         </div>
     </div>
 
+    <div id="notificationsDiv">
+        <div class="notification" id="victoryNotification">Has guanyat!</div>
+        <div class="notification" id="sunkNotification">Has eliminat tota l'horda!</div>
+        <div class="notification" id="touchedNotification">Has eliminat un enemic!</div>
+        <div class="notification" id="gameoverNotification">Has perdut!</div>
+        <div class="notification" id="waterNotification">Directe a l'aigua!</div>
+    </div>
 
 
     <div class="main_container">
-
+    
         <div class="header_of_players yellowBox">
-            <h1><?php echo $name ?> vs IA</h1>
-            <h3 id="turn" class="notificationPlayerTurn">Toca per començar!</h3> <!-- turn -->
-            <div class="timer">
-                <img src="images/tiempo-pasado.png" alt="time_logo">
-                <h3>20:00:00</h3> <!-- time -->
-            </div>
-        </div>
+            <h1>[PLAYER] vs IA</h1> 
+            <h3>TORN ACTUAL: <br> [PLAYER or IA]</h3> <!-- turn -->
+            <h3>20:00:00</h3> <!-- time -->
+        </div> 
 
 
+        <!-- NOTIFICATION BOX -->
+        <!-- <div class="notification_container .enemy_turn_style"> -->
+        <!-- <div class="notification_container .player_turn_style"> -->
         <div class="notification_container yellowBox">
-            <p id="notificationParagraf">Benvingut a la batalla! Es el teu torn jugador!</p>
+            <p>EL JOC COMENÇA! ÉS EL TEU TORN [PLAYER] </p>
         </div>
 
         <div class="game_boards">
@@ -581,24 +591,11 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
 
             </table>
 
-            <div class="player_and_information_board">
+            <div class="player_and_information_board">   
 
                 <div class="information_board blackBox">
-                    <div class="single_element_container">
-                        <img src="images/game_scoreIcon.png" alt="time_logo">
-                        <p>XXXXX</p>
-                    </div>
-                    <div class="ammo_container">
-                        <div class="playerAmmo">
-                            <img src="images/game_cannonIcon.png" alt="time_logo">
-                            <p id="playerAmmoTag">40 (PLAYER)</p>
-                        </div>
-                        <div class="enemyAmmo">
-                            <img src="images/game_cannonIcon.png" alt="time_logo">
-                            <p id="enemyAmmoTag">40 (ENEMY)</p>
-                        </div>
-                    </div>
-                    <<<<<<< HEAD=======>>>>>>> ff5f63606e6036b175dd56d2ea878571173e6c31
+                    <p>PUNTS: XXXXX</p>
+                    <p>MUNICIÓ: 40 projectiles</p>
                 </div>
 
                 <table class="player_board">
@@ -610,11 +607,14 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
                     ?>
 
 
+
                 </table>
 
-            </div>
 
+            </div>
+            
         </div>
+
 
 
 
