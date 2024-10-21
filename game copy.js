@@ -20,6 +20,7 @@ const gameSounds = [new Audio('sounds/water1.mp3'), new Audio('sounds/victory.mp
 
 var nowAttackPlayer = 0;
 var cellsPlayerTable = null;
+
 var multidimensionalArrayOfEnemyShots = null;
 
 // Wait for the DOM to fully load before executing the script
@@ -33,6 +34,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     showPlayerHorders(); // Marks horders in player table in gray
 
+    const TEST = document.getElementById('testButton');
+    TEST.addEventListener("click", enemyTurn);
+
     const notificationsDiv = document.getElementById("notificationsDiv");
 
     // Attach click event listener to each button (only enemy table have buttons)
@@ -40,12 +44,12 @@ document.addEventListener("DOMContentLoaded", function () {
         buttonGame.addEventListener("click", turnACell);
     }
 
-
+    /*
     // Get the easterEggButton
     const easterEggShowButton = document.getElementById('easterEggShowButton');
     // Execute the easterEgg event with parameter once:true so it will execute only once if clicked
     easterEggShowButton.addEventListener('click', easterEggEvent, { once: true });
-
+    */
 });
 
 function generateMultidimiensionalArrayOfPlayerTableCells(arrayOfTableCells){
@@ -62,7 +66,6 @@ function getRandomNumber(long) {
     return Math.floor(Math.random() * long);
 }
 
-
 function animateCellColorChange(actualCell) {
     // Add the class to start the animation
     actualCell.classList.add("cell-color-animation");
@@ -72,7 +75,7 @@ function animateCellColorChange(actualCell) {
         actualCell.classList.remove("cell-color-animation");
     }, 5000); // 
 }
-
+/*
 function changeTurn() {
     const tableEnemy = document.getElementsByClassName("enemy_board")[0];
     // Check if it's the enemy's turn (nowAttackPlayer is 1)
@@ -110,6 +113,245 @@ function changeTurn() {
         disableTable();
     }
 }
+*/
+iaSelectedRow = -1;
+iaSelectedColumn = -1;
+isPromptEnabledForIASelectShotsPosition = false; 
+possiblePositionsForIAShot = [];
+
+function printMatriz(matriz) {
+    for (let i = 0; i < 10; i++){
+        linea = i + ". "; 
+        for(let j = 0; j < 10; j++) {
+
+            if(matriz[i][j] != "X" && matriz[i][j] != "O"){
+                linea += "-";  
+            } else {
+                linea += matriz[i][j];  
+            }
+        }
+        console.log(linea);
+    }   
+};
+
+function updateSelectedRowAndSelectedColumnOfEnemyIA(selectedCell, multidimensionalArray) {
+    for (let i = 0; i < multidimensionalArray.length; i++) {
+        for (let j = 0; j < multidimensionalArray[0].length; j++) {
+            if (multidimensionalArray[i][j] === selectedCell) {
+                console.log("COINCIDENCIA EN ROW " + i + " COLUMN " + j);
+                iaSelectedRow = i;
+                iaSelectedColumn = j;
+            }
+        }
+    }
+}
+
+function getValidSurroundings(positionX, positionY) {
+    let surroundings = [];
+    // TOP-LEFT
+    if (positionX === 0 && positionY === 0) {
+        if (isNotTouchedOrWater(positionX, positionY + 1)) {
+            surroundings.push(multidimensionalArrayOfEnemyShots[positionX][positionY + 1]);
+        }
+        if (isNotTouchedOrWater(positionX + 1, positionY)) {
+            surroundings.push(multidimensionalArrayOfEnemyShots[positionX + 1][positionY]);
+        }
+    // TOP-RIGHT
+    } else if (positionX === 0 && positionY === multidimensionalArrayOfEnemyShots.length - 1) {
+        if (isNotTouchedOrWater(positionX + 1, positionY)) {
+            surroundings.push(multidimensionalArrayOfEnemyShots[positionX + 1][positionY]);
+        }
+        if (isNotTouchedOrWater(positionX, positionY - 1)) {
+            surroundings.push(multidimensionalArrayOfEnemyShots[positionX][positionY - 1]);
+        }
+    // BOTTOM-LEFT
+    } else if (positionX === multidimensionalArrayOfEnemyShots.length - 1 && positionY === 0) {
+        if (isNotTouchedOrWater(positionX - 1, positionY)) {
+            surroundings.push(multidimensionalArrayOfEnemyShots[positionX - 1][positionY]);
+        }
+        if (isNotTouchedOrWater(positionX, positionY + 1)) {
+            surroundings.push(multidimensionalArrayOfEnemyShots[positionX][positionY + 1]);
+        }
+    // BOTTOM-RIGHT
+    } else if (positionX === multidimensionalArrayOfEnemyShots.length - 1 && positionY === multidimensionalArrayOfEnemyShots.length - 1) {
+        if (isNotTouchedOrWater(positionX - 1, positionY)) {
+            surroundings.push(multidimensionalArrayOfEnemyShots[positionX - 1][positionY]);
+        }
+        if (isNotTouchedOrWater(positionX, positionY - 1)) {
+            surroundings.push(multidimensionalArrayOfEnemyShots[positionX][positionY - 1]);
+        }
+    // TOP EDGE
+    } else if (positionX === 0) {
+        if (isNotTouchedOrWater(positionX, positionY + 1)) {
+            surroundings.push(multidimensionalArrayOfEnemyShots[positionX][positionY + 1]);
+        }
+        if (isNotTouchedOrWater(positionX + 1, positionY)) {
+            surroundings.push(multidimensionalArrayOfEnemyShots[positionX + 1][positionY]);
+        }
+        if (isNotTouchedOrWater(positionX, positionY - 1)) {
+            surroundings.push(multidimensionalArrayOfEnemyShots[positionX][positionY - 1]);
+        }
+    // BOTTOM EDGE
+    } else if (positionX === multidimensionalArrayOfEnemyShots.length - 1) {
+        if (isNotTouchedOrWater(positionX - 1, positionY)) {
+            surroundings.push(multidimensionalArrayOfEnemyShots[positionX - 1][positionY]);
+        }
+        if (isNotTouchedOrWater(positionX, positionY - 1)) {
+            surroundings.push(multidimensionalArrayOfEnemyShots[positionX][positionY - 1]);
+        }
+        if (isNotTouchedOrWater(positionX, positionY + 1)) {
+            surroundings.push(multidimensionalArrayOfEnemyShots[positionX][positionY + 1]);
+        }
+    // LEFT EDGE
+    } else if (positionY === 0) {
+        if (isNotTouchedOrWater(positionX - 1, positionY)) {
+            surroundings.push(multidimensionalArrayOfEnemyShots[positionX - 1][positionY]);
+        }
+        if (isNotTouchedOrWater(positionX, positionY + 1)) {
+            surroundings.push(multidimensionalArrayOfEnemyShots[positionX][positionY + 1]);
+        }
+        if (isNotTouchedOrWater(positionX + 1, positionY)) {
+            surroundings.push(multidimensionalArrayOfEnemyShots[positionX + 1][positionY]);
+        }
+    // RIGHT EDGE
+    } else if (positionY === multidimensionalArrayOfEnemyShots.length - 1) {
+        if (isNotTouchedOrWater(positionX - 1, positionY)) {
+            surroundings.push(multidimensionalArrayOfEnemyShots[positionX - 1][positionY]);
+        }
+        if (isNotTouchedOrWater(positionX, positionY - 1)) {
+            surroundings.push(multidimensionalArrayOfEnemyShots[positionX][positionY - 1]);
+        }
+        if (isNotTouchedOrWater(positionX + 1, positionY)) {
+            surroundings.push(multidimensionalArrayOfEnemyShots[positionX + 1][positionY]);
+        }
+    // MIDDLE
+    } else {
+        if (isNotTouchedOrWater(positionX - 1, positionY)) {
+            surroundings.push(multidimensionalArrayOfEnemyShots[positionX - 1][positionY]);
+        }
+        if (isNotTouchedOrWater(positionX + 1, positionY)) {
+            surroundings.push(multidimensionalArrayOfEnemyShots[positionX + 1][positionY]);
+        }
+        if (isNotTouchedOrWater(positionX, positionY - 1)) {
+            surroundings.push(multidimensionalArrayOfEnemyShots[positionX][positionY - 1]);
+        }
+        if (isNotTouchedOrWater(positionX, positionY + 1)) {
+            surroundings.push(multidimensionalArrayOfEnemyShots[positionX][positionY + 1]);
+        }
+    }
+
+    return surroundings;
+}
+
+function isTouchedNearbyToNotSelectPosition(){
+
+    let surroundings = [];
+    // TOP-LEFT
+    if (positionX === 0 && positionY === 0) {
+        if (isNotTouchedOrWater(positionX, positionY + 1)) {
+            surroundings.push(multidimensionalArrayOfEnemyShots[positionX][positionY + 1]);
+        }
+        if (isNotTouchedOrWater(positionX + 1, positionY)) {
+            surroundings.push(multidimensionalArrayOfEnemyShots[positionX + 1][positionY]);
+        }
+    // TOP-RIGHT
+    } else if (positionX === 0 && positionY === multidimensionalArrayOfEnemyShots.length - 1) {
+        if (isNotTouchedOrWater(positionX + 1, positionY)) {
+            surroundings.push(multidimensionalArrayOfEnemyShots[positionX + 1][positionY]);
+        }
+        if (isNotTouchedOrWater(positionX, positionY - 1)) {
+            surroundings.push(multidimensionalArrayOfEnemyShots[positionX][positionY - 1]);
+        }
+    // BOTTOM-LEFT
+    } else if (positionX === multidimensionalArrayOfEnemyShots.length - 1 && positionY === 0) {
+        if (isNotTouchedOrWater(positionX - 1, positionY)) {
+            surroundings.push(multidimensionalArrayOfEnemyShots[positionX - 1][positionY]);
+        }
+        if (isNotTouchedOrWater(positionX, positionY + 1)) {
+            surroundings.push(multidimensionalArrayOfEnemyShots[positionX][positionY + 1]);
+        }
+    // BOTTOM-RIGHT
+    } else if (positionX === multidimensionalArrayOfEnemyShots.length - 1 && positionY === multidimensionalArrayOfEnemyShots.length - 1) {
+        if (isNotTouchedOrWater(positionX - 1, positionY)) {
+            surroundings.push(multidimensionalArrayOfEnemyShots[positionX - 1][positionY]);
+        }
+        if (isNotTouchedOrWater(positionX, positionY - 1)) {
+            surroundings.push(multidimensionalArrayOfEnemyShots[positionX][positionY - 1]);
+        }
+    // TOP EDGE
+    } else if (positionX === 0) {
+        if (isNotTouchedOrWater(positionX, positionY + 1)) {
+            surroundings.push(multidimensionalArrayOfEnemyShots[positionX][positionY + 1]);
+        }
+        if (isNotTouchedOrWater(positionX + 1, positionY)) {
+            surroundings.push(multidimensionalArrayOfEnemyShots[positionX + 1][positionY]);
+        }
+        if (isNotTouchedOrWater(positionX, positionY - 1)) {
+            surroundings.push(multidimensionalArrayOfEnemyShots[positionX][positionY - 1]);
+        }
+    // BOTTOM EDGE
+    } else if (positionX === multidimensionalArrayOfEnemyShots.length - 1) {
+        if (isNotTouchedOrWater(positionX - 1, positionY)) {
+            surroundings.push(multidimensionalArrayOfEnemyShots[positionX - 1][positionY]);
+        }
+        if (isNotTouchedOrWater(positionX, positionY - 1)) {
+            surroundings.push(multidimensionalArrayOfEnemyShots[positionX][positionY - 1]);
+        }
+        if (isNotTouchedOrWater(positionX, positionY + 1)) {
+            surroundings.push(multidimensionalArrayOfEnemyShots[positionX][positionY + 1]);
+        }
+    // LEFT EDGE
+    } else if (positionY === 0) {
+        if (isNotTouchedOrWater(positionX - 1, positionY)) {
+            surroundings.push(multidimensionalArrayOfEnemyShots[positionX - 1][positionY]);
+        }
+        if (isNotTouchedOrWater(positionX, positionY + 1)) {
+            surroundings.push(multidimensionalArrayOfEnemyShots[positionX][positionY + 1]);
+        }
+        if (isNotTouchedOrWater(positionX + 1, positionY)) {
+            surroundings.push(multidimensionalArrayOfEnemyShots[positionX + 1][positionY]);
+        }
+    // RIGHT EDGE
+    } else if (positionY === multidimensionalArrayOfEnemyShots.length - 1) {
+        if (isNotTouchedOrWater(positionX - 1, positionY)) {
+            surroundings.push(multidimensionalArrayOfEnemyShots[positionX - 1][positionY]);
+        }
+        if (isNotTouchedOrWater(positionX, positionY - 1)) {
+            surroundings.push(multidimensionalArrayOfEnemyShots[positionX][positionY - 1]);
+        }
+        if (isNotTouchedOrWater(positionX + 1, positionY)) {
+            surroundings.push(multidimensionalArrayOfEnemyShots[positionX + 1][positionY]);
+        }
+    // MIDDLE
+    } else {
+        if (isNotTouchedOrWater(positionX - 1, positionY)) {
+            surroundings.push(multidimensionalArrayOfEnemyShots[positionX - 1][positionY]);
+        }
+        if (isNotTouchedOrWater(positionX + 1, positionY)) {
+            surroundings.push(multidimensionalArrayOfEnemyShots[positionX + 1][positionY]);
+        }
+        if (isNotTouchedOrWater(positionX, positionY - 1)) {
+            surroundings.push(multidimensionalArrayOfEnemyShots[positionX][positionY - 1]);
+        }
+        if (isNotTouchedOrWater(positionX, positionY + 1)) {
+            surroundings.push(multidimensionalArrayOfEnemyShots[positionX][positionY + 1]);
+        }
+    }
+
+    return surroundings;
+
+}
+
+function isNotTouchedOrWater(x, y) {
+    return (
+        x >= 0 &&
+        x < multidimensionalArrayOfEnemyShots.length &&
+        y >= 0 &&
+        y < multidimensionalArrayOfEnemyShots[0].length &&
+        multidimensionalArrayOfEnemyShots[x][y] !== "X" &&
+        multidimensionalArrayOfEnemyShots[x][y] !== "O"
+    );
+}
 
 
 function enemyTurn() {
@@ -122,19 +364,50 @@ function enemyTurn() {
         generateSound("canonEnemy");
 
         // IMPLEMENTATION OF IA LOGIC TO GET POSITION
+        console.log("INICIO DE TURNO")
+        console.log(possiblePositionsForIAShot);
+        console.log(isPromptEnabledForIASelectShotsPosition);
+        if(!isPromptEnabledForIASelectShotsPosition){
+            console.log("NO HAY PROMPT")
+            /* CUMPLE CON ESPECIFICACIÓN 
+            // Generate a random position on the player's table of cells
+            indexOfSelectedCellInArray = getRandomNumber(cellsPlayerTable.length);
+            actualCell = cellsPlayerTable[indexOfSelectedCellInArray]; // Get the actual cell at the random position
+            updateSelectedRowAndSelectedColumnOfEnemyIA(actualCell, multidimensionalArrayOfEnemyShots);
+            */
+            validNotTouchedPosition = false; // if top/bottom/left/right is O, selects again
+            do {
+                // Generate a random position on the player's table of cells
+                indexOfSelectedCellInArray = getRandomNumber(cellsPlayerTable.length);
+                actualCell = cellsPlayerTable[indexOfSelectedCellInArray]; // Get the actual cell at the random position
+                updateSelectedRowAndSelectedColumnOfEnemyIA(actualCell, multidimensionalArrayOfEnemyShots);
+            } while (!validNotTouchedPosition)
 
-        // Generate a random position on the player's table of cells
-        randomPosition = getRandomNumber(cellsPlayerTable.length);
-        actualCell = cellsPlayerTable[randomPosition]; // Get the actual cell at the random position
+        } else {
+            // possiblePositionsForIAShot = [ARRIBA, ABAJO, IZQUIERDA Y DERECHA];
+            console.log("SELECCION EN POSSIBLE POSITION")
+            randomCellOfPossiblePositions = possiblePositionsForIAShot[getRandomNumber(possiblePositionsForIAShot.length)]; // select one of possible positions
+            indexOfCellToDeleteInPossiblePositionsForIAShot = possiblePositionsForIAShot.indexOf(randomCellOfPossiblePositions);
+            elemento_eliminado = possiblePositionsForIAShot.splice(indexOfCellToDeleteInPossiblePositionsForIAShot, 1); // delete from possible position
+            console.log("Elemento eliminado en posiciones posibles");
+            console.log(elemento_eliminado);
+            console.log("POSICIONES POSIBLES RESTANTES DESPUES DE ELIMINACIÓN");
+            console.log(possiblePositionsForIAShot);
+           
+            console.log("CELDA ELEGIDA DE ACUERDO AL ELEGIDO EN EL ARRAY DE POSIBILIDADES");
+            // obtiene el índice del elemento que coincide con la celda seleccionada en las posibilidades
+            indexOfSelectedCellInArray = cellsPlayerTable.indexOf(randomCellOfPossiblePositions); 
+            console.log("INDICE DEL ELEMENTO ELEGIDO = " + indexOfSelectedCellInArray);
+            actualCell = cellsPlayerTable[indexOfSelectedCellInArray]; // Get the actual cell based on index of matching element
+            console.log("CELDA ELEGIDA EN cellPlayerTable:")
+            console.log(actualCell);
+            console.log("Resto:")
+            console.log(cellsPlayerTable);
 
-        for (let i = 0; i < multidimensionalArrayOfEnemyShots.length; i++) {
-            for (let j = 0; j < multidimensionalArrayOfEnemyShots[0].length; j++) {
-                if (multidimensionalArrayOfEnemyShots[i][j] === actualCell) {
-                    console.log("ROW " + i + " COLUMN " + j);
-                }
-            }
+            updateSelectedRowAndSelectedColumnOfEnemyIA(actualCell, multidimensionalArrayOfEnemyShots);
         }
 
+        
         // Set a delay before starting the animation to change the cell's color
         setTimeout(function () { animateCellColorChange(actualCell); }, 1000);
 
@@ -151,6 +424,7 @@ function enemyTurn() {
             // Play a sound related to the cell's state (e.g., water splash, hit sound)
 
             // AMMO MANAGEMENT FOR IA 
+            /*
             if (ammoEnabled) {
 
                 enemyAmmo -= 1; // subtract player ammo each time he selects something
@@ -164,38 +438,100 @@ function enemyTurn() {
                 }
 
             }
-
+            */
             // Set a delay to let the player see the result of the enemy's move
             setTimeout(function () {
+
+                console.log("RESULTADO DE LA SELECCIÓN = " + stateCell) // MODDIFIED: for testing purpose
+                console.log("iaSelectedRow = " + iaSelectedRow + " iaSelectedColumn = " + iaSelectedColumn);
 
                 // Change the color of the cell based on the result
                 if (stateCell === "water") {
                     actualCell.style.background = "blue";  // Missed the target, hit water
+
+                    multidimensionalArrayOfEnemyShots[iaSelectedRow][iaSelectedColumn] = "X";
+
+                    // If there wasn't prompt, everything is the same
+                    // If there's prompt, then have to check...
+                    if(isPromptEnabledForIASelectShotsPosition) {
+                        // If there are possible possitions to check, nothing changes (will check in next turn)
+                        if (possiblePositionsForIAShot.length === 0){
+                            // if there are not (len == 0), then there isn't prompt and returns to initial state (random position)
+                            console.log("HA TOCADO AGUA Y HABÍA PROMPT: SE DESACTIVA PROMPT");
+                            isPromptEnabledForIASelectShotsPosition = false;
+                        }
+                    }
+
                 } else if (stateCell === "touched") {
+
                     actualCell.style.background = "orange";  // Hit a target, but not sunk yet
+
+                    multidimensionalArrayOfEnemyShots[iaSelectedRow][iaSelectedColumn] = "O";
+                    
+
+                    if(!isPromptEnabledForIASelectShotsPosition) {
+                        console.log("HA TOCADO SIN PROMPT NI POSICIONES POSIBLES")
+                        isPromptEnabledForIASelectShotsPosition = true;
+
+                        possiblePositionsForIAShot = getValidSurroundings(iaSelectedRow, iaSelectedColumn)
+
+                    } else {
+                        // 
+                        if (possiblePositionsForIAShot.length > 0) {
+                            console.log("HA TOCADO CON PROMPT Y CON POSICIONES POSIBLES")
+                            possiblePositionsForIAShot = getValidSurroundings(iaSelectedRow, iaSelectedColumn)
+
+                        } else {
+                            console.log("HA TOCADO CON PROMPT Y SIN POSICIONES POSIBLES")
+                            possiblePositionsForIAShot = getValidSurroundings(iaSelectedRow, iaSelectedColumn)
+                        
+                        }
+
+                    }
+
+                    // LÓGICA IMPORTANTE
+
                 } else if (stateCell === "sunk") {
+
                     actualCell.style.background = "red";  // Enemy horde has been sunk
+
+                    multidimensionalArrayOfEnemyShots[iaSelectedRow][iaSelectedColumn] = "O";
+
+                    console.log("HA HUNDIDO BARCO: RESET DE PROMPT Y ARRAY DE POSICIONES POSIBLES")
+                    // If sunk, return to initial state (random positions)
+                    isPromptEnabledForIASelectShotsPosition = false;
+                    possiblePositionsForIAShot = [];
+                    
                 }
 
                 // Remove the cell from the list of available cells after the attack
-                cellsPlayerTable.splice(randomPosition, 1);
+                eliminado = cellsPlayerTable.splice(indexOfSelectedCellInArray, 1);
+                console.log("ELEMENTO ELIMINADO EN CELLSPLAYERTABLE");
+                console.log(eliminado);
 
                 // Check if the game is over by verifying if the cell's state is "victory"
                 if (stateCell === "victory") {
                     actualCell.style.background = "red";  // Change the background color to red
-                    window.location.href = "win.php";  // Redirect to the victory page
+                    multidimensionalArrayOfEnemyShots[iaSelectedRow][iaSelectedColumn] = "O";
+                    return ""; //window.location.href = "win.php";  // Redirect to the victory page
                 }
 
-                console.log(cellsPlayerTable.length);  // Log the remaining cells
+                printMatriz(multidimensionalArrayOfEnemyShots);
+                
+                // console.log(cellsPlayerTable.length);  // Log the remaining cells
 
                 // If the enemy hit or sunk a target, continue with the enemy's turn
+                // MODDIFIED: for testing purpose
+                /*
                 if (stateCell == "touched" || stateCell == "sunk") {
                     console.log("enemy turn continues");
                     enemyTurn();  // Recursive call to continue enemy attacks
                 } else {
                     // Otherwise, switch turns and give control to the player
-                    changeTurn();
+                    
+                    enemyTurn(); // MODDIFIED: for testing purpose
                 }
+                */
             }, 2000); // Delay to show the result before proceeding
 
         }, 2000); // Delay before generating the notification and sound
@@ -769,7 +1105,7 @@ function stopTimer() {
 
 //para ver tiempo transcurrido
 setInterval(() => {
-    console.log("Tiempo transcurrido en segundos: " + getElapsedTimeInSeconds());
+    //console.log("Tiempo transcurrido en segundos: " + getElapsedTimeInSeconds());
 }, 5000); // Muestra el tiempo cada 5 segundos
 
 

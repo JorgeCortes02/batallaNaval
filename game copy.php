@@ -50,7 +50,7 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="styles copy.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
     <script src="game copy.js"></script>
 </head>
@@ -454,49 +454,6 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
         return true;
     }
 
-    function printEnemyTable($arrayPosiciones)
-    {
-        // Variable to store the starting character (A) for column labels
-        $char = 65;
-
-        // Loop to generate the rows of the table (i represents rows)
-        for ($i = 0; $i <= 10; $i++) {
-            echo "<tr>";
-
-            // Nested loop to generate the cells of each row (j represents columns)
-            for ($j = 0; $j <= 10; $j++) {
-
-                // First cell in the top-left corner (i=0, j=0) contains a hidden "easter egg" butto
-                // Top-left corner cell (i=0, j=0) is empty
-                if ($i == 0 && $j == 0) {
-                    echo "<td><button id='easterEggShowButton'></button></td>";
-                }
-                // Top row (i=0) labels the columns with letters (A, B, C, ...)
-                elseif ($i == 0 && $j != 0) {
-
-                    echo "<th>" . chr($char) . "</th>";
-                    $char += 1;  // Move to the next letter
-                } elseif ($i == 0 && $j != 0) {
-
-
-                    echo "<th>" . chr($char) . "</th>";
-                    $char += 1;  // Move to the next letter
-                }
-                // First column (j=0) labels the rows with numbers (1, 2, 3, ...)
-                elseif ($i != 0 && $j == 0) {
-                    echo "<th>$i</th>";
-                }
-                // The remaining cells represent the enemy's board
-                else {
-                    // Each button has a value from the $arrayPosiciones corresponding to the enemy's positions
-                    echo "<td><button class='tableButton' value =" . $arrayPosiciones[$i - 1][$j - 1] . "></button></td>";
-                }
-
-            }
-            echo "</tr>";
-        }
-    }
-
     function printPlayerTable($arrayPosiciones)
     {
         // Variable to store the starting character (A) for column labels
@@ -569,18 +526,8 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
         <div id="notificationContainer" class="divNotiPlayer">
             <p id="notificationParagraf">Benvingut a la batalla! Es el teu torn jugador!</p>
         </div>
-
+        <button id="testButton">HOLAAAAA</button>
         <div class="game_boards">
-
-            <table class="enemy_board">
-
-                <?php
-
-                printEnemyTable($arrayPosicionsPlayer);
-
-                ?>
-
-            </table>
 
             <div class="player_and_information_board">
 
