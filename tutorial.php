@@ -498,8 +498,8 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
         </div>
     </div>
 
-    <div id="notificationsDiv">
-        <div class="notification" id="victoryNotification">Has guanyat!</div>
+    <div id="notiDiv">
+        <div class="noti" id="victoryNotification"></div>
 
     </div>
 

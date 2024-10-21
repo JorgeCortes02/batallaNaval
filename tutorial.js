@@ -58,7 +58,7 @@ function generateNewNotification(typeNotification) {
     if (fadeOutInterval) clearInterval(fadeOutInterval);
 
     // Selecciona todas las notificaciones y oculta las que están visibles
-    let notifications = document.getElementsByClassName('notification');
+    let notifications = document.getElementsByClassName('noti');
     for (let i = 0; i < notifications.length; i++) {
         notifications[i].classList.remove('showNot');
         notifications[i].style.opacity = '1'; // Reinicia la opacidad (opcional)
@@ -123,7 +123,7 @@ function disableTableIfVictory() {
 // Function to handle cell click events
 function turnACell(e) {
     const value = e.target.value; // Get the value of the clicked button
-    stateCell = "victory"//sumFoundPositions(value); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
+    stateCell = sumFoundPositions(value); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
 
 
     // Change the class from "tableButton" to "button-disabled"
