@@ -2,24 +2,26 @@
 
 # Índex
 
-## Wikipedia
-- **Descripció del Joc**
-- **Jugabilitat**
-  1. Objectiu del joc
-  2. Tauler
-  3. Com jugar
-  4. Cronòmetre i temps límit
-  5. Desar puntuacions
-  6. Sistema de Puntuació
-- **Característiques del Joc**
-  - Tauler Aleatori
-  - Validació de Posicions
-  - Interfície d’Usuari Amigable
-  - Desament de Puntuacions
-  - Cronòmetre
-- **Instal·lació i Configuració**
-  1. Clonar el Repositori i instal·lar PHP
-
+- [Wikipedia](#wikipedia)
+- [Descripció del Joc](#descripció-del-joc)
+- [Jugabilitat](#jugabilitat)
+  1. [Objectiu del joc](#objectiu-del-joc)
+  2. [Tauler](#tauler)
+  3. [Com jugar](#com-jugar)
+  4. [Cronòmetre i temps límit](#cronòmetre-i-temps-límit)
+  5. [Desar puntuacions](#desar-puntuacions)
+  6. [Sistema de Puntuació](#sistema-de-puntuació)
+- [Característiques del Joc](#característiques-del-joc)
+  - [Tauler Aleatori](#tauler-aleatori)
+  - [Validació de Posicions](#validació-de-posicions)
+  - [Interfície d’Usuari Amigable](#interfície-dusuari-amigable)
+  - [Desament de Puntuacions](#desament-de-puntuacions)
+  - [Cronòmetre](#cronòmetre)
+- [Instal·lació i Configuració](#instal·lació-i-configuració)
+  1. [Clonar el Repositori](#clonar-el-repositori)
+  2. [Configuració del Servidor Local](#configuració-del-servidor-local)
+- [Crèdits](#crèdits)
+  
 # Wikipedia
 
 **Lost in the Sand** és un emocionant joc d’estratègia basat en el concepte clàssic d’Enfonsar la flota (Battleship). Els jugadors es troben en un vast desert on les ordes enemigues estan enterrades sota la sorra. El teu objectiu és trobar-los i destruir-los abans que s’acabi el temps. Amb cada tret, t’acostes més a descobrir la flota oculta, però compte: el rellotge no s’atura, i cada segon compta.
