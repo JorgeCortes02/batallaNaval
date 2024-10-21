@@ -123,7 +123,7 @@ function disableTableIfVictory() {
 // Function to handle cell click events
 function turnACell(e) {
     const value = e.target.value; // Get the value of the clicked button
-    stateCell = sumFoundPositions(value); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
+    stateCell = "victory"//sumFoundPositions(value); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
 
 
     // Change the class from "tableButton" to "button-disabled"
@@ -457,27 +457,16 @@ document.addEventListener("DOMContentLoaded", function () {
             longNameMessage.textContent = "El nom ha de tenir entre 3 i 30 caràcters.";
             longNameMessage.style.display = 'block'; // Mostrar el mensaje de error
         } else {
-            // Crear un objeto FormData para enviar el nombre y el puntaje al PHP
-            const formData = new FormData();
-            formData.append('name', name);
-            formData.append('score', score);
+            // Aquí es donde sincronizamos el puntaje
+            // Asumiendo que el puntaje ya se ha calculado y se muestra en pantalla
+            const score = parseInt(document.getElementById('scoreDisplay').textContent); // Obtener el puntaje mostrado
+            document.getElementById('scoreDisplayText').value = score; // Actualiza el campo oculto
 
-            // Enviar los datos al PHP mediante fetch
-            fetch('game.php', {
-                method: 'POST',
-                body: formData
-            })
-                .then(response => response.text())
-                .then(data => {
-                    console.log('Respuesta del servidor:', data);
-                    // Cerrar el modal después de guardar
-                    modal.style.display = "none";
-                    clearForm(); // Limpiar formulario después de enviar
-                })
-                .catch(error => {
-                    console.error('Error al guardar el score:', error);
-                });
+
+            document.getElementById('myForm').submit(); // Enviar el formulario
+
         }
+        //window.location.href = 'index.php';
     });
 
     // Función para limpiar el formulario
