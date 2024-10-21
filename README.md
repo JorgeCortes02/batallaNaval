@@ -57,11 +57,11 @@ El joc presenta un tauler de 10x10 on s’amaguen diverses hordes de diferents m
 
 # Instal·lació i Configuració
 
-### 1. Clonar el Repositori:
+## 1. Clonar el Repositori:
 ```bash
 git clone https://github.com/tu-usuari/perduts-a-la-sorra.git
 ```
-# 2. Configuració del Servidor Local:
+## 2. Configuració del Servidor Local:
 
 ### Instal·lar PHP:
 És necessari instal·lar PHP i utilitzar el seu servidor web integrat. Ves a la pàgina oficial de PHP: [https://www.php.net/downloads.php](https://www.php.net/downloads.php) i descarrega la versió adequada per al teu sistema.
