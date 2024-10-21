@@ -554,29 +554,27 @@ $score = htmlspecialchars($_POST['score']);
         </div>
     </div>
 
-    <div id="notificationsDiv">
-        <div class="notification" id="victoryNotification">Has guanyat!</div>
-        <div class="notification" id="sunkNotification">Has eliminat tota l'horda!</div>
-        <div class="notification" id="touchedNotification">Has eliminat un enemic!</div>
-        <div class="notification" id="gameoverNotification">Has perdut!</div>
-        <div class="notification" id="waterNotification">Directe a l'aigua!</div>
-    </div>
-
 
     <div class="main_container">
     
         <div class="header_of_players yellowBox">
-            <h1>[PLAYER] vs IA</h1> 
-            <h3>TORN ACTUAL: <br> [PLAYER or IA]</h3> <!-- turn -->
-            <h3>20:00:00</h3> <!-- time -->
-        </div> 
+
+            <h3><?php echo $name ?> vs IA</h3>
+            <h3 id="turn" class="notificationPlayerTurn">Toca per començar!</h3> <!-- turn -->
+            <div class="timer">
+                <img src="images/tiempo-pasado.png" alt="time_logo">
+                <h3>20:00:00</h3> <!-- time -->
+            </div>
+        </div>
 
 
-        <!-- NOTIFICATION BOX -->
-        <!-- <div class="notification_container .enemy_turn_style"> -->
-        <!-- <div class="notification_container .player_turn_style"> -->
-        <div class="notification_container yellowBox">
-            <p>EL JOC COMENÇA! ÉS EL TEU TORN [PLAYER] </p>
+        <div id="notificationsDiv">
+            <div class="notification" id="victoryNotification">No pots atacar, es el torn de l'enemic.</div>
+
+        </div>
+        <div id="notificationContainer" class="divNotiPlayer">
+            <p id="notificationParagraf">Benvingut a la batalla! Es el teu torn jugador!</p>
+
         </div>
 
         <div class="game_boards">
@@ -594,8 +592,23 @@ $score = htmlspecialchars($_POST['score']);
             <div class="player_and_information_board">   
 
                 <div class="information_board blackBox">
-                    <p>PUNTS: XXXXX</p>
-                    <p>MUNICIÓ: 40 projectiles</p>
+
+                    <div class="single_element_container">
+                        <img src="images/game_scoreIcon.png" alt="time_logo">
+                        <p id="scoreDisplay">00000</p>
+                    </div>
+                    <div class="ammo_container">
+                        <div class="playerAmmo">
+                            <img src="images/game_cannonIcon.png" alt="time_logo">
+                            <p id="playerAmmoTag">40 (PLAYER)</p>
+                        </div>
+                        <div class="enemyAmmo">
+                            <img src="images/game_cannonIcon.png" alt="time_logo">
+                            <p id="enemyAmmoTag">40 (ENEMY)</p>
+                        </div>
+                    </div>
+
+
                 </div>
 
                 <table class="player_board">
