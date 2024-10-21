@@ -1,0 +1,2172 @@
+/* BASIC DISPLAY CONFIGURATION ----------------------*/
+
+html,
+body {
+
+    height: 100%;
+    margin: 0;
+    padding: 0;
+
+    background-image: url('../Images/fondoPagina.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: 'Cinzel', serif;
+
+
+}
+
+.page-win {
+
+    display: flex;
+    align-items: center;
+}
+
+.page-win #divError {
+
+    display: none;
+    font-size: 20px;
+    color: red;
+
+}
+
+.page-win #finalScreen {
+    text-align: center;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    width: 50%;
+    min-height: 500px;
+    gap: 15px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: fadeIn 1s ease forwards, borderColorChange 3s linear infinite;
+    border: 5px double transparent;
+
+    margin: 0 auto;
+
+    /* Borde inicial */
+}
+
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes borderColorChange {
+    0% {
+        border-color: #FFD700;
+        /* Oro */
+    }
+
+    25% {
+        border-color: #40E0D0;
+        /* Turquesa */
+    }
+
+    50% {
+        border-color: #000000;
+        /* Negro */
+    }
+
+    75% {
+        border-color: #FFBF00;
+        /* Ámbar */
+    }
+
+    100% {
+        border-color: #FFD700;
+        /* Regresa al Oro */
+    }
+}
+
+.page-win #finalForbiScreen {
+    text-align: center;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    width: 50%;
+    min-height: 500px;
+    gap: 15px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+
+    opacity: 1;
+    color: red;
+    margin: 0 auto;
+    font-size: 30px;
+}
+
+.page-win h1 {
+    margin: 0;
+    animation: bounce1 1.5s infinite, colorChange 3s linear infinite;
+    background: linear-gradient(90deg, #ff6347, #ffa500, #32cd32, #1e90ff, #ff6347);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 50px;
+}
+
+@keyframes bounce {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(-10px);
+    }
+
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes colorChange {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+.page-win #nameInputContainer {
+    margin: 20px 0;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.page-win input[type='text'] {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    width: 250px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.page-win input[type='text']:focus {
+    border-color: #ff6347;
+    outline: none;
+    box-shadow: 0 0 5px rgba(255, 99, 71, 0.5);
+}
+
+.page-win .button {
+    background: rgb(172, 53, 2);
+
+    border: 3px solid rgb(192, 185, 176);
+    border-radius: 12px;
+    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.6);
+
+    color: white;
+    font-size: 17px;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+
+    cursor: pointer;
+    width: 50%;
+    height: 60px;
+    text-align: center;
+    margin: 0 auto;
+
+}
+
+.page-win .forbiden {
+
+    color: red;
+}
+
+.page-win #buttonDiv {
+    width: 90%;
+    gap: 20px;
+    display: flex;
+    justify-content: space-around;
+    margin: 0 auto;
+}
+
+.page-win .buttonActive:hover {
+    background-color: #e5533d;
+    transform: scale(1.05);
+}
+
+.page-win .buttonDisabled {
+    background-color: #ccc;
+    color: white;
+    cursor: not-allowed;
+}
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes shake {
+    0% {
+        transform: translate(1px, 1px) rotate(0deg);
+    }
+
+    25% {
+        transform: translate(-1px, -2px) rotate(-1deg);
+    }
+
+    50% {
+        transform: translate(-3px, 0px) rotate(1deg);
+    }
+
+    75% {
+        transform: translate(3px, 2px) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(1px, -1px) rotate(-1deg);
+    }
+}
+
+@keyframes borderColorChange {
+    0% {
+        border-color: #ff4c4c;
+        /* Rojo */
+    }
+
+    25% {
+        border-color: #ffcc00;
+        /* Amarillo */
+    }
+
+    50% {
+        border-color: #999999;
+        /* Gris */
+    }
+
+    75% {
+        border-color: #cc0000;
+        /* Rojo oscuro */
+    }
+
+    100% {
+        border-color: #ff4c4c;
+        /* Regresa al Rojo */
+    }
+}
+
+.page-lose #finalForbiScreen {
+    text-align: center;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    width: 50%;
+    min-height: 500px;
+    gap: 15px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 1s ease forwards;
+    /* Animación de entrada */
+    border: 3px solid;
+    /* Borde visible */
+    animation: borderColorChange 2s infinite;
+    /* Cambios de color en el borde */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes borderColorChange {
+    0% {
+        border-color: #ff0000;
+    }
+
+    /* Rojo */
+    25% {
+        border-color: blue;
+    }
+
+    /* Naranja */
+    50% {
+        border-color: red;
+    }
+
+    /* Verde */
+    75% {
+        border-color: #1e90ff;
+    }
+
+    /* Azul */
+    100% {
+        border-color: #ff0000;
+    }
+
+    /* Regresa al Rojo */
+}
+
+.page-lose {
+
+    display: flex;
+    align-items: center;
+}
+
+.page-lose #finalScreen {
+    text-align: center;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    width: 50%;
+    min-height: 500px;
+    gap: 15px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    opacity: 1;
+    color: red;
+    margin: 0 auto;
+    font-size: 30px;
+    animation: fadeIn 1s ease-in-out;
+    border: 5px solid #ff0000;
+    /* Borde inicial */
+    animation: borderColorChange 5s infinite;
+    /* Cambiar color del borde */
+}
+
+.page-lose #finalScreen h1 {
+    margin: 0;
+    color: #ff6347;
+    /* Color inicial del texto */
+
+
+
+    animation: bounce 7s infinite;
+    /* Añadir animación de rebote */
+}
+
+.page-lose #buttonDiv {
+    width: 90%;
+
+    gap: 20px;
+    display: flex;
+    justify-content: space-around;
+    margin: 0 auto;
+}
+
+@keyframes bounce {
+    0% {
+        transform: translateY(0) scale(1);
+    }
+
+    20% {
+        transform: translateY(-20px) scale(1.1);
+        /* Subida más alta y escala */
+    }
+
+    50% {
+        transform: translateY(0) scale(1);
+        /* Regresa a la posición original */
+    }
+
+    70% {
+        transform: translateY(-10px) scale(1.05);
+        /* Segunda subida, un poco más baja */
+    }
+
+    100% {
+        transform: translateY(0) scale(1);
+        /* Vuelve a la posición original */
+    }
+}
+
+
+.page-lose .trophy-img {
+    width: 100px;
+    /* Ajustar el tamaño de la imagen del trofeo */
+    margin: 20px 0;
+    animation: shake 0.5s infinite;
+    /* Agregar un pequeño movimiento de sacudida */
+}
+
+@keyframes bounce1 {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(-10px);
+    }
+
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes shake {
+
+    0%,
+    20%,
+    40%,
+    60%,
+    80%,
+    100% {
+        transform: translateX(0);
+    }
+
+    10% {
+        transform: translateX(-5px);
+    }
+
+    30% {
+        transform: translateX(5px);
+    }
+
+    50% {
+        transform: translateX(-5px);
+    }
+
+    70% {
+        transform: translateX(5px);
+    }
+}
+
+.page-lose #nameInputContainer {
+    margin: 20px 0;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.page-lose #nameInputContainer input[type='text'] {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    width: 250px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.page-lose #nameInputContainer input[type='text']:focus {
+    border-color: #ff6347;
+    outline: none;
+    box-shadow: 0 0 5px rgba(255, 99, 71, 0.5);
+}
+
+.page-lose .button {
+    background: rgb(172, 53, 2);
+    border: 3px solid rgb(192, 185, 176);
+    border-radius: 12px;
+    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.6);
+    color: white;
+    font-size: 17px;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+    cursor: pointer;
+    width: 50%;
+    height: 60px;
+    text-align: center;
+    margin: 0 auto;
+    transition: transform 0.3s ease;
+}
+
+.page-lose .button:hover {
+    transform: scale(1.05);
+}
+
+.page-lose #divError {
+    display: none;
+    /* Ocultar el mensaje de error inicialmente */
+    color: red;
+    font-weight: bold;
+}
+
+/* Animación para la imagen del trofeo */
+.page-win img {
+
+    width: 150px;
+    margin: 0 auto;
+    margin: 20px 0;
+    border-radius: 30px;
+    animation: bounceAndRotate 2s infinite ease-in-out;
+    /* Animación de rebote y rotación */
+}
+
+.page-lose img {
+
+    width: 150px;
+    margin: 0 auto;
+    margin: 20px 0;
+    border-radius: 30px;
+    animation: bounceAndRotate1 5s infinite ease-in-out;
+    /* Animación de rebote y rotación */
+}
+
+@keyframes bounceAndRotate1 {
+    0% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    25% {
+        transform: translateY(-10px) rotate(10deg);
+    }
+
+    50% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    75% {
+        transform: translateY(-5px) rotate(-10deg);
+    }
+
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+}
+
+@keyframes bounceAndRotate {
+    0% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    25% {
+        transform: translateY(-10px) rotate(10deg);
+    }
+
+    50% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    75% {
+        transform: translateY(-5px) rotate(-10deg);
+    }
+
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+}
+
+.page-tutorial,
+.page-game {
+    display: flex;
+    flex-direction: column;
+}
+
+body.page-index,
+body.page-ranking {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+/* REUSABLE ----> Yellow box */
+
+.yellowBox {
+    background: linear-gradient(135deg, #d4af37, #e5c18a);
+    border: 5px double rgb(59, 36, 11);
+    border-radius: 25px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* REUSABLE ----> Black box */
+
+.blackBox {
+    border: 5px double #d4af37;
+    background-color: rgba(8, 8, 8, 0.5);
+
+}
+
+/* ------------------------------ */
+
+
+
+
+/* EASTER EGG STYLING */
+
+#easterEggShowButton {
+
+    width: 100%;
+    height: 100%;
+    background: none;
+    border: none;
+}
+
+/* this contains the image */
+#easterEggMessageBox {
+
+    background: url('../Images/easterEggImg.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    /* center image */
+
+    width: 40%;
+    height: 30%;
+
+    padding: 20px;
+
+    /* center in screen */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+
+    color: white;
+
+    border: 3px solid rgb(59, 36, 11);
+    border-radius: 25px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+    text-align: center;
+
+    /* center content-wrapper */
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+
+
+#notificationsDiv {
+    position: fixed;
+    top: 5px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.notification {
+    background-color: red;
+    color: white;
+    padding: 15px;
+    margin: 10px;
+    border-radius: 15px;
+    border: 1px solid black;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+/* Clase que se añade para mostrar la notificación */
+.notification.showNot {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+
+
+/* this contains the text and button with opacity*/
+#easterEggMessageBox div.easterEggMessageBoxTextWrapper {
+
+    width: 80%;
+    height: 80%;
+
+    padding: 20px;
+
+    /* to give opacity */
+    background: rgba(0, 0, 0, 0.7);
+    border: 3px solid rgb(59, 36, 11);
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+#easterEggMessageBox div.easterEggMessageBoxTextWrapper p {
+    margin: 10px 0;
+    font-size: 18px;
+}
+
+#easterEggMessageBox div.easterEggMessageBoxTextWrapper p:first-child {
+    margin: 10px 0;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+
+#easterEggMessageBox div.easterEggMessageBoxTextWrapper button {
+
+    width: 50%;
+    height: 40px;
+    margin-top: 20px;
+
+    background: rgb(59, 36, 11);
+    border: 3px solid #7a6a55;
+    border-radius: 12px;
+
+    background-size: cover;
+    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.6);
+
+    color: #ffffff;
+    font-family: 'Cinzel', serif;
+    font-size: 14px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+}
+
+#easterEggMessageBox div.easterEggMessageBoxTextWrapper button:hover {
+    box-shadow: inset 0px 6px 10px rgba(0, 0, 0, 0.5), 0px 7px 12px rgba(0, 0, 0, 0.7);
+}
+
+
+/* ELEMENTS OF TUTORIAL GAME */
+
+/*Warning in case JS disabled*/
+.page-tutorial .warning {
+    position: fixed;
+    top: 0;
+    width: 100%;
+
+    background-color: red;
+    padding: 20px;
+    color: white;
+
+    font-weight: bold;
+    text-align: center;
+
+}
+
+/* Styles table*/
+.page-tutorial table {
+    background-image: url('../Images/fondo-madera.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 60%;
+    height: 95%;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    border-collapse: collapse;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.page-tutorial td,
+.page-tutorial th {
+
+    border: 2px double black;
+    width: 65px;
+    height: 65px;
+}
+
+
+.page-tutorial th {
+
+    color: white;
+    background-image: url('../Images/fondo.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+}
+
+
+/*Elements for buttons of table game*/
+.page-tutorial .tableButton {
+
+
+    width: 100%;
+    height: 100%;
+
+    background-image: url('../Images/jero1.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
+.page-tutorial table button:hover {
+
+    width: 100%;
+    height: 100%;
+    background-image: url('../Images/jero1.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 1px solid red;
+}
+
+.page-tutorial table .touch {
+
+    background-color: red;
+}
+
+/* Styles of the div that contains the table and the information div*/
+.page-tutorial .PrincipalDiv {
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 20px;
+    width: 90%;
+    height: 850px;
+    margin: 0 auto;
+    align-items: center;
+
+}
+
+/*Style of the information div*/
+.page-tutorial .scoreboard {
+
+
+
+    color: rgb(59, 36, 11);
+
+    width: 30%;
+    height: 95%;
+    text-align: center;
+    align-items: center;
+
+
+    font-size: 1rem;
+    top: 25px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+
+    display: block;
+}
+
+/*Style for table buttoms where this are disabled*/
+.page-tutorial .button-disabled {
+    background-color: #A9A9A9;
+    /* Gris oscuro para el botón deshabilitado */
+    color: white;
+    /* Blanco para el texto */
+    pointer-events: none;
+    /* Desactivar eventos */
+    cursor: not-allowed;
+    /* Cambiar el cursor a indicar que no es clickeable */
+    opacity: 0.7;
+    /* Opcional: hacer el botón un poco más transparente */
+    width: 100%;
+    height: 100%;
+    font-size: 10px;
+
+    box-sizing: border-box;
+
+}
+
+/*Style of div buttoms when gamed is end.*/
+.page-tutorial .divButtonsFinalGame {
+
+    width: 90%;
+    height: 70px;
+    gap: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    bottom: 30px;
+
+}
+
+/*Style of buttoms when gamed is end.*/
+.page-tutorial .divButtonsFinalGame button {
+    background: rgb(59, 36, 11);
+    border: 3px solid rgb(59, 36, 11);
+    border-radius: 12px;
+    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.6);
+
+    color: white;
+    font-size: 14px;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+
+    cursor: pointer;
+    width: 30%;
+    height: 50px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.page-tutorial .divButtonsFinalGame button:hover {
+    background: #7a6a55;
+    border: 3px solid #7a6a55;
+    border-radius: 12px;
+    box-shadow: inset 0px 6px 10px rgba(0, 0, 0, 0.5), 0px 7px 12px rgba(0, 0, 0, 0.7);
+
+    color: white;
+    font-size: 14px;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+
+    cursor: pointer;
+    width: 30%;
+    height: 50px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+/*cronometro------------------------------------------------------------------------*/
+
+.page-tutorial .time-marker,
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* Distribuye el espacio uniformemente */
+    align-items: center;
+    /* Alinea verticalmente los elementos en el centro */
+    margin-bottom: 20px;
+    width: 100%;
+    height: 50px;
+
+}
+
+.page-tutorial .time,
+.marker {
+    display: flex;
+    align-items: center;
+    /* Alinea verticalmente los elementos al centro */
+
+    /* Permite que el contenedor se ajuste al contenido */
+    margin: 0 auto;
+
+}
+
+.page-tutorial #clock,
+#arrow {
+    color:
+        /*#3b240b;*/
+        rgb(59, 36, 11);
+    margin-left: auto;
+    margin-right: 10px;
+
+}
+
+
+
+.page-tutorial #chronometer {
+    color:
+        /*#3b240b;*/
+        rgb(59, 36, 11);
+    margin: 0 auto;
+    font-family: 'Liberation Mono', monospace;
+    font-size: 2em;
+
+}
+
+
+
+/*marcador de puntos---------------------------------------------------------------------------------*/
+
+.page-tutorial #scoreDisplay {
+    color: rgb(59, 36, 11);
+    /* color que se ve*/
+    font-family: 'Liberation Mono', monospace;
+    /*fuente que mantiene el mismo tamaño sea el numero que sea*/
+    font-size: 2em;
+    /* Tamaño de la fuente */
+    margin: 0 auto;
+}
+
+
+
+/*boton para insertar jugador en ranquin--------------------------------------------------------------*/
+
+.page-tutorial #recordButton {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    height: 20%;
+    margin: 0 auto;
+
+}
+
+.page-tutorial #openWindows {
+    width: 100px;
+    /* Ancho fijo del contenedor */
+    height: 50px;
+    /* Altura fija del contenedor */
+    display: block;
+    /*se utiliza para hacer desaparecer al boton PONER EN NONE PARA FUNCIONAMIENTO NORMAL*/
+    margin: 10px;
+    color: rgb(119, 68, 14);
+    font-size: 1em;
+    background-image: url('../Images/button.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    /* Cambia el cursor al pasar sobre el botón */
+    border: 5px double rgb(119, 68, 14);
+    /* Borde marrón */
+    border-radius: 10px;
+}
+
+
+
+/*pantalla emergente--------------------------------------------*/
+
+/* El popup está oculto por defecto */
+.page-tutorial #popup {
+    display: none;
+    flex-direction: row;
+    margin-bottom: 20px;
+    align-items: center;
+    z-index: 1;
+    width: 100%;
+    height: auto;
+}
+
+/* Contenido de la ventana */
+.page-tutorial .windowsForm {
+    width: 80%;
+    height: auto;
+    background-image: url('../Images/button.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 0 auto;
+    padding: 20px;
+    border: 5px solid rgb(119, 68, 14);
+    border-radius: 10px;
+}
+
+.page-tutorial #myForm {
+    text-align: center;
+}
+
+.page-tutorial #myForm button {
+    color: white;
+    background-color: gray;
+    font-size: 1em;
+    background-position: center;
+    cursor: pointer;
+    border: 3px double rgb(119, 68, 14);
+    border-radius: 10px;
+}
+
+.page-tutorial #myForm button:hover {
+    color: black;
+    border: 3px double black;
+}
+
+.page-game #myForm label {
+    font-weight: bold;
+    text-decoration: underline;
+    color: black;
+    font-size: 2em;
+}
+
+.page-tutorial #longName {
+    display: none;
+    position: absolute;
+    transform: translateY(-50%);
+    color: black;
+    font-weight: bold;
+    font-size: 0.9em;
+    text-align: center;
+}
+
+.page-tutorial #name {
+    border: 3px double rgb(119, 68, 14);
+    border-radius: 10px;
+    text-align: right;
+    width: 50%;
+    height: 10%;
+}
+
+/* Botón para cerrar el modal (X) */
+.page-tutorial .close {
+    color: black;
+    font-weight: bold;
+    float: right;
+    font-size: 32px;
+    cursor: pointer;
+}
+
+.page-tutorial .close:hover,
+.close:focus {
+    color: rgb(255, 136, 0);
+}
+
+/* Eliminar subrayado */
+.windowsForm label {
+    font-family: 'Cinzel', serif;
+    font-size: 18px;
+    text-decoration: none;
+    /* Elimina el subrayado */
+    color: #333333;
+    /* Cambia el color si es necesario */
+}
+
+/* Cuadro de texto más grande */
+.windowsForm input[type="text"] {
+    width: 100%;
+    /* Ocupa todo el ancho disponible */
+    height: 40px;
+    /* Aumentar altura */
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    /* Mantiene el padding dentro del ancho */
+}
+
+/* Aplicar diseño a botón */
+.windowsForm button {
+    font-family: 'Cinzel', serif;
+    background-color: #333333;
+    /* Color de fondo */
+    color: #f5c518;
+    /* Color de texto */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.windowsForm button:hover {
+    background-color: #555555;
+    /* Color cuando el mouse está sobre el botón */
+}
+
+/* ELEMENTS OF PAGE GAME */
+
+/*Warning in case JS disabled*/
+.page-game .warning {
+    position: fixed;
+    top: 0;
+    width: 100%;
+
+    background-color: red;
+    padding: 20px;
+    color: white;
+
+    font-weight: bold;
+    text-align: center;
+
+}
+
+/* Styles of the div that contains the header + notification + info_game + (player/enemy) tables*/
+body.page-game div.main_container {
+
+    margin: 0 7.5%;
+
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 12px;
+}
+
+/* HEADER BOX IN GAME */
+body.page-game div.main_container div.header_of_players {
+
+    width: 100%;
+
+    text-align: center;
+
+    margin: 0;
+    padding: 10px;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+}
+
+body.page-game div.main_container div.header_of_players h3 {
+    margin: 0;
+}
+
+/*CSS Change Enemy Turn*/
+
+.notificationPlayerTurn {
+
+    color: rgb(18, 18, 171);
+    font-weight: bold;
+    font-size: 1.8rem;
+    margin: 0;
+}
+
+.notificationEnemyTurn {
+    color: rgb(169, 22, 22);
+
+    font-weight: bold;
+    font-size: 1.8rem;
+    margin: 0;
+}
+
+
+
+body.page-game div.main_container div.header_of_players div.timer,
+body.page-game div.main_container div.game_boards div.player_and_information_board div.information_board div {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 5px 0;
+}
+
+body.page-game div.main_container div.game_boards div.player_and_information_board div.information_board div.ammo_container {
+
+    display: flex;
+    flex-direction: row;
+
+}
+
+body.page-game div.main_container div.game_boards div.player_and_information_board div.information_board div.ammo_container div {
+    width: 50%;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+body.page-game div.main_container div.header_of_players div.timer img,
+body.page-game div.main_container div.game_boards div.player_and_information_board div.information_board div img {
+    width: 25px;
+    height: 25px;
+}
+
+/* Contenedor que centra el texto y asegura suficiente espacio */
+#notificationContainer {
+    width: 90%;
+
+    /* Ocupará todo el ancho disponible */
+    height: 50px;
+    /* Ajusta la altura mínima para no quedar muy pequeño */
+    padding: 10px;
+    /* Añadir un pequeño relleno para que el texto no quede pegado */
+    box-sizing: border-box;
+    /* Asegura que el padding se incluya en el tamaño total */
+    text-align: center;
+    /* Centrar el texto */
+    overflow: hidden;
+    /* Oculta el texto que sale del contenedor */
+
+    display: flex;
+
+    justify-content: center;
+    /* Centra horizontalmente */
+    align-items: center;
+    /* Centra verticalmente */
+
+
+
+    border: 2px solid black;
+
+    font-weight: 700;
+    /* Fondo para visualizar mejor el marco */
+    border: 2px double black;
+
+    /* Añadir un borde para delimitar el marco */
+    border-radius: 8px;
+    /* Bordes redondeados para una apariencia más pulida */
+}
+
+.divNotiPlayer {
+    background: radial-gradient(circle, #d4af37 50%, rgb(18, 18, 171) 100%);
+}
+
+.divNotiEnemy {
+    background: radial-gradient(circle, #d4af37 50%, rgb(169, 22, 22) 100%);
+}
+
+/* Texto de la notificación con animación */
+#notificationParagraf {
+
+    width: 100%;
+    position: relative;
+    font-size: 20px;
+    /* Ajusta el tamaño de la fuente según sea necesario */
+    opacity: 0;
+    /* Comienza invisible */
+    transform: translateX(100%);
+
+
+    /* Fuera del contenedor (derecha) */
+    animation: slideIn 2s ease forwards;
+    /* Definimos la animación */
+    margin: 0;
+}
+
+/* Animación para hacer que el texto entre desde la derecha */
+@keyframes slideIn {
+    0% {
+        opacity: 0;
+        transform: translateX(100%);
+        /* Empieza fuera del contenedor */
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+        /* Llega al centro */
+    }
+}
+
+/* Clase que reinicia la animación */
+.slide-in {
+    animation: slideIn 2s ease forwards;
+}
+
+/* ------------------------------------------------------------------- */
+
+body.page-game div.main_container div.game_boards {
+    display: flex;
+    flex-direction: row;
+
+    margin: 0;
+    width: 85%;
+
+    justify-content: space-between;
+    gap: 30px;
+
+
+}
+
+body.page-game div.main_container div.game_boards * {
+    box-sizing: border-box;
+}
+
+/* SETTINGS FOR ALL TABLES INSIDE GAME BOARD */
+body.page-game div.main_container div.game_boards table {
+
+    background-image: url('../Images/fondo-madera.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    border-collapse: collapse;
+
+    table-layout: fixed;
+}
+
+
+/* IT'S THE LEFT BOARD */
+body.page-game div.main_container div.game_boards table.enemy_board {
+
+    width: 55%;
+    /* related to  div.player_and_information_board width*/
+    margin: 0;
+
+}
+
+/* RIGHT SIDE OF THE SCREEN WHICH CONTAINS THE INFORMATION BOARD (POINTS + "MUNITION")*/
+body.page-game div.main_container div.game_boards div.player_and_information_board {
+
+    width: 45%;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+
+}
+
+body.page-game div.main_container div.game_boards div.player_and_information_board div.information_board {
+
+    width: 100%;
+    height: auto;
+    padding: 10px 10px 10px 18px;
+
+    box-sizing: border-box;
+    background-color: rgba(8, 8, 8, 0.9);
+
+    display: flex;
+    flex-direction: column;
+
+    font-size: 0.8rem;
+    font-weight: bold;
+
+}
+
+body.page-game div.main_container div.game_boards div.player_and_information_board div.information_board p {
+
+    color: white;
+    margin: 0;
+    font-size: 0.95rem;
+
+}
+
+
+body.page-game div.main_container div.game_boards div.player_and_information_board table.player_board {
+
+    width: 100%;
+    margin: 0;
+
+}
+
+body.page-game div.main_container div.game_boards th {
+
+    color: white;
+
+    background-image: url('../Images/fondo.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+}
+
+/* Set consistent styling for table cells to ensure squares */
+body.page-game div.main_container div.game_boards table.enemy_board th,
+body.page-game div.main_container div.game_boards table.enemy_board td,
+body.page-game div.main_container div.game_boards table.player_board th,
+body.page-game div.main_container div.game_boards table.player_board td {
+
+    width: 30px;
+    height: 38px;
+    padding: 0;
+
+    text-align: center;
+    overflow: hidden;
+
+    border: 2px double black;
+
+}
+
+/* Make sure the button fills the entire cell */
+body.page-game div.main_container div.game_boards table.enemy_board td button.tableButton {
+
+    width: 100%;
+    /* Full width of the cell */
+    height: 100%;
+    /* Full height of the cell */
+    padding: 0;
+    overflow: hidden;
+
+    background-image: url('../Images/jero1.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+}
+
+body.page-game div.main_container div.game_boards table.enemy_board td button.tableButton:hover {
+
+    border: 1px solid red;
+}
+
+body.page-game div.main_container div.game_boards table.enemy_board .touch {
+    background-color: red;
+}
+
+
+/*Style for table buttoms where this are disabled*/
+.page-game .button-disabled {
+    background-color: #A9A9A9;
+    /* Gris oscuro para el botón deshabilitado */
+    color: white;
+    /* Blanco para el texto */
+    pointer-events: none;
+    /* Desactivar eventos */
+    cursor: not-allowed;
+    /* Cambiar el cursor a indicar que no es clickeable */
+    opacity: 0.7;
+    /* Opcional: hacer el botón un poco más transparente */
+    width: 100%;
+    height: 100%;
+    font-size: 10px;
+
+    box-sizing: border-box;
+
+}
+
+/*For hte enemy cell animation*/
+
+@keyframes colorChange {
+    0% {
+        background-color: red;
+    }
+
+    33% {
+        background-color: orange;
+    }
+
+    66% {
+        background-color: blue;
+    }
+
+    100% {
+        background-color: red;
+    }
+}
+
+.cell-color-animation {
+    animation: colorChange 3s linear;
+}
+
+
+/*Disable the buttoms of the enemy table if a soung is playing.*/
+.page-game .disabledIfSound {
+    pointer-events: none;
+    /* Desactivar eventos */
+    cursor: not-allowed;
+}
+
+/*Style of div buttoms when gamed is end.*/
+.page-game .divButtonsFinalGame {
+
+    width: 90%;
+    height: 70px;
+    gap: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    bottom: 30px;
+
+}
+
+/*Style of buttoms when gamed is end.*/
+.page-game .divButtonsFinalGame button {
+    background: rgb(59, 36, 11);
+    border: 3px solid rgb(59, 36, 11);
+    border-radius: 12px;
+    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.6);
+
+    color: white;
+    font-size: 14px;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+
+    cursor: pointer;
+    width: 30%;
+    height: 50px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.page-game .divButtonsFinalGame button:hover {
+    background: #7a6a55;
+    border: 3px solid #7a6a55;
+    border-radius: 12px;
+    box-shadow: inset 0px 6px 10px rgba(0, 0, 0, 0.5), 0px 7px 12px rgba(0, 0, 0, 0.7);
+
+    color: white;
+    font-size: 14px;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+
+    cursor: pointer;
+    width: 30%;
+    height: 50px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+/*cronometro------------------------------------------------------------------------*/
+
+.page-game .time-marker,
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* Distribuye el espacio uniformemente */
+    align-items: center;
+    /* Alinea verticalmente los elementos en el centro */
+    margin-bottom: 20px;
+    width: 100%;
+    height: 50px;
+
+
+
+
+}
+
+.page-game .time,
+.marker {
+    display: flex;
+    align-items: center;
+    /* Alinea verticalmente los elementos al centro */
+
+    /* Permite que el contenedor se ajuste al contenido */
+    margin: 0 auto;
+
+}
+
+.page-game #clock,
+#arrow {
+    color:
+        /*#3b240b;*/
+        rgb(59, 36, 11);
+    margin-left: auto;
+    margin-right: 10px;
+
+}
+
+
+
+.page-game #chronometer {
+    color:
+        /*#3b240b;*/
+        rgb(59, 36, 11);
+    margin: 0 auto;
+    font-family: 'Liberation Mono', monospace;
+    font-size: 2em;
+
+}
+
+
+
+/*marcador de puntos---------------------------------------------------------------------------------*/
+
+.page-game #scoreDisplay {
+    color: white;
+    /* color que se ve*/
+    font-family: 'Liberation Mono', monospace;
+    /*fuente que mantiene el mismo tamaño sea el numero que sea*/
+    font-size: 2em;
+    /* Tamaño de la fuente */
+
+}
+
+
+
+/*boton para insertar jugador en ranquin--------------------------------------------------------------*/
+
+.page-game #recordButton {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    height: 20%;
+    margin: 0 auto;
+
+}
+
+.page-game #openWindows {
+    width: 100px;
+    /* Ancho fijo del contenedor */
+    height: 50px;
+    /* Altura fija del contenedor */
+    display: block;
+    /*se utiliza para hacer desaparecer al boton PONER EN NONE PARA FUNCIONAMIENTO NORMAL*/
+    margin: 10px;
+    color: rgb(119, 68, 14);
+    font-size: 1em;
+    background-image: url('../Images/button.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    /* Cambia el cursor al pasar sobre el botón */
+    border: 5px double rgb(119, 68, 14);
+    /* Borde marrón */
+    border-radius: 10px;
+}
+
+
+
+/*pantalla emergente--------------------------------------------*/
+
+/* El popup está oculto por defecto */
+.page-game #popup {
+    display: none;
+    flex-direction: row;
+    margin-bottom: 20px;
+    align-items: center;
+    z-index: 1;
+    width: 100%;
+    height: auto;
+}
+
+/* Contenido de la ventana */
+.page-game .windowsForm {
+    width: 80%;
+    height: auto;
+    background-image: url('../Images/button.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 0 auto;
+    padding: 20px;
+    border: 5px solid rgb(119, 68, 14);
+    border-radius: 10px;
+}
+
+.page-game #myForm {
+    text-align: center;
+}
+
+.page-game #myForm button {
+    color: white;
+    background-color: gray;
+    font-size: 1em;
+    background-position: center;
+    cursor: pointer;
+    border: 3px double rgb(119, 68, 14);
+    border-radius: 10px;
+}
+
+.page-game #myForm button:hover {
+    color: black;
+    border: 3px double black;
+}
+
+.page-game #myForm label {
+    font-weight: bold;
+    text-decoration: underline;
+    color: black;
+    font-size: 2em;
+    margin-top: 20px;
+}
+
+.page-game #longName {
+    display: none;
+    position: absolute;
+    transform: translateY(-50%);
+    color: black;
+    font-weight: bold;
+    font-size: 0.9em;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.page-game #name {
+    border: 3px double rgb(119, 68, 14);
+    border-radius: 10px;
+    text-align: right;
+    width: 50%;
+    height: 10%;
+}
+
+/* Botón para cerrar el modal (X) */
+.page-game .close {
+    color: black;
+    font-weight: bold;
+    float: right;
+    font-size: 32px;
+    cursor: pointer;
+}
+
+.page-game .close:hover,
+.close:focus {
+    color: rgb(255, 136, 0);
+}
+
+/* Eliminar subrayado */
+.windowsForm label {
+    font-family: 'Cinzel', serif;
+    font-size: 18px;
+    text-decoration: none;
+    /* Elimina el subrayado */
+    color: #333333;
+    /* Cambia el color si es necesario */
+}
+
+/* Cuadro de texto más grande */
+.windowsForm input[type="text"] {
+    width: 100%;
+    /* Ocupa todo el ancho disponible */
+    height: 40px;
+    /* Aumentar altura */
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    /* Mantiene el padding dentro del ancho */
+}
+
+/* Aplicar diseño a botón */
+.windowsForm button {
+    font-family: 'Cinzel', serif;
+    background-color: #333333;
+    /* Color de fondo */
+    color: #f5c518;
+    /* Color de texto */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.windowsForm button:hover {
+    background-color: #555555;
+    /* Color cuando el mouse está sobre el botón */
+}
+
+
+/* INDEX ------------------------------------ */
+
+/* THIS + .yellowBox*/
+body.page-index div.main_container {
+
+    width: 45%;
+    height: auto;
+
+    padding: 1.75%;
+    color: rgb(59, 36, 11);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    overflow: hidden;
+
+}
+
+/* Lost in the sands header */
+body.page-index div.main_container h1 {
+
+    text-align: center;
+    font-size: 3.8rem;
+    margin: 1.5%;
+
+}
+
+/* Container that has game + hall of fame button */
+body.page-index div.main_container div.button_container {
+
+    display: flex;
+    margin: 0 auto;
+    margin-top: 2.5%;
+    width: 90%;
+
+}
+
+body.page-index div.main_container div.button_container .buttonActive {
+
+    background: rgb(59, 36, 11);
+    border: 3px solid #7a6a55;
+    border-radius: 12px;
+
+    color: #ffffff;
+    font-size: 14px;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+
+    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.6);
+    cursor: pointer;
+    width: 100%;
+    height: 60px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+body.page-index div.main_container div.button_container .buttonActive:hover {
+
+    box-shadow: inset 0px 6px 10px rgba(0, 0, 0, 0.5), 0px 7px 12px rgba(0, 0, 0, 0.7);
+}
+
+body.page-index div.main_container div.button_container .aDisabled {
+
+    width: 30%;
+    height: 50px;
+    margin: 0 auto;
+    pointer-events: none;
+    /* Desactivar eventos */
+    cursor: not-allowed;
+}
+
+body.page-index div.main_container div.button_container .aActive {
+
+    width: 30%;
+    height: 50px;
+    margin: 0 auto;
+
+}
+
+/*Button disabled*/
+body.page-index div.main_container div.button_container .button-disabled {
+
+    background: gray;
+    border: 3px solid #7a6a55;
+    border-radius: 12px;
+    background-image: url('https://www.transparenttextures.com/patterns/concrete-wall.png');
+    background-size: cover;
+    color: #787676;
+    font-size: 14px;
+    text-align: center;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.6);
+    width: 100%;
+    height: 60px;
+}
+
+/*Warning in case JS disabled*/
+body.page-index .warning {
+
+    background-color: red;
+    padding: 20px;
+    color: white;
+    border-radius: 15px;
+    font-weight: bold;
+}
+
+
+/* RANKING CSS */
+
+/* Black box styling: contains header + table container + button container*/
+body.page-ranking div.main_container {
+
+    /* Set space occupied by it */
+    width: 70%;
+    height: 80%;
+    padding: 3%;
+
+    display: flex;
+    flex-direction: column;
+}
+
+/* Hall of fame header*/
+body.page-ranking div.main_container>h1 {
+    padding: 5px 0px 5px;
+    margin: 0;
+    text-align: center;
+}
+
+/* Wrapper to hide the scrollbar overflow of the table */
+body.page-ranking div.main_container div.table_wrapper {
+
+    /* Space styling */
+    height: 90%;
+    overflow: hidden;
+    /* Hide overflow of the scrollbar */
+
+    /* Font styling for all the table */
+    text-align: center;
+    font-size: 1.25rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+
+}
+
+/* Table container that is inside the table wrapper */
+body.page-ranking div.main_container div.table_wrapper div.table_container {
+
+    height: 100%;
+    /* to fill de container */
+    overflow-y: auto;
+    /* Allow vertical scrolling */
+    overflow-x: hidden;
+    border-radius: 20px;
+    /* so it fits its parent border-radius correctly */
+}
+
+/* Table styling */
+body.page-ranking div.main_container div.table_container table {
+
+    width: 100%;
+    /* To take all available horizontal space from the container */
+    border-collapse: collapse;
+    table-layout: fixed;
+    /* same column width */
+
+}
+
+/* HEADERS OF THE TABLE */
+body.page-ranking div.main_container div.table_container table thead tr th {
+
+    padding: 10px;
+    font-size: 1.5rem;
+    /* Font styling */
+    background: #b3942c;
+
+    /* Sticky so it follows when scrolling down the table data */
+    position: sticky;
+    top: 0;
+    z-index: 1;
+
+}
+
+/* PADDING FOR DATA */
+body.page-ranking div.main_container div.table_container table tbody tr td {
+
+    padding: 10px;
+
+}
+
+/* Padding of text if there's no data (so it seems it's at the center)*/
+body.page-ranking div.main_container div.table_container table tbody tr td.empty_records {
+    padding-top: 12%;
+}
+
+/* Scrollbar config of the table overflow */
+body.page-ranking div.main_container ::-webkit-scrollbar {
+    background-color: yellow;
+}
+
+body.page-ranking div.main_container ::-webkit-scrollbar-thumb {
+    background-color: #836445;
+    box-shadow: 0px 7px 12px rgba(0, 0, 0, 0.5);
+
+}
+
+body.page-ranking div.main_container ::-webkit-scrollbar-track {
+    box-shadow: inset 0px 10px 14px rgba(0, 0, 0, 0.5);
+    background-color: #6d3e00;
+    padding: 5px;
+}
+
+/* BUTTONS AND NUMBER CONTAINER STYLING */
+
+/* Affects to both empty (.buttons_container) and pagination containers (.buttonsAndPagination_container)*/
+body.page-ranking div.main_container>div {
+    margin-top: 3%;
+    height: 10%;
+}
+
+/* IF NUMBER SECTION IS EMPTY */
+
+body.page-ranking div.main_container div.buttons_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* IF NUMBER SECTION IS NOT EMPTY*/
+
+body.page-ranking div.main_container div.buttonsAndPagination_container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+/* Buttons that are not pagination */
+body.page-ranking div.main_container>div>a>button {
+
+    width: 100%;
+    height: 60px;
+
+    background: rgb(59, 36, 11);
+    border: 3px solid #7a6a55;
+    border-radius: 12px;
+    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.6);
+
+    color: #ffffff;
+    font-size: 14px;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    text-align: center;
+    padding: 20px;
+
+}
+
+body.page-ranking div.main_container>div>a>button:hover {
+
+    box-shadow: inset 0px 6px 10px rgba(0, 0, 0, 0.5), 0px 7px 12px rgba(0, 0, 0, 0.7);
+}
+
+
+/* Number section container */
+body.page-ranking div.main_container div.number_section {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Number section anchors */
+body.page-ranking div.main_container div.number_section a {
+
+    padding: 10px 25px 10px;
+    margin: 0px 5px 0px;
+
+    cursor: pointer;
+
+    background: rgb(59, 36, 11);
+    border: 3px solid #7a6a55;
+    border-radius: 12px;
+    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.6);
+
+    /* Font styling */
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 18px;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+}
+
+body.page-ranking div.main_container div.number_section a:hover {
+
+    box-shadow: inset 0px 6px 10px rgba(0, 0, 0, 0.5), 0px 7px 12px rgba(0, 0, 0, 0.7);
+
+}
+
+/* Current page styling */
+body.page-ranking div.main_container div.number_section a.current_page {
+
+    box-shadow: inset 0px 10px 14px rgba(0, 0, 0, 0.7), 0px 9px 14px rgba(0, 0, 0, 0.7);
+
+    background: #a8a5a2;
+    color: white;
+    pointer-events: none;
+    /* Disable interaction */
+    cursor: not-allowed;
+    /* Change cursor to indicate it's not clickable */
+
+
+}
