@@ -20,11 +20,16 @@ const gameSounds = [new Audio('sounds/water1.mp3'), new Audio('sounds/victory.mp
 
 var nowAttackPlayer = 0;
 var cellsPlayerTable = null;
+var multidimensionalArrayOfEnemyShots = null;
+
 // Wait for the DOM to fully load before executing the script
 document.addEventListener("DOMContentLoaded", function () {
 
     // Those are all the cells from the player table with the IA iteracts with  
     cellsPlayerTable = Array.from(document.getElementsByClassName("playerCell"));
+
+    // Generates a multidimensional array to get all cells of player table and generate the IA logic afterwards
+    multidimensionalArrayOfEnemyShots = generateMultidimiensionalArrayOfPlayerTableCells(cellsPlayerTable);
 
     showPlayerHorders(); // Marks horders in player table in gray
 
@@ -43,12 +48,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
+function generateMultidimiensionalArrayOfPlayerTableCells(arrayOfTableCells){
+    let multidimensionalArray = [];
+    for (let i = 0; i < arrayOfTableCells.length; i += 10) {
+        multidimensionalArray.push(arrayOfTableCells.slice(i, i + 10));
+    }
+    console.log(multidimensionalArray);
+    return multidimensionalArray;
+}
+
 function getRandomNumber(long) {
     // Return a random number between 0 and the length of the array
     return Math.floor(Math.random() * long);
 }
-
-
 
 
 function animateCellColorChange(actualCell) {
@@ -109,9 +121,19 @@ function enemyTurn() {
         // Play the sound of the enemy's cannon firing
         generateSound("canonEnemy");
 
+        // IMPLEMENTATION OF IA LOGIC TO GET POSITION
+
         // Generate a random position on the player's table of cells
         randomPosition = getRandomNumber(cellsPlayerTable.length);
         actualCell = cellsPlayerTable[randomPosition]; // Get the actual cell at the random position
+
+        for (let i = 0; i < multidimensionalArrayOfEnemyShots.length; i++) {
+            for (let j = 0; j < multidimensionalArrayOfEnemyShots[0].length; j++) {
+                if (multidimensionalArrayOfEnemyShots[i][j] === actualCell) {
+                    console.log("ROW " + i + " COLUMN " + j);
+                }
+            }
+        }
 
         // Set a delay before starting the animation to change the cell's color
         setTimeout(function () { animateCellColorChange(actualCell); }, 1000);
@@ -300,6 +322,7 @@ function changeBackgorundNotificationColor() {
         }
 
     } else {
+        
         if (divNoti.classList.contains("divNotiPlayer")) {
 
             divNoti.classList.replace("divNotiPlayer", "divNotiEnemy")
@@ -360,7 +383,7 @@ function disableTableIfVictory() {
         // Change each button's class to "button-disabled"
         buttonGame.classList.replace("tableButton", "button-disabled");
     }
-    const easterEggButton = document.getElementById('easterEggButton');
+    const easterEggButton = document.getElementById('easterEggShowButton');
     if (easterEggButton) {
         easterEggButton.disabled = true; // Disable the button
     }
@@ -373,7 +396,7 @@ function disableTable() {
         // Change each button's class to "button-disabled"
         buttonGame.classList.add("disabledIfSound");
     }
-    const easterEggButton = document.getElementById('easterEggButton');
+    const easterEggButton = document.getElementById('easterEggShowButton');
     if (easterEggButton) {
         easterEggButton.disabled = true; // Disable the button
     }
