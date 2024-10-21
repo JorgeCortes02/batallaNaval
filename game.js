@@ -158,7 +158,7 @@ function enemyTurn() {
                 // Check if the game is over by verifying if the cell's state is "victory"
                 if (stateCell === "victory") {
                     actualCell.style.background = "red";  // Change the background color to red
-                    window.location.href = "win.php";  // Redirect to the victory page
+                    window.location.href = "lose.php?score=" + score;  // Redirect to the victory page
                 }
 
                 console.log(cellsPlayerTable.length);  // Log the remaining cells
@@ -466,7 +466,8 @@ function turnACell(e) {
     const value = e.target.value; // Get the value of the clicked button
 
     disableTable();
-    stateCell = sumFoundPositions(value, selectesPlayerHorders); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
+    score = 10000
+    stateCell = "victory"//sumFoundPositions(value, selectesPlayerHorders); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
 
     // Change the class from "tableButton" to "button-disabled"
     e.target.classList.replace("tableButton", "button-disabled");
@@ -503,7 +504,7 @@ function turnACell(e) {
 
     if (stateCell === "victory") {
         disableTableIfVictory();
-        window.location.href = "win.php";
+        window.location.href = "win.php?score=" + score;
 
         //stopTimer(); // Detener el cronómetro
     }
