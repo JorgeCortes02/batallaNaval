@@ -31,7 +31,8 @@
             L'estratègia, la punteria i una mica de sort seran les teves millors aliades en aquesta aventura.
             Dispara amb precisió per aconseguir la victòria!</p>
         <div class="button_container">
-            <a id="toGameA" class="aDisabled" href="tutorial.php"><button id="initGame" class="button-disabled">TUTORIAL</button></a>
+            <a id="toGameA" class="aDisabled" href="tutorial.php"><button id="initGame"
+                    class="button-disabled">TUTORIAL</button></a>
             <a class="aActive" href="ranking.php"><button id="goToHall" class="buttonActive">HALL OF FAME</button></a>
         </div>
     </div>

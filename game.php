@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 //zona horaria
 date_default_timezone_set('Europe/Madrid'); // Cambia 'Europe/Madrid' a la zona horaria que necesites
 
@@ -554,7 +556,7 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
     <div class="main_container">
 
         <div class="header_of_players yellowBox">
-            <h3><?php echo $name ?> vs IA</h3>
+            <h3><?php echo $_SESSION["name"] ?> vs IA</h3>
             <h3 id="turn" class="notificationPlayerTurn">Toca per començar!</h3> <!-- turn -->
             <div class="timer">
                 <img src="images/tiempo-pasado.png" alt="time_logo">

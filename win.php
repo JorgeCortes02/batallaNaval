@@ -21,19 +21,21 @@
 
         <h1>403 Forbidden: Has de accedir desde Game</h1>
         
-    </div>
-";
+        </div>";
+
         exit;
+    } else {
     }
 
     // Aquí va el código de la página de victoria o derrota
-    echo "¡Felicidades! Has ganado el juego.";
+    echo "<div class='main_container yellowBox'>
+
+            <h1>LOST IN THE SANDS</h1>
+            <h1>Felidades has ganado!</h1>
+        
+            </div>";
+
     ?>
 
-    <div class="main_container yellowBox">
-
-        <h1>LOST IN THE SANDS</h1>
-        <h1>Felidades has ganado!</h1>
-    </div>
 
 </html>
