@@ -1,7 +1,7 @@
 /* BASIC DISPLAY CONFIGURATION ----------------------*/
 
 html,
-body {
+body, body {
 
     height: 100%;
     margin: 0;
@@ -22,13 +22,79 @@ body {
 }
 
 body.page-index,
-body.page-ranking {
+body.page-ranking,
+body.page-win {
 
     display: flex;
     justify-content: center;
     align-items: center;
 
 }
+
+
+
+body.page-win {
+    
+
+    height: 100%;
+    margin: 0;
+    padding: 0;
+
+    background-image: url('images/piramides.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: 'Cinzel', serif;
+
+
+}
+
+body.page-win div.main_container-victory {
+
+    display: flex;
+    flex-direction: column;
+    color: white;
+   
+    font-size: 1.2em;
+    background-position: center;
+    
+    border: 3px double rgb(119, 68, 14);
+    border-radius: 10px;   
+    cursor: pointer;
+    width: 60%;
+    height:auto;
+    padding: 20px; /* Añadir un relleno alrededor del contenido *
+    margin: 0 auto;
+    /* Efecto de desenfoque del fondo */
+    backdrop-filter: blur(5px); /* Ajusta el valor de "10px" según el nivel de desenfoque que desees */
+    background-color: rgba(236, 234, 234, 0.5); /* Un fondo semi-transparente para mejor efecto */
+
+}
+
+/* Lost in the sands header */
+body.page-win div.main_container-victory h1 {
+
+    width: 100%;
+    text-align: center;
+    color: rgb(119, 68, 14);
+    font-size: 6rem;
+   
+
+}
+
+body.page-win div.main_container-victory p {
+
+    width: 100%;
+    text-align: center;
+    color: rgb(119, 68, 14);
+    font-size: 1.5rem;
+   
+   
+
+
+}
+
+
 
 /* REUSABLE ----> Yellow box */
 
