@@ -67,9 +67,9 @@ function changeTurn() {
     if (nowAttackPlayer === 1) {
         // Change turn to the player
         nowAttackPlayer = 0;
-
+        tableEnemy.removeEventListener("click", showNotification);
         setTimeout(() => {
-            tableEnemy.removeEventListener("click", showNotification);
+
 
             changeTurnText("turn0");
             changeBackgorundNotificationColor();
@@ -86,9 +86,6 @@ function changeTurn() {
         setTimeout(() => {
             changeTurnText("turn1");
             changeBackgorundNotificationColor();
-
-
-
             // Aquí es donde registras el evento click para el tablero enemigo
             tableEnemy.addEventListener("click", showNotification);
 
