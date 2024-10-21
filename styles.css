@@ -16,21 +16,22 @@ body {
 
 }
 
+/*CSS Win Page*/
 .page-win {
-
+    /* Use flexbox to center the elements vertically */
     display: flex;
     align-items: center;
 }
 
 .page-win #divError {
-
+    /* Initially hide the error message */
     display: none;
     font-size: 20px;
     color: red;
-
 }
 
 .page-win #finalScreen {
+    /* Center the content, set the background, and use flexbox to align elements */
     text-align: center;
     background: rgba(0, 0, 0, 0.9);
     display: flex;
@@ -50,52 +51,40 @@ body {
     border: 5px double transparent;
 
     margin: 0 auto;
-
-    /* Borde inicial */
-}
-
-
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-30px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    /* Set initial border */
 }
 
 @keyframes borderColorChange {
+
+    /* Change the border colors continuously */
     0% {
         border-color: #FFD700;
-        /* Oro */
+        /* Gold */
     }
 
     25% {
         border-color: #40E0D0;
-        /* Turquesa */
+        /* Turquoise */
     }
 
     50% {
         border-color: #000000;
-        /* Negro */
+        /* Black */
     }
 
     75% {
         border-color: #FFBF00;
-        /* Ámbar */
+        /* Amber */
     }
 
     100% {
         border-color: #FFD700;
-        /* Regresa al Oro */
+        /* Back to Gold */
     }
 }
 
 .page-win #finalForbiScreen {
+    /* Same styling as #finalScreen but with different color and font size */
     text-align: center;
     background: rgba(0, 0, 0, 0.9);
     display: flex;
@@ -108,7 +97,6 @@ body {
     gap: 15px;
     border-radius: 15px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-
     opacity: 1;
     color: red;
     margin: 0 auto;
@@ -116,6 +104,7 @@ body {
 }
 
 .page-win h1 {
+    /* Add bouncing animation and gradient color effect to the text */
     margin: 0;
     animation: bounce1 1.5s infinite, colorChange 3s linear infinite;
     background: linear-gradient(90deg, #ff6347, #ffa500, #32cd32, #1e90ff, #ff6347);
@@ -124,26 +113,9 @@ body {
     font-size: 50px;
 }
 
-@keyframes bounce {
-
-    0%,
-    20%,
-    50%,
-    80%,
-    100% {
-        transform: translateY(0);
-    }
-
-    40% {
-        transform: translateY(-10px);
-    }
-
-    60% {
-        transform: translateY(-5px);
-    }
-}
-
 @keyframes colorChange {
+
+    /* Make the background gradient move horizontally */
     0% {
         background-position: 0% 50%;
     }
@@ -154,6 +126,7 @@ body {
 }
 
 .page-win #nameInputContainer {
+    /* Styling for the input label and container */
     margin: 20px 0;
     color: white;
     font-size: 20px;
@@ -164,6 +137,7 @@ body {
 }
 
 .page-win input[type='text'] {
+    /* Styling for the text input field */
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
@@ -173,37 +147,31 @@ body {
 }
 
 .page-win input[type='text']:focus {
+    /* Add glow and change border color on focus */
     border-color: #ff6347;
     outline: none;
     box-shadow: 0 0 5px rgba(255, 99, 71, 0.5);
 }
 
 .page-win .button {
+    /* Styling for buttons */
     background: rgb(172, 53, 2);
-
     border: 3px solid rgb(192, 185, 176);
     border-radius: 12px;
     box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.6);
-
     color: white;
     font-size: 17px;
     font-family: 'Cinzel', serif;
     font-weight: bold;
-
     cursor: pointer;
     width: 50%;
     height: 60px;
     text-align: center;
     margin: 0 auto;
-
-}
-
-.page-win .forbiden {
-
-    color: red;
 }
 
 .page-win #buttonDiv {
+    /* Style for the div holding buttons */
     width: 90%;
     gap: 20px;
     display: flex;
@@ -212,18 +180,23 @@ body {
 }
 
 .page-win .buttonActive:hover {
+    /* Add hover effect on buttons */
     background-color: #e5533d;
     transform: scale(1.05);
 }
 
-.page-win .buttonDisabled {
-    background-color: #ccc;
-    color: white;
-    cursor: not-allowed;
+.page-win img {
+    /* Style for the image and add bounce/rotate animation */
+    width: 150px;
+    margin: 0 auto;
+    margin: 20px 0;
+    border-radius: 30px;
+    animation: bounceAndRotate 2s infinite ease-in-out;
 }
 
-
 @keyframes fadeIn {
+
+    /* Fade in and move the element upwards */
     from {
         opacity: 0;
         transform: translateY(-30px);
@@ -235,7 +208,56 @@ body {
     }
 }
 
+/* Lose Page Styles */
+.page-lose #finalForbiScreen {
+    /* Similar to win screen but with red borders and shake animation */
+    text-align: center;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    width: 50%;
+    min-height: 500px;
+    gap: 15px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 1s ease forwards;
+    border: 3px solid;
+    animation: borderColorChange 2s infinite;
+    margin: 0 auto;
+    color: RED;
+    font-size: 30px;
+}
+
+@keyframes borderColorChange {
+
+    /* Change the border color */
+    0% {
+        border-color: #ff0000;
+    }
+
+    25% {
+        border-color: blue;
+    }
+
+    50% {
+        border-color: red;
+    }
+
+    75% {
+        border-color: #1e90ff;
+    }
+
+    100% {
+        border-color: #ff0000;
+    }
+}
+
 @keyframes shake {
+
+    /* Shake animation for the image */
     0% {
         transform: translate(1px, 1px) rotate(0deg);
     }
@@ -257,101 +279,14 @@ body {
     }
 }
 
-@keyframes borderColorChange {
-    0% {
-        border-color: #ff4c4c;
-        /* Rojo */
-    }
-
-    25% {
-        border-color: #ffcc00;
-        /* Amarillo */
-    }
-
-    50% {
-        border-color: #999999;
-        /* Gris */
-    }
-
-    75% {
-        border-color: #cc0000;
-        /* Rojo oscuro */
-    }
-
-    100% {
-        border-color: #ff4c4c;
-        /* Regresa al Rojo */
-    }
-}
-
-.page-lose #finalForbiScreen {
-    text-align: center;
-    background: rgba(0, 0, 0, 0.9);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    width: 50%;
-    min-height: 500px;
-    gap: 15px;
-    border-radius: 15px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-    animation: fadeIn 1s ease forwards;
-    /* Animación de entrada */
-    border: 3px solid;
-    /* Borde visible */
-    animation: borderColorChange 2s infinite;
-    /* Cambios de color en el borde */
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-30px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes borderColorChange {
-    0% {
-        border-color: #ff0000;
-    }
-
-    /* Rojo */
-    25% {
-        border-color: blue;
-    }
-
-    /* Naranja */
-    50% {
-        border-color: red;
-    }
-
-    /* Verde */
-    75% {
-        border-color: #1e90ff;
-    }
-
-    /* Azul */
-    100% {
-        border-color: #ff0000;
-    }
-
-    /* Regresa al Rojo */
-}
-
 .page-lose {
-
+    /* Flexbox alignment for the lose screen */
     display: flex;
     align-items: center;
 }
 
 .page-lose #finalScreen {
+    /* Similar to win screen but with red border and bounce effect */
     text-align: center;
     background: rgba(0, 0, 0, 0.9);
     display: flex;
@@ -370,25 +305,19 @@ body {
     font-size: 30px;
     animation: fadeIn 1s ease-in-out;
     border: 5px solid #ff0000;
-    /* Borde inicial */
     animation: borderColorChange 5s infinite;
-    /* Cambiar color del borde */
 }
 
 .page-lose #finalScreen h1 {
+    /* Add bounce animation to h1 text */
     margin: 0;
     color: #ff6347;
-    /* Color inicial del texto */
-
-
-
     animation: bounce 7s infinite;
-    /* Añadir animación de rebote */
 }
 
 .page-lose #buttonDiv {
+    /* Similar button div styles as the win page */
     width: 90%;
-
     gap: 20px;
     display: flex;
     justify-content: space-around;
@@ -396,88 +325,45 @@ body {
 }
 
 @keyframes bounce {
+
+    /* Animation for a bouncing effect */
     0% {
         transform: translateY(0) scale(1);
+        /* Start at normal position and size */
     }
 
     20% {
         transform: translateY(-20px) scale(1.1);
-        /* Subida más alta y escala */
+        /* Higher bounce with a slight scale */
     }
 
     50% {
         transform: translateY(0) scale(1);
-        /* Regresa a la posición original */
+        /* Returns to original position */
     }
 
     70% {
         transform: translateY(-10px) scale(1.05);
-        /* Segunda subida, un poco más baja */
+        /* Second smaller bounce */
     }
 
     100% {
         transform: translateY(0) scale(1);
-        /* Vuelve a la posición original */
+        /* Ends at the original position */
     }
 }
-
 
 .page-lose .trophy-img {
+    /* Styling for the trophy image */
     width: 100px;
-    /* Ajustar el tamaño de la imagen del trofeo */
+    /* Adjust the trophy image size */
     margin: 20px 0;
     animation: shake 0.5s infinite;
-    /* Agregar un pequeño movimiento de sacudida */
-}
-
-@keyframes bounce1 {
-
-    0%,
-    20%,
-    50%,
-    80%,
-    100% {
-        transform: translateY(0);
-    }
-
-    40% {
-        transform: translateY(-10px);
-    }
-
-    60% {
-        transform: translateY(-5px);
-    }
-}
-
-@keyframes shake {
-
-    0%,
-    20%,
-    40%,
-    60%,
-    80%,
-    100% {
-        transform: translateX(0);
-    }
-
-    10% {
-        transform: translateX(-5px);
-    }
-
-    30% {
-        transform: translateX(5px);
-    }
-
-    50% {
-        transform: translateX(-5px);
-    }
-
-    70% {
-        transform: translateX(5px);
-    }
+    /* Add a small shake animation */
 }
 
 .page-lose #nameInputContainer {
+    /* Styling for the input container */
     margin: 20px 0;
     color: white;
     font-size: 20px;
@@ -488,6 +374,7 @@ body {
 }
 
 .page-lose #nameInputContainer input[type='text'] {
+    /* Styling for the text input field */
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #ccc;
@@ -497,12 +384,14 @@ body {
 }
 
 .page-lose #nameInputContainer input[type='text']:focus {
+    /* Effects when the input is focused */
     border-color: #ff6347;
     outline: none;
     box-shadow: 0 0 5px rgba(255, 99, 71, 0.5);
 }
 
 .page-lose .button {
+    /* Styling for buttons */
     background: rgb(172, 53, 2);
     border: 3px solid rgb(192, 185, 176);
     border-radius: 12px;
@@ -520,38 +409,31 @@ body {
 }
 
 .page-lose .button:hover {
+    /* Button hover effect */
     transform: scale(1.05);
 }
 
 .page-lose #divError {
+    /* Error message styling */
     display: none;
-    /* Ocultar el mensaje de error inicialmente */
+    /* Initially hide the error message */
     color: red;
     font-weight: bold;
 }
 
-/* Animación para la imagen del trofeo */
-.page-win img {
-
-    width: 150px;
-    margin: 0 auto;
-    margin: 20px 0;
-    border-radius: 30px;
-    animation: bounceAndRotate 2s infinite ease-in-out;
-    /* Animación de rebote y rotación */
-}
-
 .page-lose img {
-
+    /* Styling for images */
     width: 150px;
     margin: 0 auto;
     margin: 20px 0;
     border-radius: 30px;
     animation: bounceAndRotate1 5s infinite ease-in-out;
-    /* Animación de rebote y rotación */
+    /* Add a bounce and rotate animation */
 }
 
 @keyframes bounceAndRotate1 {
+
+    /* Bounce and rotate animation for images */
     0% {
         transform: translateY(0) rotate(0deg);
     }
@@ -574,6 +456,8 @@ body {
 }
 
 @keyframes bounceAndRotate {
+
+    /* Alternative bounce and rotate animation */
     0% {
         transform: translateY(0) rotate(0deg);
     }

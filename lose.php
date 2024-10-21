@@ -51,7 +51,7 @@ if (isset($_POST['score']) && isset($_POST['score'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Win</title>
+    <title>Lose</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
     <script src="lose.js"></script>
@@ -63,9 +63,22 @@ if (isset($_POST['score']) && isset($_POST['score'])) {
 
     // Verifica si el encabezado HTTP_REFERER está establecido
     
+    if (
+        !isset($_SERVER['HTTP_REFERER']) ||
+        (strpos($_SERVER['HTTP_REFERER'], 'game.php') === false && strpos($_SERVER['HTTP_REFERER'], 'win.php') === false)
+    ) {
+        // Si no es referida desde la página del juego, retorna un 403
+        header('HTTP/1.1 403 Forbidden');
+        echo " <div id='finalForbiScreen'>
 
-    // Aquí va el código de la página de victoria o derrota
-    echo "
+    <h2>403 Forbidden: Has de accedir desde Game</h2>
+    
+    </div>";
+
+        exit;
+    } else {
+        // Aquí va el código de la página de victoria o derrota
+        echo "
     
    <div id='finalScreen' class='show'>
     <h1>¡Felicitats, has perdut!</h1>
@@ -96,6 +109,7 @@ if (isset($_POST['score']) && isset($_POST['score'])) {
         <button id='toLanding' class='button'>Volver a la Landing Page</button>
     </div>
 </div>";
+    }
     ?>
 </body>
 
