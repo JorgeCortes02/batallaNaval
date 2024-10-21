@@ -2,7 +2,7 @@
 
 # Índex
 
-- [Wikipedia](#wikipedia)
+- [LOST IN THE SANDS](#LOST-IN-THE-SANDS)
 - [Descripció del Joc](#descripció-del-joc)
 - [Jugabilitat](#jugabilitat)
   1. [Objectiu del joc](#1-objectiu-del-joc)
@@ -16,7 +16,7 @@
   2. [Configuració del Servidor Local](#2-configuració-del-servidor-local)
 - [Crèdits](#crèdits)
   
-# Wikipedia
+# LOST IN THE SANDS
 
 **Lost in the Sand** és un emocionant joc d’estratègia basat en el concepte clàssic d’Enfonsar la flota (Battleship). Els jugadors es troben en un vast desert on les ordes enemigues estan enterrades sota la sorra. El teu objectiu és trobar-los i destruir-los abans que s’acabi el temps. Amb cada tret, t’acostes més a descobrir la flota oculta, però compte: el rellotge no s’atura, i cada segon compta.
 
