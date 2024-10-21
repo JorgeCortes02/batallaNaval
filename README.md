@@ -1,5 +1,3 @@
-# Lost in the Sand
-
 # Índex
 
 - [LOST IN THE SANDS](#LOST-IN-THE-SANDS)
