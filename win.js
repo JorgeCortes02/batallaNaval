@@ -1,8 +1,16 @@
+const gameSounds = [new Audio('sounds/victory.mp3')];
+
+
 document.addEventListener("DOMContentLoaded", function () {
     // Mostrar el finalScreen con una animación de entrada
     const finalScreen = document.getElementById('finalScreen');
     finalScreen.classList.add('show');
-
+    gameSounds[0].volume = 0; // Silenciar
+    gameSounds[0].play().then(() => {
+        gameSounds[0].volume = 1; // Aumentar el volumen después de que el audio comienza
+    }).catch(error => {
+        console.error('No se pudo reproducir el sonido automáticamente:', error);
+    });
     // Obtener elementos necesarios
     const nameInput = document.getElementById('name');
     const errorDiv = document.getElementById('divError');
@@ -52,4 +60,12 @@ document.addEventListener("DOMContentLoaded", function () {
         // Redirigir a la página de inicio
         window.location.href = 'landing.php'; // Cambia esto a la ruta de tu landing page
     });
+
+    // Manejo de errores para el audio
+    gameSounds[0].addEventListener('error', function (e) {
+        console.error('Error al cargar el audio:', e);
+    });
+
+    // Opcional: establecer el volumen
+    gameSounds[0].volume = 1.0; // Volumen completo
 });

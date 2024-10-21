@@ -58,7 +58,6 @@ if (isset($_POST['score']) && isset($_POST['score'])) {
 </head>
 
 <body class="page-win">
-
     <?php
 
     if (

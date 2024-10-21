@@ -1,8 +1,15 @@
+const gameSounds = [new Audio('sounds/gameover.mp3')];
+
 document.addEventListener("DOMContentLoaded", function () {
     // Mostrar el finalScreen con una animación de entrada
     const finalScreen = document.getElementById('finalScreen');
     finalScreen.classList.add('show');
-
+    gameSounds[0].volume = 0; // Silenciar
+    gameSounds[0].play().then(() => {
+        gameSounds[0].volume = 1; // Aumentar el volumen después de que el audio comienza
+    }).catch(error => {
+        console.error('No se pudo reproducir el sonido automáticamente:', error);
+    });
     // Obtener elementos necesarios
     const nameInput = document.getElementById('name');
     const errorDiv = document.getElementById('divError');
