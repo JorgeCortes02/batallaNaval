@@ -1774,6 +1774,72 @@ body.page-game div.main_container div.game_boards table.enemy_board .touch {
 
 
 /* INDEX ------------------------------------ */
+/*div de formularior*/
+body.page-index #myForm {
+    width: 90%;
+    margin-bottom: 0;
+
+}
+
+/*div de poner user*/
+body.page-index #nameRecord {
+    gap: 20px;
+    text-align: center;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+/*etiqueta text area*/
+body.page-index #nameRecord label {
+
+    font-size: 1.4em;
+    width: 100%;
+    margin-right: 20px;
+
+}
+
+/*text arrea*/
+body.page-index #nameIndex {
+    color: white;
+    background-color: gray;
+    font-size: 1em;
+    background-position: center;
+    cursor: pointer;
+    border: 3px double rgb(119, 68, 14);
+    border-radius: 10px;
+    cursor: pointer;
+    width: 50%;
+    height: 30px;
+    text-align: center;
+
+
+}
+
+
+
+
+/*div mensaje texto user error*/
+body.page-index #longUser {
+    text-align: center;
+
+    margin: 0 auto;
+}
+
+
+
+
+/*texto mensaje error user*/
+body.page-index #longUser h3 {
+    visibility: hidden;
+    /*poner visible para ver mensaje*/
+    font-size: 1.4em;
+    font-weight: bold;
+}
 
 /* THIS + .yellowBox*/
 body.page-index div.main_container {
@@ -1789,7 +1855,7 @@ body.page-index div.main_container {
     display: flex;
     flex-direction: column;
     justify-content: center;
-
+    align-items: center;
     overflow: hidden;
 
 }
