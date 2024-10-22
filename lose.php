@@ -65,7 +65,7 @@ if (isset($_POST['score']) && isset($_POST['score'])) {
     
     if (
         !isset($_SERVER['HTTP_REFERER']) ||
-        (strpos($_SERVER['HTTP_REFERER'], 'game.php') === false && strpos($_SERVER['HTTP_REFERER'], 'win.php') === false)
+        (strpos($_SERVER['HTTP_REFERER'], 'game.php') === false && strpos($_SERVER['HTTP_REFERER'], 'lose.php') === false)
     ) {
         // Si no es referida desde la página del juego, retorna un 403
         header('HTTP/1.1 403 Forbidden');

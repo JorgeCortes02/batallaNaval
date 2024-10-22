@@ -7,10 +7,10 @@ session_start();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $name = isset($_POST['name']) ? $_POST['name'] : 'No enviado';
-    $munition = isset($_POST['munition']) ? $_POST['munition'] : 'No enviado';
+    $munition = isset($_POST['munition']) && $_POST['munition'] == true ? true : false;
     $armor = isset($_POST['armor']) ? $_POST['armor'] : 'No enviado';
     $specialAtack = isset($_POST['specialAtack']) ? $_POST['specialAtack'] : 'No enviado';
-
+    echo var_dump($munition);
 }
 
 //zona horaria
@@ -567,16 +567,23 @@ $_SESSION["name"] = $name;
                         <img src="images/game_scoreIcon.png" alt="time_logo">
                         <p id="scoreDisplay">00000</p>
                     </div>
-                    <div class="ammo_container">
-                        <div class="playerAmmo">
-                            <img src="images/game_cannonIcon.png" alt="time_logo">
-                            <p id="playerAmmoTag">40 (PLAYER)</p>
-                        </div>
-                        <div class="enemyAmmo">
-                            <img src="images/game_cannonIcon.png" alt="time_logo">
-                            <p id="enemyAmmoTag">40 (ENEMY)</p>
-                        </div>
-                    </div>
+
+                    <?php
+
+                    if ($munition === true) {
+                        echo "<div class='ammo_container'>";
+                        echo "<div class='playerAmmo'>";
+                        echo "<img src='images/game_cannonIcon.png' alt='time_logo'>";
+                        echo "<p id='playerAmmoTag'>40 (PLAYER)</p>";
+                        echo "</div>";
+                        echo "<div class='enemyAmmo'>";
+                        echo "<img src='images/game_cannonIcon.png' alt='time_logo'>";
+                        echo "<p id='enemyAmmoTag'>40 (ENEMY)</p>";
+                        echo "</div>";
+                        echo "</div>";
+                    }
+                    ?>
+
 
                 </div>
 

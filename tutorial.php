@@ -30,7 +30,7 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
 
         // Cerrar el archivo después de escribir
         fclose($openTXT);
-
+        header("Location: ranking.php");
         // Mensaje de éxito o redireccionamiento si es necesario
         echo "Puntuación guardada correctamente.";
     } else {

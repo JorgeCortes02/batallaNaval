@@ -22,7 +22,7 @@ var nowAttackPlayer = 0;
 var cellsPlayerTable = null;
 
 // this will be the map of the player table (will register remaining positions to hit --> td.element / water --> "X" / (touched/sunk) --> "O")
-var multidimensionalArrayOfEnemyShots = null; 
+var multidimensionalArrayOfEnemyShots = null;
 
 // Wait for the DOM to fully load before executing the script
 document.addEventListener("DOMContentLoaded", function () {
@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // this generates the multidimensional array using the array of all td.elements (cellPlayerTable)
-function generateMultidimiensionalArrayOfPlayerTableCells(arrayOfTableCells){
+function generateMultidimiensionalArrayOfPlayerTableCells(arrayOfTableCells) {
     let multidimensionalArray = [];
     for (let i = 0; i < arrayOfTableCells.length; i += 10) {
         multidimensionalArray.push(arrayOfTableCells.slice(i, i + 10));
@@ -140,39 +140,39 @@ function getSurroundings(positionX, positionY) {
     if (positionX === 0 && positionY === 0) {
         surroundings.push(multidimensionalArrayOfEnemyShots[positionX][positionY + 1]);
         surroundings.push(multidimensionalArrayOfEnemyShots[positionX + 1][positionY]);
-    // TOP-RIGHT
+        // TOP-RIGHT
     } else if (positionX === 0 && positionY === maxIndex) {
         surroundings.push(multidimensionalArrayOfEnemyShots[positionX + 1][positionY]);
         surroundings.push(multidimensionalArrayOfEnemyShots[positionX][positionY - 1]);
-    // BOTTOM-LEFT
+        // BOTTOM-LEFT
     } else if (positionX === maxIndex && positionY === 0) {
         surroundings.push(multidimensionalArrayOfEnemyShots[positionX - 1][positionY]);
         surroundings.push(multidimensionalArrayOfEnemyShots[positionX][positionY + 1]);
-    // BOTTOM-RIGHT
+        // BOTTOM-RIGHT
     } else if (positionX === maxIndex && positionY === maxIndex) {
         surroundings.push(multidimensionalArrayOfEnemyShots[positionX - 1][positionY]);
         surroundings.push(multidimensionalArrayOfEnemyShots[positionX][positionY - 1]);
-    // TOP EDGE
+        // TOP EDGE
     } else if (positionX === 0) {
         surroundings.push(multidimensionalArrayOfEnemyShots[positionX][positionY + 1]);
         surroundings.push(multidimensionalArrayOfEnemyShots[positionX + 1][positionY]);
         surroundings.push(multidimensionalArrayOfEnemyShots[positionX][positionY - 1]);
-    // BOTTOM EDGE
+        // BOTTOM EDGE
     } else if (positionX === maxIndex) {
         surroundings.push(multidimensionalArrayOfEnemyShots[positionX - 1][positionY]);
         surroundings.push(multidimensionalArrayOfEnemyShots[positionX][positionY - 1]);
         surroundings.push(multidimensionalArrayOfEnemyShots[positionX][positionY + 1]);
-    // LEFT EDGE
+        // LEFT EDGE
     } else if (positionY === 0) {
         surroundings.push(multidimensionalArrayOfEnemyShots[positionX - 1][positionY]);
         surroundings.push(multidimensionalArrayOfEnemyShots[positionX][positionY + 1]);
         surroundings.push(multidimensionalArrayOfEnemyShots[positionX + 1][positionY]);
-    // RIGHT EDGE
+        // RIGHT EDGE
     } else if (positionY === maxIndex) {
         surroundings.push(multidimensionalArrayOfEnemyShots[positionX - 1][positionY]);
         surroundings.push(multidimensionalArrayOfEnemyShots[positionX][positionY - 1]);
         surroundings.push(multidimensionalArrayOfEnemyShots[positionX + 1][positionY]);
-    // MIDDLE
+        // MIDDLE
     } else {
         surroundings.push(multidimensionalArrayOfEnemyShots[positionX - 1][positionY]);
         surroundings.push(multidimensionalArrayOfEnemyShots[positionX + 1][positionY]);
@@ -203,26 +203,26 @@ function enemyTurn() {
         generateSound("canonEnemy");
 
         // IMPLEMENTATION OF IA LOGIC TO GET POSITION
-        if(!isPromptEnabledForIASelectShotsPosition){
+        if (!isPromptEnabledForIASelectShotsPosition) {
 
             // If there isn't prompt enabled, will take a random position
-            
+
             indexOfSelectedCellInArray = getRandomNumber(cellsPlayerTable.length); // Generate a random position on the player's table of cells
             actualCell = cellsPlayerTable[indexOfSelectedCellInArray]; // Get the actual cell at the random position
             // update IA selected row and column (to change value to "X" or "O" in the multidimensional map of shots)
-            updateSelectedRowAndSelectedColumnOfEnemyIA(actualCell, multidimensionalArrayOfEnemyShots); 
+            updateSelectedRowAndSelectedColumnOfEnemyIA(actualCell, multidimensionalArrayOfEnemyShots);
 
         } else {
             // possiblePositionsForIAShot = maximum will be [top, bottom, left Y right];
             // get one cell in the array of possibilites (generated after touch position from tthe multidimensionalArray)
-            randomCellOfPossiblePositions = possiblePositionsForIAShot[getRandomNumber(possiblePositionsForIAShot.length)]; 
+            randomCellOfPossiblePositions = possiblePositionsForIAShot[getRandomNumber(possiblePositionsForIAShot.length)];
             // delete selected cell from possible position array
             indexOfCellToDeleteInPossiblePositionsForIAShot = possiblePositionsForIAShot.indexOf(randomCellOfPossiblePositions);
-            possiblePositionsForIAShot.splice(indexOfCellToDeleteInPossiblePositionsForIAShot, 1); 
+            possiblePositionsForIAShot.splice(indexOfCellToDeleteInPossiblePositionsForIAShot, 1);
             // obtain index of cell selected from possible positions in the cellsPlayerTable (to get the index to delete after)
-            indexOfSelectedCellInArray = cellsPlayerTable.indexOf(randomCellOfPossiblePositions); 
+            indexOfSelectedCellInArray = cellsPlayerTable.indexOf(randomCellOfPossiblePositions);
             // Get the actual cell based on index of matching element
-            actualCell = cellsPlayerTable[indexOfSelectedCellInArray]; 
+            actualCell = cellsPlayerTable[indexOfSelectedCellInArray];
             // update IA selected row and column with the position of the actual cell 
             // (to change value to "X" or "O" in the multidimensional map of shots)
             updateSelectedRowAndSelectedColumnOfEnemyIA(actualCell, multidimensionalArrayOfEnemyShots);
@@ -266,15 +266,15 @@ function enemyTurn() {
                 // Change the color of the cell based on the result
                 if (stateCell === "water") {
                     actualCell.style.background = "blue";  // Missed the target, hit water
-                    
+
                     // change value to water in the map of the player table for IA available shots
                     multidimensionalArrayOfEnemyShots[iaSelectedRow][iaSelectedColumn] = "X";
 
                     // If there wasn't prompt, everything is the same (random positions to look for new boats)
                     // If there's prompt, then have to check...
-                    if(isPromptEnabledForIASelectShotsPosition) {
+                    if (isPromptEnabledForIASelectShotsPosition) {
                         // If there are possible positions to check, nothing changes (will check remanining positions in next turn)
-                        if (possiblePositionsForIAShot.length === 0){
+                        if (possiblePositionsForIAShot.length === 0) {
                             // if there are not possible possitions, (len == 0) 
                             // then there isn't prompt and returns to initial state (random position to look for new boats)
                             isPromptEnabledForIASelectShotsPosition = false;
@@ -283,33 +283,33 @@ function enemyTurn() {
 
                 } else if (stateCell === "touched") {
                     actualCell.style.background = "orange";  // Hit a target, but not sunk yet
-               
-                     // change value to water in the map of the player table for IA available shots
-                     multidimensionalArrayOfEnemyShots[iaSelectedRow][iaSelectedColumn] = "O";
-                    
-                     // getValidPositionsForTouch will get the nearby positions without those than have been hit (O) or water (X)
-                     // so will return array with only available positions to hit eraby the touched positions
- 
-                     // If there isn't prompt, then have to generate one, because touched means top/right/left/bottom must be a boat
-                     if(!isPromptEnabledForIASelectShotsPosition) {
-                         // so it activates prompt
-                         isPromptEnabledForIASelectShotsPosition = true;
-                         // returns array of possible possitions
-                         possiblePositionsForIAShot = getValidPositionsForTouch(iaSelectedRow, iaSelectedColumn)
- 
-                     } else {
 
-                         // second hit and following with available position (because first hit won't have activated prompt)
-                         // returns array of new possible positions after selected row and column of ia have moved to new position 
-                         // (position of selected cell from the array of possible positions given before).
-                         possiblePositionsForIAShot = getValidPositionsForTouch(iaSelectedRow, iaSelectedColumn)
+                    // change value to water in the map of the player table for IA available shots
+                    multidimensionalArrayOfEnemyShots[iaSelectedRow][iaSelectedColumn] = "O";
 
-                     }
+                    // getValidPositionsForTouch will get the nearby positions without those than have been hit (O) or water (X)
+                    // so will return array with only available positions to hit eraby the touched positions
+
+                    // If there isn't prompt, then have to generate one, because touched means top/right/left/bottom must be a boat
+                    if (!isPromptEnabledForIASelectShotsPosition) {
+                        // so it activates prompt
+                        isPromptEnabledForIASelectShotsPosition = true;
+                        // returns array of possible possitions
+                        possiblePositionsForIAShot = getValidPositionsForTouch(iaSelectedRow, iaSelectedColumn)
+
+                    } else {
+
+                        // second hit and following with available position (because first hit won't have activated prompt)
+                        // returns array of new possible positions after selected row and column of ia have moved to new position 
+                        // (position of selected cell from the array of possible positions given before).
+                        possiblePositionsForIAShot = getValidPositionsForTouch(iaSelectedRow, iaSelectedColumn)
+
+                    }
 
                 } else if (stateCell === "sunk") {
 
                     actualCell.style.background = "red";  // Enemy horde has been sunk
-                
+
                     // change value to hit in the map of the player table for IA available shots
                     multidimensionalArrayOfEnemyShots[iaSelectedRow][iaSelectedColumn] = "O";
                     // If sunk, return to initial state (IA will check for random positions to look for new hordes)
@@ -404,7 +404,7 @@ function easterEggEvent() {
 
     score += 7000;
     updateScoreDisplay(score);
-    
+
     // Generate sound of the Easter Egg (--> will trigger indiana jones arrayOfSounds[5])
     generateSound("easterEgg");
 }
@@ -668,7 +668,7 @@ function turnACell(e) {
     const value = e.target.value; // Get the value of the clicked button
 
     disableTable();
-    
+
     stateCell = sumFoundPositions(value, selectesPlayerHorders); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
 
     // Change the class from "tableButton" to "button-disabled"
@@ -841,50 +841,6 @@ function checkIfTouchedOrSunk(indexArray, numHorder, longHorder, selectesHorders
     }
 }
 
-
-
-// Function to generate buttons for ranking and home
-function generateRankingAndHomeButtons() {
-    // Get the scoreboard container element
-    let scoreBoard = document.getElementsByClassName("scoreboard")[0];
-
-    // Create a new div for the final game buttons
-    let newDiv = document.createElement("div");
-    newDiv.className = "divButtonsFinalGame";
-
-    // Create the "Home" button
-    let buttonHome = document.createElement("button");
-    buttonHome.innerText = "Inici"; // Set the button text to "Inicio" (Home)
-
-    // Create the "Hall of Fame" button
-    let buttonHall = document.createElement("button");
-    buttonHall.innerText = "Hall of Fame"; // Set the button text
-
-    // Add an event listener to redirect to the home page when clicked
-    buttonHome.addEventListener("click", function () {
-        window.location.href = "index.php"; // Redirect to index.php
-    });
-
-    // Add an event listener to redirect to the ranking page when clicked
-    buttonHall.addEventListener("click", function () {
-        window.location.href = "ranking.php"; // Redirect to ranking.php
-    });
-    // Create the "Guardar Record" button
-    let buttonSaveRecord = document.createElement("button");
-    buttonSaveRecord.innerText = "Guardar Record"; // Set the button text for save record
-
-    // Add an event listener to open the popup for saving record when clicked
-    buttonSaveRecord.addEventListener("click", function () {
-        openModal(); // Llama a la función para abrir el modal
-    });
-
-    // Append the buttons to the new div
-    newDiv.appendChild(buttonHome);
-    newDiv.appendChild(buttonHall);
-    newDiv.appendChild(buttonSaveRecord);
-    // Append the new div to the scoreboard container
-    scoreBoard.appendChild(newDiv);
-}
 
 //Function for generate de sounds
 function generateSound(inputOfGame) {

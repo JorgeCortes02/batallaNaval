@@ -1900,7 +1900,6 @@ body.page-index #nameIndex {
 /*div mensaje texto user error*/
 body.page-index #longUser {
     text-align: center;
-
     margin: 0 auto;
 }
 
@@ -1918,14 +1917,12 @@ body.page-index #longUser h3 {
 /* THIS + .yellowBox*/
 body.page-index div.main_container {
 
-    width: 45%;
-    height: auto;
+    width: auto;
+    height: 60%;
     max-width: 800px;
     padding: 1.75%;
     color: rgb(59, 36, 11);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-
-
     display: flex;
     flex-direction: column;
     justify-content: center;

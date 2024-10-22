@@ -50,9 +50,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Rellenar los campos ocultos del formulario combinado
         combinedForm.elements['name'].value = nombreValor;
-        combinedForm.elements['munition'].value = checkboxValues.includes("Option 1") ? "true" : "false";
-        combinedForm.elements['armor'].value = checkboxValues.includes("Option 2") ? "true" : "false";
-        combinedForm.elements['specialAtack'].value = checkboxValues.includes("Option 3") ? "true" : "false";
+        combinedForm.elements['munition'].value = checkboxValues.includes("Option 1") ? true : false;
+        combinedForm.elements['armor'].value = checkboxValues.includes("Option 2") ? true : false;
+        combinedForm.elements['specialAtack'].value = checkboxValues.includes("Option 3") ? true : false;
 
 
         // Enviar el formulario
