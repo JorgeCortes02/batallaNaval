@@ -22,7 +22,7 @@
             </div>
         </noscript>
         <form id="combinedForm" action="game.php" method="POST" style="display:none;">
-            <input type="hidden" name="nombre">
+            <input type="hidden" name="name">
             <input type="hidden" name="munition">
             <input type="hidden" name="armor">
             <input type="hidden" name="specialAtack">
@@ -72,7 +72,7 @@
         <div class="button_container">
             <a id="toTutoA" class="aDisabled" href="tutorial.php"><button id="initTuto"
                     class="button-disabled">Tutorial</button></a>
-            <a id="toGameA" class="aDisabled" href="tutorial.php"><button id="initGame" class="button-disabled">Partida
+            <a id="toGameA" class="aDisabled" href="game.php"><button id="initGame" class="button-disabled">Partida
                     Classica</button></a>
             <a class="aActive" href="ranking.php"><button id="goToHall" class="buttonActive">HALL OF FAME</button></a>
         </div>
