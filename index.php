@@ -21,13 +21,34 @@
                 jugar.
             </div>
         </noscript>
-        <form id="formulario_combinado" action="game.php" method="POST" style="display:none;">
+        <form id="combinedForm" action="game.php" method="POST" style="display:none;">
             <input type="hidden" name="nombre">
             <input type="hidden" name="munition">
             <input type="hidden" name="armor">
             <input type="hidden" name="specialAtack">
         </form>
-        <h1>LOST IN THE SANDS</h1>
+
+        <div id="options">
+            <h1>LOST IN THE SANDS</h1>
+            <button class="image-button">
+                <img src="images/icons8-gears-50.png" alt="Gears Icon">
+
+            </button>
+        </div>
+        <form id="optionsForm">
+            <div id="checkboxes">
+                <h3>Selecciona opcions:</h3>
+                <label>
+                    <input type="checkbox" name="options" value="Option 1"> Munició il.limitada
+                </label><br>
+                <label>
+                    <input type="checkbox" name="options" value="Option 2" disabled> Acorassats
+                </label><br>
+                <label>
+                    <input type="checkbox" name="options" value="Option 3" disabled> Munició il.limitada
+                </label><br>
+            </div>
+        </form>
         <p>Endinsa't en el fascinant món de l'antic Egipte en aquest emocionant joc de batalla naval!
             Enmig de les misterioses dunes del desert i sota el sol abrasador, hauràs de comandar la teva pròpia flota
             per enfrontar-te
