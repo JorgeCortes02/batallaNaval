@@ -3,7 +3,7 @@ var selectesPlayerHorders = [[0], [0, 0], [0, 0, 0], [0, 0, 0, 0]];
 var selectesEnemyHorders = [[0], [0, 0], [0, 0, 0], [0, 0, 0, 0]];
 
 // MODES ACTIVATED
-var ammoEnabled = true; // (get from game.php) --> true para pruebas
+// (get from game.php) --> true para pruebas
 
 // MODES VARIABLES
 var playerAmmo = 7; // document.getElementById("playerAmmoTag");

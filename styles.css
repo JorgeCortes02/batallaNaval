@@ -1774,13 +1774,153 @@ body.page-game div.main_container div.game_boards table.enemy_board .touch {
 
 
 /* INDEX ------------------------------------ */
+/*div de formularior*/
+#options {
+
+    width: 100%;
+
+    display: flex;
+    display: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.image-button {
+    background-color: #000000;
+    /* Color de fondo del botón */
+    width: 60px;
+    height: 60px;
+    border: none;
+    /* Sin borde */
+    color: white;
+    /* Color del texto */
+    padding: 10px 20px;
+    /* Espaciado interno */
+    text-align: center;
+    /* Centrar el texto */
+    text-decoration: none;
+    /* Sin subrayado */
+    display: flex;
+    /* Para alinear imagen y texto */
+    align-items: center;
+    justify-content: center;
+    /* Alinear verticalmente */
+    border-radius: 25px;
+    /* Bordes redondeados */
+    cursor: pointer;
+    /* Cambia el cursor al pasar */
+    transition: background-color 0.3s;
+    /* Efecto de transición */
+    margin-left: 20px;
+}
+
+.image-button img {
+
+    width: 40px;
+    /* Ancho de la imagen */
+    height: auto;
+    /* Mantiene la proporción */
+}
+
+.image-button:hover {
+    background-color: rgb(59, 36, 11);
+
+    /* Color de fondo al pasar el ratón */
+}
+
+body.page-index #myForm {
+    width: 90%;
+    margin-bottom: 0;
+
+}
+
+#optionsForm {
+    margin: 0 auto;
+    width: 100%;
+    display: none;
+}
+
+#checkboxes {
+
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 0 auto;
+    border: 2px solid black;
+    border-radius: 20px;
+
+}
+
+/*div de poner user*/
+body.page-index #nameRecord {
+    gap: 20px;
+    text-align: center;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+/*etiqueta text area*/
+body.page-index #nameRecord label {
+
+    font-size: 1.4em;
+    width: 100%;
+    margin-right: 20px;
+
+}
+
+/*text arrea*/
+body.page-index #nameIndex {
+    color: white;
+    background-color: gray;
+    font-size: 1em;
+    background-position: center;
+    cursor: pointer;
+    border: 3px double rgb(119, 68, 14);
+    border-radius: 10px;
+    cursor: pointer;
+    width: 50%;
+    height: 30px;
+    text-align: center;
+
+
+}
+
+
+
+
+/*div mensaje texto user error*/
+body.page-index #longUser {
+    text-align: center;
+
+    margin: 0 auto;
+}
+
+
+
+
+/*texto mensaje error user*/
+body.page-index #longUser h3 {
+    visibility: hidden;
+    /*poner visible para ver mensaje*/
+    font-size: 1.4em;
+    font-weight: bold;
+}
 
 /* THIS + .yellowBox*/
 body.page-index div.main_container {
 
     width: 45%;
     height: auto;
-
+    max-width: 800px;
     padding: 1.75%;
     color: rgb(59, 36, 11);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
@@ -1789,7 +1929,7 @@ body.page-index div.main_container {
     display: flex;
     flex-direction: column;
     justify-content: center;
-
+    align-items: center;
     overflow: hidden;
 
 }
