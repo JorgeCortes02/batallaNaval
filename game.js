@@ -2,8 +2,6 @@
 var selectesPlayerHorders = [[0], [0, 0], [0, 0, 0], [0, 0, 0, 0]];
 var selectesEnemyHorders = [[0], [0, 0], [0, 0, 0], [0, 0, 0, 0]];
 
-// MODES ACTIVATED
-// (get from game.php) --> true para pruebas
 
 // MODES VARIABLES
 var playerAmmo = 7; // document.getElementById("playerAmmoTag");
@@ -72,7 +70,7 @@ function changeTurn() {
 
 
             changeTurnText("turn0");
-            changeBackgorundNotificationColor();
+            changeBackgroundNotificationColor();
         }, 2000);
         // Activate the player's table for interaction
         activeTable()
@@ -85,7 +83,7 @@ function changeTurn() {
 
         setTimeout(() => {
             changeTurnText("turn1");
-            changeBackgorundNotificationColor();
+            changeBackgroundNotificationColor();
             // Aquí es donde registras el evento click para el tablero enemigo
             tableEnemy.addEventListener("click", showNotification);
 
@@ -310,7 +308,7 @@ function generateNotificationWithAction(typeNotification) {
     paragrafNotification.classList.add("slide-in");
 }
 
-function changeBackgorundNotificationColor() {
+function changeBackgroundNotificationColor() {
     const divNoti = document.getElementById("notificationContainer");
     if (nowAttackPlayer == 0) {
 
