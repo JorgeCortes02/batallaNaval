@@ -1,47 +1,48 @@
 <?php
 
-//zona horaria
-date_default_timezone_set('Europe/Madrid'); // Cambia 'Europe/Madrid' a la zona horaria que necesites
+// Establecer la zona horaria
+date_default_timezone_set('Europe/Madrid');
 
-
-// Inicializamos la variable por defecto para evitar errores.
+// Inicializar variables para evitar errores
 $name = "";
+$score = "";
 
-// Verificar si se envió el formulario
+// Verificar si se envió el formulario y se recibieron los datos necesarios
 if (isset($_POST['name']) && isset($_POST['score'])) {
     $name = $_POST['name'];
     $score = $_POST['score'];
 
-    // Validación del nombre
+    // Validar la longitud del nombre
     if (strlen($name) < 3 || strlen($name) > 30) {
-
         echo "El nombre debe tener entre 3 y 30 caracteres.";
-        exit; // Detener la ejecución del script
+        exit; // Detener el script si la validación falla
     }
 
-    $date = date('Y-m-d H:i'); // Formato de fecha y hora
+    // Obtener la fecha actual
+    $date = date('Y-m-d H:i');
 
-
-
+    // Abrir el archivo de texto en modo de agregar
     $openTXT = fopen("ranking.txt", "a");
 
-
-
     if ($openTXT) {
+        // Escribir en el archivo el nombre, la puntuación y la fecha
+        fwrite($openTXT, $name . ';' . $score . ';' . $date . "\n");
 
+        // Cerrar el archivo después de escribir
+        fclose($openTXT);
 
-        fwrite($openTXT, $name . ';' . $score . ';' . $date . "\n");//esribimos
-
-        fclose($openTXT); // Cerramos el archivo después de escribir
-
+        // Mensaje de éxito o redireccionamiento si es necesario
+        echo "Puntuación guardada correctamente.";
     } else {
-        echo "";
+        echo "No se pudo abrir el archivo.";
     }
 
+} else {
+    echo "Datos no válidos.";
 }
 
-
 ?>
+
 
 
 
@@ -497,12 +498,12 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
         </div>
     </div>
 
-    <div id="notificationsDiv">
-        <div class="notification" id="victoryNotification">Has guanyat!</div>
-        <div class="notification" id="sunkNotification">Has eliminat tota l'horda!</div>
-        <div class="notification" id="touchedNotification">Has eliminat un enemic!</div>
-        <div class="notification" id="gameoverNotification">Has perdut!</div>
-        <div class="notification" id="waterNotification">Directe a l'aigua!</div>
+    <div id="notiDiv">
+        <div class="noti" id="victoryNotification">Has guanyat!</div>
+        <div class="noti" id="sunkNotification">Has eliminat tota l'horda!</div>
+        <div class="noti" id="touchedNotification">Has eliminat un enemic!</div>
+        <div class="noti" id="gameoverNotification">Has perdut!</div>
+        <div class="noti" id="waterNotification">Directe a l'aigua!</div>
     </div>
 
     <div class="PrincipalDiv">
@@ -532,16 +533,25 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
                 </div>
 
             </div>
+
+            <div id="divButtonsFinalGame">
+                <button id="buttonHome">Inici</button>
+                <button id="buttonHall">Hall of Fame</button>
+                <button id="buttonSaveRecord">Guardar Record</button>
+            </div>
+
             <div id="popup" class="modal">
                 <div class="windowsForm">
                     <span class="close">&times;</span>
 
-                    <form id="myForm" method="POST" action="game.php">
+                    <form id="myForm" method="POST" action="tutorial.php">
                         <label for="name">Introdueix el Nom:</label><br>
                         <input type="text" id="name" name="name" value="" required><br><br>
-                        <!-- Contenedor para mensajes de largo nombre -->
+                        <!-- Puntaje oculto para que se envíe junto con el nombre -->
+                        <input type="hidden" id="scoreDisplayText" name="score" value="00000">
                         <div id="longName"></div><br>
                         <button type="submit">Guardar</button>
+                    </form>
                 </div>
             </div>
         </div>

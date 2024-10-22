@@ -4,7 +4,7 @@ session_start();
 
 //zona horaria
 date_default_timezone_set('Europe/Madrid'); // Cambia 'Europe/Madrid' a la zona horaria que necesites
-
+$_SESSION["name"] = "Jorge";
 
 // Inicializamos la variable por defecto para evitar errores.
 $name = "";
@@ -560,7 +560,7 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
             <h3 id="turn" class="notificationPlayerTurn">Toca per començar!</h3> <!-- turn -->
             <div class="timer">
                 <img src="images/tiempo-pasado.png" alt="time_logo">
-                <h3>20:00:00</h3> <!-- time -->
+                <time id="chronometer" datetime="clock">00:00:00</time>
             </div>
         </div>
 

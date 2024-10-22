@@ -16,7 +16,7 @@ const buttons = document.getElementsByClassName("tableButton");
 
 
 //Array with the game sounds
-const gameSounds = [new Audio('sounds/water1.mp3'), new Audio('sounds/victory.mp3'), new Audio('sounds/perfect.mp3'), new Audio('sounds/gameover.mp3'), new Audio('sounds/zombie.mp3'), new Audio('sounds/IndianaJonesTheme.mp3'), new Audio("sounds/cañonEnemigo.mp3")];
+const gameSounds = [new Audio('sounds/water1.mp3'), new Audio('sounds/perfect.mp3'), new Audio('sounds/zombie.mp3'), new Audio('sounds/IndianaJonesTheme.mp3'), new Audio("sounds/cañonEnemigo.mp3")];
 
 var nowAttackPlayer = 0;
 var cellsPlayerTable = null;
@@ -673,29 +673,23 @@ function generateSound(inputOfGame) {
             gameSounds[0].play();
             break;
 
-        case "victory":
-            gameSounds[1].play();
-            break;
 
         case "sunk":
 
-            gameSounds[2].play();
+            gameSounds[1].play();
             break;
         case "touched":
 
-            gameSounds[4].play();
+            gameSounds[2].play();
             break;
 
-        case "gameover":
+
+        case "easterEgg":
             gameSounds[3].play();
             break;
 
-        case "easterEgg":
-            gameSounds[5].play();
-            break;
-
         case "canonEnemy":
-            gameSounds[6].play();
+            gameSounds[4].play();
             break;
     }
 
@@ -714,46 +708,6 @@ let score = 0; // Puntaje inicial
 let startTime;
 let timerInterval;
 let elapsedTime = 0; // Variable para almacenar el tiempo transcurrido
-
-// Formatear el tiempo
-function formatTime(ms) {
-    let seconds = Math.floor(ms / 1000) % 60;
-    let minutes = Math.floor(ms / (1000 * 60)) % 60;
-    let hours = Math.floor(ms / (1000 * 60 * 60));
-
-    // Agregar ceros a la izquierda
-    hours = (hours < 10) ? "0" + hours : hours;
-    minutes = (minutes < 10) ? "0" + minutes : minutes;
-    seconds = (seconds < 10) ? "0" + seconds : seconds;
-
-    return `${hours}:${minutes}:${seconds}`;
-}
-
-
-
-// Función para obtener el tiempo transcurrido en segundos
-function getElapsedTimeInSeconds() {
-    return Math.floor(elapsedTime / 1000); // Devuelve el tiempo en segundos
-}
-
-// Función para detener el cronómetro
-function stopTimer() {
-    clearInterval(timerInterval); // Detener el cronómetro
-}
-
-
-//para ver tiempo transcurrido
-setInterval(() => {
-    console.log("Tiempo transcurrido en segundos: " + getElapsedTimeInSeconds());
-}, 5000); // Muestra el tiempo cada 5 segundos
-
-
-
-
-// Detener cronómetro cuando la página se cierra o se cambia de pestaña
-window.onbeforeunload = function () {
-    clearInterval(timerInterval);
-};
 
 
 
@@ -813,73 +767,55 @@ function getScore(currentScore, message) {
 }
 
 
-document.addEventListener("DOMContentLoaded", function () {
 
-    // Obtener elementos del DOM
-    var modal = document.getElementById("popup"); // El modal principal
-    var ow = document.getElementById("openWindows"); // El botón que abre el modal
-    var span = document.getElementsByClassName("close")[0]; // El botón de cierre (X)
 
-    /*
-    // Cerrar el modal cuando se hace clic en la "X"
-    span.onclick = function () {
-        modal.style.display = "none"; // Ocultar el modal
-        clearForm(); // Limpiar el formulario al cerrar el modal
-    };
-    */
-    // Cerrar el modal al hacer clic fuera del contenido del modal
-    window.onclick = function (event) {
-        if (event.target == modal) {
-            modal.style.display = "none"; // Ocultar el modal si se hace clic fuera
-            clearForm(); // Limpiar el formulario al cerrar el modal
-        }
-    };
-/*
-    // Añadir el listener para el envío del formulario
-    document.getElementById('myForm').addEventListener('submit', function (e) {
-        e.preventDefault(); // Prevenir el envío del formulario por defecto
+// Formatear el tiempo
+function formatTime(ms) {
+    let seconds = Math.floor(ms / 1000) % 60;
+    let minutes = Math.floor(ms / (1000 * 60)) % 60;
+    let hours = Math.floor(ms / (1000 * 60 * 60));
 
-        const name = document.getElementById('name').value; // Captura el nombre ingresado por el usuario
-        const score = parseInt(document.getElementById('scoreDisplay').textContent); // Obtener el puntaje del marcador
+    // Agregar ceros a la izquierda
+    hours = (hours < 10) ? "0" + hours : hours;
+    minutes = (minutes < 10) ? "0" + minutes : minutes;
+    seconds = (seconds < 10) ? "0" + seconds : seconds;
 
-        const longNameMessage = document.getElementById('longName');
-        longNameMessage.style.display = 'none'; // Limpiar mensaje anterior
+    return `${hours}:${minutes}:${seconds}`;
+}
 
-        // Validar longitud del nombre
-        if (name.length < 3 || name.length > 30) {
-            longNameMessage.textContent = "El nom ha de tenir entre 3 i 30 caràcters.";
-            longNameMessage.style.display = 'block'; // Mostrar el mensaje de error
-        } else {
-            // Crear un objeto FormData para enviar el nombre y el puntaje al PHP
-            const formData = new FormData();
-            formData.append('name', name);
-            formData.append('score', score);
+// Iniciar cronómetro cuando se carga la página
+window.onload = function () {
+    startTime = new Date().getTime(); // Tiempo de inicio
+    timerInterval = setInterval(function () {
+        let currentTime = new Date().getTime();
+        let elapsedTime = currentTime - startTime;
+        document.querySelector("#chronometer").textContent = formatTime(elapsedTime);
+        //document.querySelector("#chronometer").style.color = "#3b240b"; 
 
-            // Enviar los datos al PHP mediante fetch
-            fetch('game.php', {
-                method: 'POST',
-                body: formData
-            })
-                .then(response => response.text())
-                .then(data => {
-                    console.log('Respuesta del servidor:', data);
-                    // Cerrar el modal después de guardar
-                    modal.style.display = "none";
-                    clearForm(); // Limpiar formulario después de enviar
-                })
-                .catch(error => {
-                    console.error('Error al guardar el score:', error);
-                });
-        }
-    });
+    }, 1000); // Actualizar cada segundo
+};
 
-    // Función para limpiar el formulario
-    function clearForm() {
-        document.getElementById('myForm').reset(); // Limpia todos los campos del formulario
-        const longNameMessage = document.getElementById('longName');
-        longNameMessage.style.display = 'none'; // Oculta el mensaje de error
-    }
-});
-*/});
+// Función para obtener el tiempo transcurrido en segundos
+function getElapsedTimeInSeconds() {
+    return Math.floor(elapsedTime / 1000); // Devuelve el tiempo en segundos
+}
 
+// Función para detener el cronómetro
+function stopTimer() {
+    clearInterval(timerInterval); // Detener el cronómetro
+}
+
+
+//para ver tiempo transcurrido
+setInterval(() => {
+    console.log("Tiempo transcurrido en segundos: " + getElapsedTimeInSeconds());
+}, 5000); // Muestra el tiempo cada 5 segundos
+
+
+
+
+// Detener cronómetro cuando la página se cierra o se cambia de pestaña
+window.onbeforeunload = function () {
+    clearInterval(timerInterval);
+};
 
