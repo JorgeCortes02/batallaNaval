@@ -39,13 +39,13 @@
             <div id="checkboxes">
                 <h3>Selecciona opcions:</h3>
                 <label>
-                    <input type="checkbox" name="options" value="Option 1"> Munició il.limitada
+                    <input type="checkbox" name="options" value="Option 1"> Munició Limitada
                 </label><br>
                 <label>
-                    <input type="checkbox" name="options" value="Option 2" disabled> Acorassats
+                    <input type="checkbox" name="options" value="Option 2" disabled> Acoirassats
                 </label><br>
                 <label>
-                    <input type="checkbox" name="options" value="Option 3" disabled> Munició il.limitada
+                    <input type="checkbox" name="options" value="Option 3" disabled> Atac Especial
                 </label><br>
             </div>
         </form>

@@ -39,8 +39,10 @@ function easterEggEvent() {
         easterEggBox.style.display = "none";
     });
 
+    score += 7000;
+
     // Add points to score
-    updateScoreDisplay(score + 7000);
+    updateScoreDisplay(score);
 
     // Generate sound of the Easter Egg (--> will trigger indiana jones arrayOfSounds[5])
     generateSound("easterEgg");
@@ -123,7 +125,7 @@ function disableTableIfVictory() {
 // Function to handle cell click events
 function turnACell(e) {
     const value = e.target.value; // Get the value of the clicked button
-    stateCell = sumFoundPositions(value); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
+    stateCell = "victory" //sumFoundPositions(value); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
 
 
     // Change the class from "tableButton" to "button-disabled"
