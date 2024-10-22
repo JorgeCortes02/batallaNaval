@@ -6,8 +6,8 @@ var selectesEnemyHorders = [[0], [0, 0], [0, 0, 0], [0, 0, 0, 0]];
 var ammoEnabled = true; // (get from game.php) --> true para pruebas
 
 // MODES VARIABLES
-var playerAmmo = 40; // document.getElementById("playerAmmoTag");
-var enemyAmmo = 40; // document.getElementById("enemyAmmoTag");
+var playerAmmo = 7; // document.getElementById("playerAmmoTag");
+var enemyAmmo = 4; // document.getElementById("enemyAmmoTag");
 
 // Get all buttons with the class "tableButton"
 const buttons = document.getElementsByClassName("tableButton");
@@ -133,9 +133,10 @@ function enemyTurn() {
                 ammoTag.innerText = enemyAmmo + " (ENEMY)";
 
 
-                if (enemyAmmo <= 0 && stateCell != "victory") { //  checks if last click was victory to give win without comparation
+                // if both players have depleted it's ammo (if not, turn will change and the other player will end his ammo)
+                if (enemyAmmo <= 0 && playerAmmo <= 0 && stateCell != "victory") { //  checks if last click was victory to give win without comparation 
                     // returns victory or lose comparing how many boats have been sunk
-                    stateCell = checkMunitionDepletedToSeeIfWinOrLose(selectesPlayerHorders, selectesEnemyHorders, "enemy")
+                    stateCell = checkMunitionDepletedToSeeIfWinOrLose(selectesPlayerHorders, selectesEnemyHorders, "enemy");
                 }
 
             }
@@ -157,19 +158,42 @@ function enemyTurn() {
 
                 // Check if the game is over by verifying if the cell's state is "victory"
                 if (stateCell === "victory") {
-                    actualCell.style.background = "red";  // Change the background color to red
+
                     window.location.href = "lose.php?score=" + score;  // Redirect to the victory page
                 }
+                if (stateCell === "gameover") {
+                    disableTableIfVictory();
+                    window.location.href = "win.php?score=" + score;
 
-                console.log(cellsPlayerTable.length);  // Log the remaining cells
+                    stopTimer(); // Detener el cronómetro
+                }
+
 
                 // If the enemy hit or sunk a target, continue with the enemy's turn
                 if (stateCell == "touched" || stateCell == "sunk") {
-                    console.log("enemy turn continues");
-                    enemyTurn();  // Recursive call to continue enemy attacks
+
+                    if (ammoEnabled) {
+
+                        if (enemyAmmo <= 0) {
+
+                            changeTurn();
+                        } else { enemyTurn(); }
+
+
+                    } else { enemyTurn(); }
+
                 } else {
-                    // Otherwise, switch turns and give control to the player
-                    changeTurn();
+
+                    if (ammoEnabled) {
+
+                        if (playerAmmo <= 0) {
+
+                            enemyTurn();
+                        } else { changeTurn(); }
+
+                    } else { changeTurn(); }
+
+
                 }
             }, 2000); // Delay to show the result before proceeding
 
@@ -430,6 +454,7 @@ function countSunkHordes(touchedHordes) {
 
 function checkMunitionDepletedToSeeIfWinOrLose(playerHordes, enemyHordes, turn) {
     // Count how many hordes have been defeated by player and enemy side
+    // Turn is "player" or "enemy", cause results will be inverted depending who has the turn
     playerSunkHorderCount = countSunkHordes(playerHordes);
     enemySunkHorderCount = countSunkHordes(enemyHordes);
 
@@ -437,21 +462,39 @@ function checkMunitionDepletedToSeeIfWinOrLose(playerHordes, enemyHordes, turn) 
         if (turn === "player") {
             return "victory";
         } else {
-            return "lose";
+            return "gameover";
         }
-    } else if (playerSunkHorderCount === enemySunkHorderCount) { // QUE HACER EN CASO DE EMPATE?
+    } else if (playerSunkHorderCount === enemySunkHorderCount) { // Draw in sunk hordes
 
-        console.log("EMPATE")
-        return "EMPATE"
-
+        // Sum values of player touched vs IA touched. Highest wins (draw --> victory for IA). 
+        sumOfTouchedPlayerPositions = playerHordes.flat().reduce((acc, val) => acc + val, 0);
+        sumOfTouchedEnemyPositions = enemyHordes.flat().reduce((acc, val) => acc + val, 0);
+        if (turn === "player") {
+            if (sumOfTouchedPlayerPositions > sumOfTouchedEnemyPositions) { // player touched more hordes
+                return "victory";
+            } else if (sumOfTouchedPlayerPositions === sumOfTouchedEnemyPositions) { // draw in touched positions
+                return "gameover";
+            } else { // IA touched more hordes
+                return "gameover";
+            }
+        } else {
+            if (sumOfTouchedPlayerPositions > sumOfTouchedEnemyPositions) { // player touched more hordes
+                return "gameover";
+            } else if (sumOfTouchedPlayerPositions === sumOfTouchedEnemyPositions) { // draw in touched positions
+                return "victory";
+            } else { // IA touched more hordes
+                return "victory";
+            }
+        }
     } else {  // IA sank more hordes
         if (turn === "player") {
-            return "lose";
+            return "gameover";
         } else {
             return "victory";
         }
     }
 }
+
 var countFirtsPlayerAttack = 0;
 
 // Function to handle cell click events
@@ -467,7 +510,7 @@ function turnACell(e) {
 
     disableTable();
     score = 10000
-    stateCell = "victory"//sumFoundPositions(value, selectesPlayerHorders); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
+    stateCell = sumFoundPositions(value, selectesPlayerHorders); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
 
     // Change the class from "tableButton" to "button-disabled"
     e.target.classList.replace("tableButton", "button-disabled");
@@ -496,7 +539,7 @@ function turnACell(e) {
         ammoTag = document.getElementById("playerAmmoTag");
         ammoTag.innerText = playerAmmo + " (PLAYER)";
 
-        if (playerAmmo <= 0 && stateCell != "victory") { //  checks if last click was victory to give win without comparation
+        if (enemyAmmo <= 0 && playerAmmo <= 0 && stateCell != "victory") { //  checks if last click was victory to give win without comparation
             // returns victory or lose comparing how many boats have been sunk
             stateCell = checkMunitionDepletedToSeeIfWinOrLose(selectesPlayerHorders, selectesEnemyHorders, "player");
         }
@@ -506,13 +549,34 @@ function turnACell(e) {
         disableTableIfVictory();
         window.location.href = "win.php?score=" + score;
 
-        //stopTimer(); // Detener el cronómetro
+        stopTimer(); // Detener el cronómetro
     }
+    if (stateCell === "gameover") {
+        disableTableIfVictory();
+        window.location.href = "lose.php?score=" + score;
 
+        stopTimer(); // Detener el cronómetro
+    }
     if (stateCell !== "touched" && stateCell !== "sunk") {
-        changeTurn();
+        if (ammoEnabled) {
+
+            if (enemyAmmo <= 0) {
+
+                activeTable();
+            } else { changeTurn(); }
+
+        } else { changeTurn(); }
+
+
     } else {
-        activeTable();
+        if (ammoEnabled) {
+
+            if (playerAmmo <= 0) {
+
+                changeTurn();
+            } else { activeTable(); }
+
+        } else { activeTable(); }
 
     }
 }
