@@ -9,6 +9,8 @@ var selectesEnemyHorders = [[0], [0, 0], [0, 0, 0], [0, 0, 0, 0]];
 var playerAmmo = 40; // document.getElementById("playerAmmoTag");
 var enemyAmmo = 40; // document.getElementById("enemyAmmoTag");
 
+
+
 // Get all buttons with the class "tableButton"
 const buttons = document.getElementsByClassName("tableButton");
 
@@ -59,7 +61,7 @@ function generateMultidimiensionalArrayOfPlayerTableCells(arrayOfTableCells) {
     for (let i = 0; i < arrayOfTableCells.length; i += 10) {
         multidimensionalArray.push(arrayOfTableCells.slice(i, i + 10));
     }
-    console.log(multidimensionalArray);
+    // console.log(multidimensionalArray);
     return multidimensionalArray;
 }
 
@@ -763,7 +765,7 @@ function sumFoundPositions(positionString, selectesHorders) {
 
     // Split the positionString by comma to separate values
     const elements = positionString.split(",");
-    console.log(elements);
+    // console.log(elements);
     let numHorder = elements[1];  // Extract the number of the horde
     let longHorder = elements[0];  // Extract the length of the horde
     let indexArray = 0;
