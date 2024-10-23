@@ -1,26 +1,47 @@
 <?php
 
-session_start();
 
+// Establecer la zona horaria
+date_default_timezone_set('Europe/Madrid');
 
-// Verificar si los valores han sido recibidos correctamente
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+// Inicializar variables para evitar errores
+$name = "";
+$score = "";
+$name = isset($_POST['name']) ? $_POST['name'] : 'No enviado';
+// Verificar si se envió el formulario y se recibieron los datos necesarios
+if (isset($_POST['name']) && isset($_POST['score'])) {
+    $name = $_POST['name'];
+    $score = $_POST['score'];
 
-    $name = isset($_POST['name']) ? $_POST['name'] : 'No enviado';
-    $munition = isset($_POST['munition']) && $_POST['munition'] == "true" ? true : false;
-    $armor = isset($_POST['armor']) ? $_POST['armor'] : 'No enviado';
-    $specialAtack = isset($_POST['specialAtack']) ? $_POST['specialAtack'] : 'No enviado';
+    // Validar la longitud del nombre
+    if (strlen($name) < 3 || strlen($name) > 30) {
+        echo "El nombre debe tener entre 3 y 30 caracteres.";
+        exit; // Detener el script si la validación falla
+    }
+
+    // Obtener la fecha actual
+    $date = date('Y-m-d H:i');
+
+    // Abrir el archivo de texto en modo de agregar
+    $openTXT = fopen("ranking.txt", "a");
+
+    if ($openTXT) {
+        // Escribir en el archivo el nombre, la puntuación y la fecha
+        fwrite($openTXT, $name . ';' . $score . ';' . $date . "\n");
+
+        // Cerrar el archivo después de escribir
+        fclose($openTXT);
+        header("Location: ranking.php");
+        // Mensaje de éxito o redireccionamiento si es necesario
+        echo "Puntuación guardada correctamente.";
+    }
 
 }
-
-//zona horaria
-date_default_timezone_set('Europe/Madrid'); // Cambia 'Europe/Madrid' a la zona horaria que necesites
-$_SESSION["name"] = $name;
-
-
-
-
 ?>
+
+
+
+
 
 <!DOCTYPE html>
 <html lang="ca">
@@ -31,39 +52,30 @@ $_SESSION["name"] = $name;
     <title>Game</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
-    <script src="game.js"></script>
+    <script src="tutorial.js"></script>
 </head>
 
-<body class="page-game">
-
+<body class="page-tutorial">
     <?php
 
     $horders = [[1, 4], [2, 3], [3, 2], [4, 1]];  // Define an array of ship lengths (2, 3, 4, and 5).
     
-    $arrayPosicionsPlayer = array();  // Initialize an empty array to hold the positions on the player's board.
-    $arrayPosicionsEnemy = array();   // Initialize an empty array to hold the positions on the enemy's board.
+    $arrayPosiciones = array();  // Initialize an empty array to hold the positions on the board.
     
-    // Initialize the player's board by setting all positions to the default value.
-    initPosicionArray($arrayPosicionsPlayer);
-    // Generate random positions for the player's ships based on the $horders array.
-    generateRandomHorders($horders, $arrayPosicionsPlayer);
+    initPosicionArray($arrayPosiciones);
+    generateRandomHorders($horders, $arrayPosiciones);
 
-    // Initialize the enemy's board by setting all positions to the default value.
-    initPosicionArray($arrayPosicionsEnemy);
-    // Generate random positions for the enemy's ships based on the $horders array.
-    generateRandomHorders($horders, $arrayPosicionsEnemy);
-
-    // Function to initialize the positions array (representing the player's or enemy's board).
+    //Function for init the positionArray(the board of the players).
     function initPosicionArray(&$arrayPosiciones)
     {
-        // Loop through a 10x10 grid (board)
+
         for ($i = 0; $i <= 9; $i++) {
             for ($j = 0; $j <= 9; $j++) {
-                // Set each position on the board to the default value "^^^" (indicating an empty or unhit position).
                 $arrayPosiciones[$i][$j] = "^^^";
             }
         }
     }
+
     //Function for generate the random holders.
     function generateRandomHorders(&$horders, &$arrayPosiciones)
     {
@@ -134,7 +146,6 @@ $_SESSION["name"] = $name;
             }
         }
     }
-
     // Función para verificar si una posición es válida (sin tocar otros barcos)
     function isFreePosH($row, $column, $arrayPosiciones, $horderCount)
     {
@@ -433,78 +444,33 @@ $_SESSION["name"] = $name;
         return true;
     }
 
-    function printEnemyTable($arrayPosiciones)
+    function printTable($arrayPosiciones)
     {
-        // Variable to store the starting character (A) for column labels
         $char = 65;
-
-        // Loop to generate the rows of the table (i represents rows)
         for ($i = 0; $i <= 10; $i++) {
             echo "<tr>";
-
-            // Nested loop to generate the cells of each row (j represents columns)
             for ($j = 0; $j <= 10; $j++) {
 
-                // First cell in the top-left corner (i=0, j=0) contains a hidden "easter egg" butto
-                // Top-left corner cell (i=0, j=0) is empty
+
                 if ($i == 0 && $j == 0) {
                     echo "<td><button id='easterEggShowButton'></button></td>";
-                }
-                // Top row (i=0) labels the columns with letters (A, B, C, ...)
-                elseif ($i == 0 && $j != 0) {
-
-                    echo "<th>" . chr($char) . "</th>";
-                    $char += 1;  // Move to the next letter
                 } elseif ($i == 0 && $j != 0) {
 
-
                     echo "<th>" . chr($char) . "</th>";
-                    $char += 1;  // Move to the next letter
-                }
-                // First column (j=0) labels the rows with numbers (1, 2, 3, ...)
-                elseif ($i != 0 && $j == 0) {
+
+                    $char += 1;
+
+
+                } elseif ($i != 0 && $j == 0) {
+
+
                     echo "<th>$i</th>";
-                }
-                // The remaining cells represent the enemy's board
-                else {
-                    // Each button has a value from the $arrayPosiciones corresponding to the enemy's positions
+
+                } else {
+
+
                     echo "<td><button class='tableButton' value =" . $arrayPosiciones[$i - 1][$j - 1] . "></button></td>";
-                }
 
-            }
-            echo "</tr>";
-        }
-    }
-
-    function printPlayerTable($arrayPosiciones)
-    {
-        // Variable to store the starting character (A) for column labels
-        $char = 65;
-
-        // Loop to generate the rows of the table (i represents rows)
-        for ($i = 0; $i <= 10; $i++) {
-            echo "<tr>";
-
-            // Nested loop to generate the cells of each row (j represents columns)
-            for ($j = 0; $j <= 10; $j++) {
-
-                // Top-left corner cell (i=0, j=0) is empty
-                if ($i == 0 && $j == 0) {
-                    echo "<td></td>";
-                }
-                // Top row (i=0) labels the columns with letters (A, B, C, ...)
-                elseif ($i == 0 && $j != 0) {
-                    echo "<th>" . chr($char) . "</th>";
-                    $char += 1;  // Move to the next letter
-                }
-                // First column (j=0) labels the rows with numbers (1, 2, 3, ...)
-                elseif ($i != 0 && $j == 0) {
-                    echo "<th>$i</th>";
-                }
-                // The remaining cells represent the player's board
-                else {
-                    // Each cell contains a position from the $arrayPosiciones, with a 'data-value' attribute for the ship positions
-                    echo "<td class='playerCell' data-value='" . $arrayPosiciones[$i - 1][$j - 1] . "'></td>";
                 }
 
             }
@@ -519,9 +485,7 @@ $_SESSION["name"] = $name;
             jugar.
         </div>
     </noscript>
-    <?php echo "<script> var ammoEnabled = '$munition' </script>" ?>
-    <!-- Easter egg box generated by clicking on [0,0] in enemyTable generated -->
-    <!-- Display none by default -->
+
     <div id="easterEggMessageBox">
         <div class="easterEggMessageBoxTextWrapper">
             <p>Enhorabona!</p>
@@ -530,78 +494,63 @@ $_SESSION["name"] = $name;
         </div>
     </div>
 
-    <div class="main_container">
+    <div id="notiDiv">
+        <div class="noti" id="victoryNotification">Has guanyat!</div>
+        <div class="noti" id="sunkNotification">Has eliminat tota l'horda!</div>
+        <div class="noti" id="touchedNotification">Has eliminat un enemic!</div>
+        <div class="noti" id="gameoverNotification">Has perdut!</div>
+        <div class="noti" id="waterNotification">Directe a l'aigua!</div>
+    </div>
 
-        <div class="header_of_players yellowBox">
-            <h3><?php echo $_SESSION["name"] ?> vs IA</h3>
-            <h3 id="turn" class="notificationPlayerTurn">Toca per començar!</h3> <!-- turn -->
-            <div class="timer">
-                <img src="images/tiempo-pasado.png" alt="time_logo">
-                <time id="chronometer" datetime="clock">00:00:00</time>
-            </div>
-        </div>
+    <div class="PrincipalDiv">
+        <table>
 
-        <div id="notificationsDiv">
-            <div class="notification" id="victoryNotification">No pots atacar, es el torn de l'enemic.</div>
+            <?php
 
-        </div>
-        <div id="notificationContainer" class="divNotiPlayer">
-            <p id="notificationParagraf">Benvingut a la batalla! Es el teu torn jugador!</p>
-        </div>
+            printTable($arrayPosiciones);
 
-        <div class="game_boards">
-
-            <table class="enemy_board">
-
-                <?php
-
-                printEnemyTable($arrayPosicionsPlayer);
-                ?>
-
-            </table>
-
-            <div class="player_and_information_board">
-
-                <div class="information_board blackBox">
-                    <div class="single_element_container">
-                        <img src="images/game_scoreIcon.png" alt="time_logo">
-                        <p id="scoreDisplay">00000</p>
-                    </div>
-
-                    <?php
-
-                    if ($munition == true) {
-                        echo "<div class='ammo_container'>";
-                        echo "<div class='playerAmmo'>";
-                        echo "<img src='images/game_cannonIcon.png' alt='player Ammo Logo'>";
-                        echo "<p id='playerAmmoTag'>40 (PLAYER)</p>";
-                        echo "</div>";
-                        echo "<div class='enemyAmmo'>";
-                        echo "<img src='images/game_cannonIcon.png' alt='enemy Ammo Logo'>";
-                        echo "<p id='enemyAmmoTag'>40 (ENEMY)</p>";
-                        echo "</div>";
-                        echo "</div>";
-                    }
-                    ?>
+            ?>
 
 
+        </table>
+
+        <div class="scoreboard yellowBox">
+            <h1>Lost in the Sand</h1>
+            <h2><?php echo "Hola, $name." ?></h2>
+            <div class="time-marker">
+                <div class="time">
+                    <img id="clock" src="../Images/tiempo-pasado.png" alt="Icono de un reloj" width="30px"
+                        height="30px">
+                    <time id="chronometer" datetime="clock">00:00:00</time>
+                </div>
+                <div class="marker">
+                    <img id="arrow" src="../Images/flecha-de-diana.png" alt="diana" width="30px" height="30px">
+                    <p id="scoreDisplay">00000</p>
                 </div>
 
-                <table class="player_board">
-
-                    <?php
-
-                    printPlayerTable($arrayPosicionsEnemy);
-
-                    ?>
-
-
-                </table>
-
             </div>
 
-        </div>
+            <div id="divButtonsFinalGame">
+                <button id="buttonHome">Inici</button>
+                <button id="buttonHall">Hall of Fame</button>
+                <button id="buttonSaveRecord">Guardar Record</button>
+            </div>
 
+            <div id="popup" class="modal">
+                <div class="windowsForm">
+                    <span class="close">&times;</span>
+
+                    <form id="myForm" method="POST" action="tutorial.php">
+                        <label for="name">Introdueix el Nom:</label><br>
+                        <input type="text" id="name" name="name" value="<?php echo $name; ?>" required><br><br>
+                        <!-- Puntaje oculto para que se envíe junto con el nombre -->
+                        <input type="hidden" id="scoreDisplayText" name="score" value="00000">
+                        <div id="longName"></div><br>
+                        <button type="submit">Guardar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
 
 
     </div>
