@@ -6,8 +6,8 @@ var selectesEnemyHorders = [[0], [0, 0], [0, 0, 0], [0, 0, 0, 0]];
 // (get from game.php) --> true para pruebas
 
 // MODES VARIABLES
-var playerAmmo = 40; // document.getElementById("playerAmmoTag");
-var enemyAmmo = 40; // document.getElementById("enemyAmmoTag");
+var playerAmmo = 7; // document.getElementById("playerAmmoTag");
+var enemyAmmo = 4; // document.getElementById("enemyAmmoTag");
 
 // Get all buttons with the class "tableButton"
 const buttons = document.getElementsByClassName("tableButton");
