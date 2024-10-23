@@ -570,14 +570,14 @@ $_SESSION["name"] = $name;
 
                     <?php
 
-                    if ($munition === true) {
+                    if ($munition == true) {
                         echo "<div class='ammo_container'>";
                         echo "<div class='playerAmmo'>";
-                        echo "<img src='images/game_cannonIcon.png' alt='time_logo'>";
+                        echo "<img src='images/game_cannonIcon.png' alt='player Ammo Logo'>";
                         echo "<p id='playerAmmoTag'>40 (PLAYER)</p>";
                         echo "</div>";
                         echo "<div class='enemyAmmo'>";
-                        echo "<img src='images/game_cannonIcon.png' alt='time_logo'>";
+                        echo "<img src='images/game_cannonIcon.png' alt='enemy Ammo Logo'>";
                         echo "<p id='enemyAmmoTag'>40 (ENEMY)</p>";
                         echo "</div>";
                         echo "</div>";

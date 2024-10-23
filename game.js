@@ -213,19 +213,30 @@ function enemyTurn() {
             updateSelectedRowAndSelectedColumnOfEnemyIA(actualCell, multidimensionalArrayOfEnemyShots);
 
         } else {
-            // possiblePositionsForIAShot = maximum will be [top, bottom, left Y right];
-            // get one cell in the array of possibilites (generated after touch position from tthe multidimensionalArray)
-            randomCellOfPossiblePositions = possiblePositionsForIAShot[getRandomNumber(possiblePositionsForIAShot.length)];
-            // delete selected cell from possible position array
-            indexOfCellToDeleteInPossiblePositionsForIAShot = possiblePositionsForIAShot.indexOf(randomCellOfPossiblePositions);
-            possiblePositionsForIAShot.splice(indexOfCellToDeleteInPossiblePositionsForIAShot, 1);
-            // obtain index of cell selected from possible positions in the cellsPlayerTable (to get the index to delete after)
-            indexOfSelectedCellInArray = cellsPlayerTable.indexOf(randomCellOfPossiblePositions);
-            // Get the actual cell based on index of matching element
-            actualCell = cellsPlayerTable[indexOfSelectedCellInArray];
-            // update IA selected row and column with the position of the actual cell 
-            // (to change value to "X" or "O" in the multidimensional map of shots)
-            updateSelectedRowAndSelectedColumnOfEnemyIA(actualCell, multidimensionalArrayOfEnemyShots);
+            if (possiblePositionsForIAShot.length <= 0) {
+                // To sort error of touched without any available position nearby. 
+                indexOfSelectedCellInArray = getRandomNumber(cellsPlayerTable.length); // Generate a random position on the player's table of cells
+                actualCell = cellsPlayerTabl < e[indexOfSelectedCellInArray]; // Get the actual cell at the random position
+                // update IA selected row and column (to change value to "X" or "O" in the multidimensional map of shots)
+                updateSelectedRowAndSelectedColumnOfEnemyIA(actualCell, multidimensionalArrayOfEnemyShots);
+
+            } else {
+
+                // possiblePositionsForIAShot = maximum will be [top, bottom, left Y right];
+                // get one cell in the array of possibilites (generated after touch position from tthe multidimensionalArray)
+                randomCellOfPossiblePositions = possiblePositionsForIAShot[getRandomNumber(possiblePositionsForIAShot.length)];
+                // delete selected cell from possible position array
+                indexOfCellToDeleteInPossiblePositionsForIAShot = possiblePositionsForIAShot.indexOf(randomCellOfPossiblePositions);
+                possiblePositionsForIAShot.splice(indexOfCellToDeleteInPossiblePositionsForIAShot, 1);
+                // obtain index of cell selected from possible positions in the cellsPlayerTable (to get the index to delete after)
+                indexOfSelectedCellInArray = cellsPlayerTable.indexOf(randomCellOfPossiblePositions);
+                // Get the actual cell based on index of matching element
+                actualCell = cellsPlayerTable[indexOfSelectedCellInArray];
+                // update IA selected row and column with the position of the actual cell 
+                // (to change value to "X" or "O" in the multidimensional map of shots)
+                updateSelectedRowAndSelectedColumnOfEnemyIA(actualCell, multidimensionalArrayOfEnemyShots);
+
+            }
         }
 
 
@@ -970,8 +981,7 @@ window.onload = function () {
     timerInterval = setInterval(function () {
         let currentTime = new Date().getTime();
         let elapsedTime = currentTime - startTime;
-        document.querySelector("#chronometer").textContent = formatTime(elapsedTime);
-        //document.querySelector("#chronometer").style.color = "#3b240b"; 
+        document.getElementById("chronometer").textContent = formatTime(elapsedTime);
 
     }, 1000); // Actualizar cada segundo
 };

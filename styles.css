@@ -1918,7 +1918,7 @@ body.page-index #longUser h3 {
 body.page-index div.main_container {
 
     width: auto;
-    height: 60%;
+    height: auto;
     max-width: 800px;
     padding: 1.75%;
     color: rgb(59, 36, 11);

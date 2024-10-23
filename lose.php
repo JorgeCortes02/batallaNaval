@@ -106,7 +106,7 @@ if (isset($_POST['score']) && isset($_POST['score'])) {
 
     <!-- Botón de volver a la Landing Page (fuera del formulario) -->
     <div id='buttonDiv'>
-        <button id='toLanding' class='button'>Volver a la Landing Page</button>
+        <button id='toLanding' class='button'>Tornar al Landing Page</button>
     </div>
 </div>";
     }

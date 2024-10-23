@@ -58,14 +58,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // Manejo de eventos para el botón de volver a la Landing Page
     toLandingButton.addEventListener('click', function () {
         // Redirigir a la página de inicio
-        window.location.href = 'landing.php'; // Cambia esto a la ruta de tu landing page
+        window.location.href = 'index.php'; // Cambia esto a la ruta de tu landing page
     });
 
-    // Manejo de errores para el audio
-    gameSounds[0].addEventListener('error', function (e) {
-        console.error('Error al cargar el audio:', e);
-    });
 
-    // Opcional: establecer el volumen
-    gameSounds[0].volume = 1.0; // Volumen completo
 });
