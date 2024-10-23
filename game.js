@@ -55,7 +55,7 @@ function generateMultidimiensionalArrayOfPlayerTableCells(arrayOfTableCells) {
     for (let i = 0; i < arrayOfTableCells.length; i += 10) {
         multidimensionalArray.push(arrayOfTableCells.slice(i, i + 10));
     }
-    console.log(multidimensionalArray);
+
     return multidimensionalArray;
 }
 
