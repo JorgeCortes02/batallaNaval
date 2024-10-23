@@ -1,3 +1,47 @@
+/*CSS Notification Sistem*/
+
+#notiDiv {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    /* Coloca los elementos al final para hacer posible la transición */
+    align-items: flex-end;
+}
+
+#notisDiv span {
+    font-weight: bold;
+}
+
+.noti {
+    background-color: rgb(59, 36, 11);
+    color: white;
+    padding: 15px;
+    margin: 10px;
+    border-radius: 5px;
+    border: 5px double #d4af37;
+    display: none;
+    /* Se encarga de la aparición con desplazamiento de las notificaciones */
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    transform: translateX(100%);
+    /* Comienza fuera de la pantalla (derecha) */
+    opacity: 0;
+    /* Invisible inicialmente */
+}
+
+.noti.showNot {
+    display: flex;
+    transform: translateX(0);
+    /* Se desplaza a su posición visible */
+    opacity: 1;
+    /* Aparece completamente visible */
+}
+
+
+
+
+
 /* BASIC DISPLAY CONFIGURATION ----------------------*/
 
 html,
@@ -16,6 +60,470 @@ body {
 
 }
 
+/*CSS Win Page*/
+.page-win {
+    /* Use flexbox to center the elements vertically */
+    display: flex;
+    align-items: center;
+}
+
+.page-win #divError {
+    /* Initially hide the error message */
+    display: none;
+    font-size: 20px;
+    color: red;
+}
+
+.page-win #finalScreen {
+    /* Center the content, set the background, and use flexbox to align elements */
+    text-align: center;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    width: 50%;
+    min-height: 500px;
+    gap: 15px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: fadeIn 1s ease forwards, borderColorChange 3s linear infinite;
+    border: 5px double transparent;
+
+    margin: 0 auto;
+    /* Set initial border */
+}
+
+@keyframes borderColorChange {
+
+    /* Change the border colors continuously */
+    0% {
+        border-color: #FFD700;
+        /* Gold */
+    }
+
+    25% {
+        border-color: #40E0D0;
+        /* Turquoise */
+    }
+
+    50% {
+        border-color: #000000;
+        /* Black */
+    }
+
+    75% {
+        border-color: #FFBF00;
+        /* Amber */
+    }
+
+    100% {
+        border-color: #FFD700;
+        /* Back to Gold */
+    }
+}
+
+.page-win #finalForbiScreen {
+    /* Same styling as #finalScreen but with different color and font size */
+    text-align: center;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    width: 50%;
+    min-height: 500px;
+    gap: 15px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    opacity: 1;
+    color: red;
+    margin: 0 auto;
+    font-size: 30px;
+}
+
+.page-win h1 {
+    /* Add bouncing animation and gradient color effect to the text */
+    margin: 0;
+    animation: bounce1 1.5s infinite, colorChange 3s linear infinite;
+    background: linear-gradient(90deg, #ff6347, #ffa500, #32cd32, #1e90ff, #ff6347);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 50px;
+}
+
+@keyframes colorChange {
+
+    /* Make the background gradient move horizontally */
+    0% {
+        background-position: 0% 50%;
+    }
+
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+.page-win #nameInputContainer {
+    /* Styling for the input label and container */
+    margin: 20px 0;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.page-win input[type='text'] {
+    /* Styling for the text input field */
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    width: 250px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.page-win input[type='text']:focus {
+    /* Add glow and change border color on focus */
+    border-color: #ff6347;
+    outline: none;
+    box-shadow: 0 0 5px rgba(255, 99, 71, 0.5);
+}
+
+.page-win .button {
+    /* Styling for buttons */
+    background: rgb(172, 53, 2);
+    border: 3px solid rgb(192, 185, 176);
+    border-radius: 12px;
+    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.6);
+    color: white;
+    font-size: 17px;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+    cursor: pointer;
+    width: 50%;
+    height: 60px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.page-win #buttonDiv {
+    /* Style for the div holding buttons */
+    width: 90%;
+    gap: 20px;
+    display: flex;
+    justify-content: space-around;
+    margin: 0 auto;
+}
+
+.page-win .buttonActive:hover {
+    /* Add hover effect on buttons */
+    background-color: #e5533d;
+    transform: scale(1.05);
+}
+
+.page-win img {
+    /* Style for the image and add bounce/rotate animation */
+    width: 150px;
+    margin: 0 auto;
+    margin: 20px 0;
+    border-radius: 30px;
+    animation: bounceAndRotate 2s infinite ease-in-out;
+}
+
+@keyframes fadeIn {
+
+    /* Fade in and move the element upwards */
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Lose Page Styles */
+.page-lose #finalForbiScreen {
+    /* Similar to win screen but with red borders and shake animation */
+    text-align: center;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    width: 50%;
+    min-height: 500px;
+    gap: 15px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 1s ease forwards;
+    border: 3px solid;
+    animation: borderColorChange 2s infinite;
+    margin: 0 auto;
+    color: RED;
+    font-size: 30px;
+}
+
+@keyframes borderColorChange {
+
+    /* Change the border color */
+    0% {
+        border-color: #ff0000;
+    }
+
+    25% {
+        border-color: blue;
+    }
+
+    50% {
+        border-color: red;
+    }
+
+    75% {
+        border-color: #1e90ff;
+    }
+
+    100% {
+        border-color: #ff0000;
+    }
+}
+
+@keyframes shake {
+
+    /* Shake animation for the image */
+    0% {
+        transform: translate(1px, 1px) rotate(0deg);
+    }
+
+    25% {
+        transform: translate(-1px, -2px) rotate(-1deg);
+    }
+
+    50% {
+        transform: translate(-3px, 0px) rotate(1deg);
+    }
+
+    75% {
+        transform: translate(3px, 2px) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(1px, -1px) rotate(-1deg);
+    }
+}
+
+.page-lose {
+    /* Flexbox alignment for the lose screen */
+    display: flex;
+    align-items: center;
+}
+
+.page-lose #finalScreen {
+    /* Similar to win screen but with red border and bounce effect */
+    text-align: center;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    width: 50%;
+    min-height: 500px;
+    gap: 15px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    opacity: 1;
+    color: red;
+    margin: 0 auto;
+    font-size: 30px;
+    animation: fadeIn 1s ease-in-out;
+    border: 5px solid #ff0000;
+    animation: borderColorChange 5s infinite;
+}
+
+.page-lose #finalScreen h1 {
+    /* Add bounce animation to h1 text */
+    margin: 0;
+    color: #ff6347;
+    animation: bounce 7s infinite;
+}
+
+.page-lose #buttonDiv {
+    /* Similar button div styles as the win page */
+    width: 90%;
+    gap: 20px;
+    display: flex;
+    justify-content: space-around;
+    margin: 0 auto;
+}
+
+@keyframes bounce {
+
+    /* Animation for a bouncing effect */
+    0% {
+        transform: translateY(0) scale(1);
+        /* Start at normal position and size */
+    }
+
+    20% {
+        transform: translateY(-20px) scale(1.1);
+        /* Higher bounce with a slight scale */
+    }
+
+    50% {
+        transform: translateY(0) scale(1);
+        /* Returns to original position */
+    }
+
+    70% {
+        transform: translateY(-10px) scale(1.05);
+        /* Second smaller bounce */
+    }
+
+    100% {
+        transform: translateY(0) scale(1);
+        /* Ends at the original position */
+    }
+}
+
+.page-lose .trophy-img {
+    /* Styling for the trophy image */
+    width: 100px;
+    /* Adjust the trophy image size */
+    margin: 20px 0;
+    animation: shake 0.5s infinite;
+    /* Add a small shake animation */
+}
+
+.page-lose #nameInputContainer {
+    /* Styling for the input container */
+    margin: 20px 0;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.page-lose #nameInputContainer input[type='text'] {
+    /* Styling for the text input field */
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    width: 250px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.page-lose #nameInputContainer input[type='text']:focus {
+    /* Effects when the input is focused */
+    border-color: #ff6347;
+    outline: none;
+    box-shadow: 0 0 5px rgba(255, 99, 71, 0.5);
+}
+
+.page-lose .button {
+    /* Styling for buttons */
+    background: rgb(172, 53, 2);
+    border: 3px solid rgb(192, 185, 176);
+    border-radius: 12px;
+    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.6);
+    color: white;
+    font-size: 17px;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+    cursor: pointer;
+    width: 50%;
+    height: 60px;
+    text-align: center;
+    margin: 0 auto;
+    transition: transform 0.3s ease;
+}
+
+.page-lose .button:hover {
+    /* Button hover effect */
+    transform: scale(1.05);
+}
+
+.page-lose #divError {
+    /* Error message styling */
+    display: none;
+    /* Initially hide the error message */
+    color: red;
+    font-weight: bold;
+}
+
+.page-lose img {
+    /* Styling for images */
+    width: 150px;
+    margin: 0 auto;
+    margin: 20px 0;
+    border-radius: 30px;
+    animation: bounceAndRotate1 5s infinite ease-in-out;
+    /* Add a bounce and rotate animation */
+}
+
+@keyframes bounceAndRotate1 {
+
+    /* Bounce and rotate animation for images */
+    0% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    25% {
+        transform: translateY(-10px) rotate(10deg);
+    }
+
+    50% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    75% {
+        transform: translateY(-5px) rotate(-10deg);
+    }
+
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+}
+
+@keyframes bounceAndRotate {
+
+    /* Alternative bounce and rotate animation */
+    0% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    25% {
+        transform: translateY(-10px) rotate(10deg);
+    }
+
+    50% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    75% {
+        transform: translateY(-5px) rotate(-10deg);
+    }
+
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+}
+
+.page-tutorial,
 .page-game {
     display: flex;
     flex-direction: column;
@@ -31,12 +539,12 @@ body.page-ranking {
 }
 
 /* REUSABLE ----> Yellow box */
+
 .yellowBox {
     background: linear-gradient(135deg, #d4af37, #e5c18a);
     border: 5px double rgb(59, 36, 11);
     border-radius: 25px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
-
 }
 
 /* REUSABLE ----> Black box */
@@ -51,132 +559,10 @@ body.page-ranking {
 
 
 
-/* --------------------------------------------*/
-/*CSS Notification Sistem*/
-
-#notificationsDiv {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    display: flex;
-    flex-direction: column;
-    /* Coloca los elementos al final para hacer posible la transición */
-    align-items: flex-end;
-}
-
-#notificationsDiv span {
-    font-weight: bold;
-}
-
-.notification {
-    background-color: rgb(59, 36, 11);
-    color: white;
-    padding: 15px;
-    margin: 10px;
-    border-radius: 5px;
-    border: 5px double #d4af37;
-    display: none;
-    /* Se encarga de la aparición con desplazamiento de las notificaciones */
-    transition: transform 0.5s ease, opacity 0.5s ease;
-    transform: translateX(100%);
-    /* Comienza fuera de la pantalla (derecha) */
-    opacity: 0;
-    /* Invisible inicialmente */
-}
-
-.notification.showNot {
-    display: flex;
-    transform: translateX(0);
-    /* Se desplaza a su posición visible */
-    opacity: 1;
-    /* Aparece completamente visible */
-}
-
-
-/* ELEMENTS OF PAGE GAME */
-
-/*Warning in case JS disabled*/
-.page-game .warning {
-    position: fixed;
-    top: 0;
-    width: 100%;
-
-    background-color: red;
-    padding: 20px;
-    color: white;
-
-    font-weight: bold;
-    text-align: center;
-
-}
-
-/* Styles table*/
-.page-game table {
-    background-image: url('../Images/fondo-madera.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    width: 60%;
-    height: 95%;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-    border-collapse: collapse;
-    margin-top: 25px;
-    margin-bottom: 25px;
-}
-
-.page-game td,
-.page-game th {
-
-    border: 2px double black;
-    width: 65px;
-    height: 65px;
-}
-
-
-.page-game th {
-
-    color: white;
-    background-image: url('../Images/fondo.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-
-}
-
-
-/*Elements for buttons of table game*/
-.page-game .tableButton {
-
-
-    width: 100%;
-    height: 100%;
-
-    background-image: url('../Images/jero1.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-}
-
-
-.page-game table button:hover {
-
-    width: 100%;
-    height: 100%;
-    background-image: url('../Images/jero1.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    border: 1px solid red;
-}
-
-.page-game table .touch {
-
-    background-color: red;
-}
 
 /* EASTER EGG STYLING */
 
-body.page-game #easterEggButton {
+#easterEggShowButton {
 
     width: 100%;
     height: 100%;
@@ -185,7 +571,7 @@ body.page-game #easterEggButton {
 }
 
 /* this contains the image */
-body.page-game #easterEggMessageBox {
+#easterEggMessageBox {
 
     background: url('../Images/easterEggImg.jpeg');
     background-size: cover;
@@ -213,16 +599,46 @@ body.page-game #easterEggMessageBox {
     text-align: center;
 
     /* center content-wrapper */
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-
     overflow: hidden;
 }
 
+
+
+#notificationsDiv {
+    position: fixed;
+    top: 5px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.notification {
+    background-color: red;
+    color: white;
+    padding: 15px;
+    margin: 10px;
+    border-radius: 15px;
+    border: 1px solid black;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+/* Clase que se añade para mostrar la notificación */
+.notification.showNot {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+
+
 /* this contains the text and button with opacity*/
-body.page-game #easterEggMessageBox div.easterEggMessageBoxTextWrapper {
+#easterEggMessageBox div.easterEggMessageBoxTextWrapper {
 
     width: 80%;
     height: 80%;
@@ -237,20 +653,32 @@ body.page-game #easterEggMessageBox div.easterEggMessageBoxTextWrapper {
 
     overflow: hidden;
 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
 }
 
-body.page-game #easterEggMessageBox div.easterEggMessageBoxTextWrapper p {
+#easterEggMessageBox div.easterEggMessageBoxTextWrapper p {
     margin: 10px 0;
     font-size: 18px;
 }
 
-body.page-game #easterEggMessageBox div.easterEggMessageBoxTextWrapper button {
+#easterEggMessageBox div.easterEggMessageBoxTextWrapper p:first-child {
+    margin: 10px 0;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+
+#easterEggMessageBox div.easterEggMessageBoxTextWrapper button {
 
     width: 50%;
     height: 40px;
     margin-top: 20px;
 
-    background: #7a6a55;
+    background: rgb(59, 36, 11);
     border: 3px solid #7a6a55;
     border-radius: 12px;
 
@@ -263,15 +691,97 @@ body.page-game #easterEggMessageBox div.easterEggMessageBoxTextWrapper button {
     font-weight: bold;
 
     cursor: pointer;
+
 }
 
-body.page-game #easterEggMessageBox div.easterEggMessageBoxTextWrapper button:hover {
+#easterEggMessageBox div.easterEggMessageBoxTextWrapper button:hover {
     box-shadow: inset 0px 6px 10px rgba(0, 0, 0, 0.5), 0px 7px 12px rgba(0, 0, 0, 0.7);
 }
 
 
+/* ELEMENTS OF TUTORIAL GAME */
+
+/*Warning in case JS disabled*/
+.page-tutorial .warning {
+    position: fixed;
+    top: 0;
+    width: 100%;
+
+    background-color: red;
+    padding: 20px;
+    color: white;
+
+    font-weight: bold;
+    text-align: center;
+
+}
+
+/* Styles table*/
+.page-tutorial table {
+    background-image: url('../Images/fondo-madera.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 60%;
+    height: 95%;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    border-collapse: collapse;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.page-tutorial td,
+.page-tutorial th {
+
+    border: 2px double black;
+    width: 65px;
+    height: 65px;
+}
+
+
+.page-tutorial th {
+
+    color: white;
+    background-image: url('../Images/fondo.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+}
+
+
+/*Elements for buttons of table game*/
+.page-tutorial .tableButton {
+
+
+    width: 100%;
+    height: 100%;
+
+    background-image: url('../Images/jero1.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
+.page-tutorial table button:hover {
+
+    width: 100%;
+    height: 100%;
+    background-image: url('../Images/jero1.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 1px solid red;
+}
+
+.page-tutorial table .touch {
+
+    background-color: red;
+}
+
 /* Styles of the div that contains the table and the information div*/
-.page-game .PrincipalDiv {
+.page-tutorial .PrincipalDiv {
 
     display: flex;
     flex-direction: row;
@@ -285,7 +795,7 @@ body.page-game #easterEggMessageBox div.easterEggMessageBoxTextWrapper button:ho
 }
 
 /*Style of the information div*/
-.page-game .scoreboard {
+.page-tutorial .scoreboard {
 
 
 
@@ -305,6 +815,625 @@ body.page-game #easterEggMessageBox div.easterEggMessageBoxTextWrapper button:ho
 }
 
 /*Style for table buttoms where this are disabled*/
+.page-tutorial .button-disabled {
+    background-color: #A9A9A9;
+    /* Gris oscuro para el botón deshabilitado */
+    color: white;
+    /* Blanco para el texto */
+    pointer-events: none;
+    /* Desactivar eventos */
+    cursor: not-allowed;
+    /* Cambiar el cursor a indicar que no es clickeable */
+    opacity: 0.7;
+    /* Opcional: hacer el botón un poco más transparente */
+    width: 100%;
+    height: 100%;
+    font-size: 10px;
+
+    box-sizing: border-box;
+
+}
+
+
+/*Style of buttoms when gamed is end.*/
+.page-tutorial #divButtonsFinalGame button {
+    display: none;
+    background: rgb(59, 36, 11);
+    border: 3px solid rgb(59, 36, 11);
+    border-radius: 12px;
+    box-shadow: 0px 4px 9px rgba(0, 0, 0, 0.6);
+
+    color: white;
+    font-size: 14px;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+
+    cursor: pointer;
+    width: 30%;
+    height: 50px;
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 10%;
+}
+
+.page-tutorial #divButtonsFinalGame button:hover {
+    background: #7a6a55;
+    border: 3px solid #7a6a55;
+    border-radius: 12px;
+    box-shadow: inset 0px 6px 10px rgba(0, 0, 0, 0.5), 0px 7px 12px rgba(0, 0, 0, 0.7);
+
+    color: white;
+    font-size: 14px;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+
+    cursor: pointer;
+    width: 30%;
+    height: 50px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+/*cronometro------------------------------------------------------------------------*/
+
+.page-tutorial .time-marker,
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* Distribuye el espacio uniformemente */
+    align-items: center;
+    /* Alinea verticalmente los elementos en el centro */
+    margin-bottom: 20px;
+    width: 100%;
+    height: 50px;
+
+
+
+
+}
+
+.page-tutorial .time,
+.marker {
+    display: flex;
+    align-items: center;
+    /* Alinea verticalmente los elementos al centro */
+
+    /* Permite que el contenedor se ajuste al contenido */
+    margin: 0 auto;
+
+}
+
+.page-tutorial #clock,
+#arrow {
+    color:
+        /*#3b240b;*/
+        rgb(59, 36, 11);
+    margin-left: auto;
+    margin-right: 10px;
+
+}
+
+
+
+.page-tutorial #chronometer {
+    color:
+        /*#3b240b;*/
+        rgb(59, 36, 11);
+    margin: 0 auto;
+    font-family: 'Liberation Mono', monospace;
+    font-size: 2em;
+
+}
+
+
+
+/*marcador de puntos---------------------------------------------------------------------------------*/
+
+.page-tutorial #scoreDisplay {
+    color: rgb(59, 36, 11);
+    /* color que se ve*/
+    font-family: 'Liberation Mono', monospace;
+    /*fuente que mantiene el mismo tamaño sea el numero que sea*/
+    font-size: 2em;
+    /* Tamaño de la fuente */
+    margin: 0 auto;
+}
+
+
+
+/*boton para insertar jugador en ranquin--------------------------------------------------------------*/
+
+.page-tutorial #recordButton {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    height: 20%;
+    margin: 0 auto;
+
+}
+
+.page-tutorial #openWindows {
+    width: 100px;
+    /* Ancho fijo del contenedor */
+    height: 50px;
+    /* Altura fija del contenedor */
+    display: block;
+    /*se utiliza para hacer desaparecer al boton PONER EN NONE PARA FUNCIONAMIENTO NORMAL*/
+    margin: 10px;
+    color: rgb(119, 68, 14);
+    font-size: 1em;
+    background-image: url('../Images/button.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    /* Cambia el cursor al pasar sobre el botón */
+    border: 5px double rgb(119, 68, 14);
+    /* Borde marrón */
+    border-radius: 10px;
+}
+
+
+
+/*pantalla emergente--------------------------------------------*/
+
+/* El popup está oculto por defecto */
+.page-tutorial #popup {
+    display: none;
+    flex-direction: row;
+    margin-bottom: 20px;
+    align-items: center;
+    z-index: 1;
+    width: 100%;
+    height: auto;
+}
+
+/* Contenido de la ventana */
+.page-tutorial .windowsForm {
+    width: 80%;
+    height: auto;
+    background-image: url('../Images/button.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 0 auto;
+    padding: 20px;
+    border: 5px solid rgb(119, 68, 14);
+    border-radius: 10px;
+}
+
+.page-tutorial #myForm {
+    text-align: center;
+}
+
+.page-tutorial #myForm button {
+    color: white;
+    background-color: gray;
+    font-size: 1em;
+    background-position: center;
+    cursor: pointer;
+    border: 3px double rgb(119, 68, 14);
+    border-radius: 10px;
+}
+
+.page-tutorial #myForm button:hover {
+    color: black;
+    border: 3px double black;
+}
+
+.page-game #myForm label {
+    font-weight: bold;
+    text-decoration: underline;
+    color: black;
+    font-size: 2em;
+}
+
+.page-tutorial #longName {
+    display: none;
+
+    transform: translateY(-50%);
+    color: black;
+    font-weight: bold;
+    font-size: 0.9em;
+    text-align: center;
+}
+
+.page-tutorial #name {
+    border: 3px double rgb(119, 68, 14);
+    border-radius: 10px;
+    text-align: right;
+    width: 50%;
+    height: 10%;
+}
+
+/* Botón para cerrar el modal (X) */
+.page-tutorial .close {
+    color: black;
+    font-weight: bold;
+    float: right;
+    font-size: 32px;
+    cursor: pointer;
+}
+
+.page-tutorial .close:hover,
+.close:focus {
+    color: rgb(255, 136, 0);
+}
+
+/* Eliminar subrayado */
+.windowsForm label {
+    font-family: 'Cinzel', serif;
+    font-size: 18px;
+    text-decoration: none;
+    /* Elimina el subrayado */
+    color: #333333;
+    /* Cambia el color si es necesario */
+}
+
+/* Cuadro de texto más grande */
+.windowsForm input[type="text"] {
+    width: 100%;
+    /* Ocupa todo el ancho disponible */
+    height: 40px;
+    /* Aumentar altura */
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    /* Mantiene el padding dentro del ancho */
+}
+
+/* Aplicar diseño a botón */
+.windowsForm button {
+    font-family: 'Cinzel', serif;
+    background-color: #333333;
+    /* Color de fondo */
+    color: #f5c518;
+    /* Color de texto */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.windowsForm button:hover {
+    background-color: #555555;
+    /* Color cuando el mouse está sobre el botón */
+}
+
+/* ELEMENTS OF PAGE GAME */
+
+/*Warning in case JS disabled*/
+.page-game .warning {
+    position: fixed;
+    top: 0;
+    width: 100%;
+
+    background-color: red;
+    padding: 20px;
+    color: white;
+
+    font-weight: bold;
+    text-align: center;
+
+}
+
+/* Styles of the div that contains the header + notification + info_game + (player/enemy) tables*/
+body.page-game div.main_container {
+
+    margin: 0 7.5%;
+
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 12px;
+}
+
+/* HEADER BOX IN GAME */
+body.page-game div.main_container div.header_of_players {
+
+    width: 100%;
+
+    text-align: center;
+
+    margin: 0;
+    padding: 10px;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+}
+
+body.page-game div.main_container div.header_of_players h3 {
+    margin: 0;
+}
+
+/*CSS Change Enemy Turn*/
+
+.notificationPlayerTurn {
+
+    color: rgb(18, 18, 171);
+    font-weight: bold;
+    font-size: 1.8rem;
+    margin: 0;
+}
+
+.notificationEnemyTurn {
+    color: rgb(169, 22, 22);
+
+    font-weight: bold;
+    font-size: 1.8rem;
+    margin: 0;
+}
+
+
+
+body.page-game div.main_container div.header_of_players div.timer,
+body.page-game div.main_container div.game_boards div.player_and_information_board div.information_board div {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 5px 0;
+}
+
+body.page-game div.main_container div.game_boards div.player_and_information_board div.information_board div.ammo_container {
+
+    display: flex;
+    flex-direction: row;
+
+}
+
+body.page-game div.main_container div.game_boards div.player_and_information_board div.information_board div.ammo_container div {
+    width: 50%;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+body.page-game div.main_container div.header_of_players div.timer img,
+body.page-game div.main_container div.game_boards div.player_and_information_board div.information_board div img {
+    width: 25px;
+    height: 25px;
+}
+
+/* Contenedor que centra el texto y asegura suficiente espacio */
+#notificationContainer {
+    width: 90%;
+
+    /* Ocupará todo el ancho disponible */
+    height: 50px;
+    /* Ajusta la altura mínima para no quedar muy pequeño */
+    padding: 10px;
+    /* Añadir un pequeño relleno para que el texto no quede pegado */
+    box-sizing: border-box;
+    /* Asegura que el padding se incluya en el tamaño total */
+    text-align: center;
+    /* Centrar el texto */
+    overflow: hidden;
+    /* Oculta el texto que sale del contenedor */
+
+    display: flex;
+
+    justify-content: center;
+    /* Centra horizontalmente */
+    align-items: center;
+    /* Centra verticalmente */
+
+
+
+    border: 2px solid black;
+
+    font-weight: 700;
+    /* Fondo para visualizar mejor el marco */
+    border: 2px double black;
+
+    /* Añadir un borde para delimitar el marco */
+    border-radius: 8px;
+    /* Bordes redondeados para una apariencia más pulida */
+}
+
+.divNotiPlayer {
+    background: radial-gradient(circle, #d4af37 50%, rgb(18, 18, 171) 100%);
+}
+
+.divNotiEnemy {
+    background: radial-gradient(circle, #d4af37 50%, rgb(169, 22, 22) 100%);
+}
+
+/* Texto de la notificación con animación */
+#notificationParagraf {
+
+    width: 100%;
+    position: relative;
+    font-size: 20px;
+    /* Ajusta el tamaño de la fuente según sea necesario */
+    opacity: 0;
+    /* Comienza invisible */
+    transform: translateX(100%);
+
+
+    /* Fuera del contenedor (derecha) */
+    animation: slideIn 2s ease forwards;
+    /* Definimos la animación */
+    margin: 0;
+}
+
+/* Animación para hacer que el texto entre desde la derecha */
+@keyframes slideIn {
+    0% {
+        opacity: 0;
+        transform: translateX(100%);
+        /* Empieza fuera del contenedor */
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+        /* Llega al centro */
+    }
+}
+
+/* Clase que reinicia la animación */
+.slide-in {
+    animation: slideIn 2s ease forwards;
+}
+
+/* ------------------------------------------------------------------- */
+
+body.page-game div.main_container div.game_boards {
+    display: flex;
+    flex-direction: row;
+
+    margin: 0;
+    width: 85%;
+
+    justify-content: space-between;
+    gap: 30px;
+
+
+}
+
+body.page-game div.main_container div.game_boards * {
+    box-sizing: border-box;
+}
+
+/* SETTINGS FOR ALL TABLES INSIDE GAME BOARD */
+body.page-game div.main_container div.game_boards table {
+
+    background-image: url('../Images/fondo-madera.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    border-collapse: collapse;
+
+    table-layout: fixed;
+}
+
+
+/* IT'S THE LEFT BOARD */
+body.page-game div.main_container div.game_boards table.enemy_board {
+
+    width: 55%;
+    /* related to  div.player_and_information_board width*/
+    margin: 0;
+
+}
+
+/* RIGHT SIDE OF THE SCREEN WHICH CONTAINS THE INFORMATION BOARD (POINTS + "MUNITION")*/
+body.page-game div.main_container div.game_boards div.player_and_information_board {
+
+    width: 45%;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+
+}
+
+body.page-game div.main_container div.game_boards div.player_and_information_board div.information_board {
+
+    width: 100%;
+    height: auto;
+    padding: 10px 10px 10px 18px;
+
+    box-sizing: border-box;
+    background-color: rgba(8, 8, 8, 0.9);
+
+    display: flex;
+    flex-direction: column;
+
+    font-size: 0.8rem;
+    font-weight: bold;
+
+}
+
+body.page-game div.main_container div.game_boards div.player_and_information_board div.information_board p {
+
+    color: white;
+    margin: 0;
+    font-size: 0.95rem;
+
+}
+
+
+body.page-game div.main_container div.game_boards div.player_and_information_board table.player_board {
+
+    width: 100%;
+    margin: 0;
+
+}
+
+body.page-game div.main_container div.game_boards th {
+
+    color: white;
+
+    background-image: url('../Images/fondo.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+}
+
+/* Set consistent styling for table cells to ensure squares */
+body.page-game div.main_container div.game_boards table.enemy_board th,
+body.page-game div.main_container div.game_boards table.enemy_board td,
+body.page-game div.main_container div.game_boards table.player_board th,
+body.page-game div.main_container div.game_boards table.player_board td {
+
+    width: 30px;
+    height: 38px;
+    padding: 0;
+
+    text-align: center;
+    overflow: hidden;
+
+    border: 2px double black;
+
+}
+
+/* Make sure the button fills the entire cell */
+body.page-game div.main_container div.game_boards table.enemy_board td button.tableButton {
+
+    width: 100%;
+    /* Full width of the cell */
+    height: 100%;
+    /* Full height of the cell */
+    padding: 0;
+    overflow: hidden;
+
+    background-image: url('../Images/jero1.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+}
+
+body.page-game div.main_container div.game_boards table.enemy_board td button.tableButton:hover {
+
+    border: 1px solid red;
+}
+
+body.page-game div.main_container div.game_boards table.enemy_board .touch {
+    background-color: red;
+}
+
+
+/*Style for table buttoms where this are disabled*/
 .page-game .button-disabled {
     background-color: #A9A9A9;
     /* Gris oscuro para el botón deshabilitado */
@@ -322,6 +1451,38 @@ body.page-game #easterEggMessageBox div.easterEggMessageBoxTextWrapper button:ho
 
     box-sizing: border-box;
 
+}
+
+/*For hte enemy cell animation*/
+
+@keyframes colorChange {
+    0% {
+        background-color: red;
+    }
+
+    33% {
+        background-color: orange;
+    }
+
+    66% {
+        background-color: blue;
+    }
+
+    100% {
+        background-color: red;
+    }
+}
+
+.cell-color-animation {
+    animation: colorChange 3s linear;
+}
+
+
+/*Disable the buttoms of the enemy table if a soung is playing.*/
+.page-game .disabledIfSound {
+    pointer-events: none;
+    /* Desactivar eventos */
+    cursor: not-allowed;
 }
 
 /*Style of div buttoms when gamed is end.*/
@@ -433,13 +1594,13 @@ body.page-game #easterEggMessageBox div.easterEggMessageBoxTextWrapper button:ho
 /*marcador de puntos---------------------------------------------------------------------------------*/
 
 .page-game #scoreDisplay {
-    color: rgb(59, 36, 11);
+    color: white;
     /* color que se ve*/
     font-family: 'Liberation Mono', monospace;
     /*fuente que mantiene el mismo tamaño sea el numero que sea*/
     font-size: 2em;
     /* Tamaño de la fuente */
-    margin: 0 auto;
+
 }
 
 
@@ -530,6 +1691,7 @@ body.page-game #easterEggMessageBox div.easterEggMessageBoxTextWrapper button:ho
     text-decoration: underline;
     color: black;
     font-size: 2em;
+    margin-top: 20px;
 }
 
 .page-game #longName {
@@ -612,24 +1774,169 @@ body.page-game #easterEggMessageBox div.easterEggMessageBoxTextWrapper button:ho
 
 
 /* INDEX ------------------------------------ */
+/*div de formularior*/
+#options {
 
-/* THIS + .yellowBox*/
-body.page-index div.main_container {
+    width: 100%;
 
-    width: 45%;
+    display: flex;
+    display: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.image-button {
+    background-color: #000000;
+    /* Color de fondo del botón */
+    width: 60px;
+    height: 60px;
+    border: none;
+    /* Sin borde */
+    color: white;
+    /* Color del texto */
+    padding: 10px 20px;
+    /* Espaciado interno */
+    text-align: center;
+    /* Centrar el texto */
+    text-decoration: none;
+    /* Sin subrayado */
+    display: flex;
+    /* Para alinear imagen y texto */
+    align-items: center;
+    justify-content: center;
+    /* Alinear verticalmente */
+    border-radius: 25px;
+    /* Bordes redondeados */
+    cursor: pointer;
+    /* Cambia el cursor al pasar */
+    transition: background-color 0.3s;
+    /* Efecto de transición */
+    margin-left: 20px;
+}
+
+.image-button img {
+
+    width: 40px;
+    /* Ancho de la imagen */
     height: auto;
+    /* Mantiene la proporción */
+}
 
-    padding: 1.75%;
-    color: rgb(59, 36, 11);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+.image-button:hover {
+    background-color: rgb(59, 36, 11);
 
+    /* Color de fondo al pasar el ratón */
+}
+
+body.page-index #myForm {
+    width: 90%;
+    margin-bottom: 0;
+
+}
+
+#optionsForm {
+    margin: 0 auto;
+    width: 100%;
+    display: none;
+}
+
+#checkboxes {
+
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 0 auto;
+    border: 2px solid black;
+    border-radius: 20px;
+
+}
+
+/*div de poner user*/
+body.page-index #nameRecord {
+    gap: 20px;
+    text-align: center;
+    width: 100%;
 
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
 
+/*etiqueta text area*/
+body.page-index #nameRecord label {
+
+    font-size: 1.4em;
+    width: 100%;
+    margin-right: 20px;
+
+}
+
+/*text arrea*/
+body.page-index #nameIndex {
+    color: white;
+    background-color: gray;
+    font-size: 1em;
+    background-position: center;
+    cursor: pointer;
+    border: 3px double rgb(119, 68, 14);
+    border-radius: 10px;
+    cursor: pointer;
+    width: 50%;
+    height: 30px;
+    text-align: center;
+
+
+}
+
+
+
+
+/*div mensaje texto user error*/
+body.page-index #longUser {
+    text-align: center;
+    margin: 0 auto;
+}
+
+
+
+
+/*texto mensaje error user*/
+body.page-index #longUser h3 {
+    visibility: hidden;
+    /*poner visible para ver mensaje*/
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+/* THIS + .yellowBox*/
+body.page-index div.main_container {
+
+    width: auto;
+    height: auto;
+    max-width: 800px;
+    padding: 1.75%;
+    color: rgb(59, 36, 11);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     overflow: hidden;
 
+}
+
+.selected {
+    background-color: yellow;
+}
+
+.current {
+    outline: 2px solid blue;
 }
 
 /* Lost in the sands header */
