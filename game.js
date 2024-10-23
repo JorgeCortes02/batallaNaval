@@ -6,8 +6,8 @@ var selectesEnemyHorders = [[0], [0, 0], [0, 0, 0], [0, 0, 0, 0]];
 // (get from game.php) --> true para pruebas
 
 // MODES VARIABLES
-var playerAmmo = 7; // document.getElementById("playerAmmoTag");
-var enemyAmmo = 4; // document.getElementById("enemyAmmoTag");
+var playerAmmo = 40; // document.getElementById("playerAmmoTag");
+var enemyAmmo = 40; // document.getElementById("enemyAmmoTag");
 
 // Get all buttons with the class "tableButton"
 const buttons = document.getElementsByClassName("tableButton");
@@ -910,12 +910,12 @@ function updateScoreDisplay(newScore) {
     document.getElementById("scoreDisplay").textContent = String(newScore).padStart(5, '0');//siempre tendra 5 cifras
 }
 
-
+var counter = 0;
 //funcion para carcular puntuacion
 function getScore(currentScore, message) {
     let score = currentScore;
     let time = getElapsedTimeInSeconds()
-    let counter = 0;
+
 
     if (message === 'water') {
         if (time <= 300) {
@@ -983,7 +983,7 @@ window.onload = function () {
     startTime = new Date().getTime(); // Tiempo de inicio
     timerInterval = setInterval(function () {
         let currentTime = new Date().getTime();
-        let elapsedTime = currentTime - startTime;
+        elapsedTime = currentTime - startTime;
         document.getElementById("chronometer").textContent = formatTime(elapsedTime);
 
     }, 1000); // Actualizar cada segundo
