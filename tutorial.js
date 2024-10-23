@@ -21,51 +21,33 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Get the easterEggButton
-    const easterEggButton = document.getElementById('easterEggButton');
+    const easterEggShowButton = document.getElementById('easterEggShowButton');
     // Execute the easterEgg event with parameter once:true so it will execute only once if clicked
-    easterEggButton.addEventListener('click', easterEggEvent, { once: true });
+    easterEggShowButton.addEventListener('click', easterEggEvent, { once: true });
 
 });
 
 function easterEggEvent() {
 
     // Creation of easter egg div which will contain elements
-    const easterEggBox = document.createElement('div');
-    easterEggBox.setAttribute('id', 'easterEggMessageBox')
+    const easterEggBox = document.getElementById('easterEggMessageBox');
+    easterEggBox.style.display = "flex";
 
-    // Creation of easter egg wrapper which will contain text + button and give opacity
-    const easterEggMessageBox = document.createElement('div');
-    easterEggMessageBox.setAttribute('class', 'easterEggMessageBoxTextWrapper')
-
-    // p tag + text generation
-    const firstMessageInEasterEggBox = document.createElement('p');
-    firstMessageInEasterEggBox.innerText = 'Has trobat l\'arca perduda.';
-    const secondMessageInEasterEggBox = document.createElement('p');
-    secondMessageInEasterEggBox.innerText = 'Enhorabona!';
-
-    // Button to close box generation
-    const closeButtonInEasterEggBox = document.createElement('button');
-    closeButtonInEasterEggBox.textContent = "Tancar";
-
-    // Add remove event in close button
-    closeButtonInEasterEggBox.addEventListener('click', function () {
-        easterEggBox.remove();
+    // Add display: none to easterEggBox to close it
+    const easterEggCloseButton = document.getElementById('easterEggCloseButton');
+    easterEggCloseButton.addEventListener('click', function () {
+        easterEggBox.style.display = "none";
     });
 
-    // Add elements to the wrapper div
-    easterEggMessageBox.appendChild(firstMessageInEasterEggBox);
-    easterEggMessageBox.appendChild(secondMessageInEasterEggBox);
-    easterEggMessageBox.appendChild(closeButtonInEasterEggBox);
-    easterEggBox.appendChild(easterEggMessageBox); // Add wrapper to the easter egg box
+    score += 7000;
 
-    // Add element to the DOM
-    document.body.appendChild(easterEggBox);
+    // Add points to score
+    updateScoreDisplay(score);
 
-    updateScoreDisplay(score + 7000);
     // Generate sound of the Easter Egg (--> will trigger indiana jones arrayOfSounds[5])
     generateSound("easterEgg");
-}
 
+}
 
 
 // Variables para guardar el timeout y el intervalo
@@ -78,7 +60,7 @@ function generateNewNotification(typeNotification) {
     if (fadeOutInterval) clearInterval(fadeOutInterval);
 
     // Selecciona todas las notificaciones y oculta las que están visibles
-    let notifications = document.getElementsByClassName('notification');
+    let notifications = document.getElementsByClassName('noti');
     for (let i = 0; i < notifications.length; i++) {
         notifications[i].classList.remove('showNot');
         notifications[i].style.opacity = '1'; // Reinicia la opacidad (opcional)
@@ -135,7 +117,7 @@ function disableTableIfVictory() {
         // Change each button's class to "button-disabled"
         buttonGame.classList.replace("tableButton", "button-disabled");
     }
-    const easterEggButton = document.getElementById('easterEggButton');
+    const easterEggButton = document.getElementById('easterEggShowButton');
     if (easterEggButton) {
         easterEggButton.disabled = true; // Disable the button
     }
@@ -143,7 +125,8 @@ function disableTableIfVictory() {
 // Function to handle cell click events
 function turnACell(e) {
     const value = e.target.value; // Get the value of the clicked button
-    stateCell = sumFoundPositions(value); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
+    stateCell = "victory" //sumFoundPositions(value); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
+
 
     // Change the class from "tableButton" to "button-disabled"
     e.target.classList.replace("tableButton", "button-disabled");
@@ -169,46 +152,42 @@ function turnACell(e) {
 }
 // Function to generate buttons for ranking and home
 function generateRankingAndHomeButtons() {
-    // Get the scoreboard container element
-    let scoreBoard = document.getElementsByClassName("scoreboard")[0];
-
-    // Create a new div for the final game buttons
-    let newDiv = document.createElement("div");
-    newDiv.className = "divButtonsFinalGame";
-
-    // Create the "Home" button
-    let buttonHome = document.createElement("button");
-    buttonHome.innerText = "Inici"; // Set the button text to "Inicio" (Home)
-
-    // Create the "Hall of Fame" button
-    let buttonHall = document.createElement("button");
-    buttonHall.innerText = "Hall of Fame"; // Set the button text
-
-    // Add an event listener to redirect to the home page when clicked
-    buttonHome.addEventListener("click", function () {
-        window.location.href = "index.php"; // Redirect to index.php
-    });
-
-    // Add an event listener to redirect to the ranking page when clicked
-    buttonHall.addEventListener("click", function () {
-        window.location.href = "ranking.php"; // Redirect to ranking.php
-    });
-    // Create the "Guardar Record" button
-    let buttonSaveRecord = document.createElement("button");
-    buttonSaveRecord.innerText = "Guardar Record"; // Set the button text for save record
+    let buttonHome = document.getElementById("buttonHome");
+    let buttonHall = document.getElementById("buttonHall");
+    let buttonSaveRecord = document.getElementById("buttonSaveRecord");
+    let buttonDiv = document.getElementById("divButtonsFinalGame");
 
     // Add an event listener to open the popup for saving record when clicked
-    buttonSaveRecord.addEventListener("click", function () {
-        openModal(); // Llama a la función para abrir el modal
+    // Muestra los botones
+    buttonDiv.style.display = "flex"
+    buttonDiv.style.flexDirection = "row"
+    buttonHome.style.display = "block";
+    buttonHall.style.display = "block";
+    buttonSaveRecord.style.display = "block";
+
+    // Añade funcionalidad a los botones
+
+    // Redirige a la página de inicio cuando se hace clic en el botón "Inici"
+    buttonHome.addEventListener("click", function () {
+        window.location.href = "index.php"; // Redirigir a index.php
     });
 
-    // Append the buttons to the new div
-    newDiv.appendChild(buttonHome);
-    newDiv.appendChild(buttonHall);
-    newDiv.appendChild(buttonSaveRecord);
-    // Append the new div to the scoreboard container
-    scoreBoard.appendChild(newDiv);
+    // Redirige a la página del Hall of Fame cuando se hace clic en el botón "Hall of Fame"
+    buttonHall.addEventListener("click", function () {
+        window.location.href = "ranking.php"; // Redirigir a ranking.php
+    });
+
+    // Abre el modal para guardar el récord cuando se hace clic en "Guardar Record"
+    buttonSaveRecord.addEventListener("click", function () {
+        openModal(); // Llama a la función que abre el modal
+    });
+
+
+
 }
+
+
+
 
 // Function to track the positions found (hits on the ships)
 function sumFoundPositions(positionString) {
@@ -216,171 +195,77 @@ function sumFoundPositions(positionString) {
     const elements = positionString.split(",");
     numHorder = elements[1];
     longHorder = elements[0];
-
-    console.log(numHorder)
-    console.log(longHorder)
+    let indexArray = 0;
+    let touchOrSunk = "";
     // Check the type of horde based on the positionString value
-    if (longHorder == "4") {
+    switch (longHorder) {
+        case "4":
+            indexArray = 0;
+            selectesHorders[indexArray][parseInt(numHorder)] += 1;
+            checkVictoryText = checkVictory();
+            if (checkVictoryText == "victory") {
+                return checkVictoryText;
+            }
 
+            touchOrSunk = checkIfTouchedOrSunk(indexArray, parseInt(numHorder), parseInt(longHorder));
+            return touchOrSunk;
+            break;
 
-        selectesHorders[0][0] += 1; // Increment the count for the first horde
+        case "3":
+            indexArray = 1;
+            selectesHorders[indexArray][parseInt(numHorder)] += 1;
+            checkVictoryText = checkVictory();
+            if (checkVictoryText == "victory") {
+                return checkVictoryText;
+            }
 
-        // Check if all positions have been found
-        // Check if all positions have been found
-        checkVictoryText = checkVictory();
+            touchOrSunk = checkIfTouchedOrSunk(indexArray, parseInt(numHorder), parseInt(longHorder));
+            return touchOrSunk;
 
-        if (checkVictoryText == "victory") {
-            return checkVictoryText;
-        }
+            break;
 
-        // Check if the first horde is sunk
-        if (selectesHorders[0][0] == 4) {
-            return "sunk"; // Return "sunk" if the first horde has been fully hit
-        } else {
-            return "touched"; // Return "touched" if the first horde is hit but not sunk
-        }
-    } else if (longHorder == "3") {
+        case "2":
+            indexArray = 2;
+            selectesHorders[indexArray][parseInt(numHorder)] += 1;
+            checkVictoryText = checkVictory();
+            if (checkVictoryText == "victory") {
+                return checkVictoryText;
+            }
 
+            touchOrSunk = checkIfTouchedOrSunk(indexArray, parseInt(numHorder), parseInt(longHorder));
+            return touchOrSunk;
+            break;
 
-        switch (numHorder) {
+        case "1":
+            indexArray = 3;
+            selectesHorders[indexArray][parseInt(numHorder)] += 1;
+            checkVictoryText = checkVictory();
+            if (checkVictoryText == "victory") {
+                return checkVictoryText;
+            }
 
-            case "0":
+            touchOrSunk = checkIfTouchedOrSunk(indexArray, parseInt(numHorder), parseInt(longHorder));
+            return touchOrSunk;
+            break;
 
-                selectesHorders[1][0] += 1
-                checkVictoryText = checkVictory();
-                if (checkVictoryText == "victory") {
-                    return checkVictoryText;
-                }
-                // Check if the second horde is sunk
-                if (selectesHorders[1][0] == 3) {
-                    return "sunk";
-                } else {
-                    return "touched";
-                }
-                break;
+        default:
 
-            case "1":
-                selectesHorders[1][1] += 1
-                checkVictoryText = checkVictory();
-                if (checkVictoryText == "victory") {
-                    return checkVictoryText;
-                }
-                // Check if the second horde is sunk
-                if (selectesHorders[1][1] == 3) {
-                    return "sunk";
-                } else {
-                    return "touched";
-                }
-                break;
-        }
-
-    } else if (longHorder == "2") {
-
-        switch (numHorder) {
-            case "0":
-
-                selectesHorders[2][0] += 1
-                checkVictoryText = checkVictory();
-                if (checkVictoryText == "victory") {
-                    return checkVictoryText;
-                }
-                // Check if the second horde is sunk
-                if (selectesHorders[2][0] == 2) {
-                    return "sunk";
-                } else {
-                    return "touched";
-                }
-                break;
-
-            case "1":
-                selectesHorders[2][1] += 1
-                checkVictoryText = checkVictory();
-                if (checkVictoryText == "victory") {
-                    return checkVictoryText;
-                }
-                // Check if the second horde is sunk
-                if (selectesHorders[2][1] == 2) {
-                    return "sunk";
-                } else {
-                    return "touched";
-                }
-                break;
-            case "2":
-                selectesHorders[2][2] += 1
-                checkVictoryText = checkVictory();
-                if (checkVictoryText == "victory") {
-                    return checkVictoryText;
-                }
-                // Check if the second horde is sunk
-                if (selectesHorders[2][2] == 2) {
-                    return "sunk";
-                } else {
-                    return "touched";
-                }
-                break;
-        }
-    } else if (longHorder == "1") {
-        switch (numHorder) {
-            case "0":
-
-                selectesHorders[3][0] += 1
-                checkVictoryText = checkVictory();
-                if (checkVictoryText == "victory") {
-                    return checkVictoryText;
-                }
-                // Check if the second horde is sunk
-                if (selectesHorders[3][0] == 1) {
-                    return "sunk";
-                } else {
-                    return "touched";
-                }
-                break;
-
-            case "1":
-                selectesHorders[3][1] += 1
-                checkVictoryText = checkVictory();
-                if (checkVictoryText == "victory") {
-                    return checkVictoryText;
-                }
-                // Check if the second horde is sunk
-                if (selectesHorders[3][1] == 1) {
-                    return "sunk";
-                } else {
-                    return "touched";
-                }
-                break;
-            case "2":
-                selectesHorders[3][2] += 1
-                checkVictoryText = checkVictory();
-                if (checkVictoryText == "victory") {
-                    return checkVictoryText;
-                }
-                // Check if the second horde is sunk
-                if (selectesHorders[3][2] == 1) {
-                    return "sunk";
-                } else {
-                    return "touched";
-                }
-                break;
-            case "3":
-                selectesHorders[3][3] += 1
-                checkVictoryText = checkVictory();
-                if (checkVictoryText == "victory") {
-                    return checkVictoryText;
-                }
-                // Check if the second horde is sunk
-                if (selectesHorders[3][3] == 1) {
-                    return "sunk";
-                } else {
-                    return "touched";
-                }
-                break;
-        }
+            return "water"; // Return "water" if the position is not a hit
     }
 
 
+}
 
-    return "water"; // Return "water" if the position is not a hit
+
+
+function checkIfTouchedOrSunk(indexArray, numHorder, longHorder) {
+
+    // Check if the second horde is sunk
+    if (selectesHorders[indexArray][numHorder] == longHorder) {
+        return "sunk";
+    } else {
+        return "touched";
+    }
 }
 
 //Function for generate de sounds
@@ -448,7 +333,7 @@ window.onload = function () {
     startTime = new Date().getTime(); // Tiempo de inicio
     timerInterval = setInterval(function () {
         let currentTime = new Date().getTime();
-        let elapsedTime = currentTime - startTime;
+        elapsedTime = currentTime - startTime;
         document.querySelector("#chronometer").textContent = formatTime(elapsedTime);
         //document.querySelector("#chronometer").style.color = "#3b240b"; 
 
@@ -487,12 +372,12 @@ function updateScoreDisplay(newScore) {
     document.getElementById("scoreDisplay").textContent = String(newScore).padStart(5, '0');//siempre tendra 5 cifras
 }
 
-
+let counter = 0;
 //funcion para carcular puntuacion
 function getScore(currentScore, message) {
     let score = currentScore;
     let time = getElapsedTimeInSeconds()
-    let counter = 0;
+
 
     if (message === 'water') {
         if (time <= 300) {
@@ -574,27 +459,16 @@ document.addEventListener("DOMContentLoaded", function () {
             longNameMessage.textContent = "El nom ha de tenir entre 3 i 30 caràcters.";
             longNameMessage.style.display = 'block'; // Mostrar el mensaje de error
         } else {
-            // Crear un objeto FormData para enviar el nombre y el puntaje al PHP
-            const formData = new FormData();
-            formData.append('name', name);
-            formData.append('score', score);
+            // Aquí es donde sincronizamos el puntaje
+            // Asumiendo que el puntaje ya se ha calculado y se muestra en pantalla
+            const score = parseInt(document.getElementById('scoreDisplay').textContent); // Obtener el puntaje mostrado
+            document.getElementById('scoreDisplayText').value = score; // Actualiza el campo oculto
 
-            // Enviar los datos al PHP mediante fetch
-            fetch('game.php', {
-                method: 'POST',
-                body: formData
-            })
-                .then(response => response.text())
-                .then(data => {
-                    console.log('Respuesta del servidor:', data);
-                    // Cerrar el modal después de guardar
-                    modal.style.display = "none";
-                    clearForm(); // Limpiar formulario después de enviar
-                })
-                .catch(error => {
-                    console.error('Error al guardar el score:', error);
-                });
+
+            document.getElementById('myForm').submit(); // Enviar el formulario
+
         }
+        //window.location.href = 'index.php';
     });
 
     // Función para limpiar el formulario
