@@ -58,7 +58,7 @@
             L'estratègia, la punteria i una mica de sort seran les teves millors aliades en aquesta aventura.
             Dispara amb precisió per aconseguir la victòria!</p>
 
-        <form id="myForm" method="POST" action="game.php">
+        <form id="myForm" method="POST" action="tutorial.php">
             <div id="nameRecord">
                 <label for="name">Allista't! Com et dius (Només per partida clàssica.):</label>
                 <input type="text" id="nameIndex" name="name" value="" required>

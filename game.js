@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Those are all the cells from the player table with the IA iteracts with  
     cellsPlayerTable = Array.from(document.getElementsByClassName("playerCell"));
 
+
     // Generates a multidimensional array to get all cells of player table and generate the IA logic afterwards
     // it uses the cellsPlayerTable elements
     multidimensionalArrayOfEnemyShots = generateMultidimiensionalArrayOfPlayerTableCells(cellsPlayerTable);

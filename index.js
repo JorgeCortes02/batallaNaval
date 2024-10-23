@@ -1,10 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
     const initTutoButton = document.getElementById("initTuto");
     const toTutoA = document.getElementById("toTutoA");
-    initTutoButton.classList.replace("button-disabled", "buttonActive");
-    toTutoA.classList.replace("aDisabled", "aActive");
-    const combinedForm = document.getElementById("combinedForm");
 
+    const combinedForm = document.getElementById("combinedForm");
+    const nameForm = document.getElementById("myForm");
     const initGameButton = document.getElementById("initGame");
     const toGameA = document.getElementById("toGameA");
     const preferencesButtom = document.getElementsByClassName("image-button")[0];
@@ -31,6 +30,8 @@ document.addEventListener("DOMContentLoaded", function () {
             errorDiv.style.visibility = 'hidden';
             initGameButton.classList.replace("button-disabled", "buttonActive");
             toGameA.classList.replace("aDisabled", "aActive");
+            initTutoButton.classList.replace("button-disabled", "buttonActive");
+            toTutoA.classList.replace("aDisabled", "aActive");
         }
     });
 
@@ -53,9 +54,13 @@ document.addEventListener("DOMContentLoaded", function () {
         combinedForm.elements['munition'].value = checkboxValues.includes("Option 1") ? true : false;
         combinedForm.elements['armor'].value = checkboxValues.includes("Option 2") ? true : false;
         combinedForm.elements['specialAtack'].value = checkboxValues.includes("Option 3") ? true : false;
-
-
         // Enviar el formulario
         combinedForm.submit();
+    });
+
+    toTutoA.addEventListener('click', function (event) {
+        event.preventDefault(); // Prevenir la redirección automática del enlace
+        // Enviar el formulario
+        nameForm.submit();
     });
 });

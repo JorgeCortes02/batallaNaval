@@ -1931,6 +1931,14 @@ body.page-index div.main_container {
 
 }
 
+.selected {
+    background-color: yellow;
+}
+
+.current {
+    outline: 2px solid blue;
+}
+
 /* Lost in the sands header */
 body.page-index div.main_container h1 {
 
