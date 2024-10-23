@@ -37,7 +37,7 @@ if (isset($_POST['score']) && isset($_POST['score'])) {
 
         fclose($openTXT); // Cerramos el archivo después de escribir
 
-
+        header("Location: ranking.php");
     }
 
 }

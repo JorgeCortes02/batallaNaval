@@ -33,14 +33,9 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
         header("Location: ranking.php");
         // Mensaje de éxito o redireccionamiento si es necesario
         echo "Puntuación guardada correctamente.";
-    } else {
-        echo "No se pudo abrir el archivo.";
     }
 
-} else {
-    echo "Datos no válidos.";
 }
-
 ?>
 
 

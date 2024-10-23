@@ -112,10 +112,10 @@ function changeTurn() {
 }
 
 // to control de IA position of table
-iaSelectedRow = -1;
-iaSelectedColumn = -1;
-isPromptEnabledForIASelectShotsPosition = false; // prompt used to check if IA have possible positions
-possiblePositionsForIAShot = []; // array of positions that IA have to check
+var iaSelectedRow = -1;
+var iaSelectedColumn = -1;
+var isPromptEnabledForIASelectShotsPosition = false; // prompt used to check if IA have possible positions
+var possiblePositionsForIAShot = []; // array of positions that IA have to check
 
 // This will update IA selectedRow and selectedColumn
 function updateSelectedRowAndSelectedColumnOfEnemyIA(selectedCell, multidimensionalArray) {
@@ -179,8 +179,7 @@ function getSurroundings(positionX, positionY) {
         surroundings.push(multidimensionalArrayOfEnemyShots[positionX][positionY - 1]);
         surroundings.push(multidimensionalArrayOfEnemyShots[positionX][positionY + 1]);
     }
-    console.log("ALREDEDORES OBTENIDOS")
-    console.log(surroundings);
+
     return surroundings;
 }
 
@@ -194,6 +193,9 @@ function getValidPositionsForTouch(positionX, positionY) {
 
 
 function enemyTurn() {
+    let actualCell;
+
+    let indexOfSelectedCellInArray;
 
     // Set a delay before the enemy turn action begins
     setTimeout(function () {
@@ -259,7 +261,7 @@ function enemyTurn() {
             if (ammoEnabled) {
 
                 enemyAmmo -= 1; // subtract player ammo each time he selects something
-                ammoTag = document.getElementById("enemyAmmoTag");
+                let ammoTag = document.getElementById("enemyAmmoTag");
                 ammoTag.innerText = enemyAmmo + " (ENEMY)";
 
 
@@ -680,7 +682,7 @@ function turnACell(e) {
 
     disableTable();
 
-    stateCell = sumFoundPositions(value, selectesPlayerHorders); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
+    let stateCell = sumFoundPositions(value, selectesPlayerHorders); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
 
     // Change the class from "tableButton" to "button-disabled"
     e.target.classList.replace("tableButton", "button-disabled");
@@ -758,8 +760,8 @@ function sumFoundPositions(positionString, selectesHorders) {
     // Split the positionString by comma to separate values
     const elements = positionString.split(",");
     console.log(elements);
-    numHorder = elements[1];  // Extract the number of the horde
-    longHorder = elements[0];  // Extract the length of the horde
+    let numHorder = elements[1];  // Extract the number of the horde
+    let longHorder = elements[0];  // Extract the length of the horde
     let indexArray = 0;
     let touchOrSunk = "";
 

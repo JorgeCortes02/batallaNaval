@@ -117,7 +117,7 @@ function disableTableIfVictory() {
         // Change each button's class to "button-disabled"
         buttonGame.classList.replace("tableButton", "button-disabled");
     }
-    const easterEggButton = document.getElementById('easterEggButton');
+    const easterEggButton = document.getElementById('easterEggShowButton');
     if (easterEggButton) {
         easterEggButton.disabled = true; // Disable the button
     }
