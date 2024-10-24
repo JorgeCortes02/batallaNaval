@@ -222,7 +222,7 @@ function enemyTurn() {
             if (possiblePositionsForIAShot.length <= 0) {
                 // To sort error of touched without any available position nearby. 
                 indexOfSelectedCellInArray = getRandomNumber(cellsPlayerTable.length); // Generate a random position on the player's table of cells
-                actualCell = cellsPlayerTabl < e[indexOfSelectedCellInArray]; // Get the actual cell at the random position
+                actualCell = cellsPlayerTable[indexOfSelectedCellInArray]; // Get the actual cell at the random position
                 // update IA selected row and column (to change value to "X" or "O" in the multidimensional map of shots)
                 updateSelectedRowAndSelectedColumnOfEnemyIA(actualCell, multidimensionalArrayOfEnemyShots);
 
