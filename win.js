@@ -1,4 +1,4 @@
-const gameSounds = [new Audio('sounds/victory.mp3')];
+const gameSounds = [new Audio('Sounds/victory.mp3')];
 
 
 document.addEventListener("DOMContentLoaded", function () {
