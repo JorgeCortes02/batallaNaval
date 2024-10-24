@@ -16,7 +16,7 @@ const buttons = document.getElementsByClassName("tableButton");
 
 
 //Array with the game sounds
-const gameSounds = [new Audio('sounds/water1.mp3'), new Audio('sounds/perfect.mp3'), new Audio('sounds/zombie.mp3'), new Audio('sounds/IndianaJonesTheme.mp3'), new Audio("sounds/cañonEnemigo.mp3")];
+const gameSounds = [new Audio('Sounds/water1.mp3'), new Audio('Sounds/perfect.mp3'), new Audio('Sounds/zombie.mp3'), new Audio('Sounds/IndianaJonesTheme.mp3'), new Audio("Sounds/cañonEnemigo.mp3")];
 
 var nowAttackPlayer = 0;
 var cellsPlayerTable = null;
