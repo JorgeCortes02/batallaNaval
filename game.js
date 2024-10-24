@@ -2,12 +2,12 @@
 var selectesPlayerHorders = [[0], [0, 0], [0, 0, 0], [0, 0, 0, 0]];
 var selectesEnemyHorders = [[0], [0, 0], [0, 0, 0], [0, 0, 0, 0]];
 
-// MODES ACTIVATED
-// (get from game.php) --> true para pruebas
 
 // MODES VARIABLES
 var playerAmmo = 40; // document.getElementById("playerAmmoTag");
 var enemyAmmo = 40; // document.getElementById("enemyAmmoTag");
+
+
 
 // Get all buttons with the class "tableButton"
 const buttons = document.getElementsByClassName("tableButton");
@@ -52,13 +52,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
+
 // this generates the multidimensional array using the array of all td.elements (cellPlayerTable)
 function generateMultidimiensionalArrayOfPlayerTableCells(arrayOfTableCells) {
     let multidimensionalArray = [];
     for (let i = 0; i < arrayOfTableCells.length; i += 10) {
         multidimensionalArray.push(arrayOfTableCells.slice(i, i + 10));
     }
-    console.log(multidimensionalArray);
+
     return multidimensionalArray;
 }
 
@@ -88,7 +89,7 @@ function changeTurn() {
 
 
             changeTurnText("turn0");
-            changeBackgorundNotificationColor();
+            changeBackgroundNotificationColor();
         }, 2000);
         // Activate the player's table for interaction
         activeTable()
@@ -101,7 +102,7 @@ function changeTurn() {
 
         setTimeout(() => {
             changeTurnText("turn1");
-            changeBackgorundNotificationColor();
+            changeBackgroundNotificationColor();
             // Aquí es donde registras el evento click para el tablero enemigo
             tableEnemy.addEventListener("click", showNotification);
 
@@ -219,7 +220,7 @@ function enemyTurn() {
             if (possiblePositionsForIAShot.length <= 0) {
                 // To sort error of touched without any available position nearby. 
                 indexOfSelectedCellInArray = getRandomNumber(cellsPlayerTable.length); // Generate a random position on the player's table of cells
-                actualCell = cellsPlayerTabl < e[indexOfSelectedCellInArray]; // Get the actual cell at the random position
+                actualCell = cellsPlayerTable[indexOfSelectedCellInArray]; // Get the actual cell at the random position
                 // update IA selected row and column (to change value to "X" or "O" in the multidimensional map of shots)
                 updateSelectedRowAndSelectedColumnOfEnemyIA(actualCell, multidimensionalArrayOfEnemyShots);
 
@@ -402,6 +403,7 @@ function showPlayerHorders() {
             element.style.background = "gray";
         }
     });
+
 }
 
 function easterEggEvent() {
@@ -483,7 +485,7 @@ function generateNotificationWithAction(typeNotification) {
     paragrafNotification.classList.add("slide-in");
 }
 
-function changeBackgorundNotificationColor() {
+function changeBackgroundNotificationColor() {
     const divNoti = document.getElementById("notificationContainer");
     if (nowAttackPlayer == 0) {
 
@@ -639,7 +641,7 @@ function checkMunitionDepletedToSeeIfWinOrLose(playerHordes, enemyHordes, turn) 
         }
     } else if (playerSunkHorderCount === enemySunkHorderCount) { // Draw in sunk hordes
 
-        // Sum values of player touched vs IA touched. Highest wins (draw --> victory for IA). 
+        // Sum values of player touched vs IA touched. Highest wins (draw --> victory for IA).
         sumOfTouchedPlayerPositions = playerHordes.flat().reduce((acc, val) => acc + val, 0);
         sumOfTouchedEnemyPositions = enemyHordes.flat().reduce((acc, val) => acc + val, 0);
         if (turn === "player") {
@@ -683,7 +685,7 @@ function turnACell(e) {
 
     disableTable();
 
-    let stateCell = sumFoundPositions(value, selectesPlayerHorders); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
+    let stateCell = "victory"//sumFoundPositions(value, selectesPlayerHorders); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
 
     // Change the class from "tableButton" to "button-disabled"
     e.target.classList.replace("tableButton", "button-disabled");
@@ -703,9 +705,9 @@ function turnACell(e) {
     updateScoreDisplay(score); // Actualiza el marcador en la pantalla
     // If the state is "victory", disable all buttons and generate new buttons
 
-    // AMMO MANAGEMENT 
+    // AMMO MANAGEMENT
     // (after all visual effects from selecting the button)
-    // have to check if option is activated 
+    // have to check if option is activated
     if (ammoEnabled) {
 
         playerAmmo -= 1; // subtract player ammo each time he selects something
@@ -754,13 +756,14 @@ function turnACell(e) {
     }
 }
 
+
 // Function to track the positions found (hits on the ships)
 function sumFoundPositions(positionString, selectesHorders) {
     let checkVictoryText = "";
 
     // Split the positionString by comma to separate values
     const elements = positionString.split(",");
-    console.log(elements);
+    // console.log(elements);
     let numHorder = elements[1];  // Extract the number of the horde
     let longHorder = elements[0];  // Extract the length of the horde
     let indexArray = 0;
