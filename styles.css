@@ -368,45 +368,6 @@ body {
     margin: 0 auto;
 }
 
-@keyframes bounce1 {
-
-    /* Animació de rebot per a lletres amb moviments diferenciats */
-    0% {
-        transform: translateY(0) scale(1);
-        /* Comença en la posició normal */
-    }
-
-    10% {
-        transform: translateY(-15px) scale(1.2);
-        /* Rebot ràpid i ampli amb un augment de la mida */
-    }
-
-    30% {
-        transform: translateY(5px) scale(0.9);
-        /* Lleuger descens amb una compressió */
-    }
-
-    50% {
-        transform: translateY(-10px) scale(1.1);
-        /* Un altre petit rebot cap amunt */
-    }
-
-    70% {
-        transform: translateY(3px) scale(0.95);
-        /* Compressió menor durant el descens */
-    }
-
-    90% {
-        transform: translateY(-5px) scale(1.05);
-        /* Petit rebot cap amunt abans de finalitzar */
-    }
-
-    100% {
-        transform: translateY(0) scale(1);
-        /* Finalitza en la posició original i mida normal */
-    }
-}
-
 @keyframes bounce {
 
     /* Animation for a bouncing effect */
@@ -2272,4 +2233,13 @@ body.page-ranking div.main_container div.number_section a.current_page {
     /* Change cursor to indicate it's not clickable */
 
 
+}
+
+body.page-ranking div.main_container #lastInsert {
+
+    font-size: 25px;
+    font-weight: bold;
+    background: #b8860b;
+    border-radius: 15px;
+    color: white;
 }
