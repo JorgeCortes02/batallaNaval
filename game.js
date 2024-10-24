@@ -50,9 +50,75 @@ document.addEventListener("DOMContentLoaded", function () {
     // Execute the easterEgg event with parameter once:true so it will execute only once if clicked
     easterEggShowButton.addEventListener('click', easterEggEvent, { once: true });
 
+    const enemyTable = document.getElementsByClassName("enemy_board")[0];
+    let currentRow = 1;
+    let currentCol = 1;
+
+
+
+
+
+    // Inicialitzar la primera celda (a partir de la segona fila)
+    highlightCurrentCell(enemyTable, currentRow, currentCol);
+
+    // Escoltar esdeveniments de teclat
+    window.addEventListener('keydown', function (event) {
+
+        if (nowAttackPlayer === 0) {
+            switch (event.key) {
+                case 'ArrowUp':
+                    if (currentRow > 1) currentRow--; // Evita moure's a la primera fila
+                    break;
+                case 'ArrowDown':
+                    if (currentRow < enemyTable.rows.length - 1) currentRow++; // Moure cap avall
+                    break;
+                case 'ArrowLeft':
+                    if (currentCol > 1) currentCol--; // Moure cap a l'esquerra
+                    break;
+                case 'ArrowRight':
+                    if (currentCol < enemyTable.rows[currentRow].cells.length - 1) currentCol++; // Moure cap a la dreta
+                    break;
+
+                case 'Enter': // Enter per activar el botó dins de la celda
+                    clickButtonInCell(enemyTable, currentRow, currentCol);
+                    console.log("llega")
+                    break;
+                default:
+                    break;
+            }
+
+            // Actualitzar l'aparença de la celda actual
+            highlightCurrentCell(enemyTable, currentRow, currentCol);
+        }
+    });
+
 });
 
+// Funció per marcar la celda actual
+function highlightCurrentCell(enemyTable, currentRow, currentCol) {
+    // Eliminar la classe 'current' de totes les celdes
+    const cells = enemyTable.getElementsByTagName("td");
+    for (let cell of cells) {
+        cell.classList.remove('current');
+    }
 
+    // Afegir la classe 'current' a la celda actual
+    const currentCell = enemyTable.rows[currentRow].cells[currentCol];
+    currentCell.classList.add('current');
+}
+
+
+
+// Funció per "clicar" el botó dins de la celda actual
+function clickButtonInCell(enemyTable, currentRow, currentCol) {
+    const currentCell = enemyTable.rows[currentRow].cells[currentCol];
+    const button = currentCell.getElementsByTagName('button')[0]; // Busca el botó dins de la celda
+    console.log("Hola0");
+    if (button) {
+        console.log("Hola");
+        button.click(); // Simula un clic sobre el botó
+    }
+}
 // this generates the multidimensional array using the array of all td.elements (cellPlayerTable)
 function generateMultidimiensionalArrayOfPlayerTableCells(arrayOfTableCells) {
     let multidimensionalArray = [];
