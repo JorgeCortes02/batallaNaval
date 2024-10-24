@@ -1,12 +1,13 @@
 <?php
 
+
 // Establecer la zona horaria
 date_default_timezone_set('Europe/Madrid');
 
 // Inicializar variables para evitar errores
 $name = "";
 $score = "";
-
+$name = isset($_POST['name']) ? $_POST['name'] : 'No enviado';
 // Verificar si se envió el formulario y se recibieron los datos necesarios
 if (isset($_POST['name']) && isset($_POST['score'])) {
     $name = $_POST['name'];
@@ -33,14 +34,9 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
         header("Location: ranking.php");
         // Mensaje de éxito o redireccionamiento si es necesario
         echo "Puntuación guardada correctamente.";
-    } else {
-        echo "No se pudo abrir el archivo.";
     }
 
-} else {
-    echo "Datos no válidos.";
 }
-
 ?>
 
 
@@ -520,7 +516,7 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
 
         <div class="scoreboard yellowBox">
             <h1>Lost in the Sand</h1>
-
+            <h2><?php echo "Hola, $name." ?></h2>
             <div class="time-marker">
                 <div class="time">
                     <img id="clock" src="../Images/tiempo-pasado.png" alt="Icono de un reloj" width="30px"
@@ -546,7 +542,7 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
 
                     <form id="myForm" method="POST" action="tutorial.php">
                         <label for="name">Introdueix el Nom:</label><br>
-                        <input type="text" id="name" name="name" value="" required><br><br>
+                        <input type="text" id="name" name="name" value="<?php echo $name; ?>" required><br><br>
                         <!-- Puntaje oculto para que se envíe junto con el nombre -->
                         <input type="hidden" id="scoreDisplayText" name="score" value="00000">
                         <div id="longName"></div><br>

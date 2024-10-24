@@ -4,8 +4,10 @@ var selectesEnemyHorders = [[0], [0, 0], [0, 0, 0], [0, 0, 0, 0]];
 
 
 // MODES VARIABLES
-var playerAmmo = 7; // document.getElementById("playerAmmoTag");
-var enemyAmmo = 4; // document.getElementById("enemyAmmoTag");
+var playerAmmo = 40; // document.getElementById("playerAmmoTag");
+var enemyAmmo = 40; // document.getElementById("enemyAmmoTag");
+
+
 
 // Get all buttons with the class "tableButton"
 const buttons = document.getElementsByClassName("tableButton");
@@ -28,6 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Those are all the cells from the player table with the IA iteracts with  
     cellsPlayerTable = Array.from(document.getElementsByClassName("playerCell"));
 
+
     // Generates a multidimensional array to get all cells of player table and generate the IA logic afterwards
     // it uses the cellsPlayerTable elements
     multidimensionalArrayOfEnemyShots = generateMultidimiensionalArrayOfPlayerTableCells(cellsPlayerTable);
@@ -48,6 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
     easterEggShowButton.addEventListener('click', easterEggEvent, { once: true });
 
 });
+
 
 // this generates the multidimensional array using the array of all td.elements (cellPlayerTable)
 function generateMultidimiensionalArrayOfPlayerTableCells(arrayOfTableCells) {
@@ -110,10 +114,10 @@ function changeTurn() {
 }
 
 // to control de IA position of table
-iaSelectedRow = -1;
-iaSelectedColumn = -1;
-isPromptEnabledForIASelectShotsPosition = false; // prompt used to check if IA have possible positions
-possiblePositionsForIAShot = []; // array of positions that IA have to check
+var iaSelectedRow = -1;
+var iaSelectedColumn = -1;
+var isPromptEnabledForIASelectShotsPosition = false; // prompt used to check if IA have possible positions
+var possiblePositionsForIAShot = []; // array of positions that IA have to check
 
 // This will update IA selectedRow and selectedColumn
 function updateSelectedRowAndSelectedColumnOfEnemyIA(selectedCell, multidimensionalArray) {
@@ -177,8 +181,7 @@ function getSurroundings(positionX, positionY) {
         surroundings.push(multidimensionalArrayOfEnemyShots[positionX][positionY - 1]);
         surroundings.push(multidimensionalArrayOfEnemyShots[positionX][positionY + 1]);
     }
-    console.log("ALREDEDORES OBTENIDOS")
-    console.log(surroundings);
+
     return surroundings;
 }
 
@@ -192,6 +195,9 @@ function getValidPositionsForTouch(positionX, positionY) {
 
 
 function enemyTurn() {
+    let actualCell;
+
+    let indexOfSelectedCellInArray;
 
     // Set a delay before the enemy turn action begins
     setTimeout(function () {
@@ -211,19 +217,30 @@ function enemyTurn() {
             updateSelectedRowAndSelectedColumnOfEnemyIA(actualCell, multidimensionalArrayOfEnemyShots);
 
         } else {
-            // possiblePositionsForIAShot = maximum will be [top, bottom, left Y right];
-            // get one cell in the array of possibilites (generated after touch position from tthe multidimensionalArray)
-            randomCellOfPossiblePositions = possiblePositionsForIAShot[getRandomNumber(possiblePositionsForIAShot.length)];
-            // delete selected cell from possible position array
-            indexOfCellToDeleteInPossiblePositionsForIAShot = possiblePositionsForIAShot.indexOf(randomCellOfPossiblePositions);
-            possiblePositionsForIAShot.splice(indexOfCellToDeleteInPossiblePositionsForIAShot, 1);
-            // obtain index of cell selected from possible positions in the cellsPlayerTable (to get the index to delete after)
-            indexOfSelectedCellInArray = cellsPlayerTable.indexOf(randomCellOfPossiblePositions);
-            // Get the actual cell based on index of matching element
-            actualCell = cellsPlayerTable[indexOfSelectedCellInArray];
-            // update IA selected row and column with the position of the actual cell 
-            // (to change value to "X" or "O" in the multidimensional map of shots)
-            updateSelectedRowAndSelectedColumnOfEnemyIA(actualCell, multidimensionalArrayOfEnemyShots);
+            if (possiblePositionsForIAShot.length <= 0) {
+                // To sort error of touched without any available position nearby. 
+                indexOfSelectedCellInArray = getRandomNumber(cellsPlayerTable.length); // Generate a random position on the player's table of cells
+                actualCell = cellsPlayerTable[indexOfSelectedCellInArray]; // Get the actual cell at the random position
+                // update IA selected row and column (to change value to "X" or "O" in the multidimensional map of shots)
+                updateSelectedRowAndSelectedColumnOfEnemyIA(actualCell, multidimensionalArrayOfEnemyShots);
+
+            } else {
+
+                // possiblePositionsForIAShot = maximum will be [top, bottom, left Y right];
+                // get one cell in the array of possibilites (generated after touch position from tthe multidimensionalArray)
+                randomCellOfPossiblePositions = possiblePositionsForIAShot[getRandomNumber(possiblePositionsForIAShot.length)];
+                // delete selected cell from possible position array
+                indexOfCellToDeleteInPossiblePositionsForIAShot = possiblePositionsForIAShot.indexOf(randomCellOfPossiblePositions);
+                possiblePositionsForIAShot.splice(indexOfCellToDeleteInPossiblePositionsForIAShot, 1);
+                // obtain index of cell selected from possible positions in the cellsPlayerTable (to get the index to delete after)
+                indexOfSelectedCellInArray = cellsPlayerTable.indexOf(randomCellOfPossiblePositions);
+                // Get the actual cell based on index of matching element
+                actualCell = cellsPlayerTable[indexOfSelectedCellInArray];
+                // update IA selected row and column with the position of the actual cell 
+                // (to change value to "X" or "O" in the multidimensional map of shots)
+                updateSelectedRowAndSelectedColumnOfEnemyIA(actualCell, multidimensionalArrayOfEnemyShots);
+
+            }
         }
 
 
@@ -246,7 +263,7 @@ function enemyTurn() {
             if (ammoEnabled) {
 
                 enemyAmmo -= 1; // subtract player ammo each time he selects something
-                ammoTag = document.getElementById("enemyAmmoTag");
+                let ammoTag = document.getElementById("enemyAmmoTag");
                 ammoTag.innerText = enemyAmmo + " (ENEMY)";
 
 
@@ -386,6 +403,7 @@ function showPlayerHorders() {
             element.style.background = "gray";
         }
     });
+
 }
 
 function easterEggEvent() {
@@ -623,7 +641,7 @@ function checkMunitionDepletedToSeeIfWinOrLose(playerHordes, enemyHordes, turn) 
         }
     } else if (playerSunkHorderCount === enemySunkHorderCount) { // Draw in sunk hordes
 
-        // Sum values of player touched vs IA touched. Highest wins (draw --> victory for IA). 
+        // Sum values of player touched vs IA touched. Highest wins (draw --> victory for IA).
         sumOfTouchedPlayerPositions = playerHordes.flat().reduce((acc, val) => acc + val, 0);
         sumOfTouchedEnemyPositions = enemyHordes.flat().reduce((acc, val) => acc + val, 0);
         if (turn === "player") {
@@ -667,7 +685,7 @@ function turnACell(e) {
 
     disableTable();
 
-    stateCell = sumFoundPositions(value, selectesPlayerHorders); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
+    let stateCell = sumFoundPositions(value, selectesPlayerHorders); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
 
     // Change the class from "tableButton" to "button-disabled"
     e.target.classList.replace("tableButton", "button-disabled");
@@ -687,9 +705,9 @@ function turnACell(e) {
     updateScoreDisplay(score); // Actualiza el marcador en la pantalla
     // If the state is "victory", disable all buttons and generate new buttons
 
-    // AMMO MANAGEMENT 
+    // AMMO MANAGEMENT
     // (after all visual effects from selecting the button)
-    // have to check if option is activated 
+    // have to check if option is activated
     if (ammoEnabled) {
 
         playerAmmo -= 1; // subtract player ammo each time he selects something
@@ -738,15 +756,16 @@ function turnACell(e) {
     }
 }
 
+
 // Function to track the positions found (hits on the ships)
 function sumFoundPositions(positionString, selectesHorders) {
     let checkVictoryText = "";
 
     // Split the positionString by comma to separate values
     const elements = positionString.split(",");
-    console.log(elements);
-    numHorder = elements[1];  // Extract the number of the horde
-    longHorder = elements[0];  // Extract the length of the horde
+    // console.log(elements);
+    let numHorder = elements[1];  // Extract the number of the horde
+    let longHorder = elements[0];  // Extract the length of the horde
     let indexArray = 0;
     let touchOrSunk = "";
 
@@ -894,12 +913,12 @@ function updateScoreDisplay(newScore) {
     document.getElementById("scoreDisplay").textContent = String(newScore).padStart(5, '0');//siempre tendra 5 cifras
 }
 
-
+var counter = 0;
 //funcion para carcular puntuacion
 function getScore(currentScore, message) {
     let score = currentScore;
     let time = getElapsedTimeInSeconds()
-    let counter = 0;
+
 
     if (message === 'water') {
         if (time <= 300) {
@@ -967,9 +986,8 @@ window.onload = function () {
     startTime = new Date().getTime(); // Tiempo de inicio
     timerInterval = setInterval(function () {
         let currentTime = new Date().getTime();
-        let elapsedTime = currentTime - startTime;
-        document.querySelector("#chronometer").textContent = formatTime(elapsedTime);
-        //document.querySelector("#chronometer").style.color = "#3b240b"; 
+        elapsedTime = currentTime - startTime;
+        document.getElementById("chronometer").textContent = formatTime(elapsedTime);
 
     }, 1000); // Actualizar cada segundo
 };

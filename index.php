@@ -42,7 +42,7 @@
                     <input type="checkbox" name="options" value="Option 1"> Munició Limitada
                 </label><br>
                 <label>
-                    <input type="checkbox" name="options" value="Option 2" disabled> Acoirassats
+                    <input type="checkbox" name="options" value="Option 2" disabled> Cuirassat
                 </label><br>
                 <label>
                     <input type="checkbox" name="options" value="Option 3" disabled> Atac Especial
@@ -58,9 +58,9 @@
             L'estratègia, la punteria i una mica de sort seran les teves millors aliades en aquesta aventura.
             Dispara amb precisió per aconseguir la victòria!</p>
 
-        <form id="myForm" method="POST" action="game.php">
+        <form id="myForm" method="POST" action="tutorial.php">
             <div id="nameRecord">
-                <label for="name">Allista't! Com et dius (Només per partida classica.):</label>
+                <label for="name">Allista't! Com et dius (Només per partida clàssica.):</label>
                 <input type="text" id="nameIndex" name="name" value="" required>
             </div>
             <div id="longUser">
@@ -73,7 +73,7 @@
             <a id="toTutoA" class="aDisabled" href="tutorial.php"><button id="initTuto"
                     class="button-disabled">Tutorial</button></a>
             <a id="toGameA" class="aDisabled" href="game.php"><button id="initGame" class="button-disabled">Partida
-                    Classica</button></a>
+                    Clàssica</button></a>
             <a class="aActive" href="ranking.php"><button id="goToHall" class="buttonActive">HALL OF FAME</button></a>
         </div>
     </div>
