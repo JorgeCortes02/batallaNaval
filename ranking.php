@@ -16,7 +16,7 @@
     // READ FILE AND LOAD PLAYER DATA
     
     $playersRecords = [];
-    $rankingPathFile = "ranking225registros.txt";
+    $rankingPathFile = "ranking.txt";
 
 
     if (file_exists($rankingPathFile)) { // check if file exists
