@@ -4,8 +4,8 @@ var selectesEnemyHorders = [[0], [0, 0], [0, 0, 0], [0, 0, 0, 0]];
 
 
 // MODES VARIABLES
-var playerAmmo = 40; // document.getElementById("playerAmmoTag");
-var enemyAmmo = 40; // document.getElementById("enemyAmmoTag");
+var playerAmmo = 7; // document.getElementById("playerAmmoTag");
+var enemyAmmo = 4; // document.getElementById("enemyAmmoTag");
 
 
 
