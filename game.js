@@ -751,7 +751,7 @@ function turnACell(e) {
 
     disableTable();
 
-    let stateCell = "victory"//sumFoundPositions(value, selectesPlayerHorders); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
+    let stateCell = sumFoundPositions(value, selectesPlayerHorders); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
 
     // Change the class from "tableButton" to "button-disabled"
     e.target.classList.replace("tableButton", "button-disabled");
