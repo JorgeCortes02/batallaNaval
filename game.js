@@ -2,12 +2,12 @@
 var selectesPlayerHorders = [[0], [0, 0], [0, 0, 0], [0, 0, 0, 0]];
 var selectesEnemyHorders = [[0], [0, 0], [0, 0, 0], [0, 0, 0, 0]];
 
-// MODES ACTIVATED
-// (get from game.php) --> true para pruebas
 
 // MODES VARIABLES
 var playerAmmo = 40; // document.getElementById("playerAmmoTag");
 var enemyAmmo = 40; // document.getElementById("enemyAmmoTag");
+
+
 
 // Get all buttons with the class "tableButton"
 const buttons = document.getElementsByClassName("tableButton");
@@ -50,15 +50,82 @@ document.addEventListener("DOMContentLoaded", function () {
     // Execute the easterEgg event with parameter once:true so it will execute only once if clicked
     easterEggShowButton.addEventListener('click', easterEggEvent, { once: true });
 
+    const enemyTable = document.getElementsByClassName("enemy_board")[0];
+    let currentRow = 1;
+    let currentCol = 1;
+
+
+
+
+
+    // Inicialitzar la primera celda (a partir de la segona fila)
+    highlightCurrentCell(enemyTable, currentRow, currentCol);
+
+    // Escoltar esdeveniments de teclat
+    window.addEventListener('keydown', function (event) {
+
+        if (nowAttackPlayer === 0) {
+            switch (event.key) {
+                case 'ArrowUp':
+                    if (currentRow > 1) currentRow--; // Evita moure's a la primera fila
+                    break;
+                case 'ArrowDown':
+                    if (currentRow < enemyTable.rows.length - 1) currentRow++; // Moure cap avall
+                    break;
+                case 'ArrowLeft':
+                    if (currentCol > 1) currentCol--; // Moure cap a l'esquerra
+                    break;
+                case 'ArrowRight':
+                    if (currentCol < enemyTable.rows[currentRow].cells.length - 1) currentCol++; // Moure cap a la dreta
+                    break;
+
+                case 'Enter': // Enter per activar el botó dins de la celda
+                    clickButtonInCell(enemyTable, currentRow, currentCol);
+                    console.log("llega")
+                    break;
+                default:
+                    break;
+            }
+
+            // Actualitzar l'aparença de la celda actual
+            highlightCurrentCell(enemyTable, currentRow, currentCol);
+        }
+    });
+
 });
 
+// Funció per marcar la celda actual
+function highlightCurrentCell(enemyTable, currentRow, currentCol) {
+    // Eliminar la classe 'current' de totes les celdes
+    const cells = enemyTable.getElementsByTagName("td");
+    for (let cell of cells) {
+        cell.classList.remove('current');
+    }
+
+    // Afegir la classe 'current' a la celda actual
+    const currentCell = enemyTable.rows[currentRow].cells[currentCol];
+    currentCell.classList.add('current');
+}
+
+
+
+// Funció per "clicar" el botó dins de la celda actual
+function clickButtonInCell(enemyTable, currentRow, currentCol) {
+    const currentCell = enemyTable.rows[currentRow].cells[currentCol];
+    const button = currentCell.getElementsByTagName('button')[0]; // Busca el botó dins de la celda
+    console.log("Hola0");
+    if (button) {
+        console.log("Hola");
+        button.click(); // Simula un clic sobre el botó
+    }
+}
 // this generates the multidimensional array using the array of all td.elements (cellPlayerTable)
 function generateMultidimiensionalArrayOfPlayerTableCells(arrayOfTableCells) {
     let multidimensionalArray = [];
     for (let i = 0; i < arrayOfTableCells.length; i += 10) {
         multidimensionalArray.push(arrayOfTableCells.slice(i, i + 10));
     }
-    console.log(multidimensionalArray);
+
     return multidimensionalArray;
 }
 
@@ -88,7 +155,7 @@ function changeTurn() {
 
 
             changeTurnText("turn0");
-            changeBackgorundNotificationColor();
+            changeBackgroundNotificationColor();
         }, 2000);
         // Activate the player's table for interaction
         activeTable()
@@ -101,7 +168,7 @@ function changeTurn() {
 
         setTimeout(() => {
             changeTurnText("turn1");
-            changeBackgorundNotificationColor();
+            changeBackgroundNotificationColor();
             // Aquí es donde registras el evento click para el tablero enemigo
             tableEnemy.addEventListener("click", showNotification);
 
@@ -219,7 +286,7 @@ function enemyTurn() {
             if (possiblePositionsForIAShot.length <= 0) {
                 // To sort error of touched without any available position nearby. 
                 indexOfSelectedCellInArray = getRandomNumber(cellsPlayerTable.length); // Generate a random position on the player's table of cells
-                actualCell = cellsPlayerTabl < e[indexOfSelectedCellInArray]; // Get the actual cell at the random position
+                actualCell = cellsPlayerTable[indexOfSelectedCellInArray]; // Get the actual cell at the random position
                 // update IA selected row and column (to change value to "X" or "O" in the multidimensional map of shots)
                 updateSelectedRowAndSelectedColumnOfEnemyIA(actualCell, multidimensionalArrayOfEnemyShots);
 
@@ -402,6 +469,7 @@ function showPlayerHorders() {
             element.style.background = "gray";
         }
     });
+
 }
 
 function easterEggEvent() {
@@ -483,7 +551,7 @@ function generateNotificationWithAction(typeNotification) {
     paragrafNotification.classList.add("slide-in");
 }
 
-function changeBackgorundNotificationColor() {
+function changeBackgroundNotificationColor() {
     const divNoti = document.getElementById("notificationContainer");
     if (nowAttackPlayer == 0) {
 
@@ -639,7 +707,7 @@ function checkMunitionDepletedToSeeIfWinOrLose(playerHordes, enemyHordes, turn) 
         }
     } else if (playerSunkHorderCount === enemySunkHorderCount) { // Draw in sunk hordes
 
-        // Sum values of player touched vs IA touched. Highest wins (draw --> victory for IA). 
+        // Sum values of player touched vs IA touched. Highest wins (draw --> victory for IA).
         sumOfTouchedPlayerPositions = playerHordes.flat().reduce((acc, val) => acc + val, 0);
         sumOfTouchedEnemyPositions = enemyHordes.flat().reduce((acc, val) => acc + val, 0);
         if (turn === "player") {
@@ -703,9 +771,9 @@ function turnACell(e) {
     updateScoreDisplay(score); // Actualiza el marcador en la pantalla
     // If the state is "victory", disable all buttons and generate new buttons
 
-    // AMMO MANAGEMENT 
+    // AMMO MANAGEMENT
     // (after all visual effects from selecting the button)
-    // have to check if option is activated 
+    // have to check if option is activated
     if (ammoEnabled) {
 
         playerAmmo -= 1; // subtract player ammo each time he selects something
@@ -754,13 +822,14 @@ function turnACell(e) {
     }
 }
 
+
 // Function to track the positions found (hits on the ships)
 function sumFoundPositions(positionString, selectesHorders) {
     let checkVictoryText = "";
 
     // Split the positionString by comma to separate values
     const elements = positionString.split(",");
-    console.log(elements);
+    // console.log(elements);
     let numHorder = elements[1];  // Extract the number of the horde
     let longHorder = elements[0];  // Extract the length of the horde
     let indexArray = 0;

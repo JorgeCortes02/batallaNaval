@@ -26,6 +26,8 @@ document.addEventListener("DOMContentLoaded", function () {
             errorDiv.style.visibility = 'visible';
             initGameButton.classList.replace("buttonActive", "button-disabled");
             toGameA.classList.replace("aActive", "aDisabled");
+            initTutoButton.classList.replace("buttonActive", "button-disabled");
+            toTutoA.classList.replace("aActive", "aDisabled");
         } else {
             errorDiv.style.visibility = 'hidden';
             initGameButton.classList.replace("button-disabled", "buttonActive");
