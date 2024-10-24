@@ -82,7 +82,7 @@ if (isset($_POST['score']) && isset($_POST['score'])) {
     
    <div id='finalScreen' class='show'>
     <h1>¡Felicitats, has perdut!</h1>
-    <img src='../Images/trofeo.jpg' alt='foto trofeo' class='trophy-img'>
+    <img src='../images/trofeo.jpg' alt='foto trofeo' class='trophy-img'>
 
     <!-- Formulario para el nombre del jugador -->
     <form id='saveRecordForm' action='lose.php' method='post'>
