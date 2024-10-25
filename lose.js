@@ -1,4 +1,4 @@
-const gameSounds = [new Audio('sounds/gameover.mp3')];
+const gameSounds = [new Audio('Sounds/gameover.mp3')];
 
 document.addEventListener("DOMContentLoaded", function () {
     // Mostrar el finalScreen con una animación de entrada
