@@ -6,8 +6,8 @@ var selectesHorders = [[0], [0, 0], [0, 0, 0], [0, 0, 0, 0]];
 // Get all buttons with the class "tableButton"
 const buttons = document.getElementsByClassName("tableButton");
 
-//Array with the game sounds
-const gameSounds = [new Audio('sounds/water1.mp3'), new Audio('sounds/victory.mp3'), new Audio('sounds/perfect.mp3'), new Audio('sounds/gameover.mp3'), new Audio('sounds/zombie.mp3'), new Audio('sounds/IndianaJonesTheme.mp3')];
+//Array with the game Sounds
+const gameSounds = [new Audio('Sounds/water1.mp3'), new Audio('Sounds/victory.mp3'), new Audio('Sounds/perfect.mp3'), new Audio('Sounds/gameover.mp3'), new Audio('Sounds/zombie.mp3'), new Audio('Sounds/IndianaJonesTheme.mp3')];
 
 
 // Wait for the DOM to fully load before executing the script
@@ -268,7 +268,7 @@ function checkIfTouchedOrSunk(indexArray, numHorder, longHorder) {
     }
 }
 
-//Function for generate de sounds
+//Function for generate de Sounds
 function generateSound(inputOfGame) {
     //We must insert how a attribute an input with the information of the sound.
     switch (inputOfGame) {
