@@ -45,7 +45,7 @@
                     <input type="checkbox" name="options" value="Option 2"> Armadura
                 </label><br>
                 <label>
-                    <input type="checkbox" name="options" value="Option 3"> Atac Especial
+                    <input type="checkbox" name="options" value="Option 3"> Granades
                 </label><br>
             </div>
         </form>
