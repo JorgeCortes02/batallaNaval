@@ -23,17 +23,24 @@ var cellsPlayerTable = null;
 
 // this will be the map of the player table (will register remaining positions to hit --> td.element / water --> "X" / (touched/sunk) --> "O")
 var multidimensionalArrayOfEnemyShots = null;
+var multidimensionalArrayOfPlayerShots = null;
 
 // Wait for the DOM to fully load before executing the script
 document.addEventListener("DOMContentLoaded", function () {
 
     // Those are all the cells from the player table with the IA iteracts with  
     cellsPlayerTable = Array.from(document.getElementsByClassName("playerCell"));
-
-
+    cellsEnemyTable = Array.from(buttons);
+    console.log(buttons);
     // Generates a multidimensional array to get all cells of player table and generate the IA logic afterwards
     // it uses the cellsPlayerTable elements
-    multidimensionalArrayOfEnemyShots = generateMultidimiensionalArrayOfPlayerTableCells(cellsPlayerTable);
+    multidimensionalArrayOfEnemyShots = generateMultidimiensionalArrayOfTableCells(cellsPlayerTable);
+    
+    // this will map the buttons to use the multishot for player
+    multidimensionalArrayOfPlayerShots = generateMultidimiensionalArrayOfTableCells(cellsEnemyTable)
+    for (line of multidimensionalArrayOfPlayerShots){
+        console.log(line);
+    }
 
     showPlayerHorders(); // Marks horders in player table in gray
 
@@ -44,7 +51,6 @@ document.addEventListener("DOMContentLoaded", function () {
         buttonGame.addEventListener("click", turnACell);
     }
 
-
     // Get the easterEggButton
     const easterEggShowButton = document.getElementById('easterEggShowButton');
     // Execute the easterEgg event with parameter once:true so it will execute only once if clicked
@@ -54,12 +60,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 // this generates the multidimensional array using the array of all td.elements (cellPlayerTable)
-function generateMultidimiensionalArrayOfPlayerTableCells(arrayOfTableCells) {
+function generateMultidimiensionalArrayOfTableCells(arrayOfTableCells) {
     let multidimensionalArray = [];
     for (let i = 0; i < arrayOfTableCells.length; i += 10) {
         multidimensionalArray.push(arrayOfTableCells.slice(i, i + 10));
     }
-
     return multidimensionalArray;
 }
 
@@ -134,7 +139,8 @@ function updateSelectedRowAndSelectedColumnOfEnemyIA(selectedCell, multidimensio
 // This function will return an array of  surrounding positions of a given position (top/bottom/left/right)
 // It will return positions that are not off limits (outside multidimensional array)
 // it uses the multidimensional array of td.element / "X" / "O" used for IA
-function getSurroundings(positionX, positionY) {
+function getSurroundingsForIA(positionX, positionY) {
+
     let surroundings = [];
     let maxIndex = multidimensionalArrayOfEnemyShots.length - 1;
 
@@ -185,11 +191,78 @@ function getSurroundings(positionX, positionY) {
     return surroundings;
 }
 
+function getSurroundingsForMultiShot(positionX, positionY) {
+    let surroundings = [];
+    let maxIndex = multidimensionalArrayOfPlayerShots.length - 1;
+    
+    // TOP-LEFT
+    if (positionX === 0 && positionY === 0) {
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX][positionY + 1]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX + 1][positionY]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX + 1][positionY+1]);
+        // TOP-RIGHT
+    } else if (positionX === 0 && positionY === maxIndex) {
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX + 1][positionY]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX][positionY - 1]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX + 1][positionY - 1]);
+        // BOTTOM-LEFT
+    } else if (positionX === maxIndex && positionY === 0) {
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX - 1][positionY]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX][positionY + 1]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX - 1][positionY + 1]);
+        // BOTTOM-RIGHT
+    } else if (positionX === maxIndex && positionY === maxIndex) {
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX - 1][positionY]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX][positionY - 1]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX - 1][positionY - 1]);
+        // TOP EDGE
+    } else if (positionX === 0) {
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX][positionY + 1]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX + 1][positionY + 1]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX + 1][positionY]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX + 1][positionY - 1]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX][positionY - 1]);
+        // BOTTOM EDGE
+    } else if (positionX === maxIndex) {
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX][positionY - 1]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX - 1][positionY -1]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX - 1][positionY]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX - 1][positionY + 1]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX][positionY + 1]);
+        // LEFT EDGE
+    } else if (positionY === 0) {
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX - 1][positionY]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX - 1][positionY + 1]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX][positionY + 1]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX + 1][positionY + 1]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX + 1][positionY]);
+        // RIGHT EDGE
+    } else if (positionY === maxIndex) {
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX - 1][positionY]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX - 1][positionY - 1]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX][positionY - 1]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX + 1][positionY - 1]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX + 1][positionY]);
+        // MIDDLE
+    } else {
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX - 1][positionY]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX - 1][positionY + 1]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX][positionY + 1]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX + 1][positionY + 1]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX + 1][positionY]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX + 1][positionY - 1]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX][positionY - 1]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX - 1][positionY - 1]);
+
+    }
+
+    return surroundings;
+}
 
 //After obtaining the surrounding positions, to return only the available positions to use, 
 //it deletes X (water) and O (touched/sunk) positions (those have already been selected in previous turns so won't be selectable)
-function getValidPositionsForTouch(positionX, positionY) {
-    let surroundings = getSurroundings(positionX, positionY);
+function getValidPositionsForTouchForIA(positionX, positionY) {
+    let surroundings = getSurroundingsForIA(positionX, positionY);
     return filteredSurroundings = surroundings.filter(element => element !== "X" && element !== "O");
 }
 
@@ -681,11 +754,40 @@ function turnACell(e) {
         countFirtsPlayerAttack += 1;
 
     }
-    const value = e.target.value; // Get the value of the clicked button
-
+    
     disableTable();
 
-    let stateCell = "victory"//sumFoundPositions(value, selectesPlayerHorders); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
+    const value = e.target.value; // Get the value of the clicked button
+    let id_position = e.target.id.split("-");
+    const rowPosition = parseInt(id_position[0]);
+    const columnPosition = parseInt(id_position[1]);
+    console.log(`POSICION = row ${rowPosition} - column ${columnPosition}`);
+    console.log(getSurroundingsForMultiShot(rowPosition, columnPosition));
+
+    if (multiShot) {
+        
+        surroundingsOfMultiShot = getSurroundingsForMultiShot(rowPosition, columnPosition);
+        countOfSelectedPositions = surroundingsOfMultiShot.length + 1;
+        console.log(surroundingsOfMultiShot);   
+        console.log(countOfSelectedPositions);
+
+        results = [];
+        for (singleMultiShotPosition of surroundingsOfMultiShot){
+            console.log(singleMultiShotPosition.value)
+            let stateCell = sumFoundPositions(singleMultiShotPosition.value, selectesPlayerHorders);
+            results.push(stateCell);
+            singleMultiShotPosition.classList.replace("tableButton", "button-disabled")
+        }
+        console.log(results);
+        
+
+        // obtener array de resultados
+
+    }
+    
+    
+
+    let stateCell = sumFoundPositions(value, selectesPlayerHorders); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
 
     // Change the class from "tableButton" to "button-disabled"
     e.target.classList.replace("tableButton", "button-disabled");
@@ -733,6 +835,7 @@ function turnACell(e) {
         stopTimer(); // Detener el cronómetro
     }
     if (stateCell !== "touched" && stateCell !== "sunk") {
+        /*
         if (ammoEnabled) {
 
             if (enemyAmmo <= 0) {
@@ -741,9 +844,10 @@ function turnACell(e) {
             } else { changeTurn(); }
 
         } else { changeTurn(); }
-
-
+        */
+        activeTable();
     } else {
+        /*
         if (ammoEnabled) {
 
             if (playerAmmo <= 0) {
@@ -752,7 +856,8 @@ function turnACell(e) {
             } else { activeTable(); }
 
         } else { activeTable(); }
-
+        */
+        activeTable();
     }
 }
 

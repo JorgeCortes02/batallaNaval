@@ -42,10 +42,10 @@
                     <input type="checkbox" name="options" value="Option 1"> Munició Limitada
                 </label><br>
                 <label>
-                    <input type="checkbox" name="options" value="Option 2" disabled> Cuirassat
+                    <input type="checkbox" name="options" value="Option 2"> Armadura
                 </label><br>
                 <label>
-                    <input type="checkbox" name="options" value="Option 3" disabled> Atac Especial
+                    <input type="checkbox" name="options" value="Option 3"> Atac Especial
                 </label><br>
             </div>
         </form>
