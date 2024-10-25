@@ -39,12 +39,24 @@
         fclose($rankingFile);
     }
 
+
+    $lastPlayer = $playersRecords[count($playersRecords) - 1];
+
     // SORT RANKING
     
     usort($playersRecords, function ($a, $b) {
         return $b[1] - $a[1]; // sort by points in descending order
     });
 
+    for ($i = 0; $i < count($playersRecords); $i++) {
+
+        if ($playersRecords[$i] === $lastPlayer) {
+            $positionPlayer = $i + 1;
+            $pagePlayer = ceil($i / 25);
+            echo $positionPlayer;
+        }
+
+    }
 
     // PAGINATION AND ECHO
     
@@ -67,7 +79,7 @@
         }
 
     } else {
-        $currentPage = 1;
+        $currentPage = $pagePlayer;
     }
 
     // Get the initial index of the array based on our current page (page 1 = from 0 / page 2 = from 25 ... - included - )
@@ -104,13 +116,24 @@
 
         // Each Row
         foreach ($playersRecordsOfTheCurrentPage as $playerRecord) {
-            echo "<tr>";
-            echo "<td>{$positionOfPlayerInRanking}</td>";
-            echo "<td>{$playerRecord[0]}</td>";
-            echo "<td>{$playerRecord[1]}</td>";
-            echo "<td>{$playerRecord[2]}</td>";
-            echo "</tr>";
 
+            if ($positionPlayer == $positionOfPlayerInRanking) {
+
+                echo "<tr id ='lastInsert'>";
+                echo "<td>{$positionOfPlayerInRanking}</td>";
+                echo "<td>{$playerRecord[0]}</td>";
+                echo "<td>{$playerRecord[1]}</td>";
+                echo "<td>{$playerRecord[2]}</td>";
+                echo "</tr>";
+            } else {
+                echo "<tr>";
+                echo "<td>{$positionOfPlayerInRanking}</td>";
+                echo "<td>{$playerRecord[0]}</td>";
+                echo "<td>{$playerRecord[1]}</td>";
+                echo "<td>{$playerRecord[2]}</td>";
+                echo "</tr>";
+
+            }
             $positionOfPlayerInRanking += 1;
         }
 

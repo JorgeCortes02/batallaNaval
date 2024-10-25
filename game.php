@@ -8,8 +8,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $name = isset($_POST['name']) ? $_POST['name'] : 'No enviado';
     $munition = isset($_POST['munition']) && $_POST['munition'] == "true" ? true : false;
-    $armor = isset($_POST['armor']) ? $_POST['armor'] : 'No enviado';
-    $specialAtack = isset($_POST['specialAtack']) ? $_POST['specialAtack'] : 'No enviado';
+    $armor = isset($_POST['armor']) && $_POST['armor'] == "true" ? true : false;
+    $specialAtack = isset($_POST['specialAtack']) && $_POST['specialAtack'] == "true" ? true : false;
 
 }
 
