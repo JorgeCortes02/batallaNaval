@@ -56,48 +56,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // Execute the easterEgg event with parameter once:true so it will execute only once if clicked
     easterEggShowButton.addEventListener('click', easterEggEvent, { once: true });
 
-    const enemyTable = document.getElementsByClassName("enemy_board")[0];
-    let currentRow = 1;
-    let currentCol = 1;
-
-
-
-
-
-    // Inicialitzar la primera celda (a partir de la segona fila)
-    highlightCurrentCell(enemyTable, currentRow, currentCol);
-
-    // Escoltar esdeveniments de teclat
-    window.addEventListener('keydown', function (event) {
-
-        if (nowAttackPlayer === 0) {
-            switch (event.key) {
-                case 'ArrowUp':
-                    if (currentRow > 1) currentRow--; // Evita moure's a la primera fila
-                    break;
-                case 'ArrowDown':
-                    if (currentRow < enemyTable.rows.length - 1) currentRow++; // Moure cap avall
-                    break;
-                case 'ArrowLeft':
-                    if (currentCol > 1) currentCol--; // Moure cap a l'esquerra
-                    break;
-                case 'ArrowRight':
-                    if (currentCol < enemyTable.rows[currentRow].cells.length - 1) currentCol++; // Moure cap a la dreta
-                    break;
-
-                case 'Enter': // Enter per activar el botó dins de la celda
-                    clickButtonInCell(enemyTable, currentRow, currentCol);
-                    console.log("llega")
-                    break;
-                default:
-                    break;
-            }
-
-            // Actualitzar l'aparença de la celda actual
-            highlightCurrentCell(enemyTable, currentRow, currentCol);
-        }
-    });
-
 });
 
 // Funció per marcar la celda actual
