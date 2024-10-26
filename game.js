@@ -33,13 +33,16 @@ var multidimensionalArrayOfPlayerShots = null;
 // Wait for the DOM to fully load before executing the script
 document.addEventListener("DOMContentLoaded", function () {
 
-
     if (extraArmor == true) {
 
+        // If 'extraArmor' is true, initialize 'selectesPlayerHorders' and 'selectesEnemyHorders'
+        // by calling the 'generetaArrayWithPositions' function, creating arrays based on 'horders'
         selectesPlayerHorders = generetaArrayWithPositions();
         selectesEnemyHorders = generetaArrayWithPositions();
 
     } else {
+        // If 'extraArmor' is false, manually initialize 'selectesPlayerHorders' and 'selectesEnemyHorders'
+        // with preset nested arrays representing different structures
         selectesPlayerHorders = [[0], [0, 0], [0, 0, 0], [0, 0, 0, 0]];
         selectesEnemyHorders = [[0], [0, 0], [0, 0, 0], [0, 0, 0, 0]];
 
@@ -58,6 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     showPlayerHorders(); // Marks horders in player table in gray
 
+    //div for the notifications.
     const notificationsDiv = document.getElementById("notificationsDiv");
 
     // Attach click event listener to each button (only enemy table have buttons)
@@ -81,26 +85,31 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function generetaArrayWithPositions() {
 
+    // Initialize an empty array to store the new structure
     newSelectesHolders = [];
 
+    // Loop through each item in the 'horders' array
     for (let i = 0; i < horders.length; i++) {
 
+        // Add a new empty sub-array to 'newSelectesHolders' for each 'horders' item
         newSelectesHolders.push([]);
 
+        // Loop based on the first value in the current 'horders' sub-array
         for (let j = 0; j < horders[i][0]; j++) {
 
+            // Add another empty sub-array for each 'j' iteration
             newSelectesHolders[i].push([]);
 
+            // Loop based on the second value in the current 'horders' sub-array
             for (let k = 0; k < horders[i][1]; k++) {
 
+                // Push '0' into the innermost sub-array
                 newSelectesHolders[i][j].push(0);
             }
         }
-
-
-
     }
 
+    // Return the fully constructed 'newSelectesHolders' array
     return newSelectesHolders;
 }
 
@@ -138,7 +147,7 @@ function getRandomNumber(long) {
     // Return a random number between 0 and the length of the array
     return Math.floor(Math.random() * long);
 }
-
+//Function for adding to the enemy Cells the animation before the new color if is touched, sunk...
 function animateCellColorChange(actualCell) {
     // Add the class to start the animation
     actualCell.classList.add("cell-color-animation");
@@ -148,6 +157,7 @@ function animateCellColorChange(actualCell) {
         actualCell.classList.remove("cell-color-animation");
     }, 5000); // 
 }
+
 
 function changeTurn() {
     const tableEnemy = document.getElementsByClassName("enemy_board")[0];
@@ -648,24 +658,27 @@ function generateNotificationWithAction(typeNotification) {
 }
 
 function changeBackgorundNotificationColor() {
+    // Select the HTML element with the ID "notificationContainer"
     const divNoti = document.getElementById("notificationContainer");
+
+    // Check if 'nowAttackPlayer' equals 0
     if (nowAttackPlayer == 0) {
 
+        // If 'divNoti' has the "divNotiEnemy" class
         if (divNoti.classList.contains("divNotiEnemy")) {
 
-            divNoti.classList.replace("divNotiEnemy", "divNotiPlayer")
-
+            // Replace the "divNotiEnemy" class with "divNotiPlayer"
+            divNoti.classList.replace("divNotiEnemy", "divNotiPlayer");
         }
 
     } else {
+        // If 'nowAttackPlayer' is not 0 and 'divNoti' has the "divNotiPlayer" class
         if (divNoti.classList.contains("divNotiPlayer")) {
 
-            divNoti.classList.replace("divNotiPlayer", "divNotiEnemy")
+            // Replace the "divNotiPlayer" class with "divNotiEnemy"
+            divNoti.classList.replace("divNotiPlayer", "divNotiEnemy");
         }
-
     }
-
-
 }
 
 function changeTurnText(turn) {
@@ -1083,70 +1096,98 @@ function turnACell(e) {
 
 
     if (stateCell === "victory") {
+        // If the state of the cell indicates "victory", disable the game table
         disableTableIfVictory();
+
+        // Redirect to "win.php" page with the player's score as a URL parameter
         window.location.href = "win.php?score=" + score;
 
-        stopTimer(); // Detener el cronómetro
+        // Stop the timer
+        stopTimer();
     }
 
     if (stateCell === "gameover") {
+        // If the state of the cell indicates "gameover", disable the game table
         disableTableIfVictory();
+
+        // Redirect to "lose.php" page with the player's score as a URL parameter
         window.location.href = "lose.php?score=" + score;
 
-        stopTimer(); // Detener el cronómetro
+        // Stop the timer
+        stopTimer();
     }
 
-    // ME PARECE QUE ESTÁ MAL, NO SE REPITE TURNO SI ES FOUND
+    // If the state of the cell is not "touched" and not "sunk"
     if (stateCell !== "touched" && stateCell !== "sunk") {
+
+        // If ammo mode is enabled
         if (ammoEnabled) {
 
+            // Check if the enemy has no ammo remaining
             if (enemyAmmo <= 0) {
 
+                // Enable the game table
                 activeTable();
-            } else { changeTurn(); }
 
-        } else { changeTurn(); }
+            } else {
+                // Otherwise, change the turn
+                changeTurn();
+            }
 
+        } else {
+            // If ammo mode is not enabled, simply change the turn
+            changeTurn();
+        }
 
     } else {
+        // If the state of the cell is "touched" or "sunk"
 
+        // If ammo mode is enabled
         if (ammoEnabled) {
 
+            // Check if the player has no ammo remaining
             if (playerAmmo <= 0) {
 
+                // Change the turn
                 changeTurn();
-            } else { activeTable(); }
 
-        } else { activeTable(); }
+            } else {
+                // Otherwise, enable the game table
+                activeTable();
+            }
 
-
+        } else {
+            // If ammo mode is not enabled, enable the game table
+            activeTable();
+        }
     }
+
 }
-
-
 function insertCellText(button, stateCell) {
 
-
+    // Use a switch statement to determine the text to insert into 'button' based on 'stateCell'
     switch (stateCell) {
 
         case "water":
+            // If 'stateCell' is "water", set the button text to "Sorra" (meaning "Missed" or "Water")
             button.innerText = "Sorra";
             break;
 
         case "found":
+            // If 'stateCell' is "found", set the button text to "Trobat" (meaning "Found")
             button.innerText = "Trobat";
             break;
-        case "touched":
 
+        case "touched":
+            // If 'stateCell' is "touched", set the button text to "Tocat" (meaning "Hit" or "Touched")
             button.innerText = "Tocat";
             break;
-        case "sunk":
 
+        case "sunk":
+            // If 'stateCell' is "sunk", set the button text to "Destruit" (meaning "Destroyed" or "Sunk")
             button.innerText = "Destruit";
             break;
-
     }
-
 }
 
 
