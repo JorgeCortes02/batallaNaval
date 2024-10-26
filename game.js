@@ -1056,8 +1056,7 @@ function turnACell(e) {
 
         }
 
-        e.target.innerText = stateCell; // por cada uno
-
+        insertCellText(e.target, stateCell);
 
         if (ammoEnabled) {
             playerAmmo -= 1; // subtract player ammo each time he selects something
@@ -1123,6 +1122,33 @@ function turnACell(e) {
 
     }
 }
+
+
+function insertCellText(button, stateCell) {
+
+
+    switch (stateCell) {
+
+        case "water":
+            button.innerText = "Sorra";
+            break;
+
+        case "found":
+            button.innerText = "Trobat";
+            break;
+        case "touched":
+
+            button.innerText = "Tocat";
+            break;
+        case "sunk":
+
+            button.innerText = "Destruit";
+            break;
+
+    }
+
+}
+
 
 // Function to track the positions found (hits on the ships)
 function sumFoundPositions(positionString, selectesHorders) {

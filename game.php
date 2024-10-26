@@ -31,7 +31,9 @@ $_SESSION["name"] = $name;
     <title>Game</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="images/momia.png" type="image/x-icon">
     <script src="game.js"></script>
+
 </head>
 
 <body class="page-game">
@@ -468,7 +470,7 @@ $_SESSION["name"] = $name;
                 // The remaining cells represent the enemy's board
                 else {
                     // Each button has a value from the $arrayPosiciones corresponding to the enemy's positions
-                    echo "<td><button id='".($i-1)."-".($j-1)."' class='tableButton' value =".$arrayPosiciones[$i - 1][$j - 1] . "></button></td>";
+                    echo "<td><button id='" . ($i - 1) . "-" . ($j - 1) . "' class='tableButton' value =" . $arrayPosiciones[$i - 1][$j - 1] . "></button></td>";
                 }
 
             }
@@ -584,8 +586,8 @@ $_SESSION["name"] = $name;
 
                     if ($specialAttack) {
                         echo "<div class='grenade_container'>";
-                            echo "<button class='grenade'><img src='images/grenade.png' alt='grenade icon one'></button>";
-                            echo "<button class='grenade'><img src='images/grenade.png' alt='grenade icon two'></button>";
+                        echo "<button class='grenade'><img src='images/grenade.png' alt='grenade icon one'></button>";
+                        echo "<button class='grenade'><img src='images/grenade.png' alt='grenade icon two'></button>";
                         echo "</div>";
                     }
 

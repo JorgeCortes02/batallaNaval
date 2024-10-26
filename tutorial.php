@@ -49,10 +49,11 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game</title>
+    <title>Turorial</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
     <script src="tutorial.js"></script>
+    <link rel="icon" href="images/momia.png" type="image/x-icon">
 </head>
 
 <body class="page-tutorial">

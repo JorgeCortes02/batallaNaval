@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
     <script src="index.js"></script>
+    <link rel="icon" href="images/momia.png" type="image/x-icon">
 </head>
 
 <body class="page-index">
