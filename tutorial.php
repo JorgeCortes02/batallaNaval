@@ -519,12 +519,11 @@ if (isset($_POST['name']) && isset($_POST['score'])) {
             <h2><?php echo "Hola, $name." ?></h2>
             <div class="time-marker">
                 <div class="time">
-                    <img id="clock" src="../Images/tiempo-pasado.png" alt="Icono de un reloj" width="30px"
-                        height="30px">
+                    <img id="clock" src="images/tiempo-pasado.png" alt="Icono de un reloj" width="30px" height="30px">
                     <time id="chronometer" datetime="clock">00:00:00</time>
                 </div>
                 <div class="marker">
-                    <img id="arrow" src="../Images/flecha-de-diana.png" alt="diana" width="30px" height="30px">
+                    <img id="arrow" src="images/flecha-de-diana.png" alt="diana" width="30px" height="30px">
                     <p id="scoreDisplay">00000</p>
                 </div>
 
