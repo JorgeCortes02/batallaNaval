@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Generates a multidimensional array to get all cells of player table and generate the IA logic afterwards
     // it uses the cellsPlayerTable elements
     multidimensionalArrayOfEnemyShots = generateMultidimiensionalArrayOfTableCells(cellsPlayerTable);
-    
+
     // this will map the buttons to use the multishot for player
     multidimensionalArrayOfPlayerShots = generateMultidimiensionalArrayOfTableCells(cellsEnemyTable)
 
@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (grenadeEnabled) {
         grenadeButtons = document.getElementsByClassName("grenade");
-        for (let grenadeButton of grenadeButtons){
+        for (let grenadeButton of grenadeButtons) {
             grenadeButton.addEventListener('click', grenadeSelection)
         }
     }
@@ -104,17 +104,17 @@ function generetaArrayWithPositions() {
     return newSelectesHolders;
 }
 
-function grenadeSelection(e){
+function grenadeSelection(e) {
     const grenade = e.target;
     // if grenade is not deactivated (because already used)
-    if(!grenade.classList.contains("deactivated")){
+    if (!grenade.classList.contains("deactivated")) {
         // If clicked grenade === selected --> deselect it
         if (grenade === grenadeSelected) {
             grenade.classList.remove("selected");
             grenadeSelected = null;
         } else {
             // Unselect all
-            for (let grenadeButton of grenadeButtons){
+            for (let grenadeButton of grenadeButtons) {
                 grenadeButton.classList.remove("selected")
             }
             // Select bomb clicked
@@ -122,7 +122,7 @@ function grenadeSelection(e){
             grenadeSelected = grenade;
         }
     }
-    
+
 }
 
 // this generates the multidimensional array using the array of all td.elements (cellPlayerTable)
@@ -263,12 +263,12 @@ function getSurroundingsForIA(positionX, positionY) {
 function getSurroundingsForGrenade(positionX, positionY) {
     let surroundings = [];
     let maxIndex = multidimensionalArrayOfPlayerShots.length - 1;
-    
+
     // TOP-LEFT
     if (positionX === 0 && positionY === 0) {
         surroundings.push(multidimensionalArrayOfPlayerShots[positionX][positionY + 1]);
         surroundings.push(multidimensionalArrayOfPlayerShots[positionX + 1][positionY]);
-        surroundings.push(multidimensionalArrayOfPlayerShots[positionX + 1][positionY+1]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX + 1][positionY + 1]);
         // TOP-RIGHT
     } else if (positionX === 0 && positionY === maxIndex) {
         surroundings.push(multidimensionalArrayOfPlayerShots[positionX + 1][positionY]);
@@ -294,7 +294,7 @@ function getSurroundingsForGrenade(positionX, positionY) {
         // BOTTOM EDGE
     } else if (positionX === maxIndex) {
         surroundings.push(multidimensionalArrayOfPlayerShots[positionX][positionY - 1]);
-        surroundings.push(multidimensionalArrayOfPlayerShots[positionX - 1][positionY -1]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX - 1][positionY - 1]);
         surroundings.push(multidimensionalArrayOfPlayerShots[positionX - 1][positionY]);
         surroundings.push(multidimensionalArrayOfPlayerShots[positionX - 1][positionY + 1]);
         surroundings.push(multidimensionalArrayOfPlayerShots[positionX][positionY + 1]);
@@ -506,7 +506,7 @@ function enemyTurn() {
 
 
                 // If the enemy hit or sunk a target, continue with the enemy's turn
-                if (stateCell == "touched" || stateCell == "sunk" || stateCell == "found") {
+                if (stateCell == "touched" || stateCell == "sunk") {
 
                     if (ammoEnabled) {
 
@@ -807,8 +807,8 @@ function countSunkHordes(touchedHordes) {
     return counterOfSunkHordes;
 }
 
-function getFavorableState(statesArray){
-    if (statesArray.includes("victory")){
+function getFavorableState(statesArray) {
+    if (statesArray.includes("victory")) {
         return "victory";
     } else if (statesArray.includes("gameover")) {
         return "gameover";
@@ -914,7 +914,7 @@ function checkMunitionDepletedToSeeIfWinOrLose(playerHordes, enemyHordes, turn) 
 }
 
 var countFirtsPlayerAttack = 0;
-function updateAmmoTags(){
+function updateAmmoTags() {
     let playerAmmoTag = document.getElementById("playerAmmoTag");
     playerAmmoTag.innerText = playerAmmo + " (PLAYER)";
     let enemyAmmoTag = document.getElementById("enemyAmmoTag");
@@ -924,7 +924,7 @@ function updateAmmoTags(){
 // Function to handle cell click events
 function turnACell(e) {
 
-   
+
 
     if (countFirtsPlayerAttack == 0) {
 
@@ -932,7 +932,7 @@ function turnACell(e) {
         countFirtsPlayerAttack += 1;
 
     }
-    
+
     disableTable();
 
     let stateCell;
@@ -961,7 +961,7 @@ function turnACell(e) {
         surroundingsOfGrenade = getSurroundingsForGrenade(rowPosition, columnPosition);
         console.log(surroundingsOfGrenade);
 
-        if(ammoEnabled){
+        if (ammoEnabled) {
             countOfSelectedPositions = surroundingsOfGrenade.length + 1;
             console.log(`MUNICIÓN DEL JUGADOR = ${playerAmmo} | contador de posiciones = ${countOfSelectedPositions}`)
             if (countOfSelectedPositions > playerAmmo) {
@@ -979,12 +979,12 @@ function turnACell(e) {
                 updateAmmoTags();
             }
         }
-        
+
 
         results = [];
         // insert selected button
         surroundingsOfGrenade.push(e.target);
-        for (singleGrenadePosition of surroundingsOfGrenade){
+        for (singleGrenadePosition of surroundingsOfGrenade) {
 
             // obtain state of cell (water, found, touched, sunk, victory, gameover)
             if (extraArmor == true) {
@@ -994,24 +994,24 @@ function turnACell(e) {
             }
 
             results.push(singleCellStateOfsingleGrenadePosition);
-            
+
             // disable buttons that have been selected (IMPLEMENTAR LÓGICA)
             singleGrenadePosition.innerText = singleCellStateOfsingleGrenadePosition; // por cada uno
 
             if (singleCellStateOfsingleGrenadePosition == "water") {
 
                 singleGrenadePosition.classList.replace("tableButton", "button-disabled");
-        
+
             } else if (singleCellStateOfsingleGrenadePosition == "found") {
-        
+
                 singleGrenadePosition.classList.replace("tableButton", "found");
-        
+
             } else {
-        
+
                 // Change the class from "tableButton" to "button-disabled"
                 singleGrenadePosition.classList.replace("found", "button-disabled");
                 singleGrenadePosition.classList.add("touch"); // Correcto
-        
+
             }
 
             // Calcula el nuevo puntaje basándose en el estado del juego
@@ -1019,10 +1019,10 @@ function turnACell(e) {
             updateScoreDisplay(score); // Actualiza el marcador en la pantalla
             // If the state is "victory", disable all buttons and generate new buttons
         }
-        
+
         stateCell = getFavorableState(results);
         generateSound(stateCell); // general
-        generateNotificationWithAction(stateCell); 
+        generateNotificationWithAction(stateCell);
 
         grenadeSelected.classList.replace("selected", "deactivated")
         grenadeSelected = null;
@@ -1037,23 +1037,23 @@ function turnACell(e) {
 
         generateSound(stateCell); // general
         generateNotificationWithAction(stateCell); // puede ser general o uno
-        
-       
+
+
         //If the position is diferent to water, print the position in table with red background
         if (stateCell == "water") {
 
             e.target.classList.replace("tableButton", "button-disabled");
-    
+
         } else if (stateCell == "found") {
-    
+
             e.target.classList.replace("tableButton", "found");
-    
+
         } else {
-    
+
             // Change the class from "tableButton" to "button-disabled"
             e.target.classList.replace("found", "button-disabled");
             e.target.classList.add("touch"); // Correcto
-    
+
         }
 
         e.target.innerText = stateCell; // por cada uno
@@ -1082,23 +1082,23 @@ function turnACell(e) {
         }
     }
 
-    
+
     if (stateCell === "victory") {
         disableTableIfVictory();
         window.location.href = "win.php?score=" + score;
 
         stopTimer(); // Detener el cronómetro
     }
-    
+
     if (stateCell === "gameover") {
         disableTableIfVictory();
         window.location.href = "lose.php?score=" + score;
 
         stopTimer(); // Detener el cronómetro
     }
-    
+
     // ME PARECE QUE ESTÁ MAL, NO SE REPITE TURNO SI ES FOUND
-    if (stateCell !== "touched" && stateCell !== "sunk" && stateCell !== "found") {
+    if (stateCell !== "touched" && stateCell !== "sunk") {
         if (ammoEnabled) {
 
             if (enemyAmmo <= 0) {
@@ -1107,10 +1107,10 @@ function turnACell(e) {
             } else { changeTurn(); }
 
         } else { changeTurn(); }
-        
-        
+
+
     } else {
-        
+
         if (ammoEnabled) {
 
             if (playerAmmo <= 0) {
@@ -1119,8 +1119,8 @@ function turnACell(e) {
             } else { activeTable(); }
 
         } else { activeTable(); }
-        
-        
+
+
     }
 }
 
