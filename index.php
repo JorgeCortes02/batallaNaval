@@ -42,17 +42,10 @@
                     <input type="checkbox" name="options" value="Option 1"> Munició Limitada
                 </label><br>
                 <label>
-<<<<<<< HEAD
-                    <input type="checkbox" name="options" value="Option 2"> Armadura
-                </label><br>
-                <label>
-                    <input type="checkbox" name="options" value="Option 3"> Granades
-=======
                     <input type="checkbox" name="options" value="Option 2"> Armadura extra
                 </label><br>
                 <label>
                     <input type="checkbox" name="options" value="Option 3"> Bomba de fragmentació
->>>>>>> Dev
                 </label><br>
             </div>
         </form>

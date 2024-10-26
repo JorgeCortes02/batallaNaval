@@ -4,7 +4,7 @@ var selectesEnemyHorders = [[0], [0, 0], [0, 0, 0], [0, 0, 0, 0]];
 
 
 // MODES VARIABLES
-var playerAmmo = 40; // document.getElementById("playerAmmoTag");
+var playerAmmo = 9; // document.getElementById("playerAmmoTag");
 var enemyAmmo = 40; // document.getElementById("enemyAmmoTag");
 
 
@@ -12,8 +12,9 @@ var enemyAmmo = 40; // document.getElementById("enemyAmmoTag");
 // Get all buttons with the class "tableButton"
 const buttons = document.getElementsByClassName("tableButton");
 
-
-
+// Buttons for grenade
+var grenadeButtons = null;
+var grenadeSelected = null;
 
 //Array with the game sounds
 const gameSounds = [new Audio('Sounds/water1.mp3'), new Audio('Sounds/perfect.mp3'), new Audio('Sounds/zombie.mp3'), new Audio('Sounds/IndianaJonesTheme.mp3'), new Audio("Sounds/cañonEnemigo.mp3")];
@@ -38,9 +39,6 @@ document.addEventListener("DOMContentLoaded", function () {
     
     // this will map the buttons to use the multishot for player
     multidimensionalArrayOfPlayerShots = generateMultidimiensionalArrayOfTableCells(cellsEnemyTable)
-    for (line of multidimensionalArrayOfPlayerShots){
-        console.log(line);
-    }
 
     showPlayerHorders(); // Marks horders in player table in gray
 
@@ -56,33 +54,36 @@ document.addEventListener("DOMContentLoaded", function () {
     // Execute the easterEgg event with parameter once:true so it will execute only once if clicked
     easterEggShowButton.addEventListener('click', easterEggEvent, { once: true });
 
+    if (grenadeEnabled) {
+        grenadeButtons = document.getElementsByClassName("grenade");
+        for (let grenadeButton of grenadeButtons){
+            grenadeButton.addEventListener('click', grenadeSelection)
+        }
+    }
+
 });
 
-// Funció per marcar la celda actual
-function highlightCurrentCell(enemyTable, currentRow, currentCol) {
-    // Eliminar la classe 'current' de totes les celdes
-    const cells = enemyTable.getElementsByTagName("td");
-    for (let cell of cells) {
-        cell.classList.remove('current');
+function grenadeSelection(e){
+    const grenade = e.target;
+    // if grenade is not deactivated (because already used)
+    if(!grenade.classList.contains("deactivated")){
+        // If clicked grenade === selected --> deselect it
+        if (grenade === grenadeSelected) {
+            grenade.classList.remove("selected");
+            grenadeSelected = null;
+        } else {
+            // Unselect all
+            for (let grenadeButton of grenadeButtons){
+                grenadeButton.classList.remove("selected")
+            }
+            // Select bomb clicked
+            grenade.classList.add("selected");
+            grenadeSelected = grenade;
+        }
     }
-
-    // Afegir la classe 'current' a la celda actual
-    const currentCell = enemyTable.rows[currentRow].cells[currentCol];
-    currentCell.classList.add('current');
+    
 }
 
-
-
-// Funció per "clicar" el botó dins de la celda actual
-function clickButtonInCell(enemyTable, currentRow, currentCol) {
-    const currentCell = enemyTable.rows[currentRow].cells[currentCol];
-    const button = currentCell.getElementsByTagName('button')[0]; // Busca el botó dins de la celda
-    console.log("Hola0");
-    if (button) {
-        console.log("Hola");
-        button.click(); // Simula un clic sobre el botó
-    }
-}
 // this generates the multidimensional array using the array of all td.elements (cellPlayerTable)
 function generateMultidimiensionalArrayOfTableCells(arrayOfTableCells) {
     let multidimensionalArray = [];
@@ -132,7 +133,11 @@ function changeTurn() {
         setTimeout(() => {
             changeTurnText("turn1");
             changeBackgroundNotificationColor();
+
             // Aquí es donde registras el evento click para el tablero enemigo
+            // reset text to cannot attack (it will switch with "you haven't got enough ammo to use a grenade")
+            const notification = document.getElementsByClassName('notification')[0];
+            notification.innerHTML = "No pots atacar, es el torn de l'enemic.";
             tableEnemy.addEventListener("click", showNotification);
 
         }, 3000);
@@ -215,7 +220,7 @@ function getSurroundingsForIA(positionX, positionY) {
     return surroundings;
 }
 
-function getSurroundingsForMultiShot(positionX, positionY) {
+function getSurroundingsForGrenade(positionX, positionY) {
     let surroundings = [];
     let maxIndex = multidimensionalArrayOfPlayerShots.length - 1;
     
@@ -360,8 +365,7 @@ function enemyTurn() {
             if (ammoEnabled) {
 
                 enemyAmmo -= 1; // subtract player ammo each time he selects something
-                let ammoTag = document.getElementById("enemyAmmoTag");
-                ammoTag.innerText = enemyAmmo + " (ENEMY)";
+                updateAmmoTags();
 
 
                 // if both players have depleted it's ammo (if not, turn will change and the other player will end his ammo)
@@ -407,14 +411,14 @@ function enemyTurn() {
                         // so it activates prompt
                         isPromptEnabledForIASelectShotsPosition = true;
                         // returns array of possible possitions
-                        possiblePositionsForIAShot = getValidPositionsForTouch(iaSelectedRow, iaSelectedColumn)
+                        possiblePositionsForIAShot = getValidPositionsForTouchForIA(iaSelectedRow, iaSelectedColumn)
 
                     } else {
 
                         // second hit and following with available position (because first hit won't have activated prompt)
                         // returns array of new possible positions after selected row and column of ia have moved to new position 
                         // (position of selected cell from the array of possible positions given before).
-                        possiblePositionsForIAShot = getValidPositionsForTouch(iaSelectedRow, iaSelectedColumn)
+                        possiblePositionsForIAShot = getValidPositionsForTouchForIA(iaSelectedRow, iaSelectedColumn)
 
                     }
 
@@ -544,10 +548,10 @@ function generateNotificationWithAction(typeNotification) {
                     paragrafNotification.innerText = "Has derribat a tota l'horda enemiga. Tornes a atacar!"; // You have sunk the entire enemy horde. You attack again!
                     break;
                 case "touched":
-                    paragrafNotification.innerText = "Has encertat, una menys! Tornes a atacar!"; // You hit, one less! You attack again!
+                    paragrafNotification.innerText = "Has encertat! Tornes a atacar!"; // You hit, one less! You attack again!
                     break;
                 case "gameover":
-                    paragrafNotification.innerText = "Has perdut."; // You have lost.
+                    paragrafNotification.innerText = "Has perdut"; // You have lost.
                     break;
                 case "water":
 
@@ -724,6 +728,22 @@ function countSunkHordes(touchedHordes) {
     return counterOfSunkHordes;
 }
 
+function getFavorableState(statesArray){
+    if (statesArray.includes("victory")){
+        return "victory";
+    } else if (statesArray.includes("gameover")) {
+        return "gameover";
+    } else if (statesArray.includes("sunk")) {
+        return "sunk";
+    } else if (statesArray.includes("found")) {
+        return "found";
+    } else if (statesArray.includes("touched")) {
+        return "touched";
+    } else {
+        return "water";
+    }
+}
+
 function checkMunitionDepletedToSeeIfWinOrLose(playerHordes, enemyHordes, turn) {
     // Count how many hordes have been defeated by player and enemy side
     // Turn is "player" or "enemy", cause results will be inverted depending who has the turn
@@ -768,6 +788,12 @@ function checkMunitionDepletedToSeeIfWinOrLose(playerHordes, enemyHordes, turn) 
 }
 
 var countFirtsPlayerAttack = 0;
+function updateAmmoTags(){
+    let playerAmmoTag = document.getElementById("playerAmmoTag");
+    playerAmmoTag.innerText = playerAmmo + " (PLAYER)";
+    let enemyAmmoTag = document.getElementById("enemyAmmoTag");
+    enemyAmmoTag.innerText = enemyAmmo + " (ENEMY)";
+}
 
 // Function to handle cell click events
 function turnACell(e) {
@@ -782,62 +808,116 @@ function turnACell(e) {
     disableTable();
 
     const value = e.target.value; // Get the value of the clicked button
-    let id_position = e.target.id.split("-");
-    const rowPosition = parseInt(id_position[0]);
-    const columnPosition = parseInt(id_position[1]);
-    console.log(`POSICION = row ${rowPosition} - column ${columnPosition}`);
-    console.log(getSurroundingsForMultiShot(rowPosition, columnPosition));
+    console.log(grenadeSelected);
 
-    if (multiShot) {
+    let stateCell;
+
+    if (grenadeEnabled && grenadeSelected != null) {
+        console.log("GRRENADE SELECTED:")
+        console.log(grenadeSelected);
+
+        // Se pilla posición del botón en la matriz
+        const idPositionOfButton = e.target.id.split("-");
+        const rowPosition = parseInt(idPositionOfButton[0]);
+        const columnPosition = parseInt(idPositionOfButton[1]);
+        console.log(`POSICION = row ${rowPosition} - column ${columnPosition}`);
+
+        // Se pillan los alrededores
+        surroundingsOfGrenade = getSurroundingsForGrenade(rowPosition, columnPosition);
+        console.log(surroundingsOfGrenade);
+
+        if(ammoEnabled){
+            countOfSelectedPositions = surroundingsOfGrenade.length + 1;
+            console.log(`MUNICIÓN DEL JUGADOR = ${playerAmmo} | contador de posiciones = ${countOfSelectedPositions}`)
+            if (countOfSelectedPositions > playerAmmo) {
+                // pasar notificación conforme no puede jugar el turno porque no tiene suficiente munición
+                console.log("NO SE PUEDE USAR PORQUE SUPERA LA MUNICIÓN NECESARIA")
+
+                const notification = document.getElementsByClassName('notification')[0];
+                notification.innerHTML = "No tens suficient munició per utilitzar la granada";
+                showNotification();
+                activeTable();
+                return
+
+            } else {
+                playerAmmo -= countOfSelectedPositions; // subtract player ammo each time he selects something
+                updateAmmoTags();
+            }
+        }
         
-        surroundingsOfMultiShot = getSurroundingsForMultiShot(rowPosition, columnPosition);
-        countOfSelectedPositions = surroundingsOfMultiShot.length + 1;
-        console.log(surroundingsOfMultiShot);   
-        console.log(countOfSelectedPositions);
 
         results = [];
-        for (singleMultiShotPosition of surroundingsOfMultiShot){
-            console.log(singleMultiShotPosition.value)
-            let stateCell = sumFoundPositions(singleMultiShotPosition.value, selectesPlayerHorders);
-            results.push(stateCell);
-            singleMultiShotPosition.classList.replace("tableButton", "button-disabled")
-        }
-        console.log(results);
-        
+        // insert selected button
+        surroundingsOfGrenade.push(e.target);
+        for (singleGrenadePosition of surroundingsOfGrenade){
 
-        // obtener array de resultados
+            // obtain state of cell (water, found, touched, sunk, victory, gameover)
+            singleCellStateOfsingleGrenadePosition = sumFoundPositions(singleGrenadePosition.value, selectesPlayerHorders);
+            results.push(singleCellStateOfsingleGrenadePosition);
+
+            // disable buttons that have been selected (IMPLEMENTAR LÓGICA)
+            singleGrenadePosition.innerText = singleCellStateOfsingleGrenadePosition; // por cada uno
+
+            if (singleCellStateOfsingleGrenadePosition === "found"){
+
+            } else {
+                singleGrenadePosition.classList.replace("tableButton", "button-disabled")  
+            }
+            
+            // por cada uno
+            if (singleCellStateOfsingleGrenadePosition !== "water") {
+                singleGrenadePosition.classList.add("touch");
+            } // Change the button's text to reflect its state
+
+            // Calcula el nuevo puntaje basándose en el estado del juego
+            score = getScore(score, singleCellStateOfsingleGrenadePosition);
+            updateScoreDisplay(score); // Actualiza el marcador en la pantalla
+            // If the state is "victory", disable all buttons and generate new buttons
+        }
+        
+        stateCell = getFavorableState(results);
+        generateSound(stateCell); // general
+        generateNotificationWithAction(stateCell); 
+
+        grenadeSelected.classList.add("deactivated")
+        grenadeSelected = null;
+
+    } else {
+
+        console.log("ejecutado posición singular del tablero")
+
+        stateCell = sumFoundPositions(value, selectesPlayerHorders); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
+
+        // Change the class from "tableButton" to "button-disabled"
+        e.target.classList.replace("tableButton", "button-disabled"); // por cada uno
+        e.target.innerText = stateCell; // por cada uno
+
+        generateSound(stateCell); // general
+        generateNotificationWithAction(stateCell); // puede ser general o uno
+
+        if (ammoEnabled) {
+            playerAmmo -= 1; // subtract player ammo each time he selects something
+            updateAmmoTags();
+        }
+
+        //If the position is diferent to water, print the position in table with red background
+        // por cada uno
+        if (stateCell !== "water") {
+
+            e.target.classList.add("touch");
+        } // Change the button's text to reflect its state
+
+        // Calcula el nuevo puntaje basándose en el estado del juego
+        score = getScore(score, stateCell);
+        updateScoreDisplay(score); // Actualiza el marcador en la pantalla
+        // If the state is "victory", disable all buttons and generate new buttons
 
     }
-    
-
-    let stateCell = sumFoundPositions(value, selectesPlayerHorders); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
-
-    // Change the class from "tableButton" to "button-disabled"
-    e.target.classList.replace("tableButton", "button-disabled");
-    generateSound(stateCell);
-    generateNotificationWithAction(stateCell);
-
-    e.target.innerText = stateCell;
-
-    //If the position is diferent to water, print the position in table with red background
-    if (stateCell !== "water") {
-
-        e.target.classList.add("touch");
-    } // Change the button's text to reflect its state
-
-    // Calcula el nuevo puntaje basándose en el estado del juego
-    score = getScore(score, stateCell);
-    updateScoreDisplay(score); // Actualiza el marcador en la pantalla
-    // If the state is "victory", disable all buttons and generate new buttons
 
     // AMMO MANAGEMENT
     // (after all visual effects from selecting the button)
     // have to check if option is activated
     if (ammoEnabled) {
-
-        playerAmmo -= 1; // subtract player ammo each time he selects something
-        ammoTag = document.getElementById("playerAmmoTag");
-        ammoTag.innerText = playerAmmo + " (PLAYER)";
 
         if (enemyAmmo <= 0 && playerAmmo <= 0 && stateCell != "victory") { //  checks if last click was victory to give win without comparation
             // returns victory or lose comparing how many boats have been sunk
@@ -845,20 +925,24 @@ function turnACell(e) {
         }
     }
 
+    
     if (stateCell === "victory") {
         disableTableIfVictory();
         window.location.href = "win.php?score=" + score;
 
         stopTimer(); // Detener el cronómetro
     }
+    
     if (stateCell === "gameover") {
         disableTableIfVictory();
         window.location.href = "lose.php?score=" + score;
 
         stopTimer(); // Detener el cronómetro
     }
+
+
     if (stateCell !== "touched" && stateCell !== "sunk") {
-        /*
+        
         if (ammoEnabled) {
 
             if (enemyAmmo <= 0) {
@@ -867,10 +951,10 @@ function turnACell(e) {
             } else { changeTurn(); }
 
         } else { changeTurn(); }
-        */
-        activeTable();
+        
+        
     } else {
-        /*
+        
         if (ammoEnabled) {
 
             if (playerAmmo <= 0) {
@@ -879,8 +963,8 @@ function turnACell(e) {
             } else { activeTable(); }
 
         } else { activeTable(); }
-        */
-        activeTable();
+        
+        
     }
 }
 
@@ -984,6 +1068,7 @@ function checkIfTouchedOrSunk(indexArray, numHorder, longHorder, selectesHorders
     } else {
         return "touched";
     }
+
 }
 
 
