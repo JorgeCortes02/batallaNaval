@@ -1,19 +1,24 @@
 // Array to keep track of selected hordes (ships)
 var selectesPlayerHorders = null;
 var selectesEnemyHorders = null;
+
 var horders = [[1, 4], [2, 3], [3, 2], [4, 1]];  // Define an array of ship lengths (2, 3, 4, and 5).
+
 // MODES ACTIVATED
 // (get from game.php) --> true para pruebas
 
 // MODES VARIABLES
-var playerAmmo = 7; // document.getElementById("playerAmmoTag");
-var enemyAmmo = 4; // document.getElementById("enemyAmmoTag");
+var playerAmmo = 15; // document.getElementById("playerAmmoTag");
+var enemyAmmo = 15; // document.getElementById("enemyAmmoTag");
+
+
 
 // Get all buttons with the class "tableButton"
 const buttons = document.getElementsByClassName("tableButton");
 
-
-
+// Buttons for grenade
+var grenadeButtons = null;
+var grenadeSelected = null;
 
 //Array with the game Sounds
 const gameSounds = [new Audio('Sounds/water1.mp3'), new Audio('Sounds/perfect.mp3'), new Audio('Sounds/zombie.mp3'), new Audio('Sounds/IndianaJonesTheme.mp3'), new Audio("Sounds/cañonEnemigo.mp3"), new Audio("Sounds/found.mp3")];
@@ -23,6 +28,7 @@ var cellsPlayerTable = null;
 
 // this will be the map of the player table (will register remaining positions to hit --> td.element / water --> "X" / (touched/sunk) --> "O")
 var multidimensionalArrayOfEnemyShots = null;
+var multidimensionalArrayOfPlayerShots = null;
 
 // Wait for the DOM to fully load before executing the script
 document.addEventListener("DOMContentLoaded", function () {
@@ -41,11 +47,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Those are all the cells from the player table with the IA iteracts with  
     cellsPlayerTable = Array.from(document.getElementsByClassName("playerCell"));
-
-
+    cellsEnemyTable = Array.from(buttons);
+    console.log(buttons);
     // Generates a multidimensional array to get all cells of player table and generate the IA logic afterwards
     // it uses the cellsPlayerTable elements
-    multidimensionalArrayOfEnemyShots = generateMultidimiensionalArrayOfPlayerTableCells(cellsPlayerTable);
+    multidimensionalArrayOfEnemyShots = generateMultidimiensionalArrayOfTableCells(cellsPlayerTable);
+    
+    // this will map the buttons to use the multishot for player
+    multidimensionalArrayOfPlayerShots = generateMultidimiensionalArrayOfTableCells(cellsEnemyTable)
 
     showPlayerHorders(); // Marks horders in player table in gray
 
@@ -56,13 +65,20 @@ document.addEventListener("DOMContentLoaded", function () {
         buttonGame.addEventListener("click", turnACell);
     }
 
-
     // Get the easterEggButton
     const easterEggShowButton = document.getElementById('easterEggShowButton');
     // Execute the easterEgg event with parameter once:true so it will execute only once if clicked
     easterEggShowButton.addEventListener('click', easterEggEvent, { once: true });
 
+    if (grenadeEnabled) {
+        grenadeButtons = document.getElementsByClassName("grenade");
+        for (let grenadeButton of grenadeButtons){
+            grenadeButton.addEventListener('click', grenadeSelection)
+        }
+    }
+
 });
+
 function generetaArrayWithPositions() {
 
     newSelectesHolders = [];
@@ -81,17 +97,40 @@ function generetaArrayWithPositions() {
             }
         }
 
+
+
     }
 
     return newSelectesHolders;
 }
+
+function grenadeSelection(e){
+    const grenade = e.target;
+    // if grenade is not deactivated (because already used)
+    if(!grenade.classList.contains("deactivated")){
+        // If clicked grenade === selected --> deselect it
+        if (grenade === grenadeSelected) {
+            grenade.classList.remove("selected");
+            grenadeSelected = null;
+        } else {
+            // Unselect all
+            for (let grenadeButton of grenadeButtons){
+                grenadeButton.classList.remove("selected")
+            }
+            // Select bomb clicked
+            grenade.classList.add("selected");
+            grenadeSelected = grenade;
+        }
+    }
+    
+}
+
 // this generates the multidimensional array using the array of all td.elements (cellPlayerTable)
-function generateMultidimiensionalArrayOfPlayerTableCells(arrayOfTableCells) {
+function generateMultidimiensionalArrayOfTableCells(arrayOfTableCells) {
     let multidimensionalArray = [];
     for (let i = 0; i < arrayOfTableCells.length; i += 10) {
         multidimensionalArray.push(arrayOfTableCells.slice(i, i + 10));
     }
-    console.log(multidimensionalArray);
     return multidimensionalArray;
 }
 
@@ -136,6 +175,9 @@ function changeTurn() {
             changeTurnText("turn1");
             changeBackgorundNotificationColor();
             // Aquí es donde registras el evento click para el tablero enemigo
+            // reset text to cannot attack (it will switch with "you haven't got enough ammo to use a grenade")
+            const notification = document.getElementsByClassName('notification')[0];
+            notification.innerHTML = "No pots atacar, es el torn de l'enemic.";
             tableEnemy.addEventListener("click", showNotification);
 
         }, 3000);
@@ -166,7 +208,8 @@ function updateSelectedRowAndSelectedColumnOfEnemyIA(selectedCell, multidimensio
 // This function will return an array of  surrounding positions of a given position (top/bottom/left/right)
 // It will return positions that are not off limits (outside multidimensional array)
 // it uses the multidimensional array of td.element / "X" / "O" used for IA
-function getSurroundings(positionX, positionY) {
+function getSurroundingsForIA(positionX, positionY) {
+
     let surroundings = [];
     let maxIndex = multidimensionalArrayOfEnemyShots.length - 1;
 
@@ -217,11 +260,78 @@ function getSurroundings(positionX, positionY) {
     return surroundings;
 }
 
+function getSurroundingsForGrenade(positionX, positionY) {
+    let surroundings = [];
+    let maxIndex = multidimensionalArrayOfPlayerShots.length - 1;
+    
+    // TOP-LEFT
+    if (positionX === 0 && positionY === 0) {
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX][positionY + 1]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX + 1][positionY]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX + 1][positionY+1]);
+        // TOP-RIGHT
+    } else if (positionX === 0 && positionY === maxIndex) {
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX + 1][positionY]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX][positionY - 1]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX + 1][positionY - 1]);
+        // BOTTOM-LEFT
+    } else if (positionX === maxIndex && positionY === 0) {
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX - 1][positionY]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX][positionY + 1]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX - 1][positionY + 1]);
+        // BOTTOM-RIGHT
+    } else if (positionX === maxIndex && positionY === maxIndex) {
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX - 1][positionY]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX][positionY - 1]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX - 1][positionY - 1]);
+        // TOP EDGE
+    } else if (positionX === 0) {
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX][positionY + 1]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX + 1][positionY + 1]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX + 1][positionY]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX + 1][positionY - 1]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX][positionY - 1]);
+        // BOTTOM EDGE
+    } else if (positionX === maxIndex) {
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX][positionY - 1]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX - 1][positionY -1]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX - 1][positionY]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX - 1][positionY + 1]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX][positionY + 1]);
+        // LEFT EDGE
+    } else if (positionY === 0) {
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX - 1][positionY]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX - 1][positionY + 1]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX][positionY + 1]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX + 1][positionY + 1]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX + 1][positionY]);
+        // RIGHT EDGE
+    } else if (positionY === maxIndex) {
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX - 1][positionY]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX - 1][positionY - 1]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX][positionY - 1]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX + 1][positionY - 1]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX + 1][positionY]);
+        // MIDDLE
+    } else {
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX - 1][positionY]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX - 1][positionY + 1]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX][positionY + 1]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX + 1][positionY + 1]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX + 1][positionY]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX + 1][positionY - 1]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX][positionY - 1]);
+        surroundings.push(multidimensionalArrayOfPlayerShots[positionX - 1][positionY - 1]);
+
+    }
+
+    return surroundings;
+}
 
 //After obtaining the surrounding positions, to return only the available positions to use, 
 //it deletes X (water) and O (touched/sunk) positions (those have already been selected in previous turns so won't be selectable)
-function getValidPositionsForTouch(positionX, positionY) {
-    let surroundings = getSurroundings(positionX, positionY);
+function getValidPositionsForTouchForIA(positionX, positionY) {
+    let surroundings = getSurroundingsForIA(positionX, positionY);
     return filteredSurroundings = surroundings.filter(element => element !== "X" && element !== "O");
 }
 
@@ -299,8 +409,7 @@ function enemyTurn() {
             if (ammoEnabled) {
 
                 enemyAmmo -= 1; // subtract player ammo each time he selects something
-                let ammoTag = document.getElementById("enemyAmmoTag");
-                ammoTag.innerText = enemyAmmo + " (ENEMY)";
+                updateAmmoTags();
 
 
                 // if both players have depleted it's ammo (if not, turn will change and the other player will end his ammo)
@@ -346,14 +455,14 @@ function enemyTurn() {
                         // so it activates prompt
                         isPromptEnabledForIASelectShotsPosition = true;
                         // returns array of possible possitions
-                        possiblePositionsForIAShot = getValidPositionsForTouch(iaSelectedRow, iaSelectedColumn)
+                        possiblePositionsForIAShot = getValidPositionsForTouchForIA(iaSelectedRow, iaSelectedColumn)
 
                     } else {
 
                         // second hit and following with available position (because first hit won't have activated prompt)
                         // returns array of new possible positions after selected row and column of ia have moved to new position 
                         // (position of selected cell from the array of possible positions given before).
-                        possiblePositionsForIAShot = getValidPositionsForTouch(iaSelectedRow, iaSelectedColumn)
+                        possiblePositionsForIAShot = getValidPositionsForTouchForIA(iaSelectedRow, iaSelectedColumn)
 
                     }
                     cellsPlayerTable.splice(indexOfSelectedCellInArray, 1);
@@ -492,10 +601,10 @@ function generateNotificationWithAction(typeNotification) {
                     paragrafNotification.innerText = "Has derribat a tota l'horda enemiga. Tornes a atacar!"; // You have sunk the entire enemy horde. You attack again!
                     break;
                 case "touched":
-                    paragrafNotification.innerText = "Has encertat, una menys! Tornes a atacar!"; // You hit, one less! You attack again!
+                    paragrafNotification.innerText = "Has encertat! Tornes a atacar!"; // You hit, one less! You attack again!
                     break;
                 case "gameover":
-                    paragrafNotification.innerText = "Has perdut."; // You have lost.
+                    paragrafNotification.innerText = "Has perdut"; // You have lost.
                     break;
                 case "water":
 
@@ -697,8 +806,24 @@ function countSunkHordes(touchedHordes) {
     }
     return counterOfSunkHordes;
 }
-function countSunkHordesArmor(touchedHordes) {
 
+function getFavorableState(statesArray){
+    if (statesArray.includes("victory")){
+        return "victory";
+    } else if (statesArray.includes("gameover")) {
+        return "gameover";
+    } else if (statesArray.includes("sunk")) {
+        return "sunk";
+    } else if (statesArray.includes("found")) {
+        return "found";
+    } else if (statesArray.includes("touched")) {
+        return "touched";
+    } else {
+        return "water";
+    }
+}
+
+function countSunkHordesArmor(touchedHordes) {
     counterOfSunkHordes = 0;
 
     // Iterate selectesPlayerHorders - selectesEnemyHorders to check if hordes are sunk (== 4,3,2,1)
@@ -789,60 +914,157 @@ function checkMunitionDepletedToSeeIfWinOrLose(playerHordes, enemyHordes, turn) 
 }
 
 var countFirtsPlayerAttack = 0;
+function updateAmmoTags(){
+    let playerAmmoTag = document.getElementById("playerAmmoTag");
+    playerAmmoTag.innerText = playerAmmo + " (PLAYER)";
+    let enemyAmmoTag = document.getElementById("enemyAmmoTag");
+    enemyAmmoTag.innerText = enemyAmmo + " (ENEMY)";
+}
 
 // Function to handle cell click events
 function turnACell(e) {
-    let stateCell;
+
+   
+
     if (countFirtsPlayerAttack == 0) {
 
         changeTurnText("turn0");
         countFirtsPlayerAttack += 1;
 
     }
+    
+    disableTable();
+
+    let stateCell;
     const value = e.target.value; // Get the value of the clicked button
 
-    disableTable();
-    if (extraArmor == true) {
-        stateCell = sumFoundPositionsArmor(value, selectesPlayerHorders); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
+    if (grenadeEnabled && grenadeSelected != null) {
+        console.log("GRRENADE SELECTED:")
+        console.log(grenadeSelected);
+
+        // Se pilla posición del botón en la matriz
+        const idPositionOfButton = e.target.id.split("-");
+        const rowPosition = parseInt(idPositionOfButton[0]);
+        const columnPosition = parseInt(idPositionOfButton[1]);
+        console.log(`POSICION = row ${rowPosition} - column ${columnPosition}`);
+
+        // Se pillan los alrededores
+        surroundingsOfGrenade = getSurroundingsForGrenade(rowPosition, columnPosition);
+        console.log(surroundingsOfGrenade);
+
+        if(ammoEnabled){
+            countOfSelectedPositions = surroundingsOfGrenade.length + 1;
+            console.log(`MUNICIÓN DEL JUGADOR = ${playerAmmo} | contador de posiciones = ${countOfSelectedPositions}`)
+            if (countOfSelectedPositions > playerAmmo) {
+                // pasar notificación conforme no puede jugar el turno porque no tiene suficiente munición
+                console.log("NO SE PUEDE USAR PORQUE SUPERA LA MUNICIÓN NECESARIA")
+
+                const notification = document.getElementsByClassName('notification')[0];
+                notification.innerHTML = "No tens suficient munició per utilitzar la granada";
+                showNotification();
+                activeTable();
+                return
+
+            } else {
+                playerAmmo -= countOfSelectedPositions; // subtract player ammo each time he selects something
+                updateAmmoTags();
+            }
+        }
+        
+
+        results = [];
+        // insert selected button
+        surroundingsOfGrenade.push(e.target);
+        for (singleGrenadePosition of surroundingsOfGrenade){
+
+            // obtain state of cell (water, found, touched, sunk, victory, gameover)
+            if (extraArmor == true) {
+                singleCellStateOfsingleGrenadePosition = sumFoundPositionsArmor(singleGrenadePosition.value, selectesPlayerHorders); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
+            } else {
+                singleCellStateOfsingleGrenadePosition = sumFoundPositions(singleGrenadePosition.value, selectesPlayerHorders); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
+            }
+
+            results.push(singleCellStateOfsingleGrenadePosition);
+            
+            // disable buttons that have been selected (IMPLEMENTAR LÓGICA)
+            singleGrenadePosition.innerText = singleCellStateOfsingleGrenadePosition; // por cada uno
+
+            if (singleCellStateOfsingleGrenadePosition == "water") {
+
+                singleGrenadePosition.classList.replace("tableButton", "button-disabled");
+        
+            } else if (singleCellStateOfsingleGrenadePosition == "found") {
+        
+                singleGrenadePosition.classList.replace("tableButton", "found");
+        
+            } else {
+        
+                // Change the class from "tableButton" to "button-disabled"
+                singleGrenadePosition.classList.replace("found", "button-disabled");
+                singleGrenadePosition.classList.add("touch"); // Correcto
+        
+            }
+
+            // Calcula el nuevo puntaje basándose en el estado del juego
+            score = getScore(score, singleCellStateOfsingleGrenadePosition);
+            updateScoreDisplay(score); // Actualiza el marcador en la pantalla
+            // If the state is "victory", disable all buttons and generate new buttons
+        }
+        
+        stateCell = getFavorableState(results);
+        generateSound(stateCell); // general
+        generateNotificationWithAction(stateCell); 
+
+        grenadeSelected.classList.replace("selected", "deactivated")
+        grenadeSelected = null;
+
     } else {
-        stateCell = sumFoundPositions(value, selectesPlayerHorders); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
-    }
-    if (stateCell == "water") {
-        e.target.classList.replace("tableButton", "button-disabled");
+
+        if (extraArmor == true) {
+            stateCell = sumFoundPositionsArmor(value, selectesPlayerHorders); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
+        } else {
+            stateCell = sumFoundPositions(value, selectesPlayerHorders); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
+        }
+
+        generateSound(stateCell); // general
+        generateNotificationWithAction(stateCell); // puede ser general o uno
+        
+       
+        //If the position is diferent to water, print the position in table with red background
+        if (stateCell == "water") {
+
+            e.target.classList.replace("tableButton", "button-disabled");
+    
+        } else if (stateCell == "found") {
+    
+            e.target.classList.replace("tableButton", "found");
+    
+        } else {
+    
+            // Change the class from "tableButton" to "button-disabled"
+            e.target.classList.replace("found", "button-disabled");
+            e.target.classList.add("touch"); // Correcto
+    
+        }
+        e.target.innerText = stateCell; // por cada uno
+
+
+        if (ammoEnabled) {
+            playerAmmo -= 1; // subtract player ammo each time he selects something
+            updateAmmoTags();
+        }
+
+        // Calcula el nuevo puntaje basándose en el estado del juego
+        score = getScore(score, stateCell);
+        updateScoreDisplay(score); // Actualiza el marcador en la pantalla
+        // If the state is "victory", disable all buttons and generate new buttons
 
     }
-    else if (stateCell == "found") {
-
-        e.target.classList.replace("tableButton", "found");
-
-    } else {
-
-        // Change the class from "tableButton" to "button-disabled"
-        e.target.classList.replace("found", "button-disabled");
-
-        e.target.classList.add("touch"); // Correcto
-    }
-
-    generateSound(stateCell);
-    generateNotificationWithAction(stateCell);
-
-    e.target.innerText = stateCell;
-
-
-
-    // Calcula el nuevo puntaje basándose en el estado del juego
-    score = getScore(score, stateCell);
-    updateScoreDisplay(score); // Actualiza el marcador en la pantalla
-    // If the state is "victory", disable all buttons and generate new buttons
 
     // AMMO MANAGEMENT 
     // (after all visual effects from selecting the button)
     // have to check if option is activated 
     if (ammoEnabled) {
-
-        playerAmmo -= 1; // subtract player ammo each time he selects something
-        ammoTag = document.getElementById("playerAmmoTag");
-        ammoTag.innerText = playerAmmo + " (PLAYER)";
 
         if (enemyAmmo <= 0 && playerAmmo <= 0 && stateCell != "victory") { //  checks if last click was victory to give win without comparation
             // returns victory or lose comparing how many boats have been sunk
@@ -850,18 +1072,22 @@ function turnACell(e) {
         }
     }
 
+    
     if (stateCell === "victory") {
         disableTableIfVictory();
         window.location.href = "win.php?score=" + score;
 
         stopTimer(); // Detener el cronómetro
     }
+    
     if (stateCell === "gameover") {
         disableTableIfVictory();
         window.location.href = "lose.php?score=" + score;
 
         stopTimer(); // Detener el cronómetro
     }
+    
+    // ME PARECE QUE ESTÁ MAL, NO SE REPITE TURNO SI ES FOUND
     if (stateCell !== "touched" && stateCell !== "sunk" && stateCell !== "found") {
         if (ammoEnabled) {
 
@@ -871,9 +1097,10 @@ function turnACell(e) {
             } else { changeTurn(); }
 
         } else { changeTurn(); }
-
-
+        
+        
     } else {
+        
         if (ammoEnabled) {
 
             if (playerAmmo <= 0) {
@@ -882,7 +1109,8 @@ function turnACell(e) {
             } else { activeTable(); }
 
         } else { activeTable(); }
-
+        
+        
     }
 }
 
@@ -1091,6 +1319,7 @@ function checkIfTouchedOrSunk(indexArray, numHorder, longHorder, selectesHorders
             return "touched";
         }
     }
+
 }
 
 
