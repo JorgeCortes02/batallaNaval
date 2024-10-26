@@ -8,8 +8,8 @@ var horders = [[1, 4], [2, 3], [3, 2], [4, 1]];  // Define an array of ship leng
 // (get from game.php) --> true para pruebas
 
 // MODES VARIABLES
-var playerAmmo = 15; // document.getElementById("playerAmmoTag");
-var enemyAmmo = 15; // document.getElementById("enemyAmmoTag");
+var playerAmmo = 40; // document.getElementById("playerAmmoTag");
+var enemyAmmo = 40; // document.getElementById("enemyAmmoTag");
 
 
 
@@ -939,6 +939,15 @@ function turnACell(e) {
     const value = e.target.value; // Get the value of the clicked button
 
     if (grenadeEnabled && grenadeSelected != null) {
+
+        if (e.target.classList.contains("found")) {
+            const notification = document.getElementsByClassName('notification')[0];
+            notification.innerHTML = "No pots llençar una granada en una posició ja descoberta";
+            showNotification();
+            activeTable();
+            return
+        }
+
         console.log("GRRENADE SELECTED:")
         console.log(grenadeSelected);
 
@@ -1046,6 +1055,7 @@ function turnACell(e) {
             e.target.classList.add("touch"); // Correcto
     
         }
+
         e.target.innerText = stateCell; // por cada uno
 
 
