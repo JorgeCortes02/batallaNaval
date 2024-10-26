@@ -764,6 +764,7 @@ body.page-ranking {
 }
 
 
+
 .page-tutorial table button:hover {
 
     width: 100%;
@@ -1423,14 +1424,39 @@ body.page-game div.main_container div.game_boards table.enemy_board td button.ta
 
 }
 
+body.page-game div.main_container div.game_boards table.enemy_board td button.found {
+
+    width: 100%;
+    /* Full width of the cell */
+    height: 100%;
+    /* Full height of the cell */
+    padding: 0;
+    overflow: hidden;
+    background-image: none;
+    background-color: yellow;
+    color: #000000;
+}
+
+body.page-game div.main_container div.game_boards table.enemy_board td button.touch {
+
+    width: 100%;
+    /* Full width of the cell */
+    height: 100%;
+    /* Full height of the cell */
+    padding: 0;
+    overflow: hidden;
+    background-image: none;
+    background-color: red;
+    color: white;
+    ;
+}
+
 body.page-game div.main_container div.game_boards table.enemy_board td button.tableButton:hover {
 
     border: 1px solid red;
 }
 
-body.page-game div.main_container div.game_boards table.enemy_board .touch {
-    background-color: red;
-}
+
 
 
 /*Style for table buttoms where this are disabled*/
