@@ -10,7 +10,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $munition = isset($_POST['munition']) && $_POST['munition'] == "true" ? true : false;
     $armor = isset($_POST['armor']) && $_POST['armor'] == "true" ? true : false;
     $specialAttack = isset($_POST['specialAtack']) && $_POST['specialAtack'] == "true" ? true : false;
-    var_dump($specialAttack);
 }
 
 //zona horaria
