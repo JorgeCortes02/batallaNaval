@@ -8,8 +8,8 @@ var horders = [[1, 4], [2, 3], [3, 2], [4, 1]];  // Define an array of ship leng
 // (get from game.php) --> true para pruebas
 
 // MODES VARIABLES
-var playerAmmo = 40; // document.getElementById("playerAmmoTag");
-var enemyAmmo = 40; // document.getElementById("enemyAmmoTag");
+var playerAmmo = 5; // document.getElementById("playerAmmoTag");
+var enemyAmmo = 5; // document.getElementById("enemyAmmoTag");
 
 
 
@@ -186,8 +186,8 @@ function changeTurn() {
             changeBackgorundNotificationColor();
             // Aquí es donde registras el evento click para el tablero enemigo
             // reset text to cannot attack (it will switch with "you haven't got enough ammo to use a grenade")
-            const notification = document.getElementsByClassName('notification')[0];
-            notification.innerHTML = "No pots atacar, es el torn de l'enemic.";
+            const text = "No pots atacar, es el torn de l'enemic.";
+            updateNotificationText(text);
             tableEnemy.addEventListener("click", showNotification);
 
         }, 3000);
@@ -934,6 +934,11 @@ function updateAmmoTags() {
     enemyAmmoTag.innerText = enemyAmmo + " (ENEMY)";
 }
 
+function updateNotificationText(text){
+    const notification = document.getElementsByClassName('notification')[0];
+    notification.innerHTML = text;
+}
+
 // Function to handle cell click events
 function turnACell(e) {
 
@@ -948,55 +953,57 @@ function turnACell(e) {
 
     disableTable();
 
-    let stateCell;
+    let stateCell;  //
     const value = e.target.value; // Get the value of the clicked button
-
+    console.log("GRANADA = ");
+    console.log(grenadeSelected);
+    // Starts if grenade is enabled and we have one selected
     if (grenadeEnabled && grenadeSelected != null) {
 
+        // Can't use a grenade in a found position (touch and sunk will be a button already disabled). 
         if (e.target.classList.contains("found")) {
-            const notification = document.getElementsByClassName('notification')[0];
-            notification.innerHTML = "No pots llençar una granada en una posició ja descoberta";
+            const text = "No pots llençar una granada en una posició ja descoberta";
+            updateNotificationText(text)
             showNotification();
             activeTable();
             return
         }
 
-        console.log("GRRENADE SELECTED:")
-        console.log(grenadeSelected);
+        //console.log("GRRENADE SELECTED:")
+        //console.log(grenadeSelected);
 
-        // Se pilla posición del botón en la matriz
+        // Get clicked button position in multidimensional array to get surroundings
         const idPositionOfButton = e.target.id.split("-");
         const rowPosition = parseInt(idPositionOfButton[0]);
         const columnPosition = parseInt(idPositionOfButton[1]);
-        console.log(`POSICION = row ${rowPosition} - column ${columnPosition}`);
+        // console.log(`POSICION = row ${rowPosition} - column ${columnPosition}`);
 
-        // Se pillan los alrededores
-        surroundingsOfGrenade = getSurroundingsForGrenade(rowPosition, columnPosition);
-        console.log(surroundingsOfGrenade);
+        // get surrounding td elements
+        let surroundingsOfGrenade = getSurroundingsForGrenade(rowPosition, columnPosition);
+        // console.log(surroundingsOfGrenade);
 
-        if (ammoEnabled) {
-            countOfSelectedPositions = surroundingsOfGrenade.length + 1;
-            console.log(`MUNICIÓN DEL JUGADOR = ${playerAmmo} | contador de posiciones = ${countOfSelectedPositions}`)
+        if (ammoEnabled) { 
+            // if ammo mode is enabled, we have to check that we have enough ammo (will use 9 / 6 / 4 of ammo depending on the position)
+            countOfSelectedPositions = surroundingsOfGrenade.length + 1; // surroundings + clicked button
+            // console.log(`MUNICIÓN DEL JUGADOR = ${playerAmmo} | contador de posiciones = ${countOfSelectedPositions}`)
+            
             if (countOfSelectedPositions > playerAmmo) {
-                // pasar notificación conforme no puede jugar el turno porque no tiene suficiente munición
-                console.log("NO SE PUEDE USAR PORQUE SUPERA LA MUNICIÓN NECESARIA")
-
-                const notification = document.getElementsByClassName('notification')[0];
-                notification.innerHTML = "No tens suficient munició per utilitzar la granada";
+                // Notification that doesn't have enouch ammo
+                const text = "No tens suficient munició per utilitzar la granada";
+                updateNotificationText(text)
                 showNotification();
                 activeTable();
                 return
 
             } else {
-                playerAmmo -= countOfSelectedPositions; // subtract player ammo each time he selects something
+                // otherwise, subtract player ammo used
+                playerAmmo -= countOfSelectedPositions; 
                 updateAmmoTags();
             }
         }
 
-
-        results = [];
-        // insert selected button
-        surroundingsOfGrenade.push(e.target);
+        let results = [];
+        surroundingsOfGrenade.push(e.target);  // insert selected button to all the positions to check state
         for (singleGrenadePosition of surroundingsOfGrenade) {
 
             // obtain state of cell (water, found, touched, sunk, victory, gameover)
@@ -1006,16 +1013,17 @@ function turnACell(e) {
                 singleCellStateOfsingleGrenadePosition = sumFoundPositions(singleGrenadePosition.value, selectesPlayerHorders); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
             }
 
+            // insert each state in the results array that will be filtered by best state (ex: victory > touched)
             results.push(singleCellStateOfsingleGrenadePosition);
+            // change cell text with it's state
+            insertCellText(singleGrenadePosition, singleCellStateOfsingleGrenadePosition);            
 
-            // disable buttons that have been selected (IMPLEMENTAR LÓGICA)
-            singleGrenadePosition.innerText = singleCellStateOfsingleGrenadePosition; // por cada uno
-
-            if (singleCellStateOfsingleGrenadePosition == "water") {
+            // replace button status (default button, found or disabled (touched, sunk))
+            if (singleCellStateOfsingleGrenadePosition === "water") {
 
                 singleGrenadePosition.classList.replace("tableButton", "button-disabled");
 
-            } else if (singleCellStateOfsingleGrenadePosition == "found") {
+            } else if (singleCellStateOfsingleGrenadePosition === "found") {
 
                 singleGrenadePosition.classList.replace("tableButton", "found");
 
@@ -1023,33 +1031,36 @@ function turnACell(e) {
 
                 // Change the class from "tableButton" to "button-disabled"
                 singleGrenadePosition.classList.replace("found", "button-disabled");
-                singleGrenadePosition.classList.add("touch"); // Correcto
+                singleGrenadePosition.classList.add("touch"); 
 
             }
 
-            // Calcula el nuevo puntaje basándose en el estado del juego
+            // Update score for each status
             score = getScore(score, singleCellStateOfsingleGrenadePosition);
-            updateScoreDisplay(score); // Actualiza el marcador en la pantalla
-            // If the state is "victory", disable all buttons and generate new buttons
+            updateScoreDisplay(score); 
+          
         }
 
+        // stateCell will be favorable one (victory > gameover > sunk > touched > found > water)
+        // to display preferred status on game notifications, sounds...
         stateCell = getFavorableState(results);
         generateSound(stateCell); // general
         generateNotificationWithAction(stateCell);
 
+        // deselect all grenades and change class to grenade deactivated so won't be usable again
         grenadeSelected.classList.replace("selected", "deactivated")
         grenadeSelected = null;
 
     } else {
-
+        // same algorithm with only 1 cell as there are no grenades
         if (extraArmor == true) {
             stateCell = sumFoundPositionsArmor(value, selectesPlayerHorders); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
         } else {
             stateCell = sumFoundPositions(value, selectesPlayerHorders); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
         }
 
-        generateSound(stateCell); // general
-        generateNotificationWithAction(stateCell); // puede ser general o uno
+        generateSound(stateCell); 
+        generateNotificationWithAction(stateCell); 
 
 
         //If the position is diferent to water, print the position in table with red background
@@ -1065,7 +1076,7 @@ function turnACell(e) {
 
             // Change the class from "tableButton" to "button-disabled"
             e.target.classList.replace("found", "button-disabled");
-            e.target.classList.add("touch"); // Correcto
+            e.target.classList.add("touch"); 
 
         }
 
@@ -1084,8 +1095,7 @@ function turnACell(e) {
     }
 
     // AMMO MANAGEMENT 
-    // (after all visual effects from selecting the button)
-    // have to check if option is activated 
+    // check if both players have depleted it's ammo to check who wins. 
     if (ammoEnabled) {
 
         if (enemyAmmo <= 0 && playerAmmo <= 0 && stateCell != "victory") { //  checks if last click was victory to give win without comparation
@@ -1174,18 +1184,18 @@ function insertCellText(button, stateCell) {
             break;
 
         case "found":
-            // If 'stateCell' is "found", set the button text to "Trobat" (meaning "Found")
-            button.innerText = "Trobat";
-            break;
-
-        case "touched":
-            // If 'stateCell' is "touched", set the button text to "Tocat" (meaning "Hit" or "Touched")
+            // If 'stateCell' is "found", set the button text to "Tocat" (meaning "Found")
             button.innerText = "Tocat";
             break;
 
+        case "touched":
+            // If 'stateCell' is "touched", set the button text to "Ferit" (meaning "Hit" or "Touched")
+            button.innerText = "Ferit";
+            break;
+
         case "sunk":
-            // If 'stateCell' is "sunk", set the button text to "Destruit" (meaning "Destroyed" or "Sunk")
-            button.innerText = "Destruit";
+            // If 'stateCell' is "sunk", set the button text to "Eliminat" (meaning "Destroyed" or "Sunk")
+            button.innerText = "Eliminat";
             break;
     }
 }
