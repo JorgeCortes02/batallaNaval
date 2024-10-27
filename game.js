@@ -8,8 +8,8 @@ var horders = [[1, 4], [2, 3], [3, 2], [4, 1]];  // Define an array of ship leng
 // (get from game.php) --> true para pruebas
 
 // MODES VARIABLES
-var playerAmmo = 5; // document.getElementById("playerAmmoTag");
-var enemyAmmo = 5; // document.getElementById("enemyAmmoTag");
+var playerAmmo = 40; // document.getElementById("playerAmmoTag");
+var enemyAmmo = 40; // document.getElementById("enemyAmmoTag");
 
 
 
