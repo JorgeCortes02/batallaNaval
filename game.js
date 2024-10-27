@@ -608,10 +608,10 @@ function generateNotificationWithAction(typeNotification) {
                     paragrafNotification.innerText = "Has guanyat!"; // You have won!
                     break;
                 case "sunk":
-                    paragrafNotification.innerText = "Has derribat a tota l'horda enemiga. Tornes a atacar!"; // You have sunk the entire enemy horde. You attack again!
+                    paragrafNotification.innerText = "Has matat a tota l'horda enemiga. Tornes a atacar!"; // You have sunk the entire enemy horde. You attack again!
                     break;
                 case "touched":
-                    paragrafNotification.innerText = "Has encertat! Tornes a atacar!"; // You hit, one less! You attack again!
+                    paragrafNotification.innerText = "Has matat a una momia! Tornes a atacar!"; // You hit, one less! You attack again!
                     break;
                 case "gameover":
                     paragrafNotification.innerText = "Has perdut"; // You have lost.
@@ -633,17 +633,17 @@ function generateNotificationWithAction(typeNotification) {
                     paragrafNotification.innerText = "Has perdut!"; // You have lost!
                     break;
                 case "sunk":
-                    paragrafNotification.innerText = "L’enemic ha eliminat la teva horda! Torna a atacar!"; // The enemy has eliminated your horde! Attack again.
+                    paragrafNotification.innerText = "L’enemic ha eliminat a un grup dels teus expedicionaris! Torna a atacar!"; // The enemy has eliminated your horde! Attack again.
                     break;
                 case "touched":
-                    paragrafNotification.innerText = "L’enemic ha trobat una de les teves momies! Torna a atacar!"; // The enemy has found one of your mummies! Attack again.
+                    paragrafNotification.innerText = "L’enemic ha matat a un expedicionari! Torna a atacar!"; // The enemy has found one of your mummies! Attack again.
                     break;
                 case "water":
-                    paragrafNotification.innerText = "Atac enemic directe a l’aigua!"; // Enemy attack goes directly into the water...
+                    paragrafNotification.innerText = "Atac enemic directe a la sorra!"; // Enemy attack goes directly into the water...
                     break;
                 case "found":
 
-                    paragrafNotification.innerText = "La teva armadura esta danyada! Un cop més i una momia menys!"; // Direct hit to the water, better luck next time...
+                    paragrafNotification.innerText = "L'armadura del teu expedicionari esta danyada! Un cop més i el matarà!"; // Direct hit to the water, better luck next time...
                     break;
             }
             break;
