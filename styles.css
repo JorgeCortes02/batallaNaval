@@ -60,6 +60,14 @@ body {
 
 }
 
+body.page-lose {
+    background-image: url('images/lose_background.jpg');
+}
+
+body.page-win {
+    background-image: url('images/win_background.jpg');
+}
+
 /*CSS Win Page*/
 .page-win {
     /* Use flexbox to center the elements vertically */

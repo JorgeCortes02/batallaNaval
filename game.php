@@ -586,6 +586,7 @@ $_SESSION["name"] = $name;
 
                     if ($specialAttack) {
                         echo "<div class='grenade_container'>";
+                        echo "<p>BOMBES: </p>";
                         echo "<button class='grenade'><img src='images/grenade.png' alt='grenade icon one'></button>";
                         echo "<button class='grenade'><img src='images/grenade.png' alt='grenade icon two'></button>";
                         echo "</div>";
