@@ -1005,7 +1005,8 @@ function turnACell(e) {
         let results = [];
         surroundingsOfGrenade.push(e.target);  // insert selected button to all the positions to check state
         for (singleGrenadePosition of surroundingsOfGrenade) {
-
+            let stateButton = singleGrenadePosition.innerText;
+            console.log(stateButton)
             // obtain state of cell (water, found, touched, sunk, victory, gameover)
             if (extraArmor == true) {
                 singleCellStateOfsingleGrenadePosition = sumFoundPositionsArmor(singleGrenadePosition.value, selectesPlayerHorders); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
@@ -1016,7 +1017,11 @@ function turnACell(e) {
             // insert each state in the results array that will be filtered by best state (ex: victory > touched)
             results.push(singleCellStateOfsingleGrenadePosition);
             // change cell text with it's state
-            insertCellText(singleGrenadePosition, singleCellStateOfsingleGrenadePosition);
+
+            if (stateButton != "Ferit" && stateButton != "Mort") {
+                insertCellText(singleGrenadePosition, singleCellStateOfsingleGrenadePosition);
+            }
+
 
             // replace button status (default button, found or disabled (touched, sunk))
             if (singleCellStateOfsingleGrenadePosition === "water") {
