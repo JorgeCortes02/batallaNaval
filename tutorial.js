@@ -133,7 +133,7 @@ function turnACell(e) {
     generateSound(stateCell);
     generateNewNotification(stateCell)
 
-    e.target.innerText = stateCell;
+    insertCellText(e.target, stateCell);
 
     //If the position is diferent to water, print the position in table with red background
     if (stateCell !== "water") {
@@ -150,6 +150,7 @@ function turnACell(e) {
         generateRankingAndHomeButtons();
     }
 }
+
 // Function to generate buttons for ranking and home
 function generateRankingAndHomeButtons() {
     let buttonHome = document.getElementById("buttonHome");
@@ -184,6 +185,38 @@ function generateRankingAndHomeButtons() {
 
 
 
+}
+
+function insertCellText(button, stateCell) {
+
+    // Use a switch statement to determine the text to insert into 'button' based on 'stateCell'
+    switch (stateCell) {
+
+        case "water":
+            // If 'stateCell' is "water", set the button text to "Sorra" (meaning "Missed" or "Water")
+            button.innerText = "Sorra";
+            break;
+
+        case "touched":
+            // If 'stateCell' is "touched", set the button text to "Ferit" (meaning "Hit" or "Touched")
+            button.innerText = "Ferit";
+            break;
+
+        case "sunk":
+            // If 'stateCell' is "sunk", set the button text to "Eliminat" (meaning "Destroyed" or "Sunk")
+            button.innerText = "Mort";
+            break;
+
+        case "victory":
+            // If 'stateCell' is "sunk", set the button text to "Eliminat" (meaning "Destroyed" or "Sunk")
+            button.innerText = "Victòria";
+            break;
+
+        case "gameover":
+            // If 'stateCell' is "sunk", set the button text to "Eliminat" (meaning "Destroyed" or "Sunk")
+            button.innerText = "Has perdut";
+            break;
+    }
 }
 
 

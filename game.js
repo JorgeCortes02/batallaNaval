@@ -1173,6 +1173,7 @@ function turnACell(e) {
     }
 
 }
+
 function insertCellText(button, stateCell) {
 
     // Use a switch statement to determine the text to insert into 'button' based on 'stateCell'
@@ -1195,7 +1196,17 @@ function insertCellText(button, stateCell) {
 
         case "sunk":
             // If 'stateCell' is "sunk", set the button text to "Eliminat" (meaning "Destroyed" or "Sunk")
-            button.innerText = "Eliminat";
+            button.innerText = "Mort";
+            break;
+
+        case "victory":
+            // If 'stateCell' is "sunk", set the button text to "Eliminat" (meaning "Destroyed" or "Sunk")
+            button.innerText = "Victòria";
+            break;
+
+        case "gameover":
+            // If 'stateCell' is "sunk", set the button text to "Eliminat" (meaning "Destroyed" or "Sunk")
+            button.innerText = "Has perdut";
             break;
     }
 }
