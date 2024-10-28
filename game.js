@@ -1029,8 +1029,14 @@ function turnACell(e) {
 
             } else {
 
-                // Change the class from "tableButton" to "button-disabled"
-                singleGrenadePosition.classList.replace("found", "button-disabled");
+                if (extraArmor == true) { // Change the class from "tableButton" to "button-disabled"
+                    singleGrenadePosition.classList.replace("found", "button-disabled");
+                } else {
+                    // Change the class from "tableButton" to "button-disabled"
+                    singleGrenadePosition.classList.replace("tableButton", "button-disabled");
+
+                }
+                singleGrenadePosition.classList.add("touch");
 
 
             }
