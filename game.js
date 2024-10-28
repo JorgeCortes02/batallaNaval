@@ -934,7 +934,7 @@ function updateAmmoTags() {
     enemyAmmoTag.innerText = enemyAmmo + " (ENEMY)";
 }
 
-function updateNotificationText(text){
+function updateNotificationText(text) {
     const notification = document.getElementsByClassName('notification')[0];
     notification.innerHTML = text;
 }
@@ -982,11 +982,11 @@ function turnACell(e) {
         let surroundingsOfGrenade = getSurroundingsForGrenade(rowPosition, columnPosition);
         // console.log(surroundingsOfGrenade);
 
-        if (ammoEnabled) { 
+        if (ammoEnabled) {
             // if ammo mode is enabled, we have to check that we have enough ammo (will use 9 / 6 / 4 of ammo depending on the position)
             countOfSelectedPositions = surroundingsOfGrenade.length + 1; // surroundings + clicked button
             // console.log(`MUNICIÓN DEL JUGADOR = ${playerAmmo} | contador de posiciones = ${countOfSelectedPositions}`)
-            
+
             if (countOfSelectedPositions > playerAmmo) {
                 // Notification that doesn't have enouch ammo
                 const text = "No tens suficient munició per utilitzar la granada";
@@ -997,7 +997,7 @@ function turnACell(e) {
 
             } else {
                 // otherwise, subtract player ammo used
-                playerAmmo -= countOfSelectedPositions; 
+                playerAmmo -= countOfSelectedPositions;
                 updateAmmoTags();
             }
         }
@@ -1016,7 +1016,7 @@ function turnACell(e) {
             // insert each state in the results array that will be filtered by best state (ex: victory > touched)
             results.push(singleCellStateOfsingleGrenadePosition);
             // change cell text with it's state
-            insertCellText(singleGrenadePosition, singleCellStateOfsingleGrenadePosition);            
+            insertCellText(singleGrenadePosition, singleCellStateOfsingleGrenadePosition);
 
             // replace button status (default button, found or disabled (touched, sunk))
             if (singleCellStateOfsingleGrenadePosition === "water") {
@@ -1031,14 +1031,14 @@ function turnACell(e) {
 
                 // Change the class from "tableButton" to "button-disabled"
                 singleGrenadePosition.classList.replace("found", "button-disabled");
-                singleGrenadePosition.classList.add("touch"); 
+
 
             }
 
             // Update score for each status
             score = getScore(score, singleCellStateOfsingleGrenadePosition);
-            updateScoreDisplay(score); 
-          
+            updateScoreDisplay(score);
+
         }
 
         // stateCell will be favorable one (victory > gameover > sunk > touched > found > water)
@@ -1059,8 +1059,8 @@ function turnACell(e) {
             stateCell = sumFoundPositions(value, selectesPlayerHorders); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
         }
 
-        generateSound(stateCell); 
-        generateNotificationWithAction(stateCell); 
+        generateSound(stateCell);
+        generateNotificationWithAction(stateCell);
 
 
         //If the position is diferent to water, print the position in table with red background
@@ -1074,9 +1074,16 @@ function turnACell(e) {
 
         } else {
 
-            // Change the class from "tableButton" to "button-disabled"
-            e.target.classList.replace("found", "button-disabled");
-            e.target.classList.add("touch"); 
+            if (extraArmor == true) { // Change the class from "tableButton" to "button-disabled"
+                e.target.classList.replace("found", "button-disabled");
+            } else {
+                // Change the class from "tableButton" to "button-disabled"
+                e.target.classList.replace("tableButton", "button-disabled");
+
+            }
+            e.target.classList.add("touch");
+
+
 
         }
 
