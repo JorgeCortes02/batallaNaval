@@ -827,10 +827,10 @@ function getFavorableState(statesArray) {
         return "gameover";
     } else if (statesArray.includes("sunk")) {
         return "sunk";
+    }  else if (statesArray.includes("touched")) {
+        return "touched";
     } else if (statesArray.includes("found")) {
         return "found";
-    } else if (statesArray.includes("touched")) {
-        return "touched";
     } else {
         return "water";
     }
@@ -1005,56 +1005,59 @@ function turnACell(e) {
         let results = [];
         surroundingsOfGrenade.push(e.target);  // insert selected button to all the positions to check state
         for (singleGrenadePosition of surroundingsOfGrenade) {
-            let stateButton = singleGrenadePosition.innerText;
-            console.log(stateButton)
-            // obtain state of cell (water, found, touched, sunk, victory, gameover)
-            if (extraArmor == true) {
-                singleCellStateOfsingleGrenadePosition = sumFoundPositionsArmor(singleGrenadePosition.value, selectesPlayerHorders); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
-            } else {
-                singleCellStateOfsingleGrenadePosition = sumFoundPositions(singleGrenadePosition.value, selectesPlayerHorders); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
-            }
+            if (!singleGrenadePosition.classList.contains("button-disabled")) {
 
-            // insert each state in the results array that will be filtered by best state (ex: victory > touched)
-            results.push(singleCellStateOfsingleGrenadePosition);
-            // change cell text with it's state
-
-            if (stateButton != "Ferit" && stateButton != "Mort") {
-                insertCellText(singleGrenadePosition, singleCellStateOfsingleGrenadePosition);
-            }
-
-
-            // replace button status (default button, found or disabled (touched, sunk))
-            if (singleCellStateOfsingleGrenadePosition === "water") {
-
-                singleGrenadePosition.classList.replace("tableButton", "button-disabled");
-
-            } else if (singleCellStateOfsingleGrenadePosition === "found") {
-
-                singleGrenadePosition.classList.replace("tableButton", "found");
-
-            } else {
-
-                if (extraArmor == true) { // Change the class from "tableButton" to "button-disabled"
-                    singleGrenadePosition.classList.replace("found", "button-disabled");
+                // obtain state of cell (water, found, touched, sunk, victory, gameover)
+                if (extraArmor == true) {
+                    singleCellStateOfsingleGrenadePosition = sumFoundPositionsArmor(singleGrenadePosition.value, selectesPlayerHorders); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
                 } else {
-                    // Change the class from "tableButton" to "button-disabled"
+                    singleCellStateOfsingleGrenadePosition = sumFoundPositions(singleGrenadePosition.value, selectesPlayerHorders); // "victory" (for instavictory) This variable will hold the state of the cell (e.g., victory)
+                }
+
+                // insert each state in the results array that will be filtered by best state (ex: victory > touched)
+                results.push(singleCellStateOfsingleGrenadePosition);
+                // change cell text with it's state
+
+                
+                insertCellText(singleGrenadePosition, singleCellStateOfsingleGrenadePosition);
+                
+
+
+                // replace button status (default button, found or disabled (touched, sunk))
+                if (singleCellStateOfsingleGrenadePosition === "water") {
+
                     singleGrenadePosition.classList.replace("tableButton", "button-disabled");
 
+                } else if (singleCellStateOfsingleGrenadePosition === "found") {
+
+                    singleGrenadePosition.classList.replace("tableButton", "found");
+
+                } else {
+
+                    if (extraArmor == true) { // Change the class from "tableButton" to "button-disabled"
+                        singleGrenadePosition.classList.replace("found", "button-disabled");
+                    } else {
+                        // Change the class from "tableButton" to "button-disabled"
+                        singleGrenadePosition.classList.replace("tableButton", "button-disabled");
+
+                    }
+                    singleGrenadePosition.classList.add("touch");
                 }
-                singleGrenadePosition.classList.add("touch");
 
-
+                // Update score for each status
+                score = getScore(score, singleCellStateOfsingleGrenadePosition);
+                updateScoreDisplay(score);
             }
-
-            // Update score for each status
-            score = getScore(score, singleCellStateOfsingleGrenadePosition);
-            updateScoreDisplay(score);
-
         }
 
         // stateCell will be favorable one (victory > gameover > sunk > touched > found > water)
         // to display preferred status on game notifications, sounds...
+        console.log("---------------------------------------------------------")
+        console.log(results);
         stateCell = getFavorableState(results);
+        console.log(stateCell);
+        console.log("---------------------------------------------------------")
+        
         generateSound(stateCell); // general
         generateNotificationWithAction(stateCell);
 
