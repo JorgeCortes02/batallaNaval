@@ -827,10 +827,10 @@ function getFavorableState(statesArray) {
         return "gameover";
     } else if (statesArray.includes("sunk")) {
         return "sunk";
-    } else if (statesArray.includes("found")) {
-        return "found";
     } else if (statesArray.includes("touched")) {
         return "touched";
+    } else if (statesArray.includes("found")) {
+        return "found";
     } else {
         return "water";
     }
